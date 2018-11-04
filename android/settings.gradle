@@ -1,0 +1,3 @@
+rootProject.name = 'OpenD6Toolkit'
+
+include ':app'
