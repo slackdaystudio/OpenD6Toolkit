@@ -6,6 +6,10 @@ import Header from '../Header';
 import styles from '../../Styles';
 
 export default class OglScreen extends Component {
+    static propTypes = {
+        navigation: PropTypes.object.isRequired
+    }
+
 	render() {
 		return (
 		  <Container style={styles.container}>

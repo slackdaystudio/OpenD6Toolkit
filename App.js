@@ -7,6 +7,7 @@ import { Root } from 'native-base';
 import SplashScreen from 'react-native-splash-screen'
 import HomeScreen from './src/components/screens/HomeScreen';
 import DieRollerScreen from './src/components/screens/DieRollerScreen';
+import BuilderScreen from './src/components/screens/BuilderScreen';
 import OglScreen from './src/components/screens/OglScreen';
 import Sidebar from './src/components/Sidebar';
 import reducer from './reducer'
@@ -18,6 +19,9 @@ const RootStack = DrawerNavigator({
         DieRoller: {
             screen: DieRollerScreen,
         },
+        Builder: {
+            screen: BuilderScreen,
+        },
         Ogl: {
             screen: OglScreen,
         }
@@ -28,7 +32,7 @@ const RootStack = DrawerNavigator({
 	}
 );
 
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware());
 
 export default class App extends Component<Props> {
 	render() {

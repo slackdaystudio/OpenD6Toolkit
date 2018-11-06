@@ -15,10 +15,13 @@ export default class Sidebar extends Component {
 				</View>
 	      	</ListItem>
          	<ListItem onPress={() => this.props.navigation.navigate('DieRoller')}>
-	      		<Text style={styles.grey}>Die Roller</Text>
+	      		<Text style={styles.grey}>Roller</Text>
+	      	</ListItem>
+         	<ListItem onPress={() => this.props.navigation.navigate('Builder')}>
+	      		<Text style={styles.grey}>Builder</Text>
 	      	</ListItem>
          	<ListItem onPress={() => this.props.navigation.navigate('Ogl')}>
-	      		<Text style={styles.grey}>Open Game License</Text>
+	      		<Text style={styles.grey}>Open Gaming License</Text>
 	      	</ListItem>
           </List>
         </Content>

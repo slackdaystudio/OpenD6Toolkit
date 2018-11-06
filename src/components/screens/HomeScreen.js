@@ -15,12 +15,21 @@ export default class HomeScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Text style={styles.heading}>Die Roller</Text>
+                <Text style={styles.heading}>Roller</Text>
                 <Text style={styles.grey}>Use the die roller to resolve actions in OpenD6.</Text>
                 <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
                     <View style={styles.buttonContainer}>
                         <Button style={styles.button} onPress={() => this.props.navigation.navigate('DieRoller')}>
                             <Text uppercase={false} style={styles.buttonText}>Roller</Text>
+                        </Button>
+                    </View>
+                </View>
+                <Text style={styles.heading}>Builder</Text>
+                <Text style={styles.grey}>Build a character using the OpenD6 game rules.</Text>
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
+                    <View style={styles.buttonContainer}>
+                        <Button style={styles.button} onPress={() => this.props.navigation.navigate('Builder')}>
+                            <Text uppercase={false} style={styles.buttonText}>Builder</Text>
                         </Button>
                     </View>
                 </View>
