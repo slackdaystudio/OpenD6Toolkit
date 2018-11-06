@@ -1,6 +1,6 @@
 import React, { Component }  from 'react';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight } from 'react-native';
-import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon } from 'native-base';
+import { Container, Content, Button, Text, Picker, Item} from 'native-base';
 import RNShake from 'react-native-shake';
 import Header from '../Header';
 import Slider from '../DieSlider';
@@ -18,11 +18,13 @@ export default class DieRollerScreen extends Component {
 
         this.state = {
             dice: 1,
+            pips: 0,
             result: null
         };
 
         this.roll = this._roll.bind(this);
         this.updateDice = this._updateDice.bind(this);
+        this.updatePips = this._updatePips.bind(this);
     }
 
     componentWillMount() {
@@ -49,6 +51,13 @@ export default class DieRollerScreen extends Component {
         this.setState(newState);
     }
 
+    _updatePips(value) {
+        let newState = {...this.state};
+        newState.pips = value;
+
+        this.setState(newState);
+    }
+
     _getTotal() {
         let total = this.state.result.rolls.length > 0 ? this.state.result.rolls.reduce((a, b) => a + b, 0) : 0;
 
@@ -58,7 +67,7 @@ export default class DieRollerScreen extends Component {
             total += this.state.result.wildDieRoll;
         }
 
-        return total;
+        return total + this.state.pips;
     }
 
     _renderCriticalInfo() {
@@ -125,6 +134,20 @@ export default class DieRollerScreen extends Component {
                     onValueChange={this.updateDice}
                     disabled={false}
                 />
+                <Picker
+                  inlinelabel
+                  label='Pips'
+                  style={styles.grey}
+                  textStyle={styles.grey}
+                  iosHeader="Select one"
+                  mode="dropdown"
+                  selectedValue={this.state.pips}
+                  onValueChange={(value) => this.updatePips(value)}
+                >
+                  <Item label="+0 pips" value={0} />
+                  <Item label="+1 pip" value={1} />
+                  <Item label="+2 pips" value={2} />
+                </Picker>
                 {this._renderResult()}
                 <View style={styles.buttonContainer}>
                     <Button block style={styles.button} onPress={this.roll}>
