@@ -14,5 +14,7 @@ Once a template has been picked I want to allow users to build characters either
 
 Early Screencaps
 ================
-| ![alt text](https://imgur.com/sOzlTbB)  | ![alt text](https://imgur.com/vDd9Tun)  |
-| ![alt text](https://imgur.com/9nsnN3L)  | ![alt text](https://imgur.com/XhEheS7)  |
+![Imgur Image](https://i.imgur.com/sOzlTbB.png?1)
+![Imgur Image](https://i.imgur.com/vDd9Tun.png?1)
+![Imgur Image](https://i.imgur.com/9nsnN3L.png?1)
+![Imgur Image](https://i.imgur.com/XhEheS7.png?1)
