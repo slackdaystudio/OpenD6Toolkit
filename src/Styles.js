@@ -2,10 +2,10 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
 	container: {
-		backgroundColor: '#161616'
+		backgroundColor: '#111111'
 	},
 	content: {
-		paddingTop: 10,
+		paddingTop: 5,
 		paddingHorizontal: 10
 	},
 	heading: {

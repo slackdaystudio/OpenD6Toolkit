@@ -5,6 +5,7 @@ import { Root } from 'native-base';
 import SplashScreen from 'react-native-splash-screen'
 import HomeScreen from './src/components/screens/HomeScreen';
 import DieRollerScreen from './src/components/screens/DieRollerScreen';
+import OglScreen from './src/components/screens/OglScreen';
 import Sidebar from './src/components/Sidebar';
 
 const RootStack = DrawerNavigator({
@@ -13,6 +14,9 @@ const RootStack = DrawerNavigator({
 		},
         DieRoller: {
             screen: DieRollerScreen,
+        },
+        Ogl: {
+            screen: OglScreen,
         }
 	}, {
 		initialRouteName: 'Home',

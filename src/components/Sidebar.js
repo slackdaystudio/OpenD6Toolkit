@@ -17,6 +17,9 @@ export default class Sidebar extends Component {
          	<ListItem onPress={() => this.props.navigation.navigate('DieRoller')}>
 	      		<Text style={styles.grey}>Die Roller</Text>
 	      	</ListItem>
+         	<ListItem onPress={() => this.props.navigation.navigate('Ogl')}>
+	      		<Text style={styles.grey}>Open Game License</Text>
+	      	</ListItem>
           </List>
         </Content>
       </Container>
@@ -26,6 +29,6 @@ export default class Sidebar extends Component {
 
 const localStyles = StyleSheet.create({
 	container: {
-		backgroundColor: '#324a70'
+		backgroundColor: '#212121'
 	}
 });

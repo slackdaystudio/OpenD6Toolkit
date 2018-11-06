@@ -10,14 +10,6 @@ export default class MyHeader extends Component {
         hasTabs: PropTypes.bool
     }
 
-	_renderSpacer() {
-	    if (common.isIPad()) {
-		    return <View style={{paddingBottom: 20, backgroundColor: '#375476'}} />
-	    }
-
-	    return null;
-	}
-
 	render() {
 		return (
 			<View>
@@ -35,7 +27,6 @@ export default class MyHeader extends Component {
                     </Button>
                   </Right>
                 </Header>
-		        {this._renderSpacer()}
 		    </View>
 		);
 	}
@@ -43,8 +34,8 @@ export default class MyHeader extends Component {
 
 const localStyles = StyleSheet.create({
 	header: {
-		backgroundColor: '#0a244f',
-		minHeight: Platform.OS === 'ios' ? 60 : 70,
+		backgroundColor: '#010101',
+		height: Platform.OS === 'ios' ? 60 : 70,
 	},
 	logo: {
 		paddingLeft: 5,
