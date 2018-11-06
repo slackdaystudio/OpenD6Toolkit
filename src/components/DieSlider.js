@@ -7,7 +7,7 @@ import styles from '../Styles';
 
 export default class DieSlider extends Component {
     static propTypes = {
-        label: propTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired,
         step: PropTypes.number.isRequired,
         min: PropTypes.number.isRequired,

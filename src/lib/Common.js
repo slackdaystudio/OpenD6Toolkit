@@ -11,6 +11,10 @@ class Common {
 	    return false;
     }
 
+    sum(array) {
+        return
+    }
+
     compare(first, second) {
         if (first === null || typeof first !== 'object' || second === null || typeof second !== 'object') {
             return false;
