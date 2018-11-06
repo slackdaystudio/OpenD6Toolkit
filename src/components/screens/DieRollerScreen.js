@@ -125,6 +125,7 @@ export default class DieRollerScreen extends Component {
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
                 <Text style={styles.heading}>Roller</Text>
+                {this._renderResult()}
                 <Slider
                     label='Dice:'
                     value={this.state.dice}
@@ -148,7 +149,6 @@ export default class DieRollerScreen extends Component {
                   <Item label="+1 pip" value={1} />
                   <Item label="+2 pips" value={2} />
                 </Picker>
-                {this._renderResult()}
                 <View style={styles.buttonContainer}>
                     <Button block style={styles.button} onPress={this.roll}>
                         <Text uppercase={false}>{this._renderRollButtonLabel()}</Text>
