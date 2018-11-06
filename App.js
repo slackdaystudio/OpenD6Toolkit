@@ -1,4 +1,6 @@
 import React, { Component }  from 'react';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider, connect } from 'react-redux';
 import { AsyncStorage, StyleSheet, Text, View, Button, StatusBar } from 'react-native';
 import { DrawerNavigator } from 'react-navigation';
 import { Root } from 'native-base';
@@ -7,6 +9,7 @@ import HomeScreen from './src/components/screens/HomeScreen';
 import DieRollerScreen from './src/components/screens/DieRollerScreen';
 import OglScreen from './src/components/screens/OglScreen';
 import Sidebar from './src/components/Sidebar';
+import reducer from './reducer'
 
 const RootStack = DrawerNavigator({
 		Home: {
@@ -25,12 +28,16 @@ const RootStack = DrawerNavigator({
 	}
 );
 
+const store = createStore(reducer);
+
 export default class App extends Component<Props> {
 	render() {
 		return (
-			<Root>
-				<RootStack />
-			</Root>
+		    <Provider store={store}>
+                <Root>
+                    <RootStack />
+                </Root>
+			</Provider>
 		);
 	}
 }

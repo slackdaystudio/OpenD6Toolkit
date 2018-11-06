@@ -1,4 +1,6 @@
 import React, { Component }  from 'react';
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight } from 'react-native';
 import { Container, Content, Button, Text, Picker, Item} from 'native-base';
 import RNShake from 'react-native-shake';
@@ -10,15 +12,23 @@ import {
     STATE_CRITICAL_SUCCESS,
     STATE_CRITICAL_FAILURE
 } from '../../lib/DieRoller';
+import { updateRoller } from '../../../reducer';
 import styles from '../../Styles';
 
-export default class DieRollerScreen extends Component {
+class DieRollerScreen extends Component {
+    static propTypes = {
+        navigation: PropTypes.object.isRequired,
+        dice: PropTypes.number.isRequired,
+        pips: PropTypes.number.isRequired,
+        updateRoller: PropTypes.func.isRequired
+    }
+
     constructor(props) {
         super(props);
 
         this.state = {
-            dice: 1,
-            pips: 0,
+            dice: props.dice,
+            pips: props.pips,
             result: null
         };
 
@@ -39,23 +49,17 @@ export default class DieRollerScreen extends Component {
 
 	_roll() {
 	    let newState = {...this.state};
-	    newState.result = dieRoller.roll(this.state.dice);
+	    newState.result = dieRoller.roll(this.props.dice);
 
 	    this.setState(newState);
 	}
 
     _updateDice(value) {
-        let newState = {...this.state};
-        newState.dice = value;
-
-        this.setState(newState);
+        this.props.updateRoller(value, this.props.pips);
     }
 
     _updatePips(value) {
-        let newState = {...this.state};
-        newState.pips = value;
-
-        this.setState(newState);
+        this.props.updateRoller(this.props.dice, value);
     }
 
     _getTotal() {
@@ -67,7 +71,7 @@ export default class DieRollerScreen extends Component {
             total += this.state.result.wildDieRoll;
         }
 
-        return total + this.state.pips;
+        return total + this.props.pips;
     }
 
     _renderCriticalInfo() {
@@ -128,7 +132,7 @@ export default class DieRollerScreen extends Component {
                 {this._renderResult()}
                 <Slider
                     label='Dice:'
-                    value={this.state.dice}
+                    value={this.props.dice}
                     step={1}
                     min={1}
                     max={30}
@@ -142,7 +146,7 @@ export default class DieRollerScreen extends Component {
                   textStyle={styles.grey}
                   iosHeader="Select one"
                   mode="dropdown"
-                  selectedValue={this.state.pips}
+                  selectedValue={this.props.pips}
                   onValueChange={(value) => this.updatePips(value)}
                 >
                   <Item label="+0 pips" value={0} />
@@ -154,6 +158,7 @@ export default class DieRollerScreen extends Component {
                         <Text uppercase={false}>{this._renderRollButtonLabel()}</Text>
                     </Button>
                 </View>
+                <Text>{JSON.stringify(this.props)}</Text>
                 <View style={{paddingBottom: 20}} />
             </Content>
 	      </Container>
@@ -165,4 +170,17 @@ const localStyles = StyleSheet.create({
 	rollResult: {
 		fontSize: 75
 	}
-});
+})
+
+const mapStateToProps = state => {
+    return {
+        dice: state.roller.dice,
+        pips: state.roller.pips
+    };
+}
+
+const mapDispatchToProps = {
+    updateRoller
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DieRollerScreen);
