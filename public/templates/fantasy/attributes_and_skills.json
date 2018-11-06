@@ -1,0 +1,247 @@
+{
+  "attributeMin": 1,
+  "attributeMax": 5,
+  "move": 10,
+  "characterPoints": 5,
+  "fatePoints": 1,
+  "attributes": [
+    {
+      "name": "Agility",
+      "description": "An indication of balance, limberness, quickness, and full body motor abilities.",
+      "skills": [
+        {
+          "name": "Acrobatics",
+          "description": "Performing feats of gymnastics, extraordinary balance, and dance (and related performance arts), as well as breaking falls. Useful for running obstacle courses or doing courtly promenade."
+        },
+        {
+          "name": "Fighting",
+          "description": "Competence in unarmed combat."
+        },
+        {
+          "name": "Climbing",
+          "description": "Scaling various surfaces."
+        },
+        {
+          "name": "Contortion",
+          "description": "Escaping from otherwise secure physical bonds by twisting, writhing, and contorting the body."
+        },
+        {
+          "name": "Dodge",
+          "description": "Slipping out of danger’s way, whether avoiding an attack or a sprung booby trap."
+        },
+        {
+          "name": "Flying",
+          "description": "Maneuvering under one’s own power (such as with wings)."
+        },
+        {
+          "name": "Jumping",
+          "description": "Leaping over obstacles."
+        },
+        {
+          "name": "Melee Combat",
+          "description": "Wielding hand-to-hand weapons."
+        },
+        {
+          "name": "Riding",
+          "description": "Controlling and riding domesticated mounts."
+        },
+        {
+          "name": "Stealth",
+          "description": "Moving silently and avoiding detection, whether through shadows or crowds."
+        }
+      ]
+    },
+    {
+      "name": "Coordination",
+      "description": "A quantification of hand-eye coordination and fine motor abilities.",
+      "skills": [
+        {
+          "name": "Charioteering",
+          "description": "Accelerating, steering, and decelerating chariots (in particular) or any kind of cart-and-animal vehicle."
+        },
+        {
+          "name": "Lockpicking",
+          "description": "Opening a mechanical lock without possessing the key or combination."
+        },
+        {
+          "name": "Marksmanship",
+          "description": "Shooting any kind of mechanical device — such as a bow or sling — that projects missiles across a distance."
+        },
+        {
+          "name": "Pilotry",
+          "description": "Operating any water-faring vehicle, including steering, applying the oars, or managing the sails."
+        },
+        {
+          "name": "Sleight of Hand",
+          "description": "Nimbleness with the fingers and misdirection, including picking pockets, palming items, and stage magic."
+        },
+        {
+          "name": "Throwing",
+          "description": "Hitting a target accurately with a thrown item, including stones, javelins, bottles, and knives. Also used for catching thrown items."
+        }
+      ]
+    },
+    {
+      "name": "Physique",
+      "description": "An estimation of physical power and ability to resist damage.",
+      "skills": [
+        {
+          "name": "Lifting",
+          "description": "Moving or lifting heavy objects, as well as representing the ability to inflict additional damage with strength-powered weapons."
+        },
+        {
+          "name": "Running",
+          "description": "Moving quickly on the ground while avoiding obstacles and keeping from stumbling."
+        },
+        {
+          "name": "Stamina",
+          "description": "Physical endurance and resistance to pain, disease, and poison."
+        },
+        {
+          "name": "Swimming",
+          "description": "Moving and surviving in a liquid medium."
+        }
+      ]
+    },
+    {
+      "name": "Intellect",
+      "description": "A measure of strength of memory and ability to learn.",
+      "skills": [
+        {
+          "name": "Cultures",
+          "description": "Comprehension of customs, traditions, art, history, politics, and views on outsiders of various regions or groups, as well as the ability to generalize about common cultural forms."
+        },
+        {
+          "name": "Devices",
+          "description": "Using and designing complex mechanical equipment. Actually building items requires crafting."
+        },
+        {
+          "name": "Healing",
+          "description": "Dressing wounds, applying splints, and disinfecting injuries, plus an understanding and application of medical procedures, such as diagnosing illnesses and performing surgery."
+        },
+        {
+          "name": "Navigation",
+          "description": "Determining the correct course using external reference points, such as stars, maps, or landmarks, as well as creating maps."
+        },
+        {
+          "name": "Reading/Writing",
+          "description": "Familiarity with and ability to understand various forms of written communication, as well as the ability to create literary compositions, including forging papers and identifying such forgeries. Characters do not begin with the ability to read or write."
+        },
+        {
+          "name": "Scholar",
+          "description": "This skill represents knowledge and/or education in areas not covered under any other skill (such as alchemy, cooking, arcane lore, etc.). This may be restricted to a specific field (represented by specializations) or a general knowledge of a wide range of subjects. It is used to remember details, rumors, tales, legends, theories, important people, and the like, as appropriate for the subject in question. However, the broader the category, the fewer the details that can be recalled. It covers what the character himself can recall. Having another skill as a specialization of the scholar skill means that the character knows the theories and history behind the skill but can’t actually use it. Scholar can be useful with investigation to narrow a search for information."
+        },
+        {
+          "name": "Speaking",
+          "description": "Familiarity with and ability to understand various forms of verbal communication. Characters know the Trade Speech (assuming the setting has one) and one “native” language in which they have spoken fluency. Additional languages in which a character has proficiency can be represented by specializations of this skill."
+        },
+        {
+          "name": "Trading",
+          "description": "Knowledge of business practices, exchange rates, the monetary value of goods and opportunities, and other information regarding barter and sales, including the ability to determine how to make money with another skill the character has. Trading can complement bluff, charm, and persuasion when haggling over prices for goods and services being bought or sold."
+        },
+        {
+          "name": "Traps",
+          "description": "Installing, altering, and bypassing security devices, as well as identifying various kinds of traps (gas, pit, wire-triggered, etc.)."
+        }
+      ]
+    },
+    {
+      "name": "Acumen",
+      "description": "Your character’s mental quickness, creativity, and attention to detail.",
+      "skills": [
+        {
+          "name": "Artist",
+          "description": "Making works of art, like paintings, music compositions, and dance choreographies."
+        },
+        {
+          "name": "Crafting",
+          "description": "Creating, fixing, or modifying equipment, weapons, armor, and vehicles, as well as woodworking, metalworking, constructing buildings, and the like."
+        },
+        {
+          "name": "Disguise",
+          "description": "Altering features or clothing to be unrecognizable or to look like someone else. Also useful in acting performances."
+        },
+        {
+          "name": "Gambling",
+          "description": "Playing and cheating at games of strategy and luck."
+        },
+        {
+          "name": "Hide",
+          "description": "Concealing objects, both on oneself and using camouflage."
+        },
+        {
+          "name": "Investigation",
+          "description": "Gathering information, researching topics, analyzing data, and piecing together clues."
+        },
+        {
+          "name": "Know-how",
+          "description": "Figuring out how to perform an action in which the character does not have experience, as well as a catch-all skill encompassing areas not covered by other skills (such as utilitarian sewing or cooking)."
+        },
+        {
+          "name": "Search",
+          "description": "Spotting hidden objects or people, reconnoitering, lipreading, or eavesdropping on or watching another person."
+        },
+        {
+          "name": "Streetwise",
+          "description": "Finding information, goods, and contacts in an urban environment, particularly through thieves’ guilds and similar criminal organizations, black markets, and other illicit operations. Also useful for determining possible motives and methods of criminals."
+        },
+        {
+          "name": "Survival",
+          "description": "Surviving in wilderness environments, including the ability to identify plants, animals, and their nutritional and medicinal uses."
+        },
+        {
+          "name": "Tracking",
+          "description": "Following the trail of another person, animal, or creature, or keeping after a moving target without being noticed."
+        }
+      ]
+    },
+    {
+      "name": "Charisma",
+      "description": "A gauge of emotional strength, physical attractiveness, and personality.",
+      "skills": [
+        {
+          "name": "Animal Handling",
+          "description": "Controlling animals and making them perform tricks and follow commands."
+        },
+        {
+          "name": "Bluff",
+          "description": "Lying, tricking, or deceiving others, as well as verbal evasion, misdirection, and blustering. Disguise can complement uses of this skill. Also useful in putting on acting performances."
+        },
+        {
+          "name": "Charm",
+          "description": "Using friendliness, flattery, or seduction to influence someone else. Also useful in sales and bartering transactions, putting on performances (such as singing, acting, or storytelling), and situations involving etiquette."
+        },
+        {
+          "name": "Command",
+          "description": "Effectively ordering and coordinating others in team situations."
+        },
+        {
+          "name": "Intimidation",
+          "description": "Using physical presence, verbal threats, taunts, torture, or fear to influence others or get information out of them."
+        },
+        {
+          "name": "Mettle",
+          "description": "Ability to withstand stress, temptation, other people’s interaction attempts, mental attacks, and pain. The gamemaster may allow a specialization in a specific faith tradition or belief system to enhance many, though not all, applications of mettle."
+        },
+        {
+          "name": "Persuasion",
+          "description": "Influencing others or getting information out of them through bribery, honest discussion, debate, diplomacy, or speeches. Also useful in negotiations, business transactions, storytelling, and oration."
+        }
+      ]
+    },
+    {
+      "name": "Extranormal",
+      "description": "An assessment of your character’s extraordinary abilities, which could include magic, miracles, or other extranormal talents.",
+      "skills": [
+        {
+          "name": "Magic",
+          "description": "Magic is one possible Extranormal attribute. For specific information on Magic, see its chapter in this book."
+        },
+        {
+          "name": "Miracles",
+          "description": "Miracles is another possible Extranormal attribute. For specific information on Miracles, see its chapter in this book."
+        }
+      ]
+    }
+  ]
+}
