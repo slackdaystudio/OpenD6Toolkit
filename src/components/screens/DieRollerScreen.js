@@ -132,7 +132,7 @@ class DieRollerScreen extends Component {
                 {this._renderResult()}
                 <Slider
                     label='Dice:'
-                    value={this.props.dice}
+                    value={parseInt(this.props.dice, 10)}
                     step={1}
                     min={1}
                     max={30}
@@ -158,7 +158,6 @@ class DieRollerScreen extends Component {
                         <Text uppercase={false}>{this._renderRollButtonLabel()}</Text>
                     </Button>
                 </View>
-                <Text>{JSON.stringify(this.props)}</Text>
                 <View style={{paddingBottom: 20}} />
             </Content>
 	      </Container>

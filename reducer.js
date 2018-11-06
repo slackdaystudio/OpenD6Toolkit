@@ -23,8 +23,8 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         case UPDATE_ROLLER:
             let newState = {...state}
-            newState.roller.dice = action.payload.dice;
-            newState.roller.pips = action.payload.pips;
+            newState.roller.dice = parseInt(action.payload.dice, 10);
+            newState.roller.pips = parseInt(action.payload.pips, 10);
 
             return newState;
         default:
