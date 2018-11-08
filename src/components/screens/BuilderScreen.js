@@ -8,10 +8,10 @@ import AttributeDialog, { DIALOG_TYPE_TEXT, DIALOG_TYPE_DIE_CODE} from '../Attri
 import styles from '../../Styles';
 
 
-class AttributesScreen extends Component {
+class BuilderScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-        template: PropTypes.object.isRequired
+        character: PropTypes.object.isRequired
     }
 
     constructor(props) {
@@ -41,7 +41,7 @@ class AttributesScreen extends Component {
     _initAttributeShow(props) {
         let attributeShow = {}
 
-        props.template.attributes.map((attribute, index) => {
+        props.character.template.attributes.map((attribute, index) => {
             attributeShow[attribute.name] = false
         });
 
@@ -75,7 +75,7 @@ class AttributesScreen extends Component {
         newState.dieCode.identifier = identifier;
         newState.dialog.info = '--';
 
-        for (let attribute of this.props.template.attributes) {
+        for (let attribute of this.props.character.template.attributes) {
             if (attribute.name === identifier) {
                 newState.dialog.info = attribute.description;
                 break;
@@ -156,7 +156,7 @@ class AttributesScreen extends Component {
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
                     <Text style={styles.heading}>Attributes &amp; Skills</Text>
-                    {this.props.template.attributes.map((attribute, index) => {
+                    {this.props.character.template.attributes.map((attribute, index) => {
                         return (
                             <View key={'atr-' + index} style={localStyles.rowStart}>
                                 <View style={localStyles.row}>
@@ -229,10 +229,10 @@ const localStyles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        template: state.builder.template
+        character: state.builder.character
     };
 }
 
 const mapDispatchToProps = {}
 
-export default connect(mapStateToProps, mapDispatchToProps)(AttributesScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(BuilderScreen);

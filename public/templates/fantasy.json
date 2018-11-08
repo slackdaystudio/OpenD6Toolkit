@@ -1,4 +1,5 @@
 {
+  "name": "Fantasy",
   "attributeMin": 1,
   "attributeMax": 5,
   "move": 10,

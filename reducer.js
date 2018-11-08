@@ -1,6 +1,6 @@
-const fantasyTemplate = require('./public/templates/fantasy.json');
+import { Alert } from 'react-native';
 
-export const TEMPLATE_FANTASY = 'fantasy';
+import { TEMPLATE_FANTASY, character } from './src/lib/Character';
 
 export const UPDATE_ROLLER = 'UPDATE_ROLLER';
 
@@ -16,19 +16,10 @@ export function updateRoller(dice, pips) {
     }
 }
 
-export function loadTemplate(name) {
-    let template = {}
-
-    switch (name.trim().lowerCase()) {
-        case TEMPLATE_FANTASY:
-            template = fantasyTemplate;
-        default:
-            // do nothing
-    }
-
+export function setTemplate(name) {
     return {
         type: SET_TEMPLATE,
-        payload: template
+        payload: character.loadTemplate(name)
     }
 }
 
@@ -38,7 +29,7 @@ initialState = {
         pips: 0
     },
     builder: {
-        template: fantasyTemplate
+        character: null
     }
 }
 
@@ -54,7 +45,7 @@ export default function reducer(state = initialState, action) {
             return newState;
         case SET_TEMPLATE:
             newState = {...state};
-            newState.builder.template = action.payload;
+            newState.builder.character = character.create(action.payload);
 
             return newState;
         default:

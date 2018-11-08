@@ -1,13 +1,23 @@
 import React, { Component }  from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon } from 'native-base';
 import Header from '../Header';
 import styles from '../../Styles';
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
     static propTypes = {
-        navigation: PropTypes.object.isRequired
+        navigation: PropTypes.object.isRequired,
+        character: PropTypes.object
+    }
+
+    _onBuilderPress() {
+        if (this.props.character == null || this.props.character.template == null) {
+            this.props.navigation.navigate('TemplateSelect');
+        } else {
+            this.props.navigation.navigate('Builder');
+        }
     }
 
 	render() {
@@ -28,7 +38,7 @@ export default class HomeScreen extends Component {
                 <Text style={styles.grey}>Build a character using the OpenD6 game rules.</Text>
                 <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
                     <View style={styles.buttonContainer}>
-                        <Button style={styles.button} onPress={() => this.props.navigation.navigate('Builder')}>
+                        <Button style={styles.button} onPress={() => this._onBuilderPress()}>
                             <Text uppercase={false} style={styles.buttonText}>Builder</Text>
                         </Button>
                     </View>
@@ -39,3 +49,13 @@ export default class HomeScreen extends Component {
 		);
 	}
 }
+
+const mapStateToProps = state => {
+    return {
+        character: state.builder.character
+    };
+}
+
+const mapDispatchToProps = {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
