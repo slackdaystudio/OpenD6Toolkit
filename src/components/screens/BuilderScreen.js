@@ -97,10 +97,10 @@ class BuilderScreen extends Component {
 
         if (combinedDieCodes.pips === 3) {
             combinedDieCodes.dice++;
-            combinedDieCodes.pips = 1;
+            combinedDieCodes.pips = 0;
         } else if (combinedDieCodes.pips === 4) {
             combinedDieCodes.dice++;
-            combinedDieCodes.pips = 2;
+            combinedDieCodes.pips = 1;
         }
 
         this._rollDice(combinedDieCodes)
