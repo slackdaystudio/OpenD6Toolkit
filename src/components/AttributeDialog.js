@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types'
 import { StyleSheet, View, TouchableHighlight } from 'react-native';
-import { Container, Content, Button, Text, Item, Input, Picker } from 'native-base';
+import { Container, Content, Button, Text, Item, Input, Picker, Form, Label } from 'native-base';
 import Modal from "react-native-modal";
 import styles from '../Styles';
 
@@ -15,7 +15,9 @@ export default class AttributeDialog extends Component {
         type: PropTypes.number.isRequired,
         identifier: PropTypes.string.isRequired,
         dice: PropTypes.string,
+        bonusDice: PropTypes.string,
         pips: PropTypes.number,
+        bonusPips: PropTypes.number,
         info: PropTypes.string,
         close: PropTypes.func,
         onSave: PropTypes.func,
@@ -28,6 +30,7 @@ export default class AttributeDialog extends Component {
 
         this.state = {
             dice: props.dice,
+            bonusDice: props.bonusDice,
             pips: props.pips
         }
     }
@@ -38,7 +41,10 @@ export default class AttributeDialog extends Component {
                 <Text style={[styles.heading, {paddingTop: 0}]}>Edit {this.props.identifier}</Text>
                 <View style={localStyles.rowStart}>
                     <View style={localStyles.row}>
-                        <Item regular>
+                        <Text style={styles.grey}>Base</Text>
+                    </View>
+                    <View style={localStyles.row, {flex: 2}}>
+                        <Item underline>
                             <Input
                                 style={styles.grey}
                                 keyboardType='numeric'
@@ -48,16 +54,51 @@ export default class AttributeDialog extends Component {
                             />
                         </Item>
                     </View>
-                    <View style={localStyles.row}>
+                    <View style={localStyles.row, {flex: 2}}>
                         <Picker
                             inlinelabel
                             label='Pips'
                             style={styles.grey}
                             textStyle={styles.grey}
+                            placeholderIconColor="#FFFFFF"
                             iosHeader="Select one"
                             mode="dropdown"
                             selectedValue={this.props.pips}
                             onValueChange={(value) => this.props.onUpdatePips(value)}
+                        >
+                            <Item label="+0 pips" value={0} />
+                            <Item label="+1 pip" value={1} />
+                            <Item label="+2 pips" value={2} />
+                        </Picker>
+                    </View>
+                </View>
+                <View style={localStyles.rowStart}>
+                    <View style={localStyles.row}>
+                        <Text style={styles.grey}>Bonus</Text>
+                    </View>
+                    <View style={localStyles.row, {flex: 2}}>
+                        <Item underline>
+                            <Input
+                                underline
+                                style={styles.grey}
+                                keyboardType='numeric'
+                                maxLength={2}
+                                value={this.props.bonusDice}
+                                onChangeText={(value) => this.props.onUpdateDice(value, true)}
+                            />
+                        </Item>
+                    </View>
+                    <View style={localStyles.row, {flex: 2}}>
+                        <Picker
+                            inlinelabel
+                            label='Bonus Pips'
+                            style={styles.grey}
+                            textStyle={styles.grey}
+                            placeholderIconColor="#FFFFFF"
+                            iosHeader="Select one"
+                            mode="dropdown"
+                            selectedValue={this.props.bonusPips}
+                            onValueChange={(value) => this.props.onUpdatePips(value, true)}
                         >
                             <Item label="+0 pips" value={0} />
                             <Item label="+1 pip" value={1} />
@@ -120,6 +161,6 @@ const localStyles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 4,
         borderColor: '#00ACED',
-        minHeight: 200
+        minHeight: 300
     }
 });

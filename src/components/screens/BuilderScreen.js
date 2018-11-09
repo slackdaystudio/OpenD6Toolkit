@@ -31,7 +31,9 @@ class BuilderScreen extends Component {
             dieCode: {
                 identifier: '',
                 dice: 0,
-                pips: 0
+                bonusDice: 0,
+                pips: 0,
+                bonusPips: 0
             },
             attributeShow: this._initAttributeShow(props)
         }
@@ -67,7 +69,9 @@ class BuilderScreen extends Component {
         newState.dialog.type = DIALOG_TYPE_DIE_CODE;
         newState.dieCode.identifier = identifier;
         newState.dieCode.dice = dieCode.dice;
+        newState.dieCode.bonusDice = dieCode.bonusDice;
         newState.dieCode.pips = dieCode.pips;
+        newState.dieCode.bonusPips = dieCode.bonusPips;
 
         this.setState(newState);
     }
@@ -84,7 +88,7 @@ class BuilderScreen extends Component {
     }
 
     _rollDice(dieCode) {
-        this.props.updateRoller(dieCode.dice, dieCode.pips);
+        this.props.updateRoller(dieCode.dice + dieCode.bonusDice, dieCode.pips + dieCode.bonusPips);
 
         this.props.navigation.navigate('DieRoller');
     }
@@ -92,21 +96,17 @@ class BuilderScreen extends Component {
     _rollSkillDice(attributeDieCode, skillDieCode) {
         let combinedDieCodes = {
             dice: attributeDieCode.dice + skillDieCode.dice,
-            pips: attributeDieCode.pips + skillDieCode.pips
+            bonusDice: attributeDieCode.bonusDice + skillDieCode.bonusDice,
+            pips: attributeDieCode.pips + skillDieCode.pips,
+            bonusPips: attributeDieCode.bonusPips + skillDieCode.bonusPips
         };
+        let totalDieCode = this.props.character.getTotalDieCode(combinedDieCodes);
 
-        if (combinedDieCodes.pips === 3) {
-            combinedDieCodes.dice++;
-            combinedDieCodes.pips = 0;
-        } else if (combinedDieCodes.pips === 4) {
-            combinedDieCodes.dice++;
-            combinedDieCodes.pips = 1;
-        }
-
-        this._rollDice(combinedDieCodes)
+        this.props.updateRoller(totalDieCode.dice, totalDieCode.pips);
+        this.props.navigation.navigate('DieRoller');
     }
 
-    _updateDice(value) {
+    _updateDice(value, bonus=false) {
         let dice = '';
 
         if (value === '' || value === '-') {
@@ -122,12 +122,17 @@ class BuilderScreen extends Component {
         }
 
         let newState = {...this.state};
-        newState.dieCode.dice = dice;
+
+        if (bonus) {
+            newState.dieCode.bonusDice = dice;
+        } else {
+            newState.dieCode.dice = dice;
+        }
 
         this.setState(newState);
     }
 
-    _updatePips(value) {
+    _updatePips(value, bonus=false) {
         let newState = {...this.state};
         let pips = parseInt(value, 10) || 0;
 
@@ -137,7 +142,11 @@ class BuilderScreen extends Component {
             pips = 0;
         }
 
-        newState.dieCode.pips = pips;
+        if (bonus) {
+            newState.dieCode.bonusPips = pips;
+        } else {
+            newState.dieCode.pips = pips;
+        }
 
         this.setState(newState);
     }
@@ -157,10 +166,6 @@ class BuilderScreen extends Component {
         this.props.updateCharacterDieCode(this.state.dieCode);
 
         this.close();
-    }
-
-    _renderDieCode(dieCode) {
-        return dieCode.dice + 'D' + (dieCode.pips > 0 ? '+' + dieCode.pips : '');
     }
 
 	render() {
@@ -186,7 +191,7 @@ class BuilderScreen extends Component {
                                     </Left>
                                     <Right>
                                         <TouchableHighlight onPress={() => this._rollDice(dieCode)} onLongPress={() => this._editDieCode(attribute.name, dieCode)}>
-                                            <Text style={[styles.boldGrey, localStyles.big]}>{this._renderDieCode(dieCode)}</Text>
+                                            <Text style={[styles.boldGrey, localStyles.big]}>{this.props.character.getFormattedDieCode(dieCode)}</Text>
                                         </TouchableHighlight>
                                     </Right>
                                 </ListItem>
@@ -204,7 +209,7 @@ class BuilderScreen extends Component {
                                                     </Left>
                                                     <Right>
                                                         <TouchableHighlight onPress={() => this._rollSkillDice(dieCode, skillDieCode)} onLongPress={() => this._editDieCode(skill.name, skillDieCode)}>
-                                                            <Text style={[styles.boldGrey, {lineHeight: 30}]}>{this._renderDieCode(skillDieCode)}</Text>
+                                                            <Text style={[styles.boldGrey, {lineHeight: 30}]}>{this.props.character.getFormattedDieCode(skillDieCode)}</Text>
                                                         </TouchableHighlight>
                                                     </Right>
                                                 </ListItem>
@@ -224,7 +229,9 @@ class BuilderScreen extends Component {
                         type={this.state.dialog.type}
                         identifier={this.state.dieCode.identifier}
                         dice={this.state.dieCode.dice.toString()}
+                        bonusDice={this.state.dieCode.bonusDice.toString()}
                         pips={this.state.dieCode.pips}
+                        bonusPips={this.state.dieCode.bonusPips}
                         info={this.state.dialog.info}
                         close={this.close}
                         onSave={this.save}

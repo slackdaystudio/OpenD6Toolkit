@@ -18,19 +18,41 @@ class Character {
             eyeColor: '',
             attributes: this._initAttributes(template.attributes, template.attributeMin),
             getDieCode: function(name) {
-                let rawDieCode = this.getAttributeOrSkill(name).value;
-                let dieCode = {
-                    dice: 0,
-                    pips: 0
-                };
+                let skillOrAttribute = this.getAttributeOrSkill(name);
 
-                if (rawDieCode !== DEFAULT_VALUE) {
-                    dieParts = rawDieCode.split(/D(\+)?/);
-                    dieCode.dice = parseInt(dieParts[0]);
-                    dieCode.pips = parseInt(dieParts[2], 10) || 0;
+                return {
+                    dice: skillOrAttribute.dice,
+                    bonusDice: skillOrAttribute.bonusDice,
+                    pips: skillOrAttribute.pips,
+                    bonusPips: skillOrAttribute.bonusPips
+                }
+            },
+            getTotalDieCode: function(dieCode) {
+                let totalDieCode = {
+                    dice: dieCode.dice + (dieCode.bonusDice || 0),
+                    pips: dieCode.pips + (dieCode.bonusPips || 0)
                 }
 
-                return dieCode;
+                if (totalDieCode.pips === 3) {
+                    totalDieCode.dice++;
+                    totalDieCode.pips = 0;
+                } else if (totalDieCode.pips === 4) {
+                    totalDieCode.dice++;
+                    totalDieCode.pips = 1;
+                } else if (totalDieCode.pips === 5) {
+                    totalDieCode.dice++;
+                    totalDieCode.pips = 2;
+                } else if (totalDieCode.pips === 6) {
+                    totalDieCode.dice += 2;
+                    totalDieCode.pips = 0;
+                }
+
+                return totalDieCode;
+            },
+            getFormattedDieCode: function(dieCode) {
+                let finalDieCode = this.getTotalDieCode(dieCode);
+
+                return finalDieCode.dice + 'D' + (finalDieCode.pips > 0 ? '+' + finalDieCode.pips : '');
             },
             getAttributeOrSkill: function(name) {
                 return this._getAttributeOrSkill(name, this.attributes);
@@ -89,7 +111,10 @@ class Character {
         templateAttributes.map((templateAttribute, index) => {
             attributes.push({
                 name: templateAttribute.name,
-                value: min + 'D',
+                dice: min,
+                bonusDice: 0,
+                pips: 0,
+                bonusPips: 0,
                 skills: this._initSkills(templateAttribute.skills)
             });
         });
@@ -103,7 +128,10 @@ class Character {
         attributeSkills.map((skill, index) => {
             skills.push({
                 name: skill.name,
-                value: '0D'
+                dice: 0,
+                bonusDice: 0,
+                pips: 0,
+                bonusPips: 0
             });
         });
 
