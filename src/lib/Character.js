@@ -1,13 +1,68 @@
+import { Alert } from 'react-native';
+
 const fantasyTemplate = require('../../public/templates/fantasy.json');
 
 export const TEMPLATE_FANTASY = 'Fantasy';
+
+const DEFAULT_VALUE = '--'
 
 class Character {
     create(template) {
         return {
             template: template,
             name: '',
-            attributes: this._initAttributes(template.attributes, template.attributeMin)
+            height: '',
+            weight: '',
+            species: '',
+            hairColor: '',
+            eyeColor: '',
+            attributes: this._initAttributes(template.attributes, template.attributeMin),
+            getDieCode: function(name) {
+                let rawDieCode = this.getAttributeOrSkill(name).value;
+                let dieCode = {
+                    dice: 0,
+                    pips: 0
+                };
+
+                if (rawDieCode !== DEFAULT_VALUE) {
+                    dieParts = rawDieCode.split(/D(\+)?/);
+                    dieCode.dice = parseInt(dieParts[0]);
+                    dieCode.pips = parseInt(dieParts[2], 10) || 0;
+                }
+
+                return dieCode;
+            },
+            getAttributeOrSkill: function(name) {
+                return this._getAttributeOrSkill(name, this.attributes);
+            },
+            getTemplateSkillOrAttribute: function(name) {
+                return this._getAttributeOrSkill(name, this.template.attributes);
+            },
+            _getAttributeOrSkill: function(name, attributes) {
+                let infoFound = false;
+                let skillOrAttribute = {name: DEFAULT_VALUE, description: DEFAULT_VALUE};
+
+                for (let attribute of attributes) {
+                    if (attribute.name === name) {
+                        skillOrAttribute = attribute;
+                        break;
+                    } else {
+                        for (let skill of attribute.skills) {
+                            if (skill.name === name) {
+                                skillOrAttribute = skill;
+                                infoFound = true;
+                                break;
+                            }
+                        }
+
+                        if (infoFound) {
+                            break;
+                        }
+                    }
+                }
+
+                return skillOrAttribute;
+            }
         };
     }
 
@@ -34,7 +89,7 @@ class Character {
         templateAttributes.map((templateAttribute, index) => {
             attributes.push({
                 name: templateAttribute.name,
-                value: min,
+                value: min + 'D',
                 skills: this._initSkills(templateAttribute.skills)
             });
         });
@@ -48,7 +103,7 @@ class Character {
         attributeSkills.map((skill, index) => {
             skills.push({
                 name: skill.name,
-                value: 0
+                value: '0D'
             });
         });
 

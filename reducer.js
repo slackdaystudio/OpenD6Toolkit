@@ -4,7 +4,11 @@ import { TEMPLATE_FANTASY, character } from './src/lib/Character';
 
 export const UPDATE_ROLLER = 'UPDATE_ROLLER';
 
-export const SET_TEMPLATE = 'SET_TEMPLATE'
+export const SET_TEMPLATE = 'SET_TEMPLATE';
+
+export const UPDATE_CHARACTER_DIE_CODE = 'UPDATE_CHARACTER_DIE_CODE';
+
+export const UPDATE_APPEARANCE = 'UPDATE_APPEARANCE';
 
 export function updateRoller(dice, pips) {
     return {
@@ -13,14 +17,31 @@ export function updateRoller(dice, pips) {
             dice: dice,
             pips: pips
         }
-    }
+    };
 }
 
 export function setTemplate(name) {
     return {
         type: SET_TEMPLATE,
         payload: character.loadTemplate(name)
-    }
+    };
+}
+
+export function updateCharacterDieCode(dieCode) {
+    return {
+        type: UPDATE_CHARACTER_DIE_CODE,
+        payload: dieCode
+    };
+}
+
+export function updateAppearance(key, value) {
+    return {
+        type: UPDATE_APPEARANCE,
+        payload: {
+            key: key,
+            value: value
+        }
+    };
 }
 
 initialState = {
@@ -31,7 +52,7 @@ initialState = {
     builder: {
         character: null
     }
-}
+};
 
 export default function reducer(state = initialState, action) {
     let newState = null
@@ -46,6 +67,26 @@ export default function reducer(state = initialState, action) {
         case SET_TEMPLATE:
             newState = {...state};
             newState.builder.character = character.create(action.payload);
+
+            return newState;
+        case UPDATE_CHARACTER_DIE_CODE:
+            newState = {...state};
+            let skillOrAttribute = newState.builder.character.getAttributeOrSkill(action.payload.identifier);
+            skillOrAttribute.value = action.payload.dice + 'D' + (action.payload.pips > 0 ? '+' + action.payload.pips : '');
+
+            return newState;
+        case UPDATE_APPEARANCE:
+            newState = {
+                ...state,
+                builder: {
+                    ...state.builder,
+                    character: {
+                        ...state.builder.character
+                    }
+                }
+            };
+
+            newState.builder.character[action.payload.key] = action.payload.value;
 
             return newState;
         default:

@@ -57,5 +57,14 @@ export default StyleSheet.create({
 	tabContent: {
 	    flex: 1,
 		backgroundColor: '#375476'
-	}
+	},
+    rowStart: {
+        flex: 1,
+        alignSelf: 'stretch',
+        flexDirection: 'row'
+    },
+    row: {
+        flex: 1,
+        alignSelf: 'stretch',
+    }
 });

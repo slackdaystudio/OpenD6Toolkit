@@ -2,16 +2,20 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert } from 'react-native';
-import { Container, Content, Button, Text, Picker, Item, Input } from 'native-base';
+import { Container, Content, Button, Text, Picker, Item, Input, List, ListItem, Left, Right } from 'native-base';
 import Header from '../Header';
 import AttributeDialog, { DIALOG_TYPE_TEXT, DIALOG_TYPE_DIE_CODE} from '../AttributeDialog';
+import Appearance from '../builder/Appearance';
 import styles from '../../Styles';
+import { updateCharacterDieCode, updateAppearance } from '../../../reducer';
 
 
 class BuilderScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-        character: PropTypes.object.isRequired
+        character: PropTypes.object.isRequired,
+        updateCharacterDieCode: PropTypes.func.isRequired,
+        updateAppearance: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -56,13 +60,13 @@ class BuilderScreen extends Component {
         this.setState(newState);
     }
 
-    _editDieCode(identifier, value) {
+    _editDieCode(identifier, dieCode) {
         let newState = {...this.state};
         newState.dialog.visible = true;
         newState.dialog.type = DIALOG_TYPE_DIE_CODE;
         newState.dieCode.identifier = identifier;
-        newState.dieCode.dice = 3;
-        newState.dieCode.pips = 0;
+        newState.dieCode.dice = dieCode.dice;
+        newState.dieCode.pips = dieCode.pips;
 
         this.setState(newState);
     }
@@ -73,26 +77,7 @@ class BuilderScreen extends Component {
         newState.dialog.visible = true;
         newState.dialog.type = DIALOG_TYPE_TEXT;
         newState.dieCode.identifier = identifier;
-        newState.dialog.info = '--';
-
-        for (let attribute of this.props.character.template.attributes) {
-            if (attribute.name === identifier) {
-                newState.dialog.info = attribute.description;
-                break;
-            } else {
-                for (let skill of attribute.skills) {
-                    if (skill.name === identifier) {
-                        newState.dialog.info = skill.description;
-                        infoFound = true;
-                        break;
-                    }
-                }
-
-                if (infoFound) {
-                    break;
-                }
-            }
-        }
+        newState.dialog.info = this.props.character.getTemplateSkillOrAttribute(identifier).description;
 
         this.setState(newState);
     }
@@ -141,13 +126,17 @@ class BuilderScreen extends Component {
     }
 
     _save() {
-        // TODO: save character
-
         if (!Number.isInteger(this.state.dieCode.dice)) {
             this._updateDice(1);
         }
 
+        this.props.updateCharacterDieCode(this.state.dieCode);
+
         this.close();
+    }
+
+    _renderDieCode(dieCode) {
+        return dieCode.dice + 'D' + (dieCode.pips > 0 ? '+' + dieCode.pips : '');
     }
 
 	render() {
@@ -155,43 +144,56 @@ class BuilderScreen extends Component {
 		    <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Text style={styles.heading}>Attributes &amp; Skills</Text>
+                    <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
+                    <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+                        <Text style={styles.heading}>Attributes &amp; Skills</Text>
+                    </View>
+                    <List>
                     {this.props.character.template.attributes.map((attribute, index) => {
+                        let dieCode = this.props.character.getDieCode(attribute.name);
+
                         return (
-                            <View key={'atr-' + index} style={localStyles.rowStart}>
-                                <View style={localStyles.row}>
-                                    <TouchableHighlight onPress={() => this.toggleAttributeShow(attribute.name)} onLongPress={() => this._showInfo(attribute.name)}>
-                                        <Text style={[styles.boldGrey, localStyles.big]}>{attribute.name}</Text>
-                                    </TouchableHighlight>
-                                    {attribute.skills.map((skill, index) => {
-                                        if (this.state.attributeShow[attribute.name]) {
-                                            return (
-                                                <View key={'skill-' + index} style={localStyles.rowStart}>
-                                                    <View style={{flex: 6, alignSelf: 'stretch'}}>
+                            <View key={'atr-' + index}>
+                                <ListItem noIndent>
+                                    <Left>
+                                        <TouchableHighlight onPress={() => this.toggleAttributeShow(attribute.name)} onLongPress={() => this._showInfo(attribute.name)}>
+                                            <Text style={[styles.boldGrey, localStyles.big]}>{attribute.name}</Text>
+                                        </TouchableHighlight>
+                                    </Left>
+                                    <Right>
+                                        <TouchableHighlight onLongPress={() => this._editDieCode(attribute.name, dieCode)}>
+                                            <Text style={[styles.boldGrey, localStyles.big]}>{this._renderDieCode(dieCode)}</Text>
+                                        </TouchableHighlight>
+                                    </Right>
+                                </ListItem>
+                                {attribute.skills.map((skill, index) => {
+                                    if (this.state.attributeShow[attribute.name]) {
+                                        let dieCode = this.props.character.getDieCode(skill.name);
+
+                                        return (
+                                            <List key={'skill-' + index} style={{paddingLeft: 20}}>
+                                                <ListItem>
+                                                    <Left>
                                                         <TouchableHighlight onLongPress={() => this._showInfo(skill.name)}>
                                                             <Text style={[styles.grey, {lineHeight: 30}]}>{'\t' + skill.name}</Text>
                                                         </TouchableHighlight>
-                                                    </View>
-                                                    <View style={localStyles.row}>
-                                                        <TouchableHighlight onLongPress={() => this._editDieCode(skill.name, '3D')}>
-                                                            <Text style={[styles.boldGrey, {lineHeight: 30}]}>3D</Text>
+                                                    </Left>
+                                                    <Right>
+                                                        <TouchableHighlight onLongPress={() => this._editDieCode(skill.name, dieCode)}>
+                                                            <Text style={[styles.boldGrey, {lineHeight: 30}]}>{this._renderDieCode(dieCode)}</Text>
                                                         </TouchableHighlight>
-                                                    </View>
-                                                </View>
-                                            );
-                                        }
+                                                    </Right>
+                                                </ListItem>
+                                            </List>
+                                        );
+                                    }
 
-                                        return null;
-                                    })}
-                                </View>
-                                <View style={{flex: 1, alignItems: 'stretch'}}>
-                                    <TouchableHighlight onLongPress={() => this._editDieCode(attribute.name, '3D')}>
-                                        <Text style={[styles.boldGrey, localStyles.big]}>3D</Text>
-                                    </TouchableHighlight>
-                                </View>
+                                    return null;
+                                })}
                             </View>
                         )
                     })}
+                    </List>
                     <View style={{paddingBottom: 20}} />
                     <AttributeDialog
                         visible={this.state.dialog.visible}
@@ -215,15 +217,6 @@ const localStyles = StyleSheet.create({
 	big: {
 	    fontSize: 18,
 	    lineHeight: 40
-	},
-	rowStart: {
-        flex: 1,
-        alignSelf: 'stretch',
-        flexDirection: 'row'
-	},
-	row: {
-	    flex: 1,
-	    alignSelf: 'center',
 	}
 });
 
@@ -233,6 +226,9 @@ const mapStateToProps = state => {
     };
 }
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+    updateCharacterDieCode,
+    updateAppearance
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuilderScreen);
