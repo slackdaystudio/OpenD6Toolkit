@@ -1,9 +1,24 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { StyleSheet, Image, StatusBar, View } from "react-native";
 import { Container, Content, Text, List, ListItem } from "native-base";
 import styles from '../Styles';
 
-export default class Sidebar extends Component {
+class Sidebar extends Component {
+    static propTypes = {
+        navigation: PropTypes.object.isRequired,
+        character: PropTypes.object
+    }
+
+    _onBuilderPress() {
+        if (this.props.character == null || this.props.character.template == null) {
+            this.props.navigation.navigate('TemplateSelect');
+        } else {
+            this.props.navigation.navigate('Builder');
+        }
+    }
+
   render() {
     return (
       <Container style={localStyles.container}>
@@ -17,7 +32,7 @@ export default class Sidebar extends Component {
          	<ListItem onPress={() => this.props.navigation.navigate('DieRoller')}>
 	      		<Text style={styles.grey}>Roller</Text>
 	      	</ListItem>
-         	<ListItem onPress={() => this.props.navigation.navigate('Builder')}>
+         	<ListItem onPress={() => this._onBuilderPress()}>
 	      		<Text style={styles.grey}>Builder</Text>
 	      	</ListItem>
          	<ListItem onPress={() => this.props.navigation.navigate('Ogl')}>
@@ -35,3 +50,13 @@ const localStyles = StyleSheet.create({
 		backgroundColor: '#212121'
 	}
 });
+
+const mapStateToProps = state => {
+    return {
+        character: state.builder.character
+    };
+}
+
+const mapDispatchToProps = {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

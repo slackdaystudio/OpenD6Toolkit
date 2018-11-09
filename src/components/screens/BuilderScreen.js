@@ -7,13 +7,14 @@ import Header from '../Header';
 import AttributeDialog, { DIALOG_TYPE_TEXT, DIALOG_TYPE_DIE_CODE} from '../AttributeDialog';
 import Appearance from '../builder/Appearance';
 import styles from '../../Styles';
-import { updateCharacterDieCode, updateAppearance } from '../../../reducer';
+import { updateRoller, updateCharacterDieCode, updateAppearance } from '../../../reducer';
 
 
 class BuilderScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         character: PropTypes.object.isRequired,
+        updateRoller: PropTypes.func.isRequired,
         updateCharacterDieCode: PropTypes.func.isRequired,
         updateAppearance: PropTypes.func.isRequired
     }
@@ -80,6 +81,29 @@ class BuilderScreen extends Component {
         newState.dialog.info = this.props.character.getTemplateSkillOrAttribute(identifier).description;
 
         this.setState(newState);
+    }
+
+    _rollDice(dieCode) {
+        this.props.updateRoller(dieCode.dice, dieCode.pips);
+
+        this.props.navigation.navigate('DieRoller');
+    }
+
+    _rollSkillDice(attributeDieCode, skillDieCode) {
+        let combinedDieCodes = {
+            dice: attributeDieCode.dice + skillDieCode.dice,
+            pips: attributeDieCode.pips + skillDieCode.pips
+        };
+
+        if (combinedDieCodes.pips === 3) {
+            combinedDieCodes.dice++;
+            combinedDieCodes.pips = 1;
+        } else if (combinedDieCodes.pips === 4) {
+            combinedDieCodes.dice++;
+            combinedDieCodes.pips = 2;
+        }
+
+        this._rollDice(combinedDieCodes)
     }
 
     _updateDice(value) {
@@ -161,14 +185,14 @@ class BuilderScreen extends Component {
                                         </TouchableHighlight>
                                     </Left>
                                     <Right>
-                                        <TouchableHighlight onLongPress={() => this._editDieCode(attribute.name, dieCode)}>
+                                        <TouchableHighlight onPress={() => this._rollDice(dieCode)} onLongPress={() => this._editDieCode(attribute.name, dieCode)}>
                                             <Text style={[styles.boldGrey, localStyles.big]}>{this._renderDieCode(dieCode)}</Text>
                                         </TouchableHighlight>
                                     </Right>
                                 </ListItem>
                                 {attribute.skills.map((skill, index) => {
                                     if (this.state.attributeShow[attribute.name]) {
-                                        let dieCode = this.props.character.getDieCode(skill.name);
+                                        let skillDieCode = this.props.character.getDieCode(skill.name);
 
                                         return (
                                             <List key={'skill-' + index} style={{paddingLeft: 20}}>
@@ -179,8 +203,8 @@ class BuilderScreen extends Component {
                                                         </TouchableHighlight>
                                                     </Left>
                                                     <Right>
-                                                        <TouchableHighlight onLongPress={() => this._editDieCode(skill.name, dieCode)}>
-                                                            <Text style={[styles.boldGrey, {lineHeight: 30}]}>{this._renderDieCode(dieCode)}</Text>
+                                                        <TouchableHighlight onPress={() => this._rollSkillDice(dieCode, skillDieCode)} onLongPress={() => this._editDieCode(skill.name, skillDieCode)}>
+                                                            <Text style={[styles.boldGrey, {lineHeight: 30}]}>{this._renderDieCode(skillDieCode)}</Text>
                                                         </TouchableHighlight>
                                                     </Right>
                                                 </ListItem>
@@ -227,6 +251,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
+    updateRoller,
     updateCharacterDieCode,
     updateAppearance
 }

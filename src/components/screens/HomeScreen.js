@@ -38,6 +38,11 @@ class HomeScreen extends Component {
                 <Text style={styles.grey}>Build a character using the OpenD6 game rules.</Text>
                 <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
                     <View style={styles.buttonContainer}>
+                        <Button style={styles.button} onPress={() => this.props.navigation.navigate('TemplateSelect')}>
+                            <Text uppercase={false} style={styles.buttonText}>New</Text>
+                        </Button>
+                    </View>
+                    <View style={styles.buttonContainer}>
                         <Button style={styles.button} onPress={() => this._onBuilderPress()}>
                             <Text uppercase={false} style={styles.buttonText}>Builder</Text>
                         </Button>
