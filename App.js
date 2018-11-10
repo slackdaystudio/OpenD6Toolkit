@@ -9,6 +9,7 @@ import HomeScreen from './src/components/screens/HomeScreen';
 import DieRollerScreen from './src/components/screens/DieRollerScreen';
 import TemplateSelectScreen from './src/components/screens/TemplateSelectScreen';
 import BuilderScreen from './src/components/screens/BuilderScreen';
+import AdvantagesScreen from './src/components/screens/AdvantagesScreen';
 import OglScreen from './src/components/screens/OglScreen';
 import Sidebar from './src/components/Sidebar';
 import reducer from './reducer'
@@ -25,6 +26,9 @@ const RootStack = DrawerNavigator({
         },
         Builder: {
             screen: BuilderScreen,
+        },
+        Advantages: {
+            screen: AdvantagesScreen,
         },
         Ogl: {
             screen: OglScreen,

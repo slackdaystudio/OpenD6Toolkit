@@ -10,6 +10,8 @@ export const UPDATE_CHARACTER_DIE_CODE = 'UPDATE_CHARACTER_DIE_CODE';
 
 export const UPDATE_APPEARANCE = 'UPDATE_APPEARANCE';
 
+export const ADD_ADVANTAGE = 'ADD_ADVANTAGE';
+
 export function updateRoller(dice, pips) {
     return {
         type: UPDATE_ROLLER,
@@ -41,6 +43,13 @@ export function updateAppearance(key, value) {
             key: key,
             value: value
         }
+    };
+}
+
+export function addAdvantage(advantage) {
+    return {
+        type: ADD_ADVANTAGE,
+        payload: advantage
     };
 }
 
@@ -90,6 +99,23 @@ export default function reducer(state = initialState, action) {
             };
 
             newState.builder.character[action.payload.key] = action.payload.value;
+
+            return newState;
+        case ADD_ADVANTAGE:
+            newState = {
+                ...state,
+                builder: {
+                    ...state.builder,
+                    character: {
+                        ...state.builder.character,
+                        advantages: {
+                            ...state.builder.character.advantages
+                        }
+                    }
+                }
+            };
+
+            newState.builder.character.advantages.advantages.push(action.payload);
 
             return newState;
         default:

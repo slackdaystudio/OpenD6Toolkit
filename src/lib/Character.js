@@ -2,6 +2,8 @@ import { Alert } from 'react-native';
 
 const fantasyTemplate = require('../../public/templates/fantasy.json');
 
+const BASE_ADVANTAGES = require('../../public/templates/advantages/1/advantages.json');
+
 export const TEMPLATE_FANTASY = 'Fantasy';
 
 const DEFAULT_VALUE = '--'
@@ -17,6 +19,10 @@ class Character {
             hairColor: '',
             eyeColor: '',
             attributes: this._initAttributes(template.attributes, template.attributeMin),
+            advantages: {
+                templateId: template.advantagesTemplateId,
+                advantages: []
+            },
             getDieCode: function(name) {
                 let skillOrAttribute = this.getAttributeOrSkill(name);
 
@@ -115,6 +121,12 @@ class Character {
             default:
                 // do nothing
         }
+    }
+
+    getAdvantages(advantagesTemplateId) {
+        let advantages = BASE_ADVANTAGES;
+
+        return advantages;
     }
 
     _initAttributes(templateAttributes, min) {

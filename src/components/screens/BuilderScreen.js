@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert } from 'react-native';
-import { Container, Content, Button, Text, Picker, Item, Input, List, ListItem, Left, Right } from 'native-base';
+import { Container, Content, Button, Text, Picker, Item, Input, List, ListItem, Left, Right, Icon} from 'native-base';
 import Header from '../Header';
 import AttributeDialog, { DIALOG_TYPE_TEXT, DIALOG_TYPE_DIE_CODE} from '../AttributeDialog';
 import Appearance from '../builder/Appearance';
@@ -56,7 +56,7 @@ class BuilderScreen extends Component {
         let attributeShow = {}
 
         props.character.template.attributes.map((attribute, index) => {
-            attributeShow[attribute.name] = false
+            attributeShow[attribute.name] = false;
         });
 
         return attributeShow;
@@ -220,61 +220,128 @@ class BuilderScreen extends Component {
         });
     }
 
+    _renderAttributes() {
+        return (
+            <View>
+                <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+                    <Text style={styles.heading}>Attributes &amp; Skills</Text>
+                </View>
+                <List>
+                {this.props.character.template.attributes.map((attribute, index) => {
+                    let dieCode = this.props.character.getDieCode(attribute.name);
+
+                    return (
+                        <View key={'atr-' + index}>
+                            <ListItem noIndent>
+                                <Left>
+                                    <TouchableHighlight
+                                        onPress={() => this.toggleAttributeShow(attribute.name)}
+                                        onLongPress={() => this._showInfo(attribute.name)}
+                                    >
+                                        <Text style={[styles.boldGrey, localStyles.big]}>
+                                            {attribute.name}
+                                        </Text>
+                                    </TouchableHighlight>
+                                </Left>
+                                <Right>
+                                    <TouchableHighlight
+                                        onPress={() => this._rollDice(dieCode)}
+                                        onLongPress={() => this._editDieCode(attribute.name, dieCode)}
+                                    >
+                                        <Text style={[styles.boldGrey, localStyles.big]}>
+                                            {this.props.character.getFormattedDieCode(dieCode)}
+                                        </Text>
+                                    </TouchableHighlight>
+                                </Right>
+                            </ListItem>
+                            {this._renderSkills(attribute, dieCode)}
+                        </View>
+                    )
+                })}
+                </List>
+            </View>
+        );
+    }
+
+    _renderSkills(attribute, attributeDieCode) {
+        return (
+            <View>
+                {attribute.skills.map((skill, index) => {
+                    if (this.state.attributeShow[attribute.name]) {
+                        let skillDieCode = this.props.character.getDieCode(skill.name);
+
+                        return (
+                            <List key={'skill-' + index} style={{paddingLeft: 20}}>
+                                <ListItem>
+                                    <Left>
+                                        <TouchableHighlight onLongPress={() => this._showInfo(skill.name)}>
+                                            <Text style={[styles.grey, {lineHeight: 30}]}>{'\t' + skill.name}</Text>
+                                        </TouchableHighlight>
+                                    </Left>
+                                    <Right>
+                                        <TouchableHighlight
+                                            onPress={() => this._rollSkillDice(attributeDieCode, skillDieCode)}
+                                            onLongPress={() => this._editDieCode(skill.name, skillDieCode)}
+                                        >
+                                            <Text style={[styles.boldGrey, {lineHeight: 30}]}>
+                                                {this.props.character.getFormattedDieCode(skillDieCode)}
+                                            </Text>
+                                        </TouchableHighlight>
+                                    </Right>
+                                </ListItem>
+                            </List>
+                        );
+                    }
+
+                    return null;
+                })}
+            </View>
+        );
+    }
+
+    _renderAdvantages() {
+        return (
+            <View>
+                <View style={styles.rowStart}>
+                    <View style={{flex: 1, alignItems: 'flex-end'}} />
+                    <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
+                        <Text style={styles.heading}>Advantages</Text>
+                    </View>
+                    <View style={{flex: 1, paddingTop: 20, justifyContent: 'space-around', alignItems: 'flex-end'}}>
+                        <Icon
+                            type='FontAwesome'
+                            name='gear'
+                            style={[styles.grey, {fontSize: 30}]}
+                            onPress={() => this.props.navigation.navigate('Advantages')}
+                        />
+                    </View>
+                </View>
+                <List>
+                    {this.props.character.advantages.advantages.map((advantage, index) => {
+                        return (
+                            <ListItem key={'advantage' + advantage.id}>
+                                <Left>
+                                    <Text style={styles.grey}>{advantage.name}</Text>
+                                </Left>
+                                <Right>
+                                    <Text style={styles.grey}>R{advantage.rank}</Text>
+                                </Right>
+                            </ListItem>
+                        );
+                    })}
+                </List>
+            </View>
+        );
+    }
+
 	render() {
 		return (
 		    <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
                     <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
-                    <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={styles.heading}>Attributes &amp; Skills</Text>
-                    </View>
-                    <List>
-                    {this.props.character.template.attributes.map((attribute, index) => {
-                        let dieCode = this.props.character.getDieCode(attribute.name);
-
-                        return (
-                            <View key={'atr-' + index}>
-                                <ListItem noIndent>
-                                    <Left>
-                                        <TouchableHighlight onPress={() => this.toggleAttributeShow(attribute.name)} onLongPress={() => this._showInfo(attribute.name)}>
-                                            <Text style={[styles.boldGrey, localStyles.big]}>{attribute.name}</Text>
-                                        </TouchableHighlight>
-                                    </Left>
-                                    <Right>
-                                        <TouchableHighlight onPress={() => this._rollDice(dieCode)} onLongPress={() => this._editDieCode(attribute.name, dieCode)}>
-                                            <Text style={[styles.boldGrey, localStyles.big]}>{this.props.character.getFormattedDieCode(dieCode)}</Text>
-                                        </TouchableHighlight>
-                                    </Right>
-                                </ListItem>
-                                {attribute.skills.map((skill, index) => {
-                                    if (this.state.attributeShow[attribute.name]) {
-                                        let skillDieCode = this.props.character.getDieCode(skill.name);
-
-                                        return (
-                                            <List key={'skill-' + index} style={{paddingLeft: 20}}>
-                                                <ListItem>
-                                                    <Left>
-                                                        <TouchableHighlight onLongPress={() => this._showInfo(skill.name)}>
-                                                            <Text style={[styles.grey, {lineHeight: 30}]}>{'\t' + skill.name}</Text>
-                                                        </TouchableHighlight>
-                                                    </Left>
-                                                    <Right>
-                                                        <TouchableHighlight onPress={() => this._rollSkillDice(dieCode, skillDieCode)} onLongPress={() => this._editDieCode(skill.name, skillDieCode)}>
-                                                            <Text style={[styles.boldGrey, {lineHeight: 30}]}>{this.props.character.getFormattedDieCode(skillDieCode)}</Text>
-                                                        </TouchableHighlight>
-                                                    </Right>
-                                                </ListItem>
-                                            </List>
-                                        );
-                                    }
-
-                                    return null;
-                                })}
-                            </View>
-                        )
-                    })}
-                    </List>
+                    {this._renderAttributes()}
+                    {this._renderAdvantages()}
                     <View style={{paddingBottom: 20}} />
                     <AttributeDialog
                         visible={this.state.dialog.visible}
