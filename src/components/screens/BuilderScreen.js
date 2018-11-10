@@ -28,13 +28,7 @@ class BuilderScreen extends Component {
                 type: DIALOG_TYPE_TEXT,
                 info: '',
             },
-            dieCode: {
-                identifier: '',
-                dice: 0,
-                bonusDice: 0,
-                pips: 0,
-                bonusPips: 0
-            },
+            dieCode: this._initDieCode(),
             attributeShow: this._initAttributeShow(props)
         }
 
@@ -42,7 +36,20 @@ class BuilderScreen extends Component {
         this.close = this._closeDialog.bind(this);
         this.save = this._save.bind(this);
         this.updateDice = this._updateDice.bind(this);
+        this.updateModifierDice = this._updateModifierDice.bind(this);
         this.updatePips = this._updatePips.bind(this);
+        this.updateModifierPips = this._updateModifierPips.bind(this);
+    }
+
+    _initDieCode() {
+        return {
+            identifier: '',
+            errorMessage: null,
+            dice: 0,
+            modifierDice: 0,
+            pips: 0,
+            modifierPips: 0
+        };
     }
 
     _initAttributeShow(props) {
@@ -69,9 +76,9 @@ class BuilderScreen extends Component {
         newState.dialog.type = DIALOG_TYPE_DIE_CODE;
         newState.dieCode.identifier = identifier;
         newState.dieCode.dice = dieCode.dice;
-        newState.dieCode.bonusDice = dieCode.bonusDice;
+        newState.dieCode.modifierDice = dieCode.modifierDice;
         newState.dieCode.pips = dieCode.pips;
-        newState.dieCode.bonusPips = dieCode.bonusPips;
+        newState.dieCode.modifierPips = dieCode.modifierPips;
 
         this.setState(newState);
     }
@@ -88,25 +95,28 @@ class BuilderScreen extends Component {
     }
 
     _rollDice(dieCode) {
-        this.props.updateRoller(dieCode.dice + dieCode.bonusDice, dieCode.pips + dieCode.bonusPips);
+        let totalDieCode = this.props.character.getTotalDieCode(dieCode);
+        this.props.updateRoller(totalDieCode.dice, totalDieCode.pips);
 
         this.props.navigation.navigate('DieRoller');
     }
 
     _rollSkillDice(attributeDieCode, skillDieCode) {
         let combinedDieCodes = {
-            dice: attributeDieCode.dice + skillDieCode.dice,
-            bonusDice: attributeDieCode.bonusDice + skillDieCode.bonusDice,
-            pips: attributeDieCode.pips + skillDieCode.pips,
-            bonusPips: attributeDieCode.bonusPips + skillDieCode.bonusPips
+            dice: parseInt(attributeDieCode.dice, 10) + parseInt(skillDieCode.dice, 10),
+            modifierDice: parseInt(attributeDieCode.modifierDice, 10) + parseInt(skillDieCode.modifierDice, 10),
+            pips: parseInt(attributeDieCode.pips, 10) + parseInt(skillDieCode.pips, 10),
+            modifierPips: parseInt(attributeDieCode.modifierPips, 10) + parseInt(skillDieCode.modifierPips, 10)
         };
+
         let totalDieCode = this.props.character.getTotalDieCode(combinedDieCodes);
 
         this.props.updateRoller(totalDieCode.dice, totalDieCode.pips);
         this.props.navigation.navigate('DieRoller');
     }
 
-    _updateDice(value, bonus=false) {
+    _updateDice(value) {
+        let newState = {...this.state};
         let dice = '';
 
         if (value === '' || value === '-') {
@@ -121,18 +131,33 @@ class BuilderScreen extends Component {
             }
         }
 
-        let newState = {...this.state};
-
-        if (bonus) {
-            newState.dieCode.bonusDice = dice;
-        } else {
-            newState.dieCode.dice = dice;
-        }
+        newState.dieCode.dice = dice;
 
         this.setState(newState);
     }
 
-    _updatePips(value, bonus=false) {
+    _updateModifierDice(value) {
+        let newState = {...this.state};
+        let dice = '';
+
+        if (value === '' || value === '-') {
+            dice = value;
+        } else {
+            dice = parseInt(value, 10) || 1;
+
+            if (dice > 30) {
+                dice = 30;
+            } else if (dice < -30) {
+                dice = -30;
+            }
+        }
+
+        newState.dieCode.modifierDice = dice;
+
+        this.setState(newState);
+    }
+
+    _updatePips(value) {
         let newState = {...this.state};
         let pips = parseInt(value, 10) || 0;
 
@@ -142,11 +167,22 @@ class BuilderScreen extends Component {
             pips = 0;
         }
 
-        if (bonus) {
-            newState.dieCode.bonusPips = pips;
-        } else {
-            newState.dieCode.pips = pips;
+        newState.dieCode.pips = pips;
+
+        this.setState(newState);
+    }
+
+    _updateModifierPips(value) {
+        let newState = {...this.state};
+        let pips = parseInt(value, 10) || 0;
+
+        if (pips > 2) {
+            pips = 2;
+        } else if (pips < -2) {
+            pips = -2;
         }
+
+        newState.dieCode.modifierPips = pips;
 
         this.setState(newState);
     }
@@ -154,18 +190,34 @@ class BuilderScreen extends Component {
     _closeDialog() {
         let newState = {...this.state}
         newState.dialog.visible = false;
+        newState.dieCode = this._initDieCode();
 
         this.setState(newState);
     }
 
     _save() {
-        if (!Number.isInteger(this.state.dieCode.dice)) {
-            this._updateDice(1);
-        }
+        let newState = {...this.state};
+        newState.dieCode.errorMessage = null;
 
-        this.props.updateCharacterDieCode(this.state.dieCode);
+        this.setState(newState, () => {
+            let attributeMin = this.props.character.template.attributeMin;
+            let isSkill = this.props.character.isSkill(this.state.dieCode.identifier);
+            let totalDieCode = this.props.character.getTotalDieCode(this.state.dieCode);
 
-        this.close();
+            if (isSkill && totalDieCode.dice < 0) {
+                newState.dieCode.errorMessage = 'Skills may not go below 0';
+            } else if (!isSkill && totalDieCode.dice < attributeMin) {
+                newState.dieCode.errorMessage = 'Attributes may not go below ' + attributeMin;
+            }
+
+            if (newState.dieCode.errorMessage !== null) {
+                this.setState(newState);
+                return;
+            }
+
+            this.props.updateCharacterDieCode(this.state.dieCode);
+            this.close();
+        });
     }
 
 	render() {
@@ -229,14 +281,17 @@ class BuilderScreen extends Component {
                         type={this.state.dialog.type}
                         identifier={this.state.dieCode.identifier}
                         dice={this.state.dieCode.dice.toString()}
-                        bonusDice={this.state.dieCode.bonusDice.toString()}
+                        modifierDice={this.state.dieCode.modifierDice.toString()}
                         pips={this.state.dieCode.pips}
-                        bonusPips={this.state.dieCode.bonusPips}
+                        modifierPips={this.state.dieCode.modifierPips}
                         info={this.state.dialog.info}
+                        errorMessage={this.state.dieCode.errorMessage}
                         close={this.close}
                         onSave={this.save}
                         onUpdateDice={this.updateDice}
+                        onUpdateModifierDice={this.updateModifierDice}
                         onUpdatePips={this.updatePips}
+                        onUpdateModifierPips={this.updateModifierPips}
                     />
                 </Content>
 	        </Container>

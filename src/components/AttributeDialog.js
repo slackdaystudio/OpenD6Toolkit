@@ -15,14 +15,17 @@ export default class AttributeDialog extends Component {
         type: PropTypes.number.isRequired,
         identifier: PropTypes.string.isRequired,
         dice: PropTypes.string,
-        bonusDice: PropTypes.string,
+        modifierDice: PropTypes.string,
         pips: PropTypes.number,
-        bonusPips: PropTypes.number,
+        modifierPips: PropTypes.number,
         info: PropTypes.string,
+        errorMessage: PropTypes.string,
         close: PropTypes.func,
         onSave: PropTypes.func,
         onUpdateDice: PropTypes.func,
-        onUpdatePips: PropTypes.func
+        onUpdateModifierDice: PropTypes.func,
+        onUpdatePips: PropTypes.func,
+        onUpdateModifierPips: PropTypes.func
     }
 
     constructor(props) {
@@ -30,20 +33,33 @@ export default class AttributeDialog extends Component {
 
         this.state = {
             dice: props.dice,
-            bonusDice: props.bonusDice,
+            modifierDice: props.modifierDice,
             pips: props.pips
         }
+    }
+
+    _renderErrorMessage() {
+        if (this.props.errorMessage === null) {
+            return null;
+        }
+
+        return (
+            <View style={localStyles.errorMessage}>
+                <Text style={{color: '#bc1212', alignSelf: 'center'}}>{this.props.errorMessage}</Text>
+            </View>
+        );
     }
 
     _renderEditDieCode() {
         return (
             <View style={localStyles.modalContent}>
                 <Text style={[styles.heading, {paddingTop: 0}]}>Edit {this.props.identifier}</Text>
+                {this._renderErrorMessage()}
                 <View style={localStyles.rowStart}>
                     <View style={localStyles.row}>
                         <Text style={styles.grey}>Base</Text>
                     </View>
-                    <View style={localStyles.row, {flex: 2}}>
+                    <View style={localStyles.row}>
                         <Item underline>
                             <Input
                                 style={styles.grey}
@@ -74,32 +90,34 @@ export default class AttributeDialog extends Component {
                 </View>
                 <View style={localStyles.rowStart}>
                     <View style={localStyles.row}>
-                        <Text style={styles.grey}>Bonus</Text>
+                        <Text style={styles.grey}>Modifier</Text>
                     </View>
-                    <View style={localStyles.row, {flex: 2}}>
+                    <View style={localStyles.row}>
                         <Item underline>
                             <Input
                                 underline
                                 style={styles.grey}
                                 keyboardType='numeric'
-                                maxLength={2}
-                                value={this.props.bonusDice}
-                                onChangeText={(value) => this.props.onUpdateDice(value, true)}
+                                maxLength={3}
+                                value={this.props.modifierDice}
+                                onChangeText={(value) => this.props.onUpdateModifierDice(value)}
                             />
                         </Item>
                     </View>
                     <View style={localStyles.row, {flex: 2}}>
                         <Picker
                             inlinelabel
-                            label='Bonus Pips'
+                            label='modifier Pips'
                             style={styles.grey}
                             textStyle={styles.grey}
                             placeholderIconColor="#FFFFFF"
                             iosHeader="Select one"
                             mode="dropdown"
-                            selectedValue={this.props.bonusPips}
-                            onValueChange={(value) => this.props.onUpdatePips(value, true)}
+                            selectedValue={this.props.modifierPips}
+                            onValueChange={(value) => this.props.onUpdateModifierPips(value)}
                         >
+                            <Item label="-2 pips" value={-2} />
+                            <Item label="-1 pips" value={-1} />
                             <Item label="+0 pips" value={0} />
                             <Item label="+1 pip" value={1} />
                             <Item label="+2 pips" value={2} />
@@ -160,7 +178,20 @@ const localStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 4,
-        borderColor: '#00ACED',
+        borderWidth: 1,
+        borderColor: '#1e1e1e',
         minHeight: 300
+    },
+    errorMessage: {
+        borderWidth: 1,
+        borderRadius: 4,
+        borderColor: '#bc1212',
+        backgroundColor: '#e8b9b9',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'stretch',
+        fontSize: 20,
+        lineHeight: 25
     }
 });

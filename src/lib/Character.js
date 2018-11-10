@@ -22,29 +22,36 @@ class Character {
 
                 return {
                     dice: skillOrAttribute.dice,
-                    bonusDice: skillOrAttribute.bonusDice,
+                    modifierDice: skillOrAttribute.modifierDice,
                     pips: skillOrAttribute.pips,
-                    bonusPips: skillOrAttribute.bonusPips
+                    modifierPips: skillOrAttribute.modifierPips
                 }
             },
             getTotalDieCode: function(dieCode) {
                 let totalDieCode = {
-                    dice: dieCode.dice + (dieCode.bonusDice || 0),
-                    pips: dieCode.pips + (dieCode.bonusPips || 0)
+                    dice: dieCode.dice + (dieCode.modifierDice || 0),
+                    pips: dieCode.pips + (dieCode.modifierPips || 0)
                 }
 
-                if (totalDieCode.pips === 3) {
-                    totalDieCode.dice++;
-                    totalDieCode.pips = 0;
-                } else if (totalDieCode.pips === 4) {
-                    totalDieCode.dice++;
-                    totalDieCode.pips = 1;
-                } else if (totalDieCode.pips === 5) {
-                    totalDieCode.dice++;
-                    totalDieCode.pips = 2;
-                } else if (totalDieCode.pips === 6) {
-                    totalDieCode.dice += 2;
-                    totalDieCode.pips = 0;
+                switch (totalDieCode.pips) {
+                    case -2:
+                        totalDieCode.dice--;
+                        totalDieCode.pips = 1;
+                        break;
+                    case -1:
+                        totalDieCode.dice--;
+                        totalDieCode.pips = 2;
+                        break;
+                    case 3:
+                        totalDieCode.dice++;
+                        totalDieCode.pips = 0;
+                        break;
+                    case 4:
+                        totalDieCode.dice++;
+                        totalDieCode.pips = 1;
+                        break;
+                    default:
+                        // do nothing
                 }
 
                 return totalDieCode;
@@ -53,6 +60,11 @@ class Character {
                 let finalDieCode = this.getTotalDieCode(dieCode);
 
                 return finalDieCode.dice + 'D' + (finalDieCode.pips > 0 ? '+' + finalDieCode.pips : '');
+            },
+            isSkill: function(name) {
+                let attributeOrSkill = this._getAttributeOrSkill(name, this.attributes);
+
+                return 'skills' in attributeOrSkill ? false : true;
             },
             getAttributeOrSkill: function(name) {
                 return this._getAttributeOrSkill(name, this.attributes);
@@ -112,9 +124,9 @@ class Character {
             attributes.push({
                 name: templateAttribute.name,
                 dice: min,
-                bonusDice: 0,
+                modifierDice: 0,
                 pips: 0,
-                bonusPips: 0,
+                modifierPips: 0,
                 skills: this._initSkills(templateAttribute.skills)
             });
         });
@@ -129,9 +141,9 @@ class Character {
             skills.push({
                 name: skill.name,
                 dice: 0,
-                bonusDice: 0,
+                modifierDice: 0,
                 pips: 0,
-                bonusPips: 0
+                modifierPips: 0
             });
         });
 
