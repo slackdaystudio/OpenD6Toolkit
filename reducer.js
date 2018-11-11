@@ -14,6 +14,8 @@ export const ADD_ADVANTAGE = 'ADD_ADVANTAGE';
 
 export const UPDATE_ADVANTAGE = 'UPDATE_ADVANTAGE';
 
+export const REMOVE_ADVANTAGE = 'REMOVE_ADVANTAGE';
+
 export function updateRoller(dice, pips) {
     return {
         type: UPDATE_ROLLER,
@@ -58,6 +60,13 @@ export function addAdvantage(advantage) {
 export function updateAdvantage(advantage) {
     return {
         type: UPDATE_ADVANTAGE,
+        payload: advantage
+    };
+}
+
+export function removeAdvantage(advantage) {
+    return {
+        type: REMOVE_ADVANTAGE,
         payload: advantage
     };
 }
@@ -145,6 +154,34 @@ export default function reducer(state = initialState, action) {
                 if (advantage.id === action.payload.id) {
                     advantage.totalRanks = action.payload.totalRanks;
                 }
+            }
+
+            return newState;
+       case REMOVE_ADVANTAGE:
+            newState = {
+                ...state,
+                builder: {
+                    ...state.builder,
+                    character: {
+                        ...state.builder.character,
+                        advantages: {
+                            ...state.builder.character.advantages
+                        }
+                    }
+                }
+            };
+
+            let index = -1;
+
+            for (let i = 0; i < newState.builder.character.advantages.advantages.length; i++) {
+                if (newState.builder.character.advantages.advantages[i].id === action.payload.id) {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index > -1) {
+                newState.builder.character.advantages.advantages.splice(index, 1);
             }
 
             return newState;

@@ -6,10 +6,16 @@ import { Container, Content, Button, Text, Picker, Item, Input, List, ListItem, 
 import Header from '../Header';
 import AttributeDialog from '../AttributeDialog';
 import InfoDialog from '../InfoDialog';
-import RanksDialog from '../RanksDialog';
+import RanksDialog, { MODE_EDIT } from '../RanksDialog';
 import Appearance from '../builder/Appearance';
 import styles from '../../Styles';
-import { updateRoller, updateCharacterDieCode, updateAppearance, updateAdvantage } from '../../../reducer';
+import {
+    updateRoller,
+    updateCharacterDieCode,
+    updateAppearance,
+    updateAdvantage,
+    removeAdvantage
+} from '../../../reducer';
 
 class BuilderScreen extends Component {
     static propTypes = {
@@ -18,7 +24,8 @@ class BuilderScreen extends Component {
         updateRoller: PropTypes.func.isRequired,
         updateCharacterDieCode: PropTypes.func.isRequired,
         updateAppearance: PropTypes.func.isRequired,
-        updateAdvantage: PropTypes.func.isRequired
+        updateAdvantage: PropTypes.func.isRequired,
+        removeAdvantage: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -51,6 +58,7 @@ class BuilderScreen extends Component {
         this.updatePips = this._updatePips.bind(this);
         this.updateModifierPips = this._updateModifierPips.bind(this);
         this.updateAdvantage = this._updateAdvantage.bind(this);
+        this.removeAdvantage = this._removeAdvantage.bind(this);
     }
 
     _initDieCode() {
@@ -114,10 +122,6 @@ class BuilderScreen extends Component {
     }
 
     _showRanksPicker(advantage) {
-        if (!advantage.multipleRanks) {
-            return;
-        }
-
         let newState = {...this.state};
         newState.ranksDialog.visible = true;
         newState.ranksDialog.item = advantage;
@@ -221,6 +225,11 @@ class BuilderScreen extends Component {
     _updateAdvantage(advantage) {
         this.props.updateAdvantage(advantage);
 
+        this._closeRanksDialog();
+    }
+
+    _removeAdvantage(advantage) {
+        this.props.removeAdvantage(advantage);
         this._closeRanksDialog();
     }
 
@@ -423,8 +432,10 @@ class BuilderScreen extends Component {
                     <RanksDialog
                         visible={this.state.ranksDialog.visible}
                         item={this.state.ranksDialog.item}
+                        mode={MODE_EDIT}
                         onSave={this.updateAdvantage}
                         onClose={this.closeRanksDialog}
+                        onDelete={this.removeAdvantage}
                     />
                 </Content>
 	        </Container>
@@ -449,7 +460,8 @@ const mapDispatchToProps = {
     updateRoller,
     updateCharacterDieCode,
     updateAppearance,
-    updateAdvantage
+    updateAdvantage,
+    removeAdvantage
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuilderScreen);

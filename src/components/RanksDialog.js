@@ -6,12 +6,18 @@ import Modal from "react-native-modal";
 import ErrorMessage from './ErrorMessage';
 import styles from '../Styles';
 
+export const MODE_ADD = 'ADD';
+
+export const MODE_EDIT = 'EDIT';
+
 export default class RanksDialog extends Component {
     static propTypes = {
         visible: PropTypes.bool.isRequired,
-        item: PropTypes.object,
+        title: PropTypes.string,
+        mode: PropTypes.string.isRequired,
         onSave: PropTypes.func.isRequired,
-        onClose: PropTypes.func.isRequired
+        onClose: PropTypes.func.isRequired,
+        onDelete: PropTypes.func
     }
 
     constructor(props) {
@@ -55,11 +61,9 @@ export default class RanksDialog extends Component {
         this.props.onClose();
     }
 
-    _renderRankSelector() {
-        return (
-            <View style={localStyles.modalContent}>
-                <Text style={[styles.heading, {paddingTop: 0}]}>Select Rank</Text>
-                <ErrorMessage errorMessage={this.state.errorMessage} />
+    _renderFormControls() {
+        if (this.props.item !== null && this.props.item.multipleRanks) {
+            return (
                 <View style={localStyles.rowStart}>
                     <View style={localStyles.row}>
                         <Icon
@@ -81,10 +85,54 @@ export default class RanksDialog extends Component {
                         />
                     </View>
                 </View>
-                <View style={styles.buttonContainer}>
-                    <Button block style={styles.button} onPress={() => this._save()}>
+            );
+        }
+
+        return null;
+    }
+
+    _renderSaveButton() {
+        if (this.props.item !== null && this.props.item.multipleRanks) {
+            return (
+                <View style={[styles.buttonContainer, styles.row]}>
+                    <Button block style={styles.modalButton} onPress={() => this._save()}>
                         <Text uppercase={false}>Save</Text>
                     </Button>
+                </View>
+            );
+        }
+
+        return null;
+    }
+
+    _renderDeleteButton() {
+        let label = this.props.mode === MODE_EDIT ? 'Delete' : 'Close';
+        let action = this.props.mode === MODE_EDIT ? this.props.onDelete : this.props.onClose;
+
+        if (action === null) {
+            action = this.props.onClose;
+        }
+
+        return (
+            <View style={[styles.buttonContainer, styles.row]}>
+                <Button block style={styles.modalButton} onPress={() => action(this.props.item)}>
+                    <Text uppercase={false}>{label}</Text>
+                </Button>
+            </View>
+        );
+    }
+
+    _renderRankSelector() {
+        return (
+            <View style={localStyles.modalContent}>
+                <Text style={[styles.heading, {paddingTop: 0}]}>
+                    {this.props.item === null ? 'Select Rank' : this.props.item.name}
+                </Text>
+                <ErrorMessage errorMessage={this.state.errorMessage} />
+                {this._renderFormControls()}
+                <View style={localStyles.rowStart}>
+                    {this._renderSaveButton()}
+                    {this._renderDeleteButton()}
                 </View>
             </View>
         );

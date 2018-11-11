@@ -29,6 +29,12 @@ export default StyleSheet.create({
 		justifyContent: 'center',
 		alignSelf: 'center'
 	},
+	modalButton: {
+		backgroundColor: '#00ACED',
+		minWidth: 90,
+		justifyContent: 'center',
+		alignSelf: 'center'
+	},
 	buttonBig: {
 		backgroundColor: '#00ACED',
 		minWidth: 300,

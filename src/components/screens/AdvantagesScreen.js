@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Platform, StyleSheet, View, TouchableHighlight, BackHandler, Alert } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Toast } from 'native-base';
 import Header from '../Header';
-import RanksDialog from '../RanksDialog';
+import RanksDialog, { MODE_ADD } from '../RanksDialog';
 import styles from '../../Styles';
 import { character } from '../../lib/Character';
 import { addAdvantage } from '../../../reducer';
@@ -149,6 +149,7 @@ class AdvantagesScreen extends Component {
                 <RanksDialog
                     visible={this.state.showRanksDialog}
                     item={this.state.selectedAdvantage}
+                    mode={MODE_ADD}
                     onSave={this.addAdvantageToCharacter}
                     onClose={this.closeRanksDialog}
                 />
