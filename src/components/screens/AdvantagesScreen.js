@@ -68,14 +68,10 @@ class AdvantagesScreen extends Component {
     }
 
     _addAdvantage(advantage) {
-        if (advantage.multipleRanks) {
-            this.setState({
-                selectedAdvantage: advantage,
-                showRanksDialog: true
-            });
-        } else {
-            this._addAdvantageToCharacter(advantage);
-        }
+        this.setState({
+            selectedAdvantage: advantage,
+            showRanksDialog: true
+        });
     }
 
     _addAdvantageToCharacter(advantage) {

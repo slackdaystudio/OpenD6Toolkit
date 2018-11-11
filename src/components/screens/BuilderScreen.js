@@ -13,6 +13,7 @@ import {
     updateRoller,
     updateCharacterDieCode,
     updateAppearance,
+    updateDisplayNote,
     updateAdvantage,
     removeAdvantage
 } from '../../../reducer';
@@ -381,7 +382,7 @@ class BuilderScreen extends Component {
                             <ListItem key={'advantage' + index} noIndent>
                                 <Left>
                                     <TouchableHighlight onPress={() => this._showAdvantageInfo(advantage)}>
-                                        <Text style={styles.grey}>{advantage.name}</Text>
+                                        <Text style={styles.grey}>{advantage.name + (advantage.displayNote === null ? '' : ': ' + advantage.displayNote)}</Text>
                                     </TouchableHighlight>
                                 </Left>
                                 <Right>

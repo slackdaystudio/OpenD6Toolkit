@@ -13,7 +13,7 @@ export const MODE_EDIT = 'EDIT';
 export default class RanksDialog extends Component {
     static propTypes = {
         visible: PropTypes.bool.isRequired,
-        title: PropTypes.string,
+        item: PropTypes.object,
         mode: PropTypes.string.isRequired,
         onSave: PropTypes.func.isRequired,
         onClose: PropTypes.func.isRequired,
@@ -25,14 +25,22 @@ export default class RanksDialog extends Component {
 
         this.state = {
             totalRanks: 1,
+            displayNote: '',
             errorMessage: null
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.item !== null && prevProps.item !== this.props.item) {
-            this.setState({totalRanks: this.props.item.totalRanks});
+            this.setState({
+                totalRanks: this.props.item.totalRanks,
+                displayNote: this.props.item.displayNote
+            });
         }
+    }
+
+    _updateDisplayNote(value) {
+        this.setState({displayNote: value});
     }
 
     _incrementRanks() {
@@ -56,6 +64,7 @@ export default class RanksDialog extends Component {
 
     _save() {
         this.props.item.totalRanks = this.state.totalRanks;
+        this.props.item.displayNote = this.state.displayNote;
 
         this.props.onSave(this.props.item);
         this.props.onClose();
@@ -92,7 +101,7 @@ export default class RanksDialog extends Component {
     }
 
     _renderSaveButton() {
-        if (this.props.item !== null && this.props.item.multipleRanks) {
+        if (this.props.item !== null) {
             return (
                 <View style={[styles.buttonContainer, styles.row]}>
                     <Button block style={styles.modalButton} onPress={() => this._save()}>
@@ -122,22 +131,6 @@ export default class RanksDialog extends Component {
         );
     }
 
-    _renderRankSelector() {
-        return (
-            <View style={localStyles.modalContent}>
-                <Text style={[styles.heading, {paddingTop: 0}]}>
-                    {this.props.item === null ? 'Select Rank' : this.props.item.name}
-                </Text>
-                <ErrorMessage errorMessage={this.state.errorMessage} />
-                {this._renderFormControls()}
-                <View style={localStyles.rowStart}>
-                    {this._renderSaveButton()}
-                    {this._renderDeleteButton()}
-                </View>
-            </View>
-        );
-    }
-
 	render() {
         return (
             <Modal
@@ -147,7 +140,26 @@ export default class RanksDialog extends Component {
                 onBackButtonPress={() => this.props.onClose()}
                 onBackdropPress={() => this.props.onClose()}
             >
-                {this._renderRankSelector()}
+                <View style={localStyles.modalContent}>
+                    <Text style={[styles.heading, {paddingTop: 0}]}>
+                        {this.props.item === null ? 'Select Rank' : this.props.item.name}
+                    </Text>
+                    <ErrorMessage errorMessage={this.state.errorMessage} />
+                    <Item stackedLabel>
+                        <Label>Note</Label>
+                        <Input
+                            style={[styles.grey, {maxWidth: 250}]}
+                            maxLength={30}
+                            value={this.state.displayNote}
+                            onChangeText={(value) => this._updateDisplayNote(value)}
+                        />
+                    </Item>
+                    {this._renderFormControls()}
+                    <View style={localStyles.rowStart}>
+                        {this._renderSaveButton()}
+                        {this._renderDeleteButton()}
+                    </View>
+                </View>
             </Modal>
         );
 	}
@@ -174,6 +186,6 @@ const localStyles = StyleSheet.create({
         borderRadius: 4,
         borderWidth: 1,
         borderColor: '#1e1e1e',
-        minHeight: 200
+        minHeight: 300
     }
 });
