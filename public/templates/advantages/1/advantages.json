@@ -7,6 +7,7 @@
       "name": "Authority",
       "rank": 1,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "The level of the advantage is based on the character’s rank, duties, and power in his local jurisdiction. An Authority (R1) advantage might belong to someone who, because of circumstance, does not have a lot of opportunity to use his authority or someone who is very low in rank.\n\nLaw Enforcement is one version of this advantage that gives adventurers some measure of abilities associated with being a deputized agent of the law. Authority: Law Enforcement (R1) means the character can carry a ﬁrearm and has limited authority to enforce the law. Private investigators, bounty hunters, and bail bondsmen would need this advantage.\n\nRestrictions/Notes: It is not necessary to have the Authority: Law Enforcement advantage to own a ﬁrearm in those countries that allow ordinary citizens to own them. However, if owning a gun is illegal in a country and limited to deputized oﬃcials, then this version of the advantage would be necessary.\n\nRemember, too, that outside of the character’s jurisdiction or permit limits, this advantage may have little or no value."
     },
     {
@@ -14,6 +15,7 @@
       "name": "Authority",
       "rank": 2,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "Same as Authority (R1), but the character has more influence, possibly commanding a small number of troops or being in charge of a small company or town. With Authority: Law Enforcement (R2), the character is actually a law enforcement officer and is allowed to make full arrests and reasonable search and seizures (as dictated by planetary laws).\n\nRestrictions/Notes: See Authority (R1) for more information."
     },
     {
@@ -21,6 +23,7 @@
       "name": "Authority",
       "rank": 3,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "Same as Authority (R1), except that the character has a great deal of power and influence. The head of a large company or someone whose authority is simply never questioned would have this Advantage. With Authority: Law Enforcement (R3), the character may enforce the law on multiple planets in a system.\n\nRestrictions/Notes: Higher levels of Authority indicate a wider sphere of influence, such as multiple systems, a single galaxy, or time. Otherwise, see Authority (R1) for more information. Character Options "
     },
     {
@@ -28,6 +31,7 @@
       "name": "Contacts",
       "rank": 1,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "The character “knows somebody” or a group of somebodies who will generally help out the character if he makes a decent appeal or sufficiently compensates the contact. This level of contact only sticks around for a limited amount of time (part of an adventure or maybe throughout a short adventure).\n\nThe character might know a “group” with a wider range of influence (but less power) that will help out, again, for a modest fee or under the right circumstances. The influence might not be as direct, but it is easier to come by. For example, there might be clubs or organizations that provide certain services for travelers — navigation coordinates to common systems, accommodation reservations, emergency transportation, and so on — for a small membership fee. You have to call them or go to their offices, and they won’t do much about that maniac with the blaster who is chasing you, but they can be of immense help under the right circumstances.\n\nRestrictions/Notes: Contacts should not automatically help the character, but they should be reasonable in their negotiations. Multiple contacts of various ranks may be selected and they may be stacked. For example, a certain person might be a Contact (R1) in most circumstances, but he could be a Contact (R2) or even a Contact (R3) in the right place — for example, a mercenary might help out for a fee versus normal foes, but when fighting his “hereditary enemies,” he might be almost invincible and eager to help.\n\nRemember that contacts are gamemaster characters. They should be created and played rationally. If a player refuses to roleplay or takes advantage of contacts, he should be penalized when trying to use them (and possibly lose them). There should also be a reason in the character’s story why he has these contacts."
     },
     {
@@ -35,6 +39,7 @@
       "name": "Contacts",
       "rank": 2,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "This Advantage is identical to Contacts (R1), except the contact is more powerful, more influential, easier to get hold of, willing to do more favors, or affects the game on a larger scale.\n\nIf the contact is supposed to be a large group, it now has much greater influence over a wider area. For instance, instead of belonging to a travel club, the character might have a government agency to help him out occasionally.\n\nRestrictions/Notes: Under no circumstances should any contact, regardless of rank number, make roleplaying and thinking superfluous.\n\nContacts are totally under the control of the gamemaster. Even powerful and influential contacts from this rank should be kept under a tight rein. See Contacts (R1) for more information."
     },
     {
@@ -42,6 +47,7 @@
       "name": "Contacts",
       "rank": 3,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "The contact or contacts chosen should be nearly supernormal, supernatural, or uncanny in origin or far reaching in scope. For example, a character’s Contact (R3) might be an “spacefarer’s guild” with multi-system branch offices and an impressive ability to get its members the oddest things.\n\nWork with the gamemaster to come up with some interesting contacts.\n\nIt might be a group of psionic monks who can be called upon for “mental aid” — or maybe a really complete technical library.\n\nRestrictions/Notes: Again, as with Contacts (R1) and (R2), don’t let the contacts take over the game — and don’t let the player’s character abuse them. Contacts are gamemaster controlled, but they will usually only be brought into play at the character’s request."
     },
     {
@@ -49,6 +55,7 @@
       "name": "Contacts",
       "rank": 4,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "There is some sort of strange “force” that “watches over” and occasionally helps the character. In many ways, this Advantage is not as useful in most adventure situations as the other versions of Contacts, but it can have dramatic effects on occasion.\n\nSome examples of this include a particularly powerful gamemaster character who steps in occasionally to help the character when he’s in trouble. Or, a large governmental agency might, for some reason, want to step in and aid the character at times.\n\nGenerally, the character can get minor assistance - as could be gotten from Contacts (R1) or Contacts (R2) - on a fairly regular basis - and under the same sort of circumstances as having lower versions of Contacts - but “the big stuff” only happens when the gamemaster thinks it appropriate. The character might get killed before the Contacts (R4) intervenes - maybe the character just wasn’t doing something the Contact felt was important to it - but, most likely, assistance come, though perhaps at the last minute.\n\nRestrictions/Notes: Players’ characters should take this option only if they want to take Disadvantages relating to it. For example, if a character in a space opera campaign wants to have a group of super scientists who like him and will supply him with substantial aid on a regular basis (like a space ranger who gets outfitted with new equipment at the beginning of every adventure and who can call for more during certain times in the adventure), then he should take Disadvantages that relate to that. The character could be a member of an organization (see the Disadvantage Employed), or he must do reciprocating favors for the providing company (see the Disadvantage Price), or there are equally powerful people who want to eliminate him because of his contacts (see the Disadvantage Enemy).\n\nIf the character does not want to take extensive Disadvantages relating to the contact, then Contacts (R4) should be unpredictable and not always useful. For example, the company might provide the character with plenty of extraordinary equipment, but it might not always be what the character needs or might not work correctly all of the time."
     },
     {
@@ -56,6 +63,7 @@
       "name": "Cultures",
       "rank": 1,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "This is another advantage that can be utilized in more than one way. The ﬁrst way is the simplest. The character has knowledge of a particular (usually unusual) culture that he can use to his beneﬁt when among people of that culture. This acts both as a knowledge (scholar) type skill and as a bonus (usually +1) to interaction in that culture.\n\nExample: A character in a pulp ﬁction game setting might have Cultures (R1) pertaining to a certain Amazonian tribe. When the character goes on an adventure in the Amazon, chances are good he will get help from that tribe in his activities instead of being attacked as a stranger or trespasser and ending up with his head on a pike.\n\nThe second way Cultures (R1) can be used is a little more wide-sweeping. The character has a knack for drawing parallels between unknown/unusual and known cultures. For example, the character might be able to ﬁgure out why certain religious taboos exist in a society she’s just met. These should just be bursts of culture-related intuition that the Game Master supplies occasionally — the player can only remind the Game Master her character has this ability and hope the Game Master feels the situation is appropriate.\n\nRestrictions/Notes: A character with Cultures (R1) has about the level of knowledge of a frequent tourist — no more. Unless the character has skills like streetwise, languages, and other supporting skills, he acts as if he has visited the culture and learned a decent amount about their ways, but he is deﬁnitely an outsider. This advantage may be taken more than once for different cultures.\n\nIn the second example, the character has absolutely no control over her ability and only gains very limited insights — though sometimes at critical moments. The character cannot “call upon” this knowledge. This version of the advantage may not be taken more than once, but it may be combined with the other type of Cultures at any rank.\n\nIn both cases, the character’s background must reﬂect the “special insight” he has into the culture or cultural trends."
     },
     {
@@ -63,6 +71,7 @@
       "name": "Cultures",
       "rank": 2,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "This option can be used pretty much like Cultures (R1), only on a larger scale. Instead of choosing a small, unusual culture, the character might choose an “alien” culture (one totally different from his own) and gain an understanding of it comparable to the understanding in Cultures (R1). Or, he could choose to learn more about a relatively small cultural group (to the point where the character would be accepted as one who has spent a lot of time with the people). The last option, the sweeping cultural understanding, would also be much more in-depth. The character would be able to call on cultural parallels much more often and the Game Master should give more information.\n\nRestrictions/Notes: The same as for Cultures (R1), but the character has about the level of knowledge of an outsider who has lived in the culture for a while. Either that, or he would get more useful information on alien cultures or “sweeping” cultural examinations."
     },
     {
@@ -70,6 +79,7 @@
       "name": "Cultures",
       "rank": 3,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "The character is either a native of an unusual culture or has the knowledge and the respect as if she were one. A person who has lived a signiﬁcant portion of her life in a culture and has that sort of understanding of it would have Cultures (R3) — only the character is actually a part of the game setting’s dominant culture as well.\n\nIf an alien culture can be, and is, selected, then the character has an extreme familiarity with it. Alternatively, the character might be something of a cultural anthropologist — the character can observe a particular culture for a brief time and have a very good (Game Master-controlled) chance of understanding the culture on a respectable level.\n\nRestrictions/Notes: As with Cultures (R1) and (R2), the character must choose what sort of cultural familiarity to have. Also, there must be a compelling reason the character has this familiarity or understanding. Finally, if the character chooses to be a “native” of a particular culture, she should probably have to learn language: (the culture’s major language) at least +1D."
     },
     {
@@ -77,6 +87,7 @@
       "name": "Cultures",
       "rank": 4,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "This selection should be taken only if the game setting employs the use of alien cultures (those not totally understood by the dominant culture). The character understands the alien culture and can interact within it — he is still an alien to it, but he is treated better than any other outsider (most likely).\n\nExample: In a game setting where “aliens live among us,” the character is a Human member of secret society that keeps the aliens hidden. But, because of something in his background history, he can interact with certain types of aliens and he can understand their ways. This doesn’t mean he’s friends with them, but he has a better chance of interacting with them, ﬁguring them out, and outsmarting their “alien logic” than other characters.\n\nRestrictions/Notes: The character should have related disadvantages, and there has to be some extensive background description telling why the character has this advantage. Otherwise, see the other entries regarding Cultures."
     },
     {
@@ -84,6 +95,7 @@
       "name": "Equipment",
       "rank": 1,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "The character gains a piece of equipment he would not normally have because it is too expensive or “unavailable,” but only if it is allowable under the game setting. For instance, a character could start the game with a small laser pistol, but not a mini rocket launcher — unless the gamemaster runs a lawless setting, as the latter is quite powerful, it should be generally unavailable for civilian use and even characters with military backgrounds should have to take the Equipment (R2) Advantage to get it. Alternatively, the character could take lots of little pieces of equipment instead — more than what the gamemaster would normally allow. Basically, equipment totaling in cost not more than about 1,000 credits (or a price difficulty of Moderate) would fit in this category.\n\nRestrictions/Notes: Typically, as long as the character is not careless with it, Equipment taken with any rank of this Advantage is replaceable, unless the Burn-out Disadvantage is included with it. Equipment (R1) may be selected more than once or in combination with higher ranks of the Equipment Advantage with gamemaster approval."
     },
     {
@@ -91,6 +103,7 @@
       "name": "Equipment",
       "rank": 2,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "The character gains a piece of equipment that would be difficult to obtain because of expense or availability. Weapons that are usually out of reach of the normal citizen are available. Similarly, equipment totaling in cost not more than several thousand credits (or a price difficulty of Difficult) would probably be okay. In game settings that have rare alien technology, objects of fairly low power probably could be obtained using this Advantage.\n\nRestrictions/Notes: See Equipment (R1) for more information.\n\nEquipment (R2) may be selected more than once or in combination with higher ranks of the Equipment Advantage with gamemaster approval."
     },
     {
@@ -98,6 +111,7 @@
       "name": "Equipment",
       "rank": 3,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "Items of equipment that are normally unavailable to just about anyone can be picked up using this Advantage. Any one item on any equipment chart can be selected, or the gamemaster can make up a “special” item that has unusual effects or Special Abilities. Alternatively, they can just be really expensive or virtually unavailable items.\n\nEquipment totaling a few tens of thousands of dollars (or a price difficulty of Heroic) falls under this category.\n\nRestrictions/Notes: The gamemaster should watch this Advantage carefully. It can only be selected once at character creation though the Rank 1 and Rank 2 versions can also be selected — but it can still unbalance a beginning character. Generally, things that can be taken away fairly easily — like energyswords, military hardware, super-science gadgets, and other related equipment — would be suitably appropriate for characters with minimal experience."
     },
     {
@@ -105,6 +119,7 @@
       "name": "Equipment",
       "rank": 4,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "Really bizarre and, most likely, powerful equipment is open to the character — but only one such piece or a collection of small, related pieces. For very powerful items, no one else can use the equipment without making some sort of exhaustive skill total, and it can probably not be repaired or duplicated. “Special effects” equipment fits into this category.\n\nThe equipment could be a weapon more powerful than most personal weapons in the game setting. Or it could be a Metaphysics manipulation that could not normally be used by the character or anyone else in the world at its relatively low difficulty. Or it could be a collection of gadgets and gizmos that can perform many different mundane tasks — but how, nobody knows.\n\nRestrictions/Notes: The character should have Disadvantages related to the equipment. Maybe Enemies want to steal it, or it has an Advantage Flaw so it doesn’t work all the time — or the same way every time. In addition, the equipment should not make the character so powerful that opponents fall before him. In game mechanic terms, the equipment should be a just slightly more powerful or more useful item than what is available normally. The more powerful the item, the more Disadvantages and restrictions should be related to it.\n\nExample: A player might choose to give her character an average blaster and increase the damage score by two points. As this is a modest adjustment, her gamemaster also allows the gun to never need reloading."
     },
     {
@@ -112,6 +127,7 @@
       "name": "Fame",
       "rank": 1,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "The character, for some reason, is fairly well known. The extent of the character’s fame should be determined by the game setting. In a global game setting, the character has moderate recognition value in a particular region. In a smaller game setting (like post-nuclear war settings restricted to one planet), the character might have more dense penetration of recognition, but with less wide-sweeping effects (for instance, everyone in town knows who they are, but no one from more than a few days’ travel away has ever heard of them).\n\nWhenever the gamemaster thinks the character might be recognized (and the Fame Advantage would come into play), the gamemaster should roll 3D. If the result is 15 or higher, the character is recognized. Otherwise, he will have to do something “special” and appropriate for why he’s famous to be recognized (and gain the benefits of recognition).\n\nIf a character with Fame (R1) is recognized, he should gain small perks, like being seated in a restaurant early, avoiding small legal hassles (like routine customs checks), or just be treated generally better (perhaps the character gets a couple of bonus points to persuasion, con, and command attempts). Like most roleplayed Advantages, the gamemaster should decide on the results.\n\nRestrictions/Notes: Fame may be chosen multiple times as long as the player defines how each Fame is different. For example, a character might have Fame (R1) in regards to his fighting abilities, but another type of Fame pertaining to his intelligence or some other ability."
     },
     {
@@ -119,6 +135,7 @@
       "name": "Fame",
       "rank": 2,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "The character is very well known. In a global setting, the character would probably be recognized in most fairly civilized cultures and almost definitely in her home culture. The gamemaster should roll 3D and, on a 15 or higher, a person from another culture recognizes the person and react (usually favorably). In the character’s own culture, this reaction comes on an 8 or more. If the character draws attention to herself in her own culture (identifies herself ), then the reaction will most likely be automatic (gamemaster’s option).\n\nRestrictions/Notes: At this level of fame, the character should be treated like a famous author, an occasional holo-vid star, or a reasonably recognizable sports figure. Some gamemaster characters will be immune to this fame, but most will have some sort of (generally positive) reaction.\n\nOtherwise, see Fame (R1) for more information."
     },
     {
@@ -126,6 +143,7 @@
       "name": "Fame",
       "rank": 3,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "There is a pretty good chance anyone in the game setting (unless it is a multi-world setting) will recognize the character (or what the character is) fairly easily. The base die total needed is 8, and it can be modified by circumstance. The character has the status of a holo-vid star, a famous politician, or a top-ranked sports hero.\n\nRestrictions/Notes: As with Fame (R1) and Fame (R2) — certain people just won’t be impressed. In addition, characters with Fame (R3) should almost always have to take the Disadvantage Infamy at least Rank 1 — no matter how nice, talented, or generally well-liked a person is, there’s always somebody out there who wishes them harm."
     },
     {
@@ -133,6 +151,7 @@
       "name": "Familiar",
       "rank": 1,
       "multipleRanks": true,
+      "totalRanks": 1,
       "description": "You have a small, intelligent alien creature for a companion that is somehow linked to you. The familiar has a move of 18, can speak your language (or perhaps communicate telepathically), and has 60 starting creation points.  Every rank beyond the first increases the starting creation points of the familiar by 5."
     },
     {
@@ -140,6 +159,7 @@
       "name": "Patron",
       "rank": 1,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "The odds are that most players’ characters are not independently wealthy. But they might have access to wealth in the form of patrons.\n\nIf the characters are treasure hunters, patrons might include museums, universities, private philanthropists, news agencies, megacorporations, or even retired adventurers.\n\nPatron (R1) means the character has a backer who will fund one expedition, with all proceeds going to the patron. All of the costs (room, board, travel, expenses) are covered by the patron, with the understanding that the player’s character is basically just a worker-forhire.\n\nAnything that the adventurer discovers or purchases becomes the property of the patron."
     },
     {
@@ -147,6 +167,7 @@
       "name": "Patron",
       "rank": 2,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "A Patron (R2) expects much less from those she backs. Though the character may receive less financial support, she gains a greater freedom of action.\n\nA news agency looking for hot stories is a common example of an organization qualifying for Patron (R2). They cover a character’s travel expenses and any legal fees in exchange for inspiring stories. Anything that the character finds on his own (like artifacts) remain his own."
     },
     {
@@ -154,6 +175,7 @@
       "name": "Patron",
       "rank": 3,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "A Patron (R3) gives a character a limited stipend and covers most expenses, then offers to purchase whatever the character recovers.\n\nWithout consistent results, the funding will be cut off."
     },
     {
@@ -161,6 +183,7 @@
       "name": "Size",
       "rank": 1,
       "multipleRanks": true,
+      "totalRanks": 1,
       "description": "The character is much larger or smaller than the average Human. For every rank in this advantage, the player receives +3 to his character’s scale modiﬁer (which starts at zero). The player must specify whether the character is bigger or littler than the average Human.\n\nRestrictions/Notes: Generally, the character’s weight is proportional for his height, but a disadvantage, such as Hindrance: Reduced Toughness, or a special ability, such as Hardiness, could be used to represent a very thin or very large character (respectively). Likewise, to reﬂect a longer stride, the character should have the Hypermovement special ability, while a shorter stride would get the Hindrance: Shorter Stride disadvantage."
     },
     {
@@ -168,6 +191,7 @@
       "name": "Trademark Specialization",
       "rank": 1,
       "multipleRanks": false,
+      "totalRanks": 1,
       "description": "This Advantage works a lot like a combination of the Skill Bonus Special Ability and Fame. The character excels at one very specific thing, and he is known for it. Choose any specialization that the character has (or would like to have in the future), and the character gains +2D to the roll when it is used. In addition, when the character uses it, at the gamemaster’s option, people acknowledge how “naturally good” the character is at the specialization, and this might produce interesting situations. Also, the character might be contacted or recognized by certain people because of how good he is at that one specialization.\n\nRestrictions/Notes: This character acts as if trained in the use of this skill. No character may have more than two Trademark Specializations."
     },
     {
@@ -175,6 +199,7 @@
       "name": "Wealth",
       "rank": 1,
       "multipleRanks": true,
+      "totalRanks": 1,
       "description": "The character with this Advantage probably has an estate or a series of investments that will keep him comfortable for a good long time. Alternatively, the character could be minor nobility, have a large trust fund, or be married to the owner of a large corporation. This doesn’t mean the character can buy everything — he is still subject to the availability of items.\n\nFor each rank in this Advantage, the characters has 250,000 credits in readily available cash once per month. The accounts never have more than 250,000 credits times the number of ranks each month (fees and living expenses keep it to that level); the amount could be less by the end of the month. Additionally, adventure bonuses could temporarily raise the figure, though the character would have to purchase an additional rank of Wealth to make the increase permanent. Players in games using the Funds attribute gain +2 per rank to all such totals.\n\nRestrictions/Notes: Characters should select only one rank of Wealth, unless there is some reason they might have Wealth (R1) and another rank of Wealth in other circumstances. Also, this wealth does not always help and disappears if misused (and it should be a major concern to the character at times), but it should be there most of the time. Gamemasters will probably think of ways to work around wealth and players should play along — if you can throw money at every problem, then they aren’t that much fun to try to solve, are they? The most likely Disadvantage a character with Wealth would have is Devotion, such as “helping all those in need” or “righting all wrong doing.” Otherwise, there should be fairly extensive reasons why the character can’t use his wealth to resolve every situation — or hire somebody to do it for him (which is really the same thing)."
     }
   ]

@@ -307,11 +307,11 @@ class BuilderScreen extends Component {
                     <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
                         <Text style={styles.heading}>Advantages</Text>
                     </View>
-                    <View style={{flex: 1, paddingTop: 20, justifyContent: 'space-around', alignItems: 'flex-end'}}>
+                    <View style={{flex: 1, paddingTop: 20, justifyContent: 'space-around', alignItems: 'center'}}>
                         <Icon
                             type='FontAwesome'
                             name='gear'
-                            style={[styles.grey, {fontSize: 30}]}
+                            style={[styles.grey, {fontSize: 30, color: '#00ACED'}]}
                             onPress={() => this.props.navigation.navigate('Advantages')}
                         />
                     </View>
@@ -319,12 +319,12 @@ class BuilderScreen extends Component {
                 <List>
                     {this.props.character.advantages.advantages.map((advantage, index) => {
                         return (
-                            <ListItem key={'advantage' + advantage.id}>
+                            <ListItem key={'advantage' + index} noIndent>
                                 <Left>
                                     <Text style={styles.grey}>{advantage.name}</Text>
                                 </Left>
                                 <Right>
-                                    <Text style={styles.grey}>R{advantage.rank}</Text>
+                                    <Text style={styles.grey}>R{(advantage.multipleRanks ? advantage.totalRanks : advantage.rank)}</Text>
                                 </Right>
                             </ListItem>
                         );

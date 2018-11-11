@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import { Container, Content, Button, Text, Item, Input, Picker, Form, Label } from 'native-base';
 import Modal from "react-native-modal";
+import ErrorMessage from './ErrorMessage';
 import styles from '../Styles';
 
 export const DIALOG_TYPE_TEXT = 1;
@@ -38,23 +39,11 @@ export default class AttributeDialog extends Component {
         }
     }
 
-    _renderErrorMessage() {
-        if (this.props.errorMessage === null) {
-            return null;
-        }
-
-        return (
-            <View style={localStyles.errorMessage}>
-                <Text style={{color: '#bc1212', alignSelf: 'center'}}>{this.props.errorMessage}</Text>
-            </View>
-        );
-    }
-
     _renderEditDieCode() {
         return (
             <View style={localStyles.modalContent}>
                 <Text style={[styles.heading, {paddingTop: 0}]}>Edit {this.props.identifier}</Text>
-                {this._renderErrorMessage()}
+                <ErrorMessage errorMessage={this.props.errorMessage} />
                 <View style={localStyles.rowStart}>
                     <View style={localStyles.row}>
                         <Text style={styles.grey}>Base</Text>

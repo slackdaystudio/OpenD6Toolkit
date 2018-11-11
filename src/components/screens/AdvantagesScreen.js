@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Platform, StyleSheet, View, TouchableHighlight, BackHandler, Alert } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Toast } from 'native-base';
 import Header from '../Header';
+import RanksDialog from '../RanksDialog';
 import styles from '../../Styles';
 import { character } from '../../lib/Character';
 import { addAdvantage } from '../../../reducer';
@@ -22,8 +23,13 @@ class AdvantagesScreen extends Component {
 
         this.state = {
             advantages: this._initAdvantages(advantages),
-            advantageShow: this._initAttributesShow(advantages)
+            advantageShow: this._initAttributesShow(advantages),
+            selectedAdvantage: null,
+            showRanksDialog: false
         }
+
+        this.addAdvantageToCharacter = this._addAdvantageToCharacter.bind(this);
+        this.closeRanksDialog = this._closeRanksDialog.bind(this);
     }
 
     componentDidMount() {
@@ -62,12 +68,30 @@ class AdvantagesScreen extends Component {
     }
 
     _addAdvantage(advantage) {
+        if (advantage.multipleRanks) {
+            this.setState({
+                selectedAdvantage: advantage,
+                showRanksDialog: true
+            });
+        } else {
+            this._addAdvantageToCharacter(advantage);
+        }
+    }
+
+    _addAdvantageToCharacter(advantage) {
         this.props.addAdvantage(advantage);
 
         Toast.show({
-            text: 'Advantage has been added',
+            text: advantage.name + ' has been added',
             position: 'bottom',
             buttonText: 'OK'
+        });
+    }
+
+    _closeRanksDialog() {
+        this.setState({
+            selectedAdvantage: null,
+            showRanksDialog: false
         });
     }
 
@@ -87,10 +111,11 @@ class AdvantagesScreen extends Component {
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
                 <View style={styles.rowStart}>
-                    <View style={{flex: 1, paddingTop: 20, justifyContent: 'space-around', alignItems: 'flex-start'}}>
+                    <View style={{flex: 1, paddingTop: 20, justifyContent: 'space-around', alignItems: 'center'}}>
                         <Icon
-                            name='arrow-back'
-                            style={[styles.grey, {fontSize: 30}]}
+                            type='FontAwesome'
+                            name='arrow-circle-left'
+                            style={[styles.grey, {fontSize: 30, color: '#00ACED'}]}
                             onPress={() => this.props.navigation.navigate('Builder')}
                         />
                     </View>
@@ -121,6 +146,12 @@ class AdvantagesScreen extends Component {
                     )
                 })}
                 <View style={{paddingBottom: 20}} />
+                <RanksDialog
+                    visible={this.state.showRanksDialog}
+                    item={this.state.selectedAdvantage}
+                    onSave={this.addAdvantageToCharacter}
+                    onClose={this.closeRanksDialog}
+                />
             </Content>
 	      </Container>
 		);
