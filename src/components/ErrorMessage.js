@@ -4,7 +4,7 @@ import { StyleSheet, View, } from 'react-native';
 import { Text} from 'native-base';
 import styles from '../Styles';
 
-export default class AttributeDialog extends Component {
+export default class ErrorMessage extends Component {
     static propTypes = {
         errorMessage: PropTypes.string
     }

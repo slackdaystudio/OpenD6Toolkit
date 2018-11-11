@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert } from 'react-native';
 import { Container, Content, Button, Text, Picker, Item, Input, List, ListItem, Left, Right, Icon} from 'native-base';
 import Header from '../Header';
-import AttributeDialog, { DIALOG_TYPE_TEXT, DIALOG_TYPE_DIE_CODE} from '../AttributeDialog';
+import AttributeDialog from '../AttributeDialog';
+import InfoDialog from '../InfoDialog';;
 import Appearance from '../builder/Appearance';
 import styles from '../../Styles';
 import { updateRoller, updateCharacterDieCode, updateAppearance } from '../../../reducer';
-
 
 class BuilderScreen extends Component {
     static propTypes = {
@@ -23,17 +23,20 @@ class BuilderScreen extends Component {
         super(props);
 
         this.state = {
-            dialog: {
+            attributeDialog: {
+                visible: false
+            },
+            infoDialog: {
                 visible: false,
-                type: DIALOG_TYPE_TEXT,
-                info: '',
+                info: ''
             },
             dieCode: this._initDieCode(),
             attributeShow: this._initAttributeShow(props)
         }
 
         this.toggleAttributeShow = this._toggleAttributeShow.bind(this);
-        this.close = this._closeDialog.bind(this);
+        this.closeAttributeDialog = this._closeAttributeDialog.bind(this);
+        this.closeInfoDialog = this._closeInfoDialog.bind(this);
         this.save = this._save.bind(this);
         this.updateDice = this._updateDice.bind(this);
         this.updateModifierDice = this._updateModifierDice.bind(this);
@@ -72,8 +75,7 @@ class BuilderScreen extends Component {
 
     _editDieCode(identifier, dieCode) {
         let newState = {...this.state};
-        newState.dialog.visible = true;
-        newState.dialog.type = DIALOG_TYPE_DIE_CODE;
+        newState.attributeDialog.visible = true;
         newState.dieCode.identifier = identifier;
         newState.dieCode.dice = dieCode.dice;
         newState.dieCode.modifierDice = dieCode.modifierDice;
@@ -86,10 +88,9 @@ class BuilderScreen extends Component {
     _showInfo(identifier) {
         let infoFound = false;
         let newState = {...this.state};
-        newState.dialog.visible = true;
-        newState.dialog.type = DIALOG_TYPE_TEXT;
+        newState.infoDialog.visible = true;
         newState.dieCode.identifier = identifier;
-        newState.dialog.info = this.props.character.getTemplateSkillOrAttribute(identifier).description;
+        newState.infoDialog.info = this.props.character.getTemplateSkillOrAttribute(identifier).description;
 
         this.setState(newState);
     }
@@ -187,10 +188,17 @@ class BuilderScreen extends Component {
         this.setState(newState);
     }
 
-    _closeDialog() {
+    _closeAttributeDialog() {
         let newState = {...this.state}
-        newState.dialog.visible = false;
+        newState.attributeDialog.visible = false;
         newState.dieCode = this._initDieCode();
+
+        this.setState(newState);
+    }
+
+    _closeInfoDialog() {
+        let newState = {...this.state}
+        newState.infoDialog.visible = false;
 
         this.setState(newState);
     }
@@ -216,7 +224,7 @@ class BuilderScreen extends Component {
             }
 
             this.props.updateCharacterDieCode(this.state.dieCode);
-            this.close();
+            this.closeAttributeDialog();
         });
     }
 
@@ -344,21 +352,25 @@ class BuilderScreen extends Component {
                     {this._renderAdvantages()}
                     <View style={{paddingBottom: 20}} />
                     <AttributeDialog
-                        visible={this.state.dialog.visible}
-                        type={this.state.dialog.type}
+                        visible={this.state.attributeDialog.visible}
                         identifier={this.state.dieCode.identifier}
                         dice={this.state.dieCode.dice.toString()}
                         modifierDice={this.state.dieCode.modifierDice.toString()}
                         pips={this.state.dieCode.pips}
                         modifierPips={this.state.dieCode.modifierPips}
-                        info={this.state.dialog.info}
                         errorMessage={this.state.dieCode.errorMessage}
-                        close={this.close}
+                        close={this.closeAttributeDialog}
                         onSave={this.save}
                         onUpdateDice={this.updateDice}
                         onUpdateModifierDice={this.updateModifierDice}
                         onUpdatePips={this.updatePips}
                         onUpdateModifierPips={this.updateModifierPips}
+                    />
+                    <InfoDialog
+                        visible={this.state.infoDialog.visible}
+                        identifier={this.state.dieCode.identifier}
+                        info={this.state.infoDialog.info}
+                        onClose={this.closeInfoDialog}
                     />
                 </Content>
 	        </Container>

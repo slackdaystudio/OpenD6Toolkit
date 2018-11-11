@@ -6,10 +6,6 @@ import Modal from "react-native-modal";
 import ErrorMessage from './ErrorMessage';
 import styles from '../Styles';
 
-export const DIALOG_TYPE_TEXT = 1;
-
-export const DIALOG_TYPE_DIE_CODE = 2;
-
 export default class RanksDialog extends Component {
     static propTypes = {
         visible: PropTypes.bool.isRequired,

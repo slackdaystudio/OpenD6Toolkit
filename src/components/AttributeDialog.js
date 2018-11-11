@@ -6,20 +6,14 @@ import Modal from "react-native-modal";
 import ErrorMessage from './ErrorMessage';
 import styles from '../Styles';
 
-export const DIALOG_TYPE_TEXT = 1;
-
-export const DIALOG_TYPE_DIE_CODE = 2;
-
 export default class AttributeDialog extends Component {
     static propTypes = {
         visible: PropTypes.bool.isRequired,
-        type: PropTypes.number.isRequired,
         identifier: PropTypes.string.isRequired,
         dice: PropTypes.string,
         modifierDice: PropTypes.string,
         pips: PropTypes.number,
         modifierPips: PropTypes.number,
-        info: PropTypes.string,
         errorMessage: PropTypes.string,
         close: PropTypes.func,
         onSave: PropTypes.func,
@@ -122,20 +116,6 @@ export default class AttributeDialog extends Component {
         );
     }
 
-    _renderInfo() {
-        return (
-            <View style={localStyles.modalContent}>
-                <Text style={[styles.heading, {paddingTop: 0}]}>{this.props.identifier}</Text>
-                <Text style={styles.grey}>{this.props.info}</Text>
-                <View style={styles.buttonContainer}>
-                    <Button block style={styles.button} onPress={() => this.props.close()}>
-                        <Text uppercase={false}>Close</Text>
-                    </Button>
-                </View>
-            </View>
-        );
-    }
-
 	render() {
         return (
             <Modal
@@ -145,7 +125,7 @@ export default class AttributeDialog extends Component {
                 onBackButtonPress={() => this.props.close()}
                 onBackdropPress={() => this.props.close()}
             >
-                {this.props.type === DIALOG_TYPE_DIE_CODE ? this._renderEditDieCode() : this._renderInfo()}
+                {this._renderEditDieCode()}
             </Modal>
         );
 	}
