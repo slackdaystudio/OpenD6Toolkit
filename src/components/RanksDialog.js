@@ -23,6 +23,12 @@ export default class RanksDialog extends Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.item !== null && prevProps.item !== this.props.item) {
+            this.setState({totalRanks: this.props.item.totalRanks});
+        }
+    }
+
     _incrementRanks() {
         let newRanks = this.state.totalRanks + 1;
 

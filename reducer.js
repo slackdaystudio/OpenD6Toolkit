@@ -12,6 +12,8 @@ export const UPDATE_APPEARANCE = 'UPDATE_APPEARANCE';
 
 export const ADD_ADVANTAGE = 'ADD_ADVANTAGE';
 
+export const UPDATE_ADVANTAGE = 'UPDATE_ADVANTAGE';
+
 export function updateRoller(dice, pips) {
     return {
         type: UPDATE_ROLLER,
@@ -49,6 +51,13 @@ export function updateAppearance(key, value) {
 export function addAdvantage(advantage) {
     return {
         type: ADD_ADVANTAGE,
+        payload: advantage
+    };
+}
+
+export function updateAdvantage(advantage) {
+    return {
+        type: UPDATE_ADVANTAGE,
         payload: advantage
     };
 }
@@ -116,6 +125,27 @@ export default function reducer(state = initialState, action) {
             };
 
             newState.builder.character.advantages.advantages.push(action.payload);
+
+            return newState;
+        case UPDATE_ADVANTAGE:
+            newState = {
+                ...state,
+                builder: {
+                    ...state.builder,
+                    character: {
+                        ...state.builder.character,
+                        advantages: {
+                            ...state.builder.character.advantages
+                        }
+                    }
+                }
+            };
+
+            for (let advantage of newState.builder.character.advantages.advantages) {
+                if (advantage.id === action.payload.id) {
+                    advantage.totalRanks = action.payload.totalRanks;
+                }
+            }
 
             return newState;
         default:

@@ -5,10 +5,11 @@ import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert } fro
 import { Container, Content, Button, Text, Picker, Item, Input, List, ListItem, Left, Right, Icon} from 'native-base';
 import Header from '../Header';
 import AttributeDialog from '../AttributeDialog';
-import InfoDialog from '../InfoDialog';;
+import InfoDialog from '../InfoDialog';
+import RanksDialog from '../RanksDialog';
 import Appearance from '../builder/Appearance';
 import styles from '../../Styles';
-import { updateRoller, updateCharacterDieCode, updateAppearance } from '../../../reducer';
+import { updateRoller, updateCharacterDieCode, updateAppearance, updateAdvantage } from '../../../reducer';
 
 class BuilderScreen extends Component {
     static propTypes = {
@@ -16,7 +17,8 @@ class BuilderScreen extends Component {
         character: PropTypes.object.isRequired,
         updateRoller: PropTypes.func.isRequired,
         updateCharacterDieCode: PropTypes.func.isRequired,
-        updateAppearance: PropTypes.func.isRequired
+        updateAppearance: PropTypes.func.isRequired,
+        updateAdvantage: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -28,7 +30,12 @@ class BuilderScreen extends Component {
             },
             infoDialog: {
                 visible: false,
+                title: '',
                 info: ''
+            },
+            ranksDialog: {
+                visible: false,
+                item: null
             },
             dieCode: this._initDieCode(),
             attributeShow: this._initAttributeShow(props)
@@ -37,11 +44,13 @@ class BuilderScreen extends Component {
         this.toggleAttributeShow = this._toggleAttributeShow.bind(this);
         this.closeAttributeDialog = this._closeAttributeDialog.bind(this);
         this.closeInfoDialog = this._closeInfoDialog.bind(this);
+        this.closeRanksDialog = this._closeRanksDialog.bind(this);
         this.save = this._save.bind(this);
         this.updateDice = this._updateDice.bind(this);
         this.updateModifierDice = this._updateModifierDice.bind(this);
         this.updatePips = this._updatePips.bind(this);
         this.updateModifierPips = this._updateModifierPips.bind(this);
+        this.updateAdvantage = this._updateAdvantage.bind(this);
     }
 
     _initDieCode() {
@@ -85,12 +94,33 @@ class BuilderScreen extends Component {
         this.setState(newState);
     }
 
-    _showInfo(identifier) {
-        let infoFound = false;
+    _showAttributeInfo(identifier) {
         let newState = {...this.state};
         newState.infoDialog.visible = true;
         newState.dieCode.identifier = identifier;
+        newState.infoDialog.title = identifier;
         newState.infoDialog.info = this.props.character.getTemplateSkillOrAttribute(identifier).description;
+
+        this.setState(newState);
+    }
+
+    _showAdvantageInfo(advantage) {
+        let newState = {...this.state};
+        newState.infoDialog.visible = true;
+        newState.infoDialog.title = advantage.name + ' R' + (advantage.multipleRanks ? advantage.totalRanks : advantage.rank);
+        newState.infoDialog.info = advantage.description;
+
+        this.setState(newState);
+    }
+
+    _showRanksPicker(advantage) {
+        if (!advantage.multipleRanks) {
+            return;
+        }
+
+        let newState = {...this.state};
+        newState.ranksDialog.visible = true;
+        newState.ranksDialog.item = advantage;
 
         this.setState(newState);
     }
@@ -188,6 +218,12 @@ class BuilderScreen extends Component {
         this.setState(newState);
     }
 
+    _updateAdvantage(advantage) {
+        this.props.updateAdvantage(advantage);
+
+        this._closeRanksDialog();
+    }
+
     _closeAttributeDialog() {
         let newState = {...this.state}
         newState.attributeDialog.visible = false;
@@ -199,6 +235,13 @@ class BuilderScreen extends Component {
     _closeInfoDialog() {
         let newState = {...this.state}
         newState.infoDialog.visible = false;
+
+        this.setState(newState);
+    }
+
+    _closeRanksDialog() {
+        let newState = {...this.state}
+        newState.ranksDialog.visible = false;
 
         this.setState(newState);
     }
@@ -244,7 +287,7 @@ class BuilderScreen extends Component {
                                 <Left>
                                     <TouchableHighlight
                                         onPress={() => this.toggleAttributeShow(attribute.name)}
-                                        onLongPress={() => this._showInfo(attribute.name)}
+                                        onLongPress={() => this._showAttributeInfo(attribute.name)}
                                     >
                                         <Text style={[styles.boldGrey, localStyles.big]}>
                                             {attribute.name}
@@ -282,7 +325,7 @@ class BuilderScreen extends Component {
                             <List key={'skill-' + index} style={{paddingLeft: 20}}>
                                 <ListItem>
                                     <Left>
-                                        <TouchableHighlight onLongPress={() => this._showInfo(skill.name)}>
+                                        <TouchableHighlight onLongPress={() => this._showAttributeInfo(skill.name)}>
                                             <Text style={[styles.grey, {lineHeight: 30}]}>{'\t' + skill.name}</Text>
                                         </TouchableHighlight>
                                     </Left>
@@ -311,7 +354,6 @@ class BuilderScreen extends Component {
         return (
             <View>
                 <View style={styles.rowStart}>
-                    <View style={{flex: 1, alignItems: 'flex-end'}} />
                     <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
                         <Text style={styles.heading}>Advantages</Text>
                     </View>
@@ -329,10 +371,16 @@ class BuilderScreen extends Component {
                         return (
                             <ListItem key={'advantage' + index} noIndent>
                                 <Left>
-                                    <Text style={styles.grey}>{advantage.name}</Text>
+                                    <TouchableHighlight onPress={() => this._showAdvantageInfo(advantage)}>
+                                        <Text style={styles.grey}>{advantage.name}</Text>
+                                    </TouchableHighlight>
                                 </Left>
                                 <Right>
-                                    <Text style={styles.grey}>R{(advantage.multipleRanks ? advantage.totalRanks : advantage.rank)}</Text>
+                                    <TouchableHighlight onPress={() => this._showRanksPicker(advantage)}>
+                                        <Text style={styles.grey}>
+                                            R{(advantage.multipleRanks ? advantage.totalRanks : advantage.rank)}
+                                        </Text>
+                                    </TouchableHighlight>
                                 </Right>
                             </ListItem>
                         );
@@ -368,9 +416,15 @@ class BuilderScreen extends Component {
                     />
                     <InfoDialog
                         visible={this.state.infoDialog.visible}
-                        identifier={this.state.dieCode.identifier}
+                        title={this.state.infoDialog.title}
                         info={this.state.infoDialog.info}
                         onClose={this.closeInfoDialog}
+                    />
+                    <RanksDialog
+                        visible={this.state.ranksDialog.visible}
+                        item={this.state.ranksDialog.item}
+                        onSave={this.updateAdvantage}
+                        onClose={this.closeRanksDialog}
                     />
                 </Content>
 	        </Container>
@@ -394,7 +448,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     updateRoller,
     updateCharacterDieCode,
-    updateAppearance
+    updateAppearance,
+    updateAdvantage
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuilderScreen);
