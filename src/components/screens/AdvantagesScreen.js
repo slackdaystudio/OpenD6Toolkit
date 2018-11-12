@@ -80,6 +80,7 @@ class AdvantagesScreen extends Component {
         Toast.show({
             text: advantage.name + ' has been added',
             position: 'bottom',
+            textStyle: {color: '#00ACED'},
             buttonText: 'OK'
         });
     }

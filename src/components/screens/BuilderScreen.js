@@ -252,6 +252,7 @@ class BuilderScreen extends Component {
     _closeRanksDialog() {
         let newState = {...this.state}
         newState.ranksDialog.visible = false;
+        newState.ranksDialog.item = null;
 
         this.setState(newState);
     }
@@ -364,7 +365,8 @@ class BuilderScreen extends Component {
         return (
             <View>
                 <View style={styles.rowStart}>
-                    <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} />
+                    <View style={{flex: 4, justifyContent: 'center', alignItems: 'center'}}>
                         <Text style={styles.heading}>Advantages</Text>
                     </View>
                     <View style={{flex: 1, paddingTop: 20, justifyContent: 'space-around', alignItems: 'center'}}>

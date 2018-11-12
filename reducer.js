@@ -150,9 +150,10 @@ export default function reducer(state = initialState, action) {
                 }
             };
 
-            for (let advantage of newState.builder.character.advantages.advantages) {
-                if (advantage.id === action.payload.id) {
-                    advantage.totalRanks = action.payload.totalRanks;
+            for (let i = 0; i < newState.builder.character.advantages.advantages.length; i++) {
+                if (newState.builder.character.advantages.advantages[i].id === action.payload.id) {
+                    newState.builder.character.advantages.advantages[i] = {...action.payload};
+                    break;
                 }
             }
 

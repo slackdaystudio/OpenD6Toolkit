@@ -28,6 +28,8 @@ export default class RanksDialog extends Component {
             displayNote: '',
             errorMessage: null
         }
+
+        this.onDelete = this._onDelete.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -63,11 +65,16 @@ export default class RanksDialog extends Component {
     }
 
     _save() {
-        this.props.item.totalRanks = this.state.totalRanks;
-        this.props.item.displayNote = this.state.displayNote;
+        let newItem = {...this.props.item}
+        newItem.totalRanks = this.state.totalRanks;
+        newItem.displayNote = this.state.displayNote;
 
-        this.props.onSave(this.props.item);
+        this.props.onSave(newItem);
         this.props.onClose();
+    }
+
+    _onDelete() {
+        this.props.onDelete(this.props.item);
     }
 
     _renderFormControls() {
@@ -116,7 +123,7 @@ export default class RanksDialog extends Component {
 
     _renderDeleteButton() {
         let label = this.props.mode === MODE_EDIT ? 'Delete' : 'Close';
-        let action = this.props.mode === MODE_EDIT ? this.props.onDelete : this.props.onClose;
+        let action = this.props.mode === MODE_EDIT ? this.onDelete : this.props.onClose;
 
         if (action === null) {
             action = this.props.onClose;
@@ -124,7 +131,7 @@ export default class RanksDialog extends Component {
 
         return (
             <View style={[styles.buttonContainer, styles.row]}>
-                <Button block style={styles.modalButton} onPress={() => action(this.props.item)}>
+                <Button block style={styles.modalButton} onPress={() => action()}>
                     <Text uppercase={false}>{label}</Text>
                 </Button>
             </View>
