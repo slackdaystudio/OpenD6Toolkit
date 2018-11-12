@@ -26,7 +26,7 @@ class Sidebar extends Component {
           <List>
         	<ListItem onPress={() => this.props.navigation.navigate('Home')}>
 				<View>
-					<Image source={require('../../public/d6logo50-blue.png')} />
+					<Image source={require('../../public/d6_logo_Blue_60x60.png')} />
 				</View>
 	      	</ListItem>
          	<ListItem onPress={() => this.props.navigation.navigate('DieRoller')}>

@@ -17,7 +17,7 @@ export default class MyHeader extends Component {
                   <Left>
                     <View style={localStyles.logo}>
                         <TouchableHighlight underlayColor='#3da0ff' onPress={() => this.props.navigation.navigate('Home')}>
-                            <Image source={require('../../public/d6logo50-blue.png')} />
+                            <Image source={require('../../public/d6_logo_Blue_60x60.png')} />
                         </TouchableHighlight>
                     </View>
                   </Left>
