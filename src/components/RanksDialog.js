@@ -13,6 +13,7 @@ export const MODE_EDIT = 'EDIT';
 export default class RanksDialog extends Component {
     static propTypes = {
         visible: PropTypes.bool.isRequired,
+        optionKey: PropTypes.string.isRequired,
         item: PropTypes.object,
         mode: PropTypes.string.isRequired,
         onSave: PropTypes.func.isRequired,
@@ -69,12 +70,12 @@ export default class RanksDialog extends Component {
         newItem.totalRanks = this.state.totalRanks;
         newItem.displayNote = this.state.displayNote;
 
-        this.props.onSave(newItem);
+        this.props.onSave(this.props.optionKey, newItem);
         this.props.onClose();
     }
 
     _onDelete() {
-        this.props.onDelete(this.props.item);
+        this.props.onDelete(this.props.optionKey, this.props.item);
     }
 
     _renderFormControls() {

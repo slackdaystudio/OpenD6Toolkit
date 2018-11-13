@@ -1,6 +1,11 @@
 import { Alert } from 'react-native';
 
-import { TEMPLATE_FANTASY, character } from './src/lib/Character';
+import {
+    OPTION_ADVANTAGES,
+    OPTION_COMPLICATIONS,
+    TEMPLATE_FANTASY,
+    character
+} from './src/lib/Character';
 
 export const UPDATE_ROLLER = 'UPDATE_ROLLER';
 
@@ -10,11 +15,11 @@ export const UPDATE_CHARACTER_DIE_CODE = 'UPDATE_CHARACTER_DIE_CODE';
 
 export const UPDATE_APPEARANCE = 'UPDATE_APPEARANCE';
 
-export const ADD_ADVANTAGE = 'ADD_ADVANTAGE';
+export const ADD_OPTION = 'ADD_OPTION';
 
-export const UPDATE_ADVANTAGE = 'UPDATE_ADVANTAGE';
+export const UPDATE_OPTION = 'UPDATE_OPTION';
 
-export const REMOVE_ADVANTAGE = 'REMOVE_ADVANTAGE';
+export const REMOVE_OPTION = 'REMOVE_OPTION';
 
 export function updateRoller(dice, pips) {
     return {
@@ -50,24 +55,33 @@ export function updateAppearance(key, value) {
     };
 }
 
-export function addAdvantage(advantage) {
+export function addOption(optionKey, item) {
     return {
-        type: ADD_ADVANTAGE,
-        payload: advantage
+        type: ADD_OPTION,
+        payload: {
+            optionKey: optionKey,
+            item: item
+        }
     };
 }
 
-export function updateAdvantage(advantage) {
+export function updateOption(optionKey, item) {
     return {
-        type: UPDATE_ADVANTAGE,
-        payload: advantage
+        type: UPDATE_OPTION,
+        payload: {
+            optionKey: optionKey,
+            item: item
+        }
     };
 }
 
-export function removeAdvantage(advantage) {
+export function removeOption(optionKey, item) {
     return {
-        type: REMOVE_ADVANTAGE,
-        payload: advantage
+        type: REMOVE_OPTION,
+        payload: {
+            optionKey: optionKey,
+            item: item
+        }
     };
 }
 
@@ -83,6 +97,7 @@ initialState = {
 
 export default function reducer(state = initialState, action) {
     let newState = null
+    let optionKey = null;
 
     switch (action.type) {
         case UPDATE_ROLLER:
@@ -119,7 +134,8 @@ export default function reducer(state = initialState, action) {
             newState.builder.character[action.payload.key] = action.payload.value;
 
             return newState;
-        case ADD_ADVANTAGE:
+        case ADD_OPTION:
+            optionKey = action.payload.optionKey.toLowerCase();
             newState = {
                 ...state,
                 builder: {
@@ -128,15 +144,19 @@ export default function reducer(state = initialState, action) {
                         ...state.builder.character,
                         advantages: {
                             ...state.builder.character.advantages
+                        },
+                        complications: {
+                            ...state.builder.character.complications
                         }
                     }
                 }
             };
 
-            newState.builder.character.advantages.advantages.push(action.payload);
+            newState.builder.character[optionKey].items.push(action.payload.item);
 
             return newState;
-        case UPDATE_ADVANTAGE:
+        case UPDATE_OPTION:
+            optionKey = action.payload.optionKey.toLowerCase();
             newState = {
                 ...state,
                 builder: {
@@ -145,20 +165,24 @@ export default function reducer(state = initialState, action) {
                         ...state.builder.character,
                         advantages: {
                             ...state.builder.character.advantages
+                        },
+                        complications: {
+                            ...state.builder.character.complications
                         }
                     }
                 }
             };
 
-            for (let i = 0; i < newState.builder.character.advantages.advantages.length; i++) {
-                if (newState.builder.character.advantages.advantages[i].id === action.payload.id) {
-                    newState.builder.character.advantages.advantages[i] = {...action.payload};
+            for (let i = 0; i < newState.builder.character[optionKey].items.length; i++) {
+                if (newState.builder.character[optionKey].items[i].id === action.payload.item.id) {
+                    newState.builder.character[optionKey].items[i] = {...action.payload.item};
                     break;
                 }
             }
 
             return newState;
-       case REMOVE_ADVANTAGE:
+       case REMOVE_OPTION:
+            optionKey = action.payload.optionKey.toLowerCase();
             newState = {
                 ...state,
                 builder: {
@@ -167,6 +191,9 @@ export default function reducer(state = initialState, action) {
                         ...state.builder.character,
                         advantages: {
                             ...state.builder.character.advantages
+                        },
+                        complications: {
+                            ...state.builder.character.complications
                         }
                     }
                 }
@@ -174,15 +201,15 @@ export default function reducer(state = initialState, action) {
 
             let index = -1;
 
-            for (let i = 0; i < newState.builder.character.advantages.advantages.length; i++) {
-                if (newState.builder.character.advantages.advantages[i].id === action.payload.id) {
+            for (let i = 0; i < newState.builder.character[optionKey].items.length; i++) {
+                if (newState.builder.character[optionKey].items[i].id === action.payload.item.id) {
                     index = i;
                     break;
                 }
             }
 
             if (index > -1) {
-                newState.builder.character.advantages.advantages.splice(index, 1);
+                newState.builder.character[optionKey].items.splice(index, 1);
             }
 
             return newState;

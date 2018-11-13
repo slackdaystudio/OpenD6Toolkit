@@ -6,29 +6,31 @@ import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, 
 import Header from '../Header';
 import RanksDialog, { MODE_ADD } from '../RanksDialog';
 import styles from '../../Styles';
-import { character } from '../../lib/Character';
-import { addAdvantage } from '../../../reducer';
+import { character, OPTION_ADVANTAGES, OPTION_COMPLICATIONS } from '../../lib/Character';
+import { addOption } from '../../../reducer';
 
-class AdvantagesScreen extends Component {
+class CharacterOptionsScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         character: PropTypes.object.isRequired,
-        addAdvantage: PropTypes.func.isRequired
+        addOption: PropTypes.func.isRequired
     }
 
     constructor(props) {
         super(props);
 
-        let advantages = character.getAdvantages(props.character.advantages.templateId).advantages;
+        let optionKey = props.navigation.state.params.optionKey;
+        let options = character.getOptions(optionKey).items;
 
         this.state = {
-            advantages: this._initAdvantages(advantages),
-            advantageShow: this._initAttributesShow(advantages),
-            selectedAdvantage: null,
+            options: this._initOptions(options),
+            optionShow: this._initOptionsShow(options),
+            optionKey: optionKey,
+            selectedOption: null,
             showRanksDialog: false
         }
 
-        this.addAdvantageToCharacter = this._addAdvantageToCharacter.bind(this);
+        this.addOptionToCharacter = this._addOptionToCharacter.bind(this);
         this.closeRanksDialog = this._closeRanksDialog.bind(this);
     }
 
@@ -40,45 +42,45 @@ class AdvantagesScreen extends Component {
         });
     }
 
-    _initAdvantages(advantages) {
-        let advantagesList = [];
+    _initOptions(options) {
+        let optionsList = [];
 
-        advantages.map((advantage, index) => {
-            advantagesList.push(advantage);
+        options.map((option, index) => {
+            optionsList.push(option);
         });
 
-        return advantagesList;
+        return optionsList;
     }
 
-    _initAttributesShow(advantages) {
-        let advantageShow = {};
+    _initOptionsShow(options) {
+        let optionsShow = {};
 
-        advantages.map((advantage, index) => {
-            advantageShow[advantage.name + advantage.rank] = false
+        options.map((option, index) => {
+            optionsShow[option.name + option.rank] = false
         });
 
-        return advantageShow;
+        return optionsShow;
     }
 
     _toggleDescriptionShow(name, rank) {
         let newState = {...this.state};
-        newState.advantageShow[name + rank] = !newState.advantageShow[name + rank];
+        newState.optionShow[name + rank] = !newState.optionShow[name + rank];
 
         this.setState(newState);
     }
 
-    _addAdvantage(advantage) {
+    _addOption(item) {
         this.setState({
-            selectedAdvantage: advantage,
+            selectedOption: item,
             showRanksDialog: true
         });
     }
 
-    _addAdvantageToCharacter(advantage) {
-        this.props.addAdvantage(advantage);
+    _addOptionToCharacter(optionKey, item) {
+        this.props.addOption(optionKey, item);
 
         Toast.show({
-            text: advantage.name + ' has been added',
+            text: item.name + ', R' + (item.multipleRanks ? item.totalRanks : item.rank) + ' has been added',
             position: 'bottom',
             textStyle: {color: '#00ACED'},
             buttonText: 'OK'
@@ -87,15 +89,15 @@ class AdvantagesScreen extends Component {
 
     _closeRanksDialog() {
         this.setState({
-            selectedAdvantage: null,
+            selectedOption: null,
             showRanksDialog: false
         });
     }
 
-    _renderDescription(advantage) {
-        let description = advantage.description;
+    _renderDescription(item) {
+        let description = item.description;
 
-        if (this.state.advantageShow[advantage.name + advantage.rank]) {
+        if (this.state.optionShow[item.name + item.rank]) {
             return description;
         }
 
@@ -117,24 +119,24 @@ class AdvantagesScreen extends Component {
                         />
                     </View>
                     <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={styles.heading}>Advantages</Text>
+                        <Text style={styles.heading}>{this.state.optionKey}</Text>
                     </View>
                     <View style={{flex: 1, alignItems: 'flex-end'}} />
                 </View>
                 <View style={{paddingBottom: 20}} />
-                {this.state.advantages.map((advantage, index) => {
+                {this.state.options.map((option, index) => {
                     return (
                         <TouchableHighlight
-                            key={'advantage-' + index}
-                            onPress={() => this._toggleDescriptionShow(advantage.name, advantage.rank)}
-                            onLongPress={() => this._addAdvantage(advantage)}
+                            key={'option-' + index}
+                            onPress={() => this._toggleDescriptionShow(option.name, option.rank)}
+                            onLongPress={() => this._addOption(option)}
                         >
                             <View style={{borderWidth: 1, borderColor: '#1e1e1e'}}>
                                 <CardItem style={{backgroundColor: '#111111'}}>
                                     <Body>
                                         <Text style={styles.grey}>
-                                            <Text style={[styles.boldGrey, {fontSize: 20, lineHeight: 22}]}>{advantage.name}, R{advantage.rank + '\n'}</Text>
-                                            <Text style={styles.grey}>{this._renderDescription(advantage)}</Text>
+                                            <Text style={[styles.boldGrey, {fontSize: 20, lineHeight: 22}]}>{option.name}, R{option.rank + '\n'}</Text>
+                                            <Text style={styles.grey}>{this._renderDescription(option)}</Text>
                                         </Text>
                                     </Body>
                                 </CardItem>
@@ -145,9 +147,10 @@ class AdvantagesScreen extends Component {
                 <View style={{paddingBottom: 20}} />
                 <RanksDialog
                     visible={this.state.showRanksDialog}
-                    item={this.state.selectedAdvantage}
+                    optionKey={this.state.optionKey}
+                    item={this.state.selectedOption}
                     mode={MODE_ADD}
-                    onSave={this.addAdvantageToCharacter}
+                    onSave={this.addOptionToCharacter}
                     onClose={this.closeRanksDialog}
                 />
             </Content>
@@ -163,7 +166,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    addAdvantage
+    addOption
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdvantagesScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(CharacterOptionsScreen);

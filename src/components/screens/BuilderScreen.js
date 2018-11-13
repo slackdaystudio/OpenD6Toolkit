@@ -9,13 +9,13 @@ import InfoDialog from '../InfoDialog';
 import RanksDialog, { MODE_EDIT } from '../RanksDialog';
 import Appearance from '../builder/Appearance';
 import styles from '../../Styles';
+import { OPTION_ADVANTAGES, OPTION_COMPLICATIONS } from '../../lib/Character';
 import {
     updateRoller,
     updateCharacterDieCode,
     updateAppearance,
-    updateDisplayNote,
-    updateAdvantage,
-    removeAdvantage
+    updateOption,
+    removeOption
 } from '../../../reducer';
 
 class BuilderScreen extends Component {
@@ -25,8 +25,8 @@ class BuilderScreen extends Component {
         updateRoller: PropTypes.func.isRequired,
         updateCharacterDieCode: PropTypes.func.isRequired,
         updateAppearance: PropTypes.func.isRequired,
-        updateAdvantage: PropTypes.func.isRequired,
-        removeAdvantage: PropTypes.func.isRequired
+        updateOption: PropTypes.func.isRequired,
+        removeOption: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -43,6 +43,7 @@ class BuilderScreen extends Component {
             },
             ranksDialog: {
                 visible: false,
+                optionKey: OPTION_ADVANTAGES,
                 item: null
             },
             dieCode: this._initDieCode(),
@@ -58,8 +59,8 @@ class BuilderScreen extends Component {
         this.updateModifierDice = this._updateModifierDice.bind(this);
         this.updatePips = this._updatePips.bind(this);
         this.updateModifierPips = this._updateModifierPips.bind(this);
-        this.updateAdvantage = this._updateAdvantage.bind(this);
-        this.removeAdvantage = this._removeAdvantage.bind(this);
+        this.updateOption = this._updateOption.bind(this);
+        this.removeOption = this._removeOption.bind(this);
     }
 
     _initDieCode() {
@@ -113,19 +114,20 @@ class BuilderScreen extends Component {
         this.setState(newState);
     }
 
-    _showAdvantageInfo(advantage) {
+    _showOptionInfo(option) {
         let newState = {...this.state};
         newState.infoDialog.visible = true;
-        newState.infoDialog.title = advantage.name + ' R' + (advantage.multipleRanks ? advantage.totalRanks : advantage.rank);
-        newState.infoDialog.info = advantage.description;
+        newState.infoDialog.title = option.name + ', R' + (option.multipleRanks ? option.totalRanks : option.rank);
+        newState.infoDialog.info = option.description;
 
         this.setState(newState);
     }
 
-    _showRanksPicker(advantage) {
+    _showRanksPicker(optionKey, item) {
         let newState = {...this.state};
         newState.ranksDialog.visible = true;
-        newState.ranksDialog.item = advantage;
+        newState.ranksDialog.optionKey = optionKey.toLowerCase();
+        newState.ranksDialog.item = item;
 
         this.setState(newState);
     }
@@ -223,14 +225,14 @@ class BuilderScreen extends Component {
         this.setState(newState);
     }
 
-    _updateAdvantage(advantage) {
-        this.props.updateAdvantage(advantage);
+    _updateOption(optionKey, item) {
+        this.props.updateOption(optionKey, item);
 
         this._closeRanksDialog();
     }
 
-    _removeAdvantage(advantage) {
-        this.props.removeAdvantage(advantage);
+    _removeOption(optionKey, item) {
+        this.props.removeOption(optionKey, item);
         this._closeRanksDialog();
     }
 
@@ -361,36 +363,38 @@ class BuilderScreen extends Component {
         );
     }
 
-    _renderAdvantages() {
+    _renderOptions(title, optionKey) {
+        let arrayKey = optionKey.toLowerCase();
+
         return (
             <View>
                 <View style={styles.rowStart}>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} />
                     <View style={{flex: 4, justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={styles.heading}>Advantages</Text>
+                        <Text style={styles.heading}>{title}</Text>
                     </View>
                     <View style={{flex: 1, paddingTop: 20, justifyContent: 'space-around', alignItems: 'center'}}>
                         <Icon
                             type='FontAwesome'
                             name='gear'
                             style={[styles.grey, {fontSize: 30, color: '#00ACED'}]}
-                            onPress={() => this.props.navigation.navigate('Advantages')}
+                            onPress={() => this.props.navigation.navigate('Options', {optionKey: optionKey})}
                         />
                     </View>
                 </View>
                 <List>
-                    {this.props.character.advantages.advantages.map((advantage, index) => {
+                    {this.props.character[arrayKey].items.map((item, index) => {
                         return (
-                            <ListItem key={'advantage' + index} noIndent>
+                            <ListItem key={'option-' + index} noIndent>
                                 <Left>
-                                    <TouchableHighlight onPress={() => this._showAdvantageInfo(advantage)}>
-                                        <Text style={styles.grey}>{advantage.name + (advantage.displayNote === null ? '' : ': ' + advantage.displayNote)}</Text>
+                                    <TouchableHighlight onPress={() => this._showOptionInfo(item)}>
+                                        <Text style={styles.grey}>{item.name + (item.displayNote === null ? '' : ': ' + item.displayNote)}</Text>
                                     </TouchableHighlight>
                                 </Left>
                                 <Right>
-                                    <TouchableHighlight onPress={() => this._showRanksPicker(advantage)}>
+                                    <TouchableHighlight onPress={() => this._showRanksPicker(optionKey, item)}>
                                         <Text style={styles.grey}>
-                                            R{(advantage.multipleRanks ? advantage.totalRanks : advantage.rank)}
+                                            R{(item.multipleRanks ? item.totalRanks : item.rank)}
                                         </Text>
                                     </TouchableHighlight>
                                 </Right>
@@ -409,7 +413,8 @@ class BuilderScreen extends Component {
                 <Content style={styles.content}>
                     <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
                     {this._renderAttributes()}
-                    {this._renderAdvantages()}
+                    {this._renderOptions('Advantages', OPTION_ADVANTAGES)}
+                    {this._renderOptions('Complications', OPTION_COMPLICATIONS)}
                     <View style={{paddingBottom: 20}} />
                     <AttributeDialog
                         visible={this.state.attributeDialog.visible}
@@ -434,11 +439,12 @@ class BuilderScreen extends Component {
                     />
                     <RanksDialog
                         visible={this.state.ranksDialog.visible}
+                        optionKey={this.state.ranksDialog.optionKey}
                         item={this.state.ranksDialog.item}
                         mode={MODE_EDIT}
-                        onSave={this.updateAdvantage}
+                        onSave={this.updateOption}
                         onClose={this.closeRanksDialog}
-                        onDelete={this.removeAdvantage}
+                        onDelete={this.removeOption}
                     />
                 </Content>
 	        </Container>
@@ -463,8 +469,8 @@ const mapDispatchToProps = {
     updateRoller,
     updateCharacterDieCode,
     updateAppearance,
-    updateAdvantage,
-    removeAdvantage
+    updateOption,
+    removeOption
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuilderScreen);

@@ -1,0 +1,393 @@
+{
+  "id": 1,
+  "name": "Complications",
+  "items": [
+    {
+      "id": 100,
+      "name": "Achilles' Heel",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character has a particular serious weakness. It is not something that most other characters find especially dangerous or inconvenient, but the character suffers severe modifiers to difficulties or even damage when exposed to it. Some examples include:\n\nAllergy: The character is strongly affected by reasonably common things that she cannot always avoid. When exposed to the allergen, the character must generate a Moderate Physique or stamina total (as an action) or she takes 3D in damage. The character can resist the damage through applicable defenses, but she has to generate the stamina total as an action every round she is exposed to the allergen.\n\nAtmospheric Incompatibility: The character is sensitive to something in the normal atmosphere and must shield himself from it. Failure to do so causes him to take a -4 modifier to his damage resistance total or the character takes a +1 modifier to all difficulties (which increases by +1 per minute exposed) until the character is out of the harmful situation.\n\nExample: The high quantity of carbon monoxide produced by some combustion engines may poison a plant creature. When in the presence of these engines (such as when in a big city where these sorts of engines are used), the character must have an “air filter” on at all times.\n\nCultural Allergy: The same as above, but there is some social situation that causes the character to freeze (exposure to nudity, the sight of police, etc.) and lose all Critical Success rerolls until the condition is gone.\n\nEnvironmental Incompatibility: The character is sensitive to something in the environment: an extreme of temperature, the chemical content of rain water, etc. Exposure to this without the proper protection causes the character to take -4 modifier to his damage resistance total or the character takes a +1 modifier to all difficulties (which increases by +1 per minute exposed) until the character is out of the harmful situation.\n\nMetabolic Difference: The character needs more life support (typically food) than “normal” and begins to take damage after hours of malnutrition. For every hour after the specified time frame, the character’s damage resistance total is modified by -1, which cannot be recovered except by obtaining the additional life support — and making up for the skipped amounts. For food, the character eats the equivalent of twice as many meals per day as the average Human. For instance, the character must eat a meal every four hours or, every hour after the four are up, the character’s damage resistance total goes down.\n\nAs another example, three times per day, a different character may need to eat twice as much as a normal Human.\n\nNutritional Requirements: The character must ingest an element not commonly consumed by Humans (blood, dead Human flesh, etc.) to survive. Often, the character encounters prejudice because of this, and she certainly develops physical problems if she fails to consume this substance in a reasonable amount of time.\n\nRot: The character’s body is rotting. She periodically loses pieces of herself (such as fingers and toes) and must pause to fuse them back on (this is a simple action but takes a round to perform). The character suffers no damage from this, but it should inconvenience her. For instance, in combat, the character’s fingers might fall off, causing her to drop her weapon — this makes an excellent Critical Failure complication.\n\nVulnerability: A particular form of attack or interaction affects the character much more severely than other characters. For example, a character with a vulnerability to firearms might “freeze up” when he sees another character point a gun at him — making the other character +5 to hit him (most likely during the first round of combat only).\n\nAnother character might automatically apply +10 to the difficulty of any attempts to resist another character’s con attempts. (The less likely the situation is to occur, the greater the difficulty modifier.)\n\nRestrictions/Notes: The Achilles’ Heel (R3) should be very serious, but not “instant death” for the character. There should always exist some way to avoid it (not easily), or some chance that the character can counter it. The more creative the Achilles’ Heel (R3), and the more likely it affects the character, the less it actually should do. A character who is vulnerable to water (he probably has a phobia), for example, might “panic” and suffer +3 to the difficulty of all actions when exposed to a large body of water, +5 when in it, and +3 when wet. Or, the character might just take 3D in damage every time he gets a significant portion of his body wet."
+    },
+    {
+      "id": 200,
+      "name": "Achilles' Heel",
+      "displayNote": null,
+      "rank": 4,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character’s weakness is even more severe than the Rank 3 version of this Disadvantage. Some examples include:\n\nAllergy: The same rules apply as for Allergy, save that the character cannot perform any actions except running away while exposed to the allergen.\n\nCultural Allergy: The same rules apply as for Cultural Allergy (R3), save that not only does the character lose all Critical Success rerolls if exposed to the specified social situations, she also is at +1 to all difficulties.\n\nAtmospheric or Environmental Incompatibility: The modifier to the damage resistance total goes up, or the condition is more likely to occur, or the modifier increases each round.\n\nRot: The character loses major parts of his body periodically due to rotting (such as limbs) and must pause to replace them. Doing so requires no skill total but does take three rounds to perform. The trigger that causes this to take effect should occur no less frequently than a Critical Failure during combat and interaction rounds.\n\nSymbiosis: The character is bound symbiotically to another, drawing strength or energy from her. Symbiosis can be either physical or mental.\n\nFor every 100 meters by which one character is separated from the other, the character loses one pip (cumulative) to either their physical attributes or their mental attributes. (Remember: three pips equal one die.) If the character’s symbiote is killed, the character loses 1D from the attributes affected until she can convince another character to willingly bond with her (the bonding process should be simple — like sharing blood — but willing participants must want it to happen). For an extra rank in this Disadvantage, the character is bound both mentally and physically to another, and loses from both sets of attributes if separated.\n\nFor the separation to equally affect the “host,” he must also have this version of the Achilles’ Heel Disadvantage.\n\nRestrictions/Notes: Additional ranks of the Achilles’ Heel Disadvantage indicate even more deadly situations. See Achilles’ Heel (R3) for other notes."
+    },
+    {
+      "id": 300,
+      "name": "Advantage Flaw",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "This Disadvantage is linked to a particular Advantage or set of skills. Whenever the character uses it, there is some a chance for a negative modifier or roleplaying disadvantage. Here are some examples for certain Advantages:\n\nContacts: The Contact helps the character, but he is either “annoying” about it or a “hard bargainer.” Where a normal Contact would assist the character for an almost negligible fee, the Flawed Contact will haggle and nag until “rewarded.” Some reason should exist why the character would want to keep the contact happy.\n\nCultures: When the character gets hints or knowledge about a culture, he knows everything except some sort of critical piece of information.\n\nor, if the character has the “sweeping knowledge” of lots of cultures, his interpretations sometimes are almost totally wrong (gamemaster option). In order to make this Flaw work, the character should not find out about the error until it would be “interesting.”\n\nEquipment: In most cases, some sort of minor mechanical imperfection exists in the equipment that no normal means can fix. For equipment that requires a skill total, gamemasters could either add 3 to the difficulty of all actions using it, or, on a Critical Failure, the equipment either won’t work or malfunctions. For equipment that wouldn’t normally require a skill total, occasional side effects could happen or maybe it requires a periodic Moderate skill check of some kind to keep operating.\n\nSkills: If the character fails at the skill check with one of a set of three related skills, she can’t reroll Critical Successes either until the end of the scene or until she succeeds at the skill check.\n\nWealth or Funds: The character cannot access his wealth easily.\n\nEither it is tied up in red tape most of the time (especially if the character has most of the money invested), or he has to go somewhere to get it (such as having a fortune back East while adventuring in the Wild West), or someone else (reasonably friendly) has control over it and doesn’t always release it easily.\n\nRestrictions/Notes: In general, at Rank 1, a flaw should not debilitate a character or take away his Advantage on a regular basis — but it should make it a little less of a sure thing."
+    },
+    {
+      "id": 400,
+      "name": "Advantage Flaw",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "This Disadvantage works in exactly the same manner as Advantage Flaw (R1), above, but with more serious results. If the Flaw came into play occasionally (like every time the character visited a desert), it now comes into play much more frequently (like when he is in any dry environment). If the Flaw made things a little more difficult, then the Flaw makes things a lot more difficult (the difficulty modifier doubles from the Rank 1 version).\n\nRestrictions/Notes: Having circumstances that effectively take away the complete benefit of the Advantage is certainly within the bounds of Advantage Flaw (R2), and those circumstances can occur reasonably often (no more than during one quarter of a normal adventure, however). They will force the player to roleplay and to think about ways to get around the Flaw or to try other options, rather than just relying on a particular Advantage, Special Ability, or skill set.\n\nExample: If a character has a set of skills with the Flaw that they only work at night — a Rank 2 Flaw if only about a quarter of the character’s normal adventuring occurs during the daytime — that would force the character to rely on other abilities and his wits during the daytime."
+    },
+    {
+      "id": 500,
+      "name": "Advantage Flaw",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "This rank takes on some of the characteristics of an Achilles’ Heel (R3), but more in direct relationship to an Advantage, an attribute, or a large set of skills. The rules for the flaw are the same as for Advantage Flaw (R2), but the effects are even more severe. Not only does the character lose the benefits of the Advantage or attribute (or undergoes a condition that essentially negates it), but he also suffers an additional Disadvantage.\n\nExample: Your character has this Disadvantage attached to her Psionics attribute.  Every time she uses her psionic abilities, she taps into the general mood of the people around her. If the people near the psionic are feeling strong or negative emotions, the character gets a nasty headache, causing her to immediately loses the ability to use her mental powers and she can’t reroll any Critical Successes until the end of the scene.\n\nExample: A character has Equipment (R3) — a really powerful weapon. But, whenever the character suffers a Critical Failure using the weapon, the gun not only runs out of ammo, but the character experiences some sort of feedback at a moderate damage total (maybe the weapon’s normal damage minus a specific amount). The character then has to recharge the weapon (either through the use of a Price Disadvantage or by waiting until a major break in the adventure’s action, most likely).\n\nSome other examples:\n\nInfection: Under certain circumstances, the character passes along select abilities and characteristics to another character. The character has an infection score of Physique +2D. (This is not a skill and players may not raise except by taking additional ranks in this version of the Disadvantage.)\n\nThe gamemaster and the player should determine how the character spreads the infection. It could happen as the side effect of an attack, through physical contact, or through some other means. When the character performs the requisite action, he generates an infection total (which does not count as a separate action). The target generates a Physique or stamina total as well (which does not count as an action). If the character’s infection total exceeds (not equal to) the target’s Physique or stamina total, the target is infected.\n\nAn infection passes certain Special Abilities and Disadvantages to the target (specified by the player and the gamemaster when the player gives the character this Disadvantage). It is possible for the infection to pass more ranks in Disadvantages on than Special Abilities, but is not possible for it to pass more ranks in Special Abilities than Disadvantages.\n\nKeep in mind that the infected character may well hate the character responsible for his new state, so the infecting character may have gained an Enemy. In fact, there should exist some overwhelming reasons why this is actually bad for the infecting character — it is a Disadvantage, after all.\n\nGamemasters who do not feel that the Enemy Disadvantage is enough of a negative could also work in other sorts of Advantage Flaws as side effects of spreading the infection.\n\nFor an extra rank in the Advantage Flaw: Infection Disadvantage, the infection die code increases to Physique+4D.  Also, the penalties for infecting another characters should be more severe — maybe the character infected then knows things about the infection character that will give him an advantage over his enemy, or perhaps the infecting character temporarily loses abilities or attribute pips.\n\nMinor Stigma: There is something that the character cannot do without performing the “proper rituals” before or after (a fighter whose cult must “purify” him after killing someone; a psychic who cannot use Psionics without special equipment).\n\nStench: The character smells terrible due to one of his Advantages or just because he exists. Add 6  to the difficulty of all stealth attempts, as everyone can smell him coming. This also affects interaction attempts, giving them at least a +1 to the difficulty.\n\nRestrictions/Notes: Advantage Flaw (R3) takes a powerful Advantage and turns it into a worse-than-useless Disadvantage for a comparatively brief period of time. A single Advantage can have more than one Advantage Flaw, and, if the character wants, several Flaws, of various ranks, can link to one Advantage. See other ranks of Advantage Flaw for more information and examples."
+    },
+    {
+      "id": 600,
+      "name": "Age",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character is a teenager or just past middle age. And, since this is a roleplaying game and not real life, he’ll stay that way. In general, characters who are “too young” often have to roleplay through episodes where they are not taken seriously, where they are ignored, and where they have less rights and control than older characters. Those who are “too old” get treated in much the same way — characters in their prime often defer to the character, but they also treat the character as if he were infirm or possibly senile.\n\nThe rules for Advantage Flaw (R2) are otherwise the same as Rank 1."
+    },
+    {
+      "id": 700,
+      "name": "Age",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The Disadvantage is the same, only more so. Instead of being a teenager, the character is a preteen child. Instead of being just past middle age, the character is old. The roleplaying situations are basically the same, but the effects are more dramatic.\n\nRestrictions/Notes: An old character receives +1 to the difficulty of physical actions (those that rely on Reflexes, Coordination, and Physique) that require unusual exertion (running, jumping, fighting, etc.). A young character adds 1 to the difficulty of all mental actions (those that use Intellect, Spirit, or Charm) when attempting to solve “adult” problems or interact with adults. Players should roleplay both versions true to type. Two Disadvantages suitable for association with this one include Reduced Attribute (especially for Age: Old) and Hindrance.\n\nCharacters may be “young” or “old” and not take this Disadvantage.\n\nOlder characters in good shape have no problems jogging, lifting, fighting, or whatever, and young, intelligent people can often interact and think just as well — if not better — than adults. This Disadvantage addresses those characters, young and old, who can’t keep up as easily."
+    },
+    {
+      "id": 800,
+      "name": "Bad Luck",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character is exceptionally unlucky. This Disadvantage is under the gamemaster’s control most of the time. The easiest way to handle it is, whenever the player rolls the dice and a Critical Failure comes up, not only does it take away the highest die in the roll, but something bad happens. The gamemaster can choose from not allowing the player to reroll Critical Successes until the end of the scene, the character loses an action during the next round, or invoking some sort of strange, but not too terrible, “bad luck effect.”\n\nExample: A character with Bad Luck is running from a group of terrorists that he’s been fighting for some time. He tries to jump across an elevator shaft when the player rolls a Critical Failure on the dice. Well, the character probably failed in the jumping attempt (so he falls), but, instead of being able to grab for a cable or a lower ledge, the character’s belt gets caught on a hook. Now, the character has to free himself before the terrorists come around the corner and blow him away.\n\nRestrictions/Notes: A character may take Bad Luck (R2) if he already has the Good Luck or Great Luck Special Ability. The character might even, on occasion, use the benefits of the Good Luck or Great Luck Special Ability to get out of trouble or partially negate the effects of Bad Luck (R2) — that’s the way it works. Also, the gamemaster should remember that the character has Bad Luck (R2) — not the player. If the player gets into a consistent “streak” of rolling Critical Failures on the dice, then the gamemaster should start “skipping” the invocation of Bad Luck (R2) occasionally — more than three or four occurrences of Bad Luck (R2) during an adventure is a little much."
+    },
+    {
+      "id": 900,
+      "name": "Bad Luck",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The rules for this Disadvantage are the same as for Bad Luck (R2).\n\nHowever, a Critical Failure or a total equal to one more than the die code of the skill or attribute causes Bad Luck (R3) to activate. (For example, if the character has 5D in a skill and rolls a total of 6 on the dice — which is one more than the die code in the skill — the Disadvantage comes into play). The effects are exactly the same, only the gamemaster might make the setbacks more uncomfortable.\n\nRestrictions/Notes: See Bad Luck (R2)."
+    },
+    {
+      "id": 1000,
+      "name": "Bad Luck",
+      "displayNote": null,
+      "rank": 4,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The same as Bad Luck (R2) and Bad Luck (R3), but the character suffers the effects on a Critical Failure or a total equal to or less than two more than the die code of the skill or attribute. (So, if the character with a skill of 5D rolls a 6 or 7, then the Disadvantage is activated.) The minimum effect is that the character loses her actions on the round and probably something disastrous happens.\n\nRestrictions/Notes: See Bad Luck (R2) and Bad Luck (R3). Since Bad Luck (R4) can have such devastating effects, the gamemaster might want to overrule occurrences of it. For example, if, during a standard scene of an adventure, a character is trying to persuade a shopkeeper to sell him an item at a better price, he might roll a low total on the dice. The gamemaster could have something disastrous happen — the shopkeeper keels over with a heart attack just as the chief of police walks in and the character is suddenly suspected of murder — but does it serve any purpose in the adventure? Possibly, but if it doesn’t, save it until later. Then, when the character is at the climax of the adventure and he doesn’t roll a disastrously low total — but the gamemaster feels a “dose of bad luck” would improve the story — he can use that as an excuse. Players should understand that Bad Luck is arbitrary and will often occur at the worst possible moment."
+    },
+    {
+      "id": 1100,
+      "name": "Burn Out",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "Under a certain set of proscribed circumstances, the Advantage goes away — permanently. The player and the gamemaster should work out the circumstances, with the following criteria:\n\n\t1. The Burn-out should have a chance of occurring about once or twice an adventure.\n\n\t2. The Burn-out should be something the character can avoid — but she might not want to avoid it.\n\n\t3. A logical reason for the Burn-out to occur should exist.\n\n\t4. Both the player and the gamemaster operate under the knowledge that the Burn-out will occur at some point.\n\nSome examples of when a Burn-out could occur include:\n\n\t• An opponent soundly defeats the character in an adventure.\n\n\t• The character completes a particular mission of great importance (this would probably only happen after several adventures — but the character wants to complete for some reason).\n\n\t• The character suffers a particular effect (she loses most of her Body Points or Wounds, she is the victim of a particular type of uncommon attack, etc.).\n\n\t• A character’s Advantage is somehow negated (a Contact who has a good chance of being killed, a piece of Equipment that someone is trying to steal or destroy, etc.).\n\nThis Disadvantage is worth a number of ranks equal to one-half (rounded up) of the Advantage with which it’s associated.\n\nRestrictions/Notes: Any Advantage could have the possibility of Burn-out. Just think of a logical (or, perhaps, supernatural) reason an Advantage would go away. There should exist a decent chance that it could go away, but the character should have some chance of avoiding that occurrence… for a while."
+    },
+    {
+      "id": 1200,
+      "name": "Cultural Unfamiliarity",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character is not from the “mainstream” culture of the society he spends the most time in. The player should decide on the character’s native country, which is somewhere with a different culture than the one he is normally in. For instance, a character in a real world setting might hail from India but operate out of the United Kingdom. While the U.K. does not have any particular dislike of Indians, a few “cultural clashes” might happen occasionally. Bigots might get in the way of the character, and the character might not always “know” things about the setting that natives would automatically understand. The character is an outsider.\n\nRestrictions/Notes: At the worst, gamemasters can treat like Prejudice (R1), but, most often, the character is just unfamiliar with aspects of the mainstream. Characters cannot usually take this Disadvantage more than once."
+    },
+    {
+      "id": 1300,
+      "name": "Cultural Unfamiliarity",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character is of a culture almost totally different from the “mainstream” he operates in. The character should constantly make mistakes and social gaffs. All attempts at streetwise or similar “getting around town” skills should have +6 to the difficulty (at least). In addition, the character should probably have trouble with the native language (he could even take the Disadvantage Language Problems).\n\nRestrictions/Notes: The rules are the same as for Cultural Unfamiliarity (R1)."
+    },
+    {
+      "id": 1400,
+      "name": "Cultural Unfamiliarity",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character is, in all respects, an alien. Either he’s from another planet with a completely different culture, or whatever fits the game setting — he just doesn’t fit in (socially, and, most likely, physically).\n\nOtherwise, this Disadvantage works exactly the same way as the other rank versions.\n\nRestrictions/Notes: See Cultural Unfamiliarity (R1)."
+    },
+    {
+      "id": 1500,
+      "name": "Cultural Unfamiliarity",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character is, in all respects, an alien. Either he’s from another planet with a completely different culture, or whatever fits the game setting — he just doesn’t fit in (socially, and, most likely, physically).\n\nOtherwise, this Disadvantage works exactly the same way as the other rank versions.\n\nRestrictions/Notes: See Cultural Unfamiliarity (R1)."
+    },
+    {
+      "id": 1600,
+      "name": "Debt",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character owes money, or something else valuable, to someone.\n\nIn most cases, some sort of lending institution or credit house exists, and the payments aren’t too arduous. The character just has a harder time getting credit and has to turn over a substantial amount of any profits he makes on an adventure to the lender.\n\nRestrictions/Notes: Players should take this Disadvantage if they intend for their characters to live up to it. The character should have a reason he doesn’t want to default on the debt, which the player works out beforehand. Also, Debt (any rank) with Enemy (any rank) can be an interesting combination — maybe the character is in deep to a loan shark or a manipulative and not entirely scrupulous lender.\n\nA character may have this Disadvantage with the Advantage Wealth (any rank), as long as there is some reason it can’t be just paid off. A character with Wealth (R3) (phenomenal resources) might be stuck in a contract where he has to turn over the profits of any adventure to someone, for example — he still has his wealth, but he has to cough up all the little neat things and rewards he gets at the end of the adventure (or the character has to persuade the lender/contract holder to let him keep them)."
+    },
+    {
+      "id": 1700,
+      "name": "Debt",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character owes a lot of money (or something else valuable) to someone dangerous, or the results of owing this debt are dangerous.\n\nFor example, the character could owe his life to a really strange old scientist, and, every time that person needs a favor (usually going off somewhere dangerous and doing something suicidal), the character has to drop everything and go.\n\nRestrictions/Notes: The rules are the same as for Debt (R1)."
+    },
+    {
+      "id": 1800,
+      "name": "Debt",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character owes almost everything to someone or something. In the case of worldly goods, the character must turn over nearly everything to the “lender” at the end of an adventure — the character must “borrow” these things back at the beginning of the next adventure.\n\nAnd it is up to the gamemaster what the “lender” gives back.\n\nIn most cases, this means the character is either Employed or under some similar sort of restriction.\n\nExample: Your character might belong to a particularly strict cult or religion. She has to tithe all worldly goods (or, at least, a large portion of worldly goods) to the cult after every adventure. If she does not, she would be cast out — a fate she would not enjoy — or even hunted and killed. At the beginning of each adventure, the character must beg and persuade whoever is in charge to let her have any goods she needs.\n\nRestrictions/Notes: Debt (R3) is so wide-sweeping that players may not usually combine in it with the lower versions or link to individual Advantages unless the player and the gamemaster are particularly inventive. A character with Debt (R3) might “owe” the possession of a Rank 3 or Rank 4 Advantage to a particular source (a character might have received Equipment from a supernatural source) and have to pay some sort of tithe (a sacrifice, all the money the character obtains, etc.) to get the use of the Advantage."
+    },
+    {
+      "id": 1900,
+      "name": "Devotion",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character feels compelled to take certain actions out of a love of code or perceived duty to something else. The character may, at times, do things he finds morally questionable in order to achieve a greater good. With Devotion (R1), the character’s beliefs do not come into play very often."
+    },
+    {
+      "id": 2000,
+      "name": "Devotion",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character with the Devotion (R2) Disadvantage believes very strongly in something and will attempt to persuade others of the rightness of his beliefs. His patriotism or loyalty to an ideal plays a role in his day-to-day life."
+    },
+    {
+      "id": 2100,
+      "name": "Devotion",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "At this rank, the character’s belief in the cause motivates almost all his actions. The character would willingly die for his belief."
+    },
+    {
+      "id": 2200,
+      "name": "Employed",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character has a job. Maybe the job relates to what the character wants to do during adventures, or maybe not. Regardless, the character wants to keep her job (or has to, for some reason), and she must take responsibility for missing work and fulfilling her obligations.\n\nRestrictions/Notes: The player and the gamemaster might have to work to roleplay this, but an occasional conflict should arise between what the character wants to do and what she has to do. The character might even have to keep some activities secret or lose her job.\n\nSome examples include special ops for a government or private organization, bodyguard, mercenary, reporter, writer, film maker, private investigator, bounty hunter, and police officer. The less freedom the character has in making decisions during the adventure and what she wants to do during her working hours (and perhaps even her spare time), the greater the rank in Employed."
+    },
+    {
+      "id": 2300,
+      "name": "Employed",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character works for someone, or something, that pretty much runs his life. When he goes on adventures, he either has to go through lots of red tape to get permission, or it’s because he was assigned the mission.\n\nAs a result, the character has little free will regarding what he does or how he does it, and he should come into conflict with his employer on occasion. Also, since the character is an employee, if he is on a mission, he usually has to turn over his share of the loot for corporate disposal he’ll get something out of it, certainly, but not a full share.\n\nRestrictions/Notes: The rules are the same as for Employed (R1).\n\nJust make sure that “the job” is fairly inconvenient for the character, but there are reasons he doesn’t quit. Maybe he has the Wealth Advantage only so long as he has the Employed (R2) Disadvantage — that would be a good way of tying in the Disadvantage."
+    },
+    {
+      "id": 2400,
+      "name": "Employed",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character is, for all intents and purposes, a slave. This does not mean the character is poor or without means — just without free choice. The character does virtually everything because he must. For example, a character might be the head of a large corporation. But the only way things get done is for the character to do them or be there to oversee their getting done. Adventures only occur when they are in direct concordance with the interests of the “employer.” In all other ways, this Disadvantage is like its lower rank versions.\n\nRestrictions/Notes: See Employed under the other ranks."
+    },
+    {
+      "id": 2500,
+      "name": "Enemy",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "An individual or group has it in for the character. An Enemy who is a single person of power and influence no greater than the character might actually want the character dead. An Enemy (R1) of power and influence greater than the character simply wants to hassle the character for some reason. Maybe in the town the character operates, the law enforcement authorities have his name and picture on file — and they’ll use any excuse to run him in or hassle him because they think of him as a troublemaker. Or, perhaps, the character’s landlord throws everything out on the street if he’s one minute late with the rent, or the character’s boss always assigns him the most boring or most dangerous missions. The Enemy does not have to have a position in the character’s life — he can just be someone who, for some reason known to the gamemaster (and probably the player, but not always the character), has a grudge against the character.\n\nRestrictions/Notes: There is no reason a player can’t use this Disadvantage similarly to an Advantage Flaw or as a complement to other Disadvantages or even Advantages. Maybe a character’s Contact is sweet and helpful (a secretary in the Pentagon who tells the character a little more about the mission he’s been assigned), but someone who influences the Contact is an Enemy (the secretary’s boss who has been trying to seduce the secretary and resents the fact that the secretary likes the character better) and sometimes makes it hard for the contact to help. Enemy (R1) characters should either show up only occasionally (maybe once during an adventure), or they should be minor annoyances that can only be a real problem if the character doesn’t deal with them when they show up. Multiple Enemies of various ranks can be selected (just don’t go overboard)."
+    },
+    {
+      "id": 2600,
+      "name": "Enemy",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The rules are the same as for Enemy (R1), only the character is more powerful, more annoying, and/or more a part of the character’s life.\n\nRestrictions/Notes: It should be mentioned that killing the Enemy or running away should not get rid of the Disadvantage — at least not easily. At the very least, the character should have to go though a few adventures to “remove” the Enemy from his life. Usually, the character has to deal with the Enemy for quite a long time. Multiple Enemies can, of course, be selected."
+    },
+    {
+      "id": 2700,
+      "name": "Enemy",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "Again, the rules are the same as for Enemy (R1) and Enemy (R2).\n\nMost likely, a group of people or a very powerful person who wishes to kill or otherwise remove the character from the game setting hounds the character. They often hurt people she knows and do vile deeds just because the character won’t like them. The Enemy (R3) should get involved in, directly or indirectly, most adventures the character goes on.\n\nJust about everything bad that happens to the character would please the Enemy — and he is probably responsible for a lot of them.\n\nRestrictions/Notes: Enemy (R3) is a very powerful, and very important, Disadvantage. Many beginning gamemasters might not want to go to the trouble of creating and constantly maintaining a villain or group of villains relating to the character — but others will enjoy it.\n\nTalk to your gamemaster about this option before you select it."
+    },
+    {
+      "id": 2800,
+      "name": "Hindrance",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character has a minor physical or mental handicap that makes certain actions more difficult. The hindrance could be a permanent physical injury, a particular mental block regarding certain types of activities, a limitation innate to the character’s species, or the result of age.\n\nThe player and the gamemaster should work out some sort of affliction and then choose a group of related skills that get difficulty modifiers totaling +3. Some examples of sets of three skills getting a +1 modifier to the difficulty of each include:\n\nBad Knee: acrobatics, jumping, running\n\nRude: charm, con, persuasion\n\nTrick Shoulder: climbing, melee combat, throwing\n\nUncoordinated: acrobatics, melee combat, sleight of hand\n\nUnobservant: investigation, languages, search\n\nThe players may use this Disadvantage to restrict one form of their characters’ movement. A two-meter reduction in one form of movement (running, swimming, jumping, or climbing) is equivalent to a +1 difficulty modifier, so a player could take a small movement restriction along with difficulty modifiers to skills. The minimum movement rate for a character is one meter.\n\nCharacters with a native environment requiring an alternative means of movement other than walking (such as swimming or burrowing) may take one rank of Hindrance: A typical Move to represent the inability to walk or jump. Instead, the character uses his base Move to represent his base swimming or burrowing Move. Thus, a water-dwelling character without legs and with this type of Hindrance would have a swimming Move of 10 (instead of 5), could not walk, and would be limited in the kind of jumping he could perform.\n\nPlayers who wish to reduce their character’s damage resistance total (to represent a delicate physical nature) may take a -1 modifier to that total for each rank in this Disadvantage.\n\nRestrictions/Notes: Players may restrict specializations — with gamemaster approval. Three specializations that the gamemaster thinks the player might have to use reasonably often (like investigation: find clues or marksmanship: pistols) could substitute for one general skill.\n\nHindrance (R1) can be selected several times, as long as the gamemaster thinks it appropriate. Since it is very much the counterpart to the Skill Bonus Special Ability, additional restrictions and notes can be related to the ones found there.\n\nEach additional rank in Hindrance increases the total difficulty modifier by +3, which may affect the few skills in a Rank 1 group, or they can increase the number of skills covered by the Hindrance."
+    },
+    {
+      "id": 2900,
+      "name": "Illiterate",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "A character can be considered Illiterate for one of two reasons. The first is simply due to her inability to read. The other reason is if she did not speak the local language (an immigrant arriving in a new country or an explorer among natives, etc.). She may be an extremely intelligent and well-read person, but she has difficulty exhibiting that in her new country. She receives a +6 difficulty modifier in addition to any other modifiers when attempting to read or write anything."
+    },
+    {
+      "id": 3000,
+      "name": "Infamy",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character is about as well known as a character with Fame (R1), but for different reasons. The odds of being recognized are the same as for Fame (R1), but the reaction is quite different. The character experiences hostility, prejudice, and intentional slights — in game mechanic terms, the character should have the difficulty of all interactions increased by at least +3.\n\nRestrictions/Notes: There is a reason for this negative attention.\n\nEither the character did something, is accused of having done something, or is suspected of having done something not particularly pleasant, or the character has, through other strange circumstances, earned a “bad rep.” Sometimes, this Infamy will help the character — but it shouldn’t help too much. If the character had a combination of Fame and Infamy, then maybe he’d earn a reputation like Wyatt Earp or Jesse James in the American Old West — certain people would look up to him or respect him, and there would be definite fear there most of the time, but there would also be a lot of people who would enjoy seeing the person leave or die. Of course, Infamy (R1) should be something minor — maybe the character is a former criminal, or he did something questionable in the past and was cleared. People are not overtly hostile, but they are unfriendly when they recognize him.\n\nSeveral ranks of Infamy can only be selected if the character is infamous for multiple reasons — but the effects should be cumulative, and this can only be done if the gamemaster thinks it is appropriate (a character with Infamy (R3) would hardly have to worry about Infamy (R1) in most cases, so it would not be a proper combination)."
+    },
+    {
+      "id": 3100,
+      "name": "Infamy",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character is, most likely, wanted for a crime of a fairly serious nature, or he did something (or is thought to have done something) in the past that makes him hated and reviled by most people. The rules are essentially the same as for Infamy (R1) and the recognition chances are similar to Fame (R2), but the modifier to interactions should be, usually, at least +6.\n\nRestrictions/Notes: As stated under Infamy (R1), unless combined with Fame, this Disadvantage only allows for the negative aspects of notoriety. A character who has Infamy (R2) world be considered by nearly everyone (but not everyone) to be “scum” and someone who “deserves no better than he gets.” When combined with an equal or higher rank of Fame, there is often that “fear and respect” option — many characters will still try to betray or hurt the character in some way, but most won’t be that open about it."
+    },
+    {
+      "id": 3200,
+      "name": "Infamy",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character has trouble going out in public because a lot of people hate her to the point of violence. Chances are good that, if she fails an interaction (with a +9 to the difficulty), the other person will drive her away. The player could select Enemy (R1) in addition to this Disadvantage to reflect those hunting her. However, the character could use disguises and avoid populated areas. Most likely, the character has to move around until she can “live down” her infamy (if ever) or until she dies.\n\nRestrictions/Notes: See Infamy (R1) and Infamy (R2)."
+    },
+    {
+      "id": 3300,
+      "name": "Language Problems",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character does not understand the language of the area she spends most of her time in. She must learn skill pips in the specialization languages: (local language). She also receives a +6 difficulty modifier in addition to any other modifiers for what she’s attempting to convey or understand.\n\nRestrictions/Notes: The character cannot begin the game with more than one pip in languages: (local language), but she may improve the skill at the cost at +2 to the cost. However, the character should speak another language in the game setting fluently."
+    },
+    {
+      "id": 3400,
+      "name": "Learning Problems",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "When the character attempts to learn a new skill, or improve an old one, he does so at +2 per rank to the Character Point cost. Alternatively, the character can only learn or improve a skill if she attempts it and fails.\n\nA character should have to fail with a single skill at least three times per adventure before being allowed to learn or improve the skill.\n\nThis Disadvantage is associated with a single attribute, and it applies to specializations. There should be some sort of reason for this in the character’s background, such as a lack of education or difficulty reading.\n\nRestrictions/Notes: This is the counterpart to the Quick Study Special Ability, and it should be treated in much the same way. This Disadvantage can be taken multiple times and for a different attribute."
+    },
+    {
+      "id": 3500,
+      "name": "Poverty",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "Since characters who adventure tend to accumulate wealth, this Disadvantage is only available at Rank 1. The character begins the game with the shirt on his back and, maybe, a few pieces of cheap and substandard equipment. The character should also have the attitude of someone who is “poor,” whatever that might be in the game setting. If using Funds as an attribute, this Disadvantage subtracts 10 from relevant totals.\n\nRestrictions/Notes: As an excellent combination, this Disadvantage could be selected with Debt or Price to make the situation more realistic. Poverty can only be selected once."
+    },
+    {
+      "id": 3600,
+      "name": "Prejudice",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character is of a minority group — or maybe it is just the character himself — that is subject to prejudice and discrimination. The character receives modifiers to the difficulties (from +2 to +4) during normal interaction with characters not of the minority group, and is generally treated unfairly by society. The group the character belongs to, or the reason he is discriminated against, should be identified immediately, and the player should know how he can expect to be treated in most cases.\n\nRestrictions/Notes: The gamemaster has to be careful with this one. Roleplaying prejudice is not often something players want to get into, and it can be especially uncomfortable in a real world or similar setting. When used in a setting where there are many different sapient species, however, it can be quite interesting — especially if there are several characters in the group who are prejudiced against."
+    },
+    {
+      "id": 3700,
+      "name": "Prejudice",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The minority group the character belongs to is oppressed. The character experiences disparity virtually every day. While other characters of the same minority group may not actually experience this prejudice (that is, they didn’t select this option), it is probably because they aren’t in positions where this discrimination can be easily practiced.\n\nRestrictions/Notes: The character often experiences discrimination and most interactions are performed at a +3 to +6 to the difficulty.\n\nThis prejudice should be roleplayed at every opportunity. However, gamemasters and players should only use this Disadvantage when both sides are comfortable with using it in a pretend situation (see Bigotry and Prejudice for more information). "
+    },
+    {
+      "id": 3800,
+      "name": "Price",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "This is a Disadvantage similar to Advantage Flaw. But, instead of there being something wrong with the character’s Advantage or a set of three related skills, there is a “price tag” attached. Every time the character wants to use the ability, he has to pay a Price at least a few times during the adventure to continue using the ability.\n\nThe Price might be an actual fee and a significant one at that. If the fee isn’t paid, the Advantage goes away until the price can be paid. But this won’t work for many Advantages (at least not in an interesting manner), so there are other ways to do it.\n\nMost likely, the Price will be a roleplaying effect. Maybe every time a Contact does a favor for a character, he not only demands the normal, negotiated recompense (if any), but the character must do a favor of equal importance for the character. Or, whenever a piece of Equipment is used, parts of it need replacing or servicing by a specialist (who may charge a high fee or ask a favor), most likely after the adventure.\n\nOne more suggestion for Price (R1) would be that the character has to pay one Fate Point or three Character Points at the end of an adventure to “pay for” the use of the Advantage or skills. This reflects the fact that the use of the Advantage takes something out of the character when it is used.\n\nRestrictions/Notes: The Price should be fairly easy to meet, but it should take some work. At this rank, it should be something that the character can roleplay along with an adventure or resolve between short adventures or parts of longer adventures (like paying off the recipient of the Price). However, if the character does not pay the Price, the Advantage does go away — and, if in the gamemaster’s opinion the character does this too often, both the Advantage and the Price should go away permanently. Price can be taken often at various ranks, and the same Price can be linked to more than one Advantage — though, unless the Price is actually double (the character has to pay the same price twice as often), it only counts as one Disadvantage."
+    },
+    {
+      "id": 3900,
+      "name": "Price",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The Price for using a particular Advantage, or group of Advantages or set of three related skills, is much higher than mentioned in Rank 1, but the rules are the same. Contacts will be extremely hard to pay off or do favors for — maybe an entire short adventure has to be devoted to paying back a contact who helped out. Optionally, paying two Fate Points or six Character Points at the end of an adventure where the Advantage was used is a quick way of paying the price.\n\nRestrictions/Notes: See Price (R1)."
+    },
+    {
+      "id": 4000,
+      "name": "Quirk",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character suffers from a personality quirk that makes certain types of roleplaying and interaction more difficult. This quirk could simply be a habit or an affectation that has gone too far, or it could be a minor psychological problem. Some examples include:\n\nDependency: The character has a slight dependency on a substance or even a roleplaying event. The character might be a pack-a-day smoker who, if he doesn’t get a cigarette at least once every few hours of game time, he gets irritable and loses Critical Success rerolls during interactions. Or maybe the character always has to have the last word in any situation and will often beat an argument into the ground rather than “lose.”\n\nKleptomania: When in a store or surrounded by small, portable items, the character will occasionally try to “lift” something. When possessed by his Quirk (see rules below), the character suffers +3 to the difficulty of sleight of hand, lockpicking, or related attempts at theft because he really doesn’t know he’s doing it.\n\nIndecision: The character does not like making decisions and will delay making them. When roleplaying, the player should actively participate in group discussions, but he should be wishy-washy and indecisive at critical moments.\n\nStutter: When under pressure, relaxed, nervous (such as failing a skill roll), or some other fairly common “mood” hits the character, he stutters. The upshot is the character suffers +3 to the difficulty of any interaction at this time and player should roleplay having a hard time getting his ideas across to the other players. This lasts until the player rolls a Critical Success.\n\nRestrictions/Notes: Good roleplayers will have fun with these, and other, Quirks that they come up with. Indeed, this Disadvantage is often more fun to play than many Advantages — but the gamemaster should make certain it is being roleplayed. Whenever the gamemaster thinks it appropriate, he should make the player generate a willpower or Spirit total against a base Moderate difficulty to “indulge” in his Quirk automatically (that is, “suffer” for it). The negative effects of the Quirk immediately come into play. Also, if the character repeatedly makes this roll, resisting the impulses of the Quirk, the gamemaster should start modifying the difficulty upwards until the character fails.\n\nMultiple Quirks can be selected.\n\nThe gamemaster may allow multiple inclusions of the same version of this Disadvantage, with all modifiers cumulative and an increase by +5 per inclusion to the willpower difficulty.\n\nAdditional Note: Some players may choose to have their characters roleplay Quirks they already have or might like to play. Sometimes this works, sometimes it doesn’t. It can be hysterical to have a player “steal” dice out from under another player’s nose (symbolizing the fact that the character is taking necessary items away from the other player’s character) as long as things don’t go too far (that is, when people start getting upset). However, players who are “indecisive” should not play characters who are indecisive — since they would be anyway. This is too much like getting a Disadvantage for nothing."
+    },
+    {
+      "id": 4100,
+      "name": "Quirk",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The rules for Quirk (R2) are the same as for Quirk (R1), only the chance of occurrence is much greater and the effects are larger.\n\nDependency: The character needs to fulfill his dependency much more often (once a scene, perhaps). The character also experiences one automatic Critical Failure per scene that he doesn’t (a smoker might have a coughing fit in the middle of a tense negotiation or during a stealth attempt, for example).\n\nSecret: There’s something about the character that she needs to hide. If it were discovered, it would put her friends, family, and even her own life at risk. This could be a civilian identity (if she has a heroic alter ego) or a skeleton in the closet.\n\nRestrictions/Notes: The difficulty of resisting the “impulse” is now Difficult, but all other rules are the same as under Quirk (R1)."
+    },
+    {
+      "id": 4200,
+      "name": "Quirk",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "These “personality quirks” are much more serious. The character might be a junkie, a psychotic with a certain type of behavior, or has a severe phobia (he’s deathly afraid of something). Some examples: Dependency: The character is a junkie, always after a “fix.” The “fix” might be an illegal substance, or a perfectly normal one, or even a type of roleplaying interaction (maybe the character has to try to come as close to dying as he can).\n\nParanoid: The character trusts no one. He receives a +6 to the bonus number when trying to resist being conned, but he also receives this “bonus” when trying to be persuaded — and he must be persuaded before he’ll help even his closest friends. “Everyone is out to get him.” Phobic: The character is deathly afraid of something. It could be heights, open spaces, spiders, or another character. Unless the character makes his willpower roll (below), he dissolves into terror.\n\nVengeful: The character cannot stand to “lose” or be “wronged.” If the character perceives herself as looking foolish (or whatever), she will go to great lengths to get even (in reality, the character probably takes it too far).\n\nRestrictions/Notes: The character has Very Difficult Spirit or willpower roll to make to overcome the Quirk — at the least. If, in the gamemaster’s judgment, there is a reason the character should have modifiers to the difficulty, then he will. Players who don’t want to play a character that can frequently lose control should avoid this option.\n\nOther rules are the same as under Quirk (R1)"
+    },
+    {
+      "id": 4300,
+      "name": "Reduced Attribute",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "Something about the character’s species, age, physical condition, or some other factor has permanently reduced one attribute by one pip.\n\nThe character may not reduce the attribute die code below 1D, and the attribute die code may never be increased by spending Character Points (though gaining a Special Ability would help).\n\nRestrictions/Notes: The reduction in die code increases by one pip for each additional rank taken in this Disadvantage. (Remember that three pips equal one die.) The character may have different variations on this Disadvantage for each attribute, including Extranormal attributes. Only one rank may be taken with an Extranormal attribute of 0D, and the character’s species must be required to take at least 1D in the affected attribute. Characters who have this Disadvantage on an Extranormal attribute before having any die code in that attribute may never take that Extranormal attribute."
+    }
+  ]
+}

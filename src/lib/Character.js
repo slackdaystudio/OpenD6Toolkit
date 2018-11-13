@@ -4,7 +4,15 @@ const fantasyTemplate = require('../../public/templates/fantasy.json');
 
 const BASE_ADVANTAGES = require('../../public/templates/advantages/1/advantages.json');
 
+const BASE_COMPLICATIONS = require('../../public/templates/complications/1/complications.json');
+
 export const TEMPLATE_FANTASY = 'Fantasy';
+
+export const OPTION_ADVANTAGES = 'Advantages';
+
+export const OPTION_COMPLICATIONS = 'Complications';
+
+export const OPTION_SPECIAL_ABILITIES = 'Special Abilities';
 
 const DEFAULT_VALUE = '--'
 
@@ -21,7 +29,11 @@ class Character {
             attributes: this._initAttributes(template.attributes, template.attributeMin),
             advantages: {
                 templateId: template.advantagesTemplateId,
-                advantages: []
+                items: []
+            },
+            complications: {
+                templateId: template.complicationsTemplateId,
+                items: []
             },
             getDieCode: function(name) {
                 let skillOrAttribute = this.getAttributeOrSkill(name);
@@ -123,10 +135,21 @@ class Character {
         }
     }
 
-    getAdvantages(advantagesTemplateId) {
-        let advantages = BASE_ADVANTAGES;
+    getOptions(optionsKey) {
+        let options = null;
 
-        return advantages;
+        switch (optionsKey) {
+            case OPTION_ADVANTAGES:
+                options = BASE_ADVANTAGES;
+                break;
+            case OPTION_COMPLICATIONS:
+                options = BASE_COMPLICATIONS;
+                break;
+            default:
+                // do nothing
+        }
+
+        return options;
     }
 
     _initAttributes(templateAttributes, min) {
