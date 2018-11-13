@@ -1,0 +1,314 @@
+{
+  "name": "Space",
+  "attributeMin": 1,
+  "attributeMax": 5,
+  "move": 10,
+  "characterPoints": 5,
+  "fatePoints": 1,
+  "advantagesTemplateId": 1,
+  "complicationsTemplateId": 1,
+  "specialAbilitiesTemplateId": 1,
+  "attributes": [
+    {
+      "name": "Agility",
+      "isExtranormal": false,
+      "description": "A measure of how physically articulate your character is, including his eye-hand coordination and agility.",
+      "skills": [
+        {
+          "name": "Acrobatics",
+          "description": "Performing feats of gymnastics, extraordinary balance, and dance (and related performance arts), as well as breaking falls and escaping from bonds."
+        },
+        {
+          "name": "Brawling",
+          "description": "Competence in unarmed combat."
+        },
+        {
+          "name": "Dodge",
+          "description": "Slipping out of danger’s way, whether avoiding an attack or a sprung booby trap."
+        },
+        {
+          "name": "Firearms",
+          "description": "Shooting any gun a person can carry, even if it requires a tripod setup to fire. Covers everything from small slug throwers to shoulder-launched rockets."
+        },
+        {
+          "name": "Flying/0-G",
+          "description": "Maneuvering under on one’s own power (such as with wings) or in zero-gravity environments (such as drifting through space in an environmental suit)."
+        },
+        {
+          "name": "Melee Combat",
+          "description": "Wielding hand-to-hand weapons."
+        },
+        {
+          "name": "Missile Weapons",
+          "description": "Firing unpowered ranged weapons."
+        },
+        {
+          "name": "Riding",
+          "description": "Controlling and riding domesticated mounts."
+        },
+        {
+          "name": "Running",
+          "description": "Moving quickly while avoiding obstacles and keeping from stumbling."
+        },
+        {
+          "name": "Sleight of Hand",
+          "description": "Nimbleness with the fingers, including picking pockets, palming items, and opening mechanical locks."
+        },
+        {
+          "name": "Throwing",
+          "description": "Hitting a target accurately with a thrown item, including grenades, stones, and knives. Also used for catching thrown items. (Using or modifying grenades as explosives for special destructive effects requires the demolitions skill.)"
+        }
+      ]
+    },
+    {
+      "name": "Strength",
+      "isExtranormal": false,
+      "description": "Measure of your character’s physical power and ability to resist damage.",
+      "skills": [
+        {
+          "name": "Climb/Jump",
+          "description": "Climbing or jumping over obstacles."
+        },
+        {
+          "name": "Lift",
+          "description": "Moving or lifting heavy objects, as well as the ability to inflict additional damage with strength-powered weapons."
+        },
+        {
+          "name": "Stamina",
+          "description": "Physical endurance and resistance to pain, disease, and poison."
+        },
+        {
+          "name": "Swim",
+          "description": "Moving and surviving in a liquid medium"
+        }
+      ]
+    },
+    {
+      "name": "Mechanical",
+      "isExtranormal": false,
+      "description": "Your character’s prowess at operating mechanical equipment like vehicles, shields, spaceships, and sensors.",
+      "skills": [
+        {
+          "name": "Comm",
+          "description": "Effectively using communication devices and arrays."
+        },
+        {
+          "name": "Exoskeleton Operation",
+          "description": "Using single-person conveyances with skills and abilities that substitute for (not augment) the character’s own skills and abilities. This skill substitutes for the character’s Agility and Strength skills when using the “suit.”"
+        },
+        {
+          "name": "Gunnery",
+          "description": "Accurately firing weapons mounted on powered armor, vehicles, and spaceships, or within fortresses."
+        },
+        {
+          "name": "Navigation",
+          "description": "Plotting courses, such as through space using a vessel’s navigational computer interface, or on land using maps or landmarks, as well as creating maps."
+        },
+        {
+          "name": "Piloting",
+          "description": "Flying air- or space-borne craft, from hovercraft and in-atmosphere fighters to transports and battleships."
+        },
+        {
+          "name": "Sensors",
+          "description": "Operating scanner arrays to gather information about one’s surroundings."
+        },
+        {
+          "name": "Shields",
+          "description": "Deploying and redirecting shields aboard vehicles."
+        },
+        {
+          "name": "Vehicle Operation",
+          "description": "Operating non-flying vehicles traveling on or through the ground or a liquid medium."
+        }
+      ]
+    },
+    {
+      "name": "Knowledge",
+      "isExtranormal": false,
+      "description": "Measure of your character’s overall intelligence.",
+      "skills": [
+        {
+          "name": "Aliens",
+          "description": "Understanding of aliens not of the character’s own species and their physiology, customs, and history."
+        },
+        {
+          "name": "Astrography",
+          "description": "Familiarity with astrographic features (planets, star systems, nebulae), and general knowledge of any civilized elements present (settlements, industry, government, orbital installations)."
+        },
+        {
+          "name": "Bureaucracy",
+          "description": "Knowledge of and ability to use a bureaucracy’s intricate procedures to gain information, and favors, or attain other goals."
+        },
+        {
+          "name": "Business",
+          "description": "Comprehension of business practices and the monetary value of goods and opportunities, including the ability to determine how to make money with another skill the character has. Business can complement bargain when haggling over prices for goods and services being bought or sold."
+        },
+        {
+          "name": "Cultures",
+          "description": "Understanding of the manners, customs, and social expectations of different cultures, including one’s own."
+        },
+        {
+          "name": "Intimidation",
+          "description": "Using physical presence, verbal threats, taunts, or fear to influence others or get information out of them."
+        },
+        {
+          "name": "Languages",
+          "description": "Familiarity with and ability to use various forms of communication, including written, spoken, and nonverbal. Characters may choose one “native” language in which they have written and spoken fluency. Additional languages in which a character has proficiency can be represented by specializations of this skill."
+        },
+        {
+          "name": "Scholar",
+          "description": "This skill represents knowledge and/or education in areas not covered under any other skill (such as chemistry, mathematics, archeology, cooking, art, etc.). This may be restricted to a specific field (represented by specializations) or a general knowledge of a wide range of subjects. It is used to remember details, rumors, tales, legends, theories, important people, and the like, as appropriate for the subject in question. However, the broader the category, the fewer the details that can be recalled. It covers what the character himself can recall. Having another skill as a specialization of the scholar skill means that the character knows the theories and history behind the skill but can’t actually use it. Scholar can be useful with investigation to narrow a search for information."
+        },
+        {
+          "name": "Security Regulations",
+          "description": "Understanding of how law enforcement organizations, regulations, and personnel operate."
+        },
+        {
+          "name": "Streetwise",
+          "description": "Finding information, goods, and contacts in an urban environment, particularly through criminal organizations, black markets, and other illicit operations. Also useful for determining possible motives and methods of criminals."
+        },
+        {
+          "name": "Survival",
+          "description": "Knowledge of techniques for surviving in hostile, wilderness environments, as well as the ability to handle animals."
+        },
+        {
+          "name": "Tactics",
+          "description": "Familiarity with deploying military forces and maneuvering them to the best advantage."
+        },
+        {
+          "name": "Willpower",
+          "description": "Ability to withstand stress, temptation, other people’s interaction attempts, mental attacks, and pain. The Game Master may allow a specialization in a specific faith tradition or belief system to enhance many, though not all, applications of willpower."
+        }
+      ]
+    },
+    {
+      "name": "Perception",
+      "isExtranormal": false,
+      "description": "Your character’s awareness of himself and things around him, including the ability to interact with others.",
+      "skills": [
+        {
+          "name": "Artist",
+          "description": "Making works of art, like paintings, photographs, and music or literary compositions."
+        },
+        {
+          "name": "Bargain",
+          "description": "Haggling over prices for goods and services being bought or sold, as well as using bribery."
+        },
+        {
+          "name": "Command",
+          "description": "Effectively ordering and coordinating others in team situations (such as commanding a battleship crew)."
+        },
+        {
+          "name": "Con",
+          "description": "Bluﬃng, lying, tricking, or deceiving others, as well as verbal evasiveness, misdirection, blustering, and altering features or clothing to be unrecognizable or to look like someone else. Also useful in putting on acting performances."
+        },
+        {
+          "name": "Forgery",
+          "description": "Creating and noticing false or altered documentation in various media (paper, electronic, plastic card, etc.), including counterfeiting, though tasks may require other skills to help detect or make the forgery."
+        },
+        {
+          "name": "Gambling",
+          "description": "Winning and cheating at games of strategy and luck."
+        },
+        {
+          "name": "Hide",
+          "description": "Concealing objects, both on oneself and using camouflage."
+        },
+        {
+          "name": "Investigation",
+          "description": "Gathering information, researching topics, analyzing data, and piecing together clues."
+        },
+        {
+          "name": "Know-how",
+          "description": "Figuring out how to perform an action in which the character does not have experience, as well as a catch-all skill encompassing areas not covered by other skills (such as utilitarian sewing or cooking)."
+        },
+        {
+          "name": "Persuasion",
+          "description": "Influencing others or getting information out of them through bribery, honest discussion, debate, diplomacy, speeches, friendliness, flattery, or seduction. Also useful in negotiations, business transactions, and putting on performances (such as singing, acting, or storytelling)."
+        },
+        {
+          "name": "Search",
+          "description": "Spotting hidden objects or people, reconnoitering, lipreading, eavesdropping on or watching other people, or tracking the trails they’ve left behind."
+        },
+        {
+          "name": "Sneak",
+          "description": "Moving silently, avoiding detection and hiding one-self."
+        }
+      ]
+    },
+    {
+      "name": "Technical",
+      "isExtranormal": false,
+      "description": "Your character’s ability to manipulate, repair, and modify technology.",
+      "skills": [
+        {
+          "name": "Armor Repair",
+          "description": "Fixing damaged armor."
+        },
+        {
+          "name": "Computer Interface/Repair",
+          "description": "Programming, interfacing with, and fixing computer systems."
+        },
+        {
+          "name": "Demolitions",
+          "description": "Setting explosives to achieve particular destructive effects."
+        },
+        {
+          "name": "Exoskeleton Repair",
+          "description": "Repairing and modifying exoskeletons, powered armor, environmental suits, and similar suits."
+        },
+        {
+          "name": "Firearms Repair",
+          "description": "Repairing and modifying any gun a person can carry, from small slug throwers to shoulder-launched rockets."
+        },
+        {
+          "name": "Flight Systems Repair",
+          "description": "Fixing damaged systems aboard flying vehicles and spaceships."
+        },
+        {
+          "name": "Gunnery Repair",
+          "description": "Fixing weapons mounted on powered armor, vehicles, or spaceships, or within fortresses."
+        },
+        {
+          "name": "Medicine",
+          "description": "Using basic field medicine to treat injuries, as well as detailed understanding and applying medical procedures, such as diagnosing illnesses, performing surgery, and implanting cybernetics."
+        },
+        {
+          "name": "Personal Equipment Repair",
+          "description": "Fixing small electronic equipment, including damaged cybernetics."
+        },
+        {
+          "name": "Robot Interface/Repair",
+          "description": "Programming, interfacing with and fixing robots and their systems."
+        },
+        {
+          "name": "Security",
+          "description": "Installing, altering, and bypassing electronic security and surveillance systems."
+        },
+        {
+          "name": "Vehicle Repair",
+          "description": "Fixing ground- and ocean-based vehicles that do not fly."
+        }
+      ]
+    },
+    {
+      "name": "Metaphysics",
+      "isExtranormal": true,
+      "description": "Metaphysics covers the ability to mentally control the energy of the universe to bend the laws of the world around a character.",
+      "skills": [
+        {
+          "name": "Channel",
+          "description": "Focusing energy within herself and her surroundings to harm others or protect herself and others from harm."
+        },
+        {
+          "name": "Sense",
+          "description": "Detecting anything in existence, learn about her surroundings, and touch and influence minds."
+        },
+        {
+          "name": "Transform",
+          "description": "Altering people and things within the universe, including moving something from one location to another and changing a target’s natural capabilities temporarily."
+        }
+      ]
+    }
+  ]
+}

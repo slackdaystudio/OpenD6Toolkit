@@ -4,6 +4,8 @@ const TEMPLATE_FANTASY = require('../../public/templates/fantasy.json');
 
 const TEMPLATE_ADVENTURE = require('../../public/templates/adventure.json');
 
+const TEMPLATE_SPACE = require('../../public/templates/space.json');
+
 const BASE_ADVANTAGES = require('../../public/templates/advantages/1/advantages.json');
 
 const BASE_COMPLICATIONS = require('../../public/templates/complications/1/complications.json');
@@ -13,6 +15,8 @@ const BASE_SPECIAL_ABILITIES = require('../../public/templates/special_abilities
 export const TEMPLATE_FANTASY_NAME = 'Fantasy';
 
 export const TEMPLATE_ADVENTURE_NAME = 'Adventure';
+
+export const TEMPLATE_SPACE_NAME = 'Space';
 
 export const OPTION_ADVANTAGES = 'Advantages';
 
@@ -138,6 +142,7 @@ class Character {
 
         templates.push(TEMPLATE_FANTASY);
         templates.push(TEMPLATE_ADVENTURE);
+        templates.push(TEMPLATE_SPACE);
 
         return templates;
     }
@@ -148,6 +153,8 @@ class Character {
                 return TEMPLATE_FANTASY;
             case TEMPLATE_ADVENTURE_NAME:
                 return TEMPLATE_ADVENTURE;
+            case TEMPLATE_SPACE_NAME:
+                return TEMPLATE_SPACE;
             default:
                 // do nothing
         }
