@@ -1,0 +1,501 @@
+{
+  "id": 1,
+  "name": "Special Abilities",
+  "items": [
+    {
+      "id": 100,
+      "name": "Accelerated Healing",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character gains a +1D per rank to his Strength for all natural healing attempts, and a Critical Failure is treated as 1, rather than having a negative effect on the die roll."
+    },
+    {
+      "id": 200,
+      "name": "Ambidextrous",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character is equally adept with her right or left hand. She may perform an action with each hand in the same round, and, though she takes the multi-action penalty, she receives a +1 per rank to each skill total. The actions must involve the hands and each action must require only one hand. If the character performs only one hand-related action in a round, she does not get the bonus. Some skills that characters could employ with either hand include brawling, sleight of hand, firearms, throwing, lift, artist, forgery, and the map-making aspect of navigation, though, of course, not every task covered by each skill is relevant. A character may take multiple ranks of this Special Ability for two pairs of hands and multiple ranks for each additional manipulative limb."
+    },
+    {
+      "id": 300,
+      "name": "Animal Control",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "This gives the character the ability to control one particular species of animal, bird, or insect. The character gets a +10 bonus to her survival: animal handling total for that species. She must generate a survival: animal handling versus the Knowledge or willpower of the animal (more than one animal can be targeted, although this is a multi-action). If the character gets a high enough success (Game Master’s decision), the animal is controlled for a number of minutes equal to the survival: animal handling skill total times 10. A controlled animal serves its master faithfully, even sacrificing itself on her behalf. The Special Ability has a range of sight or voice. The character may gain one more species for each rank.\n\nNote: A swarm of insects counts as one animal, as does a school of small fish. Any creature with a Knowledge die code of less than 2D could be considered an animal, unless the Game Master says otherwise."
+    },
+    {
+      "id": 400,
+      "name": "Armor-Defeating Attack",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "When a character with natural weapons (the character’s fists, claws, teeth, etc.) attacks someone protected by armor, this ability negates the Armor Value, up to +1D per rank. The character must specify how the attack negates the armor: an acidic mist slips through any openings, nanotech claws reach directly to the flesh, and the like. There should be at least one type of armor that is unaffected by this."
+    },
+    {
+      "id": 500,
+      "name": "Atmospheric Tolerance",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can breathe one form of atmosphere (gas or liquid) that would be lethal to most other characters. A character may not have more than one rank in this ability, but he may have different versions for different atmospheres."
+    },
+    {
+      "id": 600,
+      "name": "Attack Resistance",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character is highly resistant to a certain type of attack. She gains +1D per rank to her damage resistance total against this type of attack.\n\nEnergy Attacks: Resistant to blasts of heat, fire, electricity, radiation, light, cold, and so on, but not the ability to survive in extremes of such environments.\n\nExtranormal Attack: Resistant to damage from any Extranormal based (such as Metaphysics) attack.\n\nMental Attacks: Resistant to mental harm from any source. It does not provide protection against interaction attempts."
+    },
+    {
+      "id": 700,
+      "name": "Attribute Scramble",
+      "displayNote": null,
+      "rank": 4,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can adjust an opponent’s (or a friend’s) attributes temporarily. She gains the scramble skill at +1 per rank in a single version of this Special Ability (it is a Perception skill, described only here), which she also can increase as a normal skill. The scrambler must pick as her focus either physical or mental attributes, though never Extranormal, Funds, or Special Abilities. (Physical attributes encompass Agility, Strength, and Mechanical. Mental attributes include Knowledge, Perception, and Technical.) She only may do both by taking this Special Ability once for each version.\n\nWhen she goes after a target with an brawling roll, she may choose (as a multi-action) to also perform a scramble attack versus a roll of her target’s willpower or Knowledge. (This is not an action for the target.) No close combat attack is necessary for a willing target, though the willpower or Knowledge must still be made. However, the act of scrambling still counts as an action.\n\nIf the scrambler’s total is higher (not equal to), she may shift her target’s attribute points around, within certain limits. The close combat attack does no damage.\n\nShe may increase one or more related attributes by a number equal to the amount she takes away from other related attributes — but she may not decrease or increase any one attribute by more than 2D (6 pips). The change lasts for a number of rounds equal to the difference between the scramble attack and the target’s willpower or Knowledge. A character who has been adjusted cannot be scrambled again until the original adjustment wears off."
+    },
+    {
+      "id": 800,
+      "name": "Blur",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can appear indistinct to the naked eye or most visual aids (binoculars, cameras, etc.). Commonly, a character with this Special Ability will only be spotted out of the corner of the eye. This adds 1 to the character’s dodge, sneak, and hide totals, as well as +1 to all default search, investigation, and attack diﬃculties against the character that the blurring character is not actively trying to defeat. (These modifiers are per rank in this Special Ability.) On the character’s turn, she may automatically become blurry, without taking an action, and remain so until she chooses otherwise. Blurring also makes it diﬃcult for the character to hold a conversation with others."
+    },
+    {
+      "id": 900,
+      "name": "Combat Sense",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can sense danger. She is never surprised. Rather, she and her attacker must determine initiative as normal. Even if the attacker still goes before the character does, any combat modifier from the surprise is reduced by 2. A character may not have this ability more than once."
+    },
+    {
+      "id": 1000,
+      "name": "Confusion",
+      "displayNote": null,
+      "rank": 4,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can hamper the thoughts of those he comes into physical contact with, at will. He gains the confuse skill at +1 per rank (it is a Perception skill, described only here), which he can increase as normal. As a multi-action with a brawling attack, he may also perform a confusion attack versus his target’s willpower or Knowledge. (This is not an action for the target.) If his total is higher (not equal to), the target is confused. Characters may not play cards (if the Game Master is using game-enhancing cards with the adventures) or spend points, and they receive a +5 diﬃculty modifier to even simple actions for a number of rounds equal to two times the rank of this Special Ability."
+    },
+    {
+      "id": 1100,
+      "name": "Darkness",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can project a field of darkness around himself, adding +5 per rank to the diﬃculty of any sight-based skill totals. The field extends in a half-sphere around the character with a radius equal to one meter per rank. The field can be maintained for a maximum of one minute per rank before dispersing."
+    },
+    {
+      "id": 1200,
+      "name": "Elasticity",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can stretch, elongate, and compress his body, allowing him to expand his height or become so narrow he can pass through keyholes, cracks, or any other opening he could normally see through. It takes one round or more to slip through small openings, depending on their depth. The character gains +1 per rank to acrobatics, dodge, or sleight of hand totals, in addition to con totals when using that skill to disguise his own appearance."
+    },
+    {
+      "id": 1300,
+      "name": "Endurance",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character has great endurance, and gains a +3D per rank to Strength or stamina checks when performing taxing physical tasks (such as holding one’s breath underwater for a long period or running a long distance)."
+    },
+    {
+      "id": 1400,
+      "name": "Enhanced Sense",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "One of the character’s five senses is heightened to abnormal levels. The bonus to the skill total received depends on the sense: sight is +1; hearing is +2; touch, taste, or smell are +3. The bonus is per rank and applies to all skills related to the sense. To have multiple enhanced senses, this Special Ability must be taken at least once for each sense."
+    },
+    {
+      "id": 1500,
+      "name": "Environmental Resistance",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character is resistant to extremes of heat, cold, and pressure and gains a +3D per rank to Strength or stamina checks to resist ill effects from these environmental conditions. The character is not resistant to heat or cold attacks, as these come and go too quickly for the Special Ability to provide protection."
+    },
+    {
+      "id": 1600,
+      "name": "Extra Body Part",
+      "displayNote": null,
+      "rank": 0,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character has an extra limb or organ. If external, these may be secondary arms or legs, a tail, or some more exotic bodily addition, such as fins, tentacles, or antennae. If internal, the parts are organs such as extra eyes, hearts, or mysterious glands. Unless specified by a Disadvantage or Limitation, the extra parts are included in the hero’s body tastefully. Additionally, except in cases where the character has an Enhancement or another Special Ability that uses this one (for example, Extra Body Part: Tail and Natural Hand-to-Hand Weapon: Tail), the extra part is nonfunctional. A character may have only one rank in this Special Ability, but she may have multiple versions to represent multiple additional organs or limbs."
+    },
+    {
+      "id": 1700,
+      "name": "Extra Sense",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can detect something that a normal Human cannot, such as changes in pressure, seismic activity, radiation fluctuations, and so on. She gains a +1D to her search rolls in attempting to detect the specific energy or environmental change and +1D to her investigation rolls in figuring out source or other relevant information. The Game Master may also allow a +1 skill total bonus to other activities that would benefit from whatever the extra sense can detect. All modifiers are per rank in this Special Ability."
+    },
+    {
+      "id": 1800,
+      "name": "Fast Reactions",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character gains +1D per rank to his Perception when determining initiative, and, for up to three times during the adventure, he may receive one additional action for one round."
+    },
+    {
+      "id": 1900,
+      "name": "Fear",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can provoke fear in those who can see or hear him. He gains a +1 per rank to all intimidation totals and combat defense diﬃculties against those so affected. The willpower or Knowledge difficulty to resist a Fear attack is 15."
+    },
+    {
+      "id": 2000,
+      "name": "Flight",
+      "displayNote": null,
+      "rank": 6,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can fly, either by nature or by virtue of having wings. The character’s flying rate equals his base Move times 2 times the number of ranks. The flying/0-G skill is required to maneuver."
+    },
+    {
+      "id": 2100,
+      "name": "Glider Wings",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can fly by drifting with air currents, provided there is suﬃcient wind. The Game Master decides how much wind there is available and how fast it moves the glider. Characters with this Special Ability need the flying/0-G skill to control their passage. A character may not have this ability more than once."
+    },
+    {
+      "id": 2200,
+      "name": "Hardiness",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can take damage better than normal. She add 1 per rank to her damage resistance total against any type of damage."
+    },
+    {
+      "id": 2300,
+      "name": "Hypermovement",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character is extremely fast, adding +2 meters per round per rank to her base Move rate, which in turn affects all other types of movement."
+    },
+    {
+      "id": 2400,
+      "name": "Immortality",
+      "displayNote": null,
+      "rank": 7,
+      "multipleRanks": false,
+      "totalRanks": 1,
+      "description": "The character is immortal, though she will grow older, at a decreased pace compared to the rest of her species. If she is reduced to zero Body Points, she doesn’t die. She will not go unconscious or bleed to death (as mortally wounded characters do), but she will not heal without psionic or similar special aid or the Accelerated Healing Special Ability — her arms could be blown off, her abdomen eviscerated, or whatever. She may perform only the most minimal of physical actions, such as squirming, and some actions may be impossible. She may rely on her Agility for initiative purposes only.\n\nThere should be one particular set of circumstances whereby the character will die forever. These sets of circumstances should not be too unusual — killed directly by an Extranormal blast, drowning decapitation, and so on are all good examples.\n\nA character may not have this ability more than once."
+    },
+    {
+      "id": 2500,
+      "name": "Immunity",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character is highly resistant to disease and poisons and receives a +1D per rank to Strength or stamina checks when determining whether he has contracted an illness or suffering from ingested poisons."
+    },
+    {
+      "id": 2600,
+      "name": "Increased Attribute",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "Some extraordinary training or physiological trait allows the character to gain +1 bonus per rank to all rolled totals related to that attribute. (For Strength, this also includes the damage resistance total and Strength Damage.) A character may have multiple ranks of this Special Ability, as well as multiple versions of it.\n\nNote: To get another rank in this Special Ability after character creation costs 4 times the number in front of the “D” of the attribute that it affects plus the number of ranks currently in the Special Ability. (This is instead of the normal cost to increase Special Abilities.)"
+    },
+    {
+      "id": 2700,
+      "name": "Infravision/Ultravision",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character gains the ability to see in the dark using either infravision or ultravision. Infravision allows the character to see changes in heat, while ultra-vision enables the character to make the most of the available light. Each provides a +2 per rank in a single version of this Special Ability to sight-based rolls while in dim or dark conditions. Obviously, extreme heat or bright light (including daylight) prevent this Special Ability from working."
+    },
+    {
+      "id": 2800,
+      "name": "Intangibility",
+      "displayNote": null,
+      "rank": 5,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can reduce his physical density to virtually zero for one minute per rank. During that time, his damage resistance score against physical and energy attacks is +3D per rank, but his movement rate is halved. An intangible character can pass through solid objects, providing they do not contain wards or other spells of protection designed to repel passage of this nature. He may not pass through energy or electrified barriers. While intangible, the character cannot carry any object along (including clothing), nor can he attempt any physical attack. It takes a full round for a character to become intangible or solid, during which he can do nothing else. The character must spend at least one minute solid before attempting intangibility again."
+    },
+    {
+      "id": 2900,
+      "name": "Invisibility",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can become transparent. This adds 1 per rank to the character’s dodge, sneak, and hide totals, as well as +1 per rank to all default search, investigation, and attack diﬃculties against the character that the invisible character is not actively trying to defeat. Additionally, no character may take an action to “spot” the character unless the Game Master feels there is suﬃcient provocation, such as brushing against others or removing something in a crowded area. The invisibility covers the character’s basic clothes only — not any gear she’s carrying, or anything she picks up. Also, remember that the character is transparent when invisible — she can’t hide things behind her back."
+    },
+    {
+      "id": 3000,
+      "name": "Iron Will",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character is highly resistant to all interaction attempts and mental attacks. The character gains a +1D per rank to all willpower rolls and +2 to the standard diﬃculty of any such attempts against this character."
+    },
+    {
+      "id": 3100,
+      "name": "Life Drain",
+      "displayNote": null,
+      "rank": 5,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "This ability allows the character to drain attribute pips, Body Points, or Wounds from his target. The character must choose one set of attributes to target, either physical (Agility, Mechanical, Strength), mental (Knowledge, Perception, Technical), Wounds, or Body Points. For example, most vampires drink blood, and thus lower Body Points, while succubi target the soul and so weaken mental attributes. The player must specify in what manner the character drains these attributes (biting the neck, hypnosis, or another means). It should involve some sort of successful attack result (either physical or mental).\n\nWhen the character wishes to employ Life Drain, he makes an attack on his target using the relevant skill. For every four points over the target’s defense roll, the character drains one pip per rank off each of the target’s relevant attributes or three points per rank from the character’s Body Points or one Wound for every two ranks. (Remember that there are three pips in each die.)\n\nIf any of the target’s attributes or Body Points ever go to zero (or the character reaches the Dead Wound level), the target goes into a coma. She may try once per day to wake up by making a successful Moderate stamina or Strength roll. She regains one attribute point (to each attribute affected) every hour after the attack. Body Points and Wound levels return at the normal rate.\n\nFor each attribute pip the character drains, he may add one pip to any attribute in his chosen category. He would get one Body Point for each Body Point drained or one Wound for each Wound drained. Life-Drained attributes and unused Body Points or Wounds disappear at a rate of one pip or point per hour.\n\nA character may have multiple ranks of this Special Ability, as well as multiple versions of it."
+    },
+    {
+      "id": 3200,
+      "name": "Longevity",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character lives longer than the average Human. Often, this Special Ability has a Flaw attached that governs what the character must do to maintain his life. The character should gain peripheral bonuses during game play because of his “longer outlook.” A character may not have this ability more than once."
+    },
+    {
+      "id": 3300,
+      "name": "Luck, Good",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character is blessed with unusually good luck. Once per adventure, a character with Good Luck can receive one of the following benefits just by asking for it: action, breakthrough, haste, or second chance. See the “Luck Benefits” sidebar for details on each of these options. Calling upon one’s luck does not count as an action.\n\nGood Luck can only be declared once per rank during a particular adventure, but it may be declared at any time, and it cannot be cancelled by any other effect. A character may have up to two ranks of this Special Ability."
+    },
+    {
+      "id": 3400,
+      "name": "Luck, Great",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "A character with Great Luck can call on one of the following benefits once per adventure per rank: action, alertness, breakthrough, haste, hero, opponent fails, or second chance. See the “Luck Benefits” sidebar for details on each of these options. Calling upon one’s luck does not count as an action.\n\nIf the character has not used his Great Luck during an adventure and something really disastrous happens, the Game Master may choose to counteract the effects and temporarily “burn out” the character’s Special Ability — that is, the character’s Great Luck has been used up for the adventure. Usually, this is used when the character does something stupid or the player is the victim of incredibly bad luck — die rolling, not the Disadvantage — and something “stops” the effect. This is a “last ditch,” Game Master-controlled effort when circumstances get out of control. It is also a nice thing for inexperienced roleplayers to have — just in case they do something they really shouldn’t have, they get another chance. Example: The character’s mission is to turn off the power at a nuclear plant or it will explode and destroy the city that’s conveniently downwind. Unfortunately, the character takes too long fighting the minions of the bad guy who set the plant to overload, and, according to the rules, the whole city should go up in a radioactive fireball. The character is too late. The Game Master might choose to have the character be really lucky — the villain was bluﬃng, and there’s really more time on the clock than anyone thought, or the power plant begins a long meltdown procedure instead of exploding. In any case, the character’s Good Luck is gone for this adventure (his luck ran out), but he has a chance of averting disaster.\n\nAs with Good Luck, the character may have up to two ranks of this Special Ability."
+    },
+    {
+      "id": 3500,
+      "name": "Master of Disguise",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character has a natural talent for disguise. She gains a +5 per rank bonus to con totals when using that skill to disguise herself and a +1D bonus per rank to any con, intimidation, or persuasion actions while in that disguise."
+    },
+    {
+      "id": 3600,
+      "name": "Multiple Abilities",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character has multiple minor abilities that improve a few different tasks. All bonuses are added to the skill or attribute total, not to the die code. The bonuses should be fairly limited in their applications, pertaining to specific uses of particular skills (like specializations do), but there can be several of them for each selection of this Special Ability. The maximum total bonus for each rank is +4.\n\nExample: A character could have “eyestalks” that give him a +1 bonus to Perception or search totals that would negate surprise, the ability to focus his ears on particular types of noises (+1 bonus when listening for particular sounds), and fingers that are sensitive to subdermal motion (+1 bonus to sleight of hand against safes with moving tumblers)."
+    },
+    {
+      "id": 3700,
+      "name": "Natural Armor",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character has plates, toughened skin, scales, or something similar. His own surface adds 1D per rank to his damage resistance total to physical (not mental) attacks and contact poisons, corrosives, or similar materials."
+    },
+    {
+      "id": 3800,
+      "name": "Natural Hand-to-Hand Weapon",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character has some sort of natural weapon — such as claws, pincers, bone spikes, or stinger — that add 1D per rank to his Strength Damage when determining his damage with the natural weapon. The character uses brawling to attack, unless he can detach the weapon from himself or (in the case of a super-scientific weapon) its exists separately. In these latter cases, the character employs melee combat to wield it."
+    },
+    {
+      "id": 3900,
+      "name": "Natural Ranged Weapon",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character has some sort of natural ranged weapon, using missile weapons (for solid objects) or firearms (for energy, gas, or chemical projection or for solid projectiles in cybernetics or super-science weapons) to target it. Long range equals 20 times the number of ranks in this Special Ability times the character’s Strength, lift, or firearms (as appropriate) in meters. The damage for physically enhanced projections is the character’s Strength Damage plus 1D per rank, while the damage for all other types of blasts is 3D per rank. The projection must have a visible effect (such as bone shards or a glowing ray) and it may not do mental damage. Note that, regardless of the nature of the projection, there are no additional effects from this type of Special Ability unless an Enhancement allows otherwise."
+    },
+    {
+      "id": 4000,
+      "name": "Omnivorous",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can gain nourishment from any organic substance (though she is not immune to poisons). She can also chew through just about any organic substance with no adverse effects to her teeth or jaws. A character may not have this ability more than once."
+    },
+    {
+      "id": 4100,
+      "name": "Paralyzing Touch",
+      "displayNote": null,
+      "rank": 4,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can freeze her target with the merest touch. When she makes a brawling attack, she may, instead of doing damage, paralyze her victim, who remains that way until he makes a successful Knowledge or willpower roll against the brawling skill total. He may attempt to do so once per round; the only other actions he may take are mental-based ones and Extranormal (such as Metaphysics) or Special Ability ones that do not require movement.\n\nNote: Characters who are heavily armored or covered will be harder to hit. The Game Master needs to decide how much skin is exposed and adjust the attack diﬃculty accordingly.\n\nA character may not have this ability more than once."
+    },
+    {
+      "id": 4200,
+      "name": "Possession, Limited",
+      "displayNote": null,
+      "rank": 8,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can possess the body of a living creature or a corpse. The character must be within three times the rank of this Special Ability in meters of the target in order to take possession.\n\nPossessing a corpse doesn’t require a roll, but it does take an action. Possessing a living being involves making a Knowledge or willpower check by the possessor versus a standard interaction diﬃculty (see the “Mental Defenses” sidebar on page 85 for details). Exceeding (but not equalling) the diﬃculty means the target has been possessed. The target can actively defend if she is aware of the potential danger.\n\nTo gather knowledge about his host body’s life, the possessing character must generate a successful investigation total against the target’s Knowledge roll (this does not count as an action for the target). Information the possessor gains depends upon the level of success achieved; see the accompanying chart for details.\n\nWith Limited Possession, the character does not gain control of the new form. Instead, he must use persuasion, intimidation, or other interaction skills to convince his host to do what he wishes. Exiting a host body is commonly a simple action. As long as the possessing character exits before the host dies, he simply moves on to his own or another form. Killing a possessing spirit usually involves taking it completely by surprise with a killing blow to the host form or using a spell to force it to remain in the body until it can be slain."
+    },
+    {
+      "id": 4300,
+      "name": "Possession, Full",
+      "displayNote": null,
+      "rank": 10,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can possess the body of a living creature or a corpse. This works in the same way as Limited Possession, save that the possessing character gains her new form’s physical attributes (Agility, Mechanical, Strength), retains her own Extranormal and mental attributes (Knowledge, Perception, and Technical), and gains complete control over the new form.\n\n> Possession Knowledge Chart\n\nResult Points* Needed Knowledge Attained\n\n0 Basic information: target’s name, age, base of operations\n\n1-4 More personal information: target’s job, financial status, any current schedule\n\n5-8 More in-depth personal information: identities and backgrounds of family, friends, lovers\n\n9-12 Very personal information: secrets, private likes and dislikes, and so on\n\n13 Everything there is to know\n\n*Result points equal the difference between the investigation total and the target’s Knowledge roll."
+    },
+    {
+      "id": 4400,
+      "name": "Quick Study",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character has an uncanny ability to learn new skills and improve old ones, limited to one attribute. He always learns new skills as if he had a teacher (even if he doesn’t), and he can improve skills he already knows at a cost of one Character Point less than normal. This Special Ability applies to specializations as well as combines very well with the Age Disadvantage, if the character is young — he is a prodigy, and that’s why he’s learned his starting skills so quickly. This Special Ability can be taken once for each attribute."
+    },
+    {
+      "id": 4500,
+      "name": "Sense of Direction",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character has a good sense of direction. He gains +1D per rank to navigation and search rolls."
+    },
+    {
+      "id": 4600,
+      "name": "Shapeshifting",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can manipulate the shape, color, and overall appearance of her body, though mass and body compositions remain the same. The character must chose a specific creature to emulate, gaining one form for every three additional points spent on this Special Ability. At six ranks in this ability, the Game Master may allow shifting among one class of creatures (such as birds or furniture) as long as all forms chosen for previous ranks were within the same class.\n\nBody Points, Wounds, and the Knowledge attribute remain unaffected by this Special Ability, but the dice in the Agility, Mechanical, Strength, Perception, and Technical are redistributed to match the new form. The minimum Mechanical and Technical for non-humanoid forms is 1D, because the shapeshifter retains some memory of these attributes. Additional dice in skills above the base attribute score remain the same, though the total dice in each skill changes to reflect the adjustments in the base attribute. Likewise, not all skills will be usable in the new form.\n\nAttribute dice can also be used to include Special Abilities in the new form. One attribute die can be spent to gain one rank in one Special Ability or to get a +2 skill total bonus (split among up to two skills). The Game Master may allow a larger skill total bonus or more skills to fall under the bonus if the desired effect is particularly narrow (such as a bonus for a single sense).\n\nFor an example of how Shapeshifting can work, see the accompanying sidebar.\n\nShapeshifting may be done at will, though a Limitation may force it to be triggered by stress or environmental factors.\n\nIf shifting voluntarily, the character must generate a willpower total of 11 to bring about the change, and a second total to turn back again. Each change takes one full round in which the character may do nothing else. Failure at the check means the transformation does not occur, and the character cannot try again for at least an hour.\n\nIt is highly recommended that the hero comes up with some typical forms and their game characteristics before beginning play. The new form need not exactly resemble a “typical” version of the emulated creature or object.\n\n> Shapeshifting Example\n\nMark is playing a wereleopard. He chooses Shapeshifting, specifying that he will only change from Human to leopard and back again. The Game Master decides he’ll gain one rank of the Hypermovement Special Ability (+2 to the movement rate) and +2 to all search totals that require smell when in his wereleopard form.\n\nMark’s character has 18 attribute dice arranged thusly:\n\n\tAGILITY 2D+2\n\n\tSTRENGTH 3D\n\n\tKNOWLEDGE 2D+2\n\n\tPERCEPTION 2D+2\n\n\tMECHANICAL 3D+1\n\n\tTECHNICAL 3D+2\n\nWhen he changes into wereleopard form, Mark’s character has the following attribute values, the total of which has been lowered by 2D because of the bonuses:\n\n\tAGILITY 4D\n\n\tSTRENGTH 3D+2\n\n\tKNOWLEDGE 2D+2\n\n\tPERCEPTION 3D+2\n\n\tMECHANICAL 1D\n\n\tTECHNICAL 1D"
+    },
+    {
+      "id": 4700,
+      "name": "Silence",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can move in complete silence. He gains +2D per rank to all sneak checks and a +1D per rank when attacking from behind."
+    },
+    {
+      "id": 4800,
+      "name": "Skill Bonus",
+      "displayNote": null,
+      "rank": 1,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "Skill Bonus represents a natural talent (a character with the Charismatic group might be “friendly and outgoing”), a particular knack (a character with the Ranged Combat group has a “keen eye”), years of devotion to a profession prior to beginning adventure, or the result of an extended life.\n\nThe character chooses a group of three related skills in which he gains +1 to the skill total of any action performed with those skills (or specializations of that skill). The skills need not be under the same attribute. The character may or may not actually have adds in those skills, and the Game Master must approve the fact that they are “related.”\n\nSome examples of skill groups include: Acting: bargain, con, persuasion Acute Balance: acrobatics, climb/jump, sneak Athletics: lift, running, throwing Charismatic: command, con, persuasion Close Combat: brawling, melee combat, dodge Investigative: investigation, search, streetwise Leadership: command, intimidation, persuasion Photographic Memory: languages, scholar, investigation Observant: gambling, investigation, search Ranged Combat: firearms, missile weapons, throwing\n\nPlayers may substitute other related skills for the ones listed in the groups above, or create their own groups as long as there is a common thread and the Game Master approves the grouping.\n\nThree specializations may replace one general skill, getting a +1 for three different specializations.\n\nExample: In the Close Combat group, a character might replace melee combat with three specializations — melee combat: knives, melee combat: swords, and melee combat: clubs. While this means the character gains no bonus for “general” melee combat activities (such as using an improvised weapon), he does have a more “detailed” group. This may be done for up to all three skills in the group, choosing six specializations instead of two skills or nine specializations instead of three skills. Additionally, the character acts as if trained in these skills even if he doesn’t have any additional pips in them, and so does not get the unskilled modifier. This Special Ability does not affect the cost of improving the related skills.\n\nGamemasters may allow a higher bonus for fewer skills (such as a set of two skills where one gets a +1 bonus and the other gets a +2 bonus, or a +3 bonus to a set of three specializations). However, the bonus per rank may total no more than +3.\n\nAt each additional rank, the player may increase the bonus by +1 for three of the skills affected by this Special Ability. A character may have different versions of this ability for different groups of skills, though the skills in each group may not overlap."
+    },
+    {
+      "id": 4900,
+      "name": "Skill Minimum",
+      "displayNote": null,
+      "rank": 4,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can select three related skills unaffected by any other sort of Special Ability and the character will always gain a minimum total of 3 times the number before the “D,” even if she rolls a Critical Failure.\n\nExample: If the player selects persuasion, con, and intimidation (all interaction skills) for her character, all of which she has at 4D, and she generates a less than 12, the total automatically becomes 12. That is the character’s minimum total.\n\nThe player may not select Skill Minimum for any skill that has any other Advantage or Special Ability tied to it. Also, the skills must be related in some way (see the Skill Bonus Special Ability for information on related skills). The character may only select general skills, but the specializations underneath that general skill are affected as well. This Special Ability may be selected only once for each group of skills."
+    },
+    {
+      "id": 5000,
+      "name": "Teleportation",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can move instantly to another place up to 10 meters per rank away. The character must see her destination clearly. In combat, this action takes an entire round. The character may take along whatever she can carry."
+    },
+    {
+      "id": 5100,
+      "name": "Transmutation",
+      "displayNote": null,
+      "rank": 5,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can alter his substance to something else, while retaining his form (such as a man who turns to stone). Characters with this ability may only shift into one specific substance, which the player must specify when his character gets the Special Ability. Generally, this substance gives the character distinct advantages. The player may select up to 4 points (not ranks) in other Special Abilities that relate to the chosen form, per rank in this Special Ability. (Thus, two Transmutation ranks means 8 points in other Special Abilities.) Natural Armor, Hardiness, and Environmental Resistance are common ones."
+    },
+    {
+      "id": 5200,
+      "name": "Uncanny Aptitude",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "This Special Ability is similar to the Skill Bonus Special Ability in that some sort of bizarre ability gives the character added bonuses to certain actions. However, instead of selecting a group of skills that the character gains a bonus to, the player and the Game Master work out circumstances where these abilities come into play. For instance, a character might gain a +1 bonus to all Agility-related skill totals when in sunlight.\n\nA character may have several variations of this ability, reflecting different bonuses. Each variation could have several ranks, with the bonuses adding to each other."
+    },
+    {
+      "id": 5300,
+      "name": "Ventriloquism",
+      "displayNote": null,
+      "rank": 3,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can throw her voice up to three meters away per rank. No skill roll is required to do this, but if it is part of a trick attempt, she receives a +2D bonus per rank to con and persuasion rolls."
+    },
+    {
+      "id": 5400,
+      "name": "Water Breathing",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character can breathe water and will not drown under water. She gains +1D per rank to all swim rolls because she doesn’t need to worry about drowning."
+    },
+    {
+      "id": 5500,
+      "name": "Youthful Appearance",
+      "displayNote": null,
+      "rank": 2,
+      "multipleRanks": true,
+      "totalRanks": 1,
+      "description": "The character looks much younger than she actually is and receives a +1D per rank to persuasion or con. In general, characters should not look more than 10 to 20 years younger than they are, regardless of the number of ranks, though Game Master discretion and common sense should rule here.."
+    }
+  ]
+}

@@ -36,6 +36,12 @@ class Common {
     isFloat(value) {
         return Number(value) === value && value % 1 !== 0;
     }
+
+    toCamelCase(text) {
+        return text.replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => {
+            return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+        }).replace(/\s+/g, '');
+    }
 }
 
 export let common = new Common();

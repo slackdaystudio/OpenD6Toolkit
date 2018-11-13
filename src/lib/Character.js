@@ -6,6 +6,8 @@ const BASE_ADVANTAGES = require('../../public/templates/advantages/1/advantages.
 
 const BASE_COMPLICATIONS = require('../../public/templates/complications/1/complications.json');
 
+const BASE_SPECIAL_ABILITIES = require('../../public/templates/special_abilities/1/special_abilities.json');
+
 export const TEMPLATE_FANTASY = 'Fantasy';
 
 export const OPTION_ADVANTAGES = 'Advantages';
@@ -33,6 +35,10 @@ class Character {
             },
             complications: {
                 templateId: template.complicationsTemplateId,
+                items: []
+            },
+            specialAbilities: {
+                templateId: template.specialAbilitiesTemplateId,
                 items: []
             },
             getDieCode: function(name) {
@@ -144,6 +150,9 @@ class Character {
                 break;
             case OPTION_COMPLICATIONS:
                 options = BASE_COMPLICATIONS;
+                break;
+            case OPTION_SPECIAL_ABILITIES:
+                options = BASE_SPECIAL_ABILITIES;
                 break;
             default:
                 // do nothing

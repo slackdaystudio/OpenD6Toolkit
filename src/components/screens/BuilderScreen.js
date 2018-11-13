@@ -9,7 +9,8 @@ import InfoDialog from '../InfoDialog';
 import RanksDialog, { MODE_EDIT } from '../RanksDialog';
 import Appearance from '../builder/Appearance';
 import styles from '../../Styles';
-import { OPTION_ADVANTAGES, OPTION_COMPLICATIONS } from '../../lib/Character';
+import { OPTION_ADVANTAGES, OPTION_COMPLICATIONS, OPTION_SPECIAL_ABILITIES } from '../../lib/Character';
+import { common } from '../../lib/Common';
 import {
     updateRoller,
     updateCharacterDieCode,
@@ -364,7 +365,7 @@ class BuilderScreen extends Component {
     }
 
     _renderOptions(title, optionKey) {
-        let arrayKey = optionKey.toLowerCase();
+        let arrayKey = common.toCamelCase(optionKey);
 
         return (
             <View>
@@ -376,7 +377,7 @@ class BuilderScreen extends Component {
                     <View style={{flex: 1, paddingTop: 20, justifyContent: 'space-around', alignItems: 'center'}}>
                         <Icon
                             type='FontAwesome'
-                            name='gear'
+                            name='plus-square'
                             style={[styles.grey, {fontSize: 30, color: '#00ACED'}]}
                             onPress={() => this.props.navigation.navigate('Options', {optionKey: optionKey})}
                         />
@@ -394,7 +395,7 @@ class BuilderScreen extends Component {
                                 <Right>
                                     <TouchableHighlight onPress={() => this._showRanksPicker(optionKey, item)}>
                                         <Text style={styles.grey}>
-                                            R{(item.multipleRanks ? item.totalRanks : item.rank)}
+                                            R{(item.multipleRanks ? item.totalRanks * item.rank : item.rank)}
                                         </Text>
                                     </TouchableHighlight>
                                 </Right>
@@ -415,6 +416,7 @@ class BuilderScreen extends Component {
                     {this._renderAttributes()}
                     {this._renderOptions('Advantages', OPTION_ADVANTAGES)}
                     {this._renderOptions('Complications', OPTION_COMPLICATIONS)}
+                    {this._renderOptions('Special Abilities', OPTION_SPECIAL_ABILITIES)}
                     <View style={{paddingBottom: 20}} />
                     <AttributeDialog
                         visible={this.state.attributeDialog.visible}

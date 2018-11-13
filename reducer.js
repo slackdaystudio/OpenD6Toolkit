@@ -7,6 +7,8 @@ import {
     character
 } from './src/lib/Character';
 
+import { common } from './src/lib/Common';
+
 export const UPDATE_ROLLER = 'UPDATE_ROLLER';
 
 export const SET_TEMPLATE = 'SET_TEMPLATE';
@@ -135,7 +137,7 @@ export default function reducer(state = initialState, action) {
 
             return newState;
         case ADD_OPTION:
-            optionKey = action.payload.optionKey.toLowerCase();
+            optionKey = common.toCamelCase(action.payload.optionKey);
             newState = {
                 ...state,
                 builder: {
@@ -156,7 +158,7 @@ export default function reducer(state = initialState, action) {
 
             return newState;
         case UPDATE_OPTION:
-            optionKey = action.payload.optionKey.toLowerCase();
+            optionKey = common.toCamelCase(action.payload.optionKey);
             newState = {
                 ...state,
                 builder: {
@@ -182,7 +184,7 @@ export default function reducer(state = initialState, action) {
 
             return newState;
        case REMOVE_OPTION:
-            optionKey = action.payload.optionKey.toLowerCase();
+            optionKey = common.toCamelCase(action.payload.optionKey);
             newState = {
                 ...state,
                 builder: {

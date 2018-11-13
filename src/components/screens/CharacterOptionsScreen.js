@@ -80,7 +80,7 @@ class CharacterOptionsScreen extends Component {
         this.props.addOption(optionKey, item);
 
         Toast.show({
-            text: item.name + ', R' + (item.multipleRanks ? item.totalRanks : item.rank) + ' has been added',
+            text: item.name + ', R' + (item.multipleRanks ? item.totalRanks * item.rank : item.rank) + ' has been added',
             position: 'bottom',
             textStyle: {color: '#00ACED'},
             buttonText: 'OK'
