@@ -135,9 +135,12 @@ class BuilderScreen extends Component {
 
     _rollDice(dieCode) {
         let totalDieCode = this.props.character.getTotalDieCode(dieCode);
-        this.props.updateRoller(totalDieCode.dice, totalDieCode.pips);
 
-        this.props.navigation.navigate('DieRoller');
+        if (totalDieCode.dice > 0) {
+            this.props.updateRoller(totalDieCode.dice, totalDieCode.pips);
+
+            this.props.navigation.navigate('DieRoller');
+        }
     }
 
     _rollSkillDice(attributeDieCode, skillDieCode) {
@@ -150,8 +153,10 @@ class BuilderScreen extends Component {
 
         let totalDieCode = this.props.character.getTotalDieCode(combinedDieCodes);
 
-        this.props.updateRoller(totalDieCode.dice, totalDieCode.pips);
-        this.props.navigation.navigate('DieRoller');
+        if (totalDieCode.dice >= 1) {
+            this.props.updateRoller(totalDieCode.dice, totalDieCode.pips);
+            this.props.navigation.navigate('DieRoller');
+        }
     }
 
     _updateDice(value) {
@@ -260,18 +265,22 @@ class BuilderScreen extends Component {
         this.setState(newState);
     }
 
-    _save() {
+    _save(name) {
         let newState = {...this.state};
         newState.dieCode.errorMessage = null;
+        newState.dieCode.identifier = name;
 
         this.setState(newState, () => {
             let attributeMin = this.props.character.template.attributeMin;
             let isSkill = this.props.character.isSkill(this.state.dieCode.identifier);
+            let isExtranormal = this.props.character.isExtranormal(this.state.dieCode.identifier);
             let totalDieCode = this.props.character.getTotalDieCode(this.state.dieCode);
 
             if (isSkill && totalDieCode.dice < 0) {
                 newState.dieCode.errorMessage = 'Skills may not go below 0';
-            } else if (!isSkill && totalDieCode.dice < attributeMin) {
+            } else if (!isSkill && isExtranormal && totalDieCode.dice < 0) {
+                newState.dieCode.errorMessage = 'Extranormal attributes may not go below 0';
+            } else if (!isSkill && !isExtranormal && totalDieCode.dice < attributeMin) {
                 newState.dieCode.errorMessage = 'Attributes may not go below ' + attributeMin;
             }
 

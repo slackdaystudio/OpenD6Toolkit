@@ -1,6 +1,8 @@
 import { Alert } from 'react-native';
 
-const fantasyTemplate = require('../../public/templates/fantasy.json');
+const TEMPLATE_FANTASY = require('../../public/templates/fantasy.json');
+
+const TEMPLATE_ADVENTURE = require('../../public/templates/adventure.json');
 
 const BASE_ADVANTAGES = require('../../public/templates/advantages/1/advantages.json');
 
@@ -8,7 +10,9 @@ const BASE_COMPLICATIONS = require('../../public/templates/complications/1/compl
 
 const BASE_SPECIAL_ABILITIES = require('../../public/templates/special_abilities/1/special_abilities.json');
 
-export const TEMPLATE_FANTASY = 'Fantasy';
+export const TEMPLATE_FANTASY_NAME = 'Fantasy';
+
+export const TEMPLATE_ADVENTURE_NAME = 'Adventure';
 
 export const OPTION_ADVANTAGES = 'Advantages';
 
@@ -85,6 +89,11 @@ class Character {
 
                 return finalDieCode.dice + 'D' + (finalDieCode.pips > 0 ? '+' + finalDieCode.pips : '');
             },
+            isExtranormal: function(name) {
+                let skillOrAttribute = this.getAttributeOrSkill(name);
+
+                return skillOrAttribute.isExtranormal;
+            },
             isSkill: function(name) {
                 let attributeOrSkill = this._getAttributeOrSkill(name, this.attributes);
 
@@ -127,15 +136,18 @@ class Character {
     getTemplates() {
         let templates = [];
 
-        templates.push(fantasyTemplate);
+        templates.push(TEMPLATE_FANTASY);
+        templates.push(TEMPLATE_ADVENTURE);
 
         return templates;
     }
 
     loadTemplate(name) {
         switch(name) {
-            case TEMPLATE_FANTASY:
-                return fantasyTemplate;
+            case TEMPLATE_FANTASY_NAME:
+                return TEMPLATE_FANTASY;
+            case TEMPLATE_ADVENTURE_NAME:
+                return TEMPLATE_ADVENTURE;
             default:
                 // do nothing
         }
@@ -167,23 +179,25 @@ class Character {
         templateAttributes.map((templateAttribute, index) => {
             attributes.push({
                 name: templateAttribute.name,
-                dice: min,
+                isExtranormal: templateAttribute.isExtranormal,
+                dice: templateAttribute.isExtranormal ? 0 : min,
                 modifierDice: 0,
                 pips: 0,
                 modifierPips: 0,
-                skills: this._initSkills(templateAttribute.skills)
+                skills: this._initSkills(templateAttribute.skills, templateAttribute.isExtranormal)
             });
         });
 
         return attributes;
     }
 
-    _initSkills(attributeSkills) {
+    _initSkills(attributeSkills, isExtranormal) {
         let skills = [];
 
         attributeSkills.map((skill, index) => {
             skills.push({
                 name: skill.name,
+                isExtranormal: isExtranormal,
                 dice: 0,
                 modifierDice: 0,
                 pips: 0,

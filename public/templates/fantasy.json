@@ -11,6 +11,7 @@
   "attributes": [
     {
       "name": "Agility",
+      "isExtranormal": false,
       "description": "An indication of balance, limberness, quickness, and full body motor abilities.",
       "skills": [
         {
@@ -57,6 +58,7 @@
     },
     {
       "name": "Coordination",
+      "isExtranormal": false,
       "description": "A quantification of hand-eye coordination and fine motor abilities.",
       "skills": [
         {
@@ -87,6 +89,7 @@
     },
     {
       "name": "Physique",
+      "isExtranormal": false,
       "description": "An estimation of physical power and ability to resist damage.",
       "skills": [
         {
@@ -109,6 +112,7 @@
     },
     {
       "name": "Intellect",
+      "isExtranormal": false,
       "description": "A measure of strength of memory and ability to learn.",
       "skills": [
         {
@@ -151,6 +155,7 @@
     },
     {
       "name": "Acumen",
+      "isExtranormal": false,
       "description": "Your character’s mental quickness, creativity, and attention to detail.",
       "skills": [
         {
@@ -201,6 +206,7 @@
     },
     {
       "name": "Charisma",
+      "isExtranormal": false,
       "description": "A gauge of emotional strength, physical attractiveness, and personality.",
       "skills": [
         {
@@ -234,16 +240,44 @@
       ]
     },
     {
-      "name": "Extranormal",
-      "description": "An assessment of your character’s extraordinary abilities, which could include magic, miracles, or other extranormal talents.",
+      "name": "Magic",
+      "isExtranormal": true,
+      "description": "Magic is the ability to manipulate the paranormal forces of the universe for extraordinary effects.",
       "skills": [
         {
-          "name": "Magic",
-          "description": "Magic is one possible Extranormal attribute. For specific information on Magic, see its chapter in this book."
+          "name": "Alteration",
+          "description": "Casting spells involving change."
         },
         {
-          "name": "Miracles",
-          "description": "Miracles is another possible Extranormal attribute. For specific information on Miracles, see its chapter in this book."
+          "name": "Apportation",
+          "description": "Casting spells involving movement."
+        },
+        {
+          "name": "Conjuration",
+          "description": "Casting spells involving creation."
+        },
+        {
+          "name": "Divination",
+          "description": "Casting spells involving knowledge."
+        }
+      ]
+    },
+    {
+      "name": "Miracles",
+      "isExtranormal": true,
+      "description": "Miracles is the ability to call upon a higher power for extraordinary effects.",
+      "skills": [
+        {
+          "name": "Divination",
+          "description": "Requesting divine aid to gain knowledge of the past, present, or future."
+        },
+        {
+          "name": "Favor",
+          "description": "Requesting divine aid to help, improve, heal, or benefit someone or something."
+        },
+        {
+          "name": "Strife",
+          "description": "Requesting divine aid to cause injury or destruction."
         }
       ]
     }

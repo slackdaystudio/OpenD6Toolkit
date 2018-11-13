@@ -23,14 +23,12 @@ class TemplateSelectScreen extends Component {
         };
     }
 
-    _onSelect(templateName) {
-        this.setState({selected: templateName});
-    }
+    _next(templateName) {
+        this.setState({selected: templateName}, () => {
+            this.props.setTemplate(templateName);
 
-    _next() {
-        this.props.setTemplate(this.state.selected);
-
-        this.props.navigation.navigate('Builder');
+            this.props.navigation.navigate('Builder');
+        });
     }
 
 	render() {
