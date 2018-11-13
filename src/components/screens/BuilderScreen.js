@@ -373,6 +373,45 @@ class BuilderScreen extends Component {
         );
     }
 
+    _renderOptionList(options, optionKey) {
+        if (options === null || options.length === 0) {
+            return (
+                <List>
+                    <ListItem key={'option-none'} noIndent>
+                        <Left>
+                            <Text style={styles.grey}>None</Text>
+                        </Left>
+                    </ListItem>
+                </List>
+            );
+        }
+
+        return (
+            <List>
+                {options.map((item, index) => {
+                    return (
+                        <ListItem key={'option-' + index} noIndent>
+                            <Left>
+                                <TouchableHighlight onPress={() => this._showOptionInfo(item)}>
+                                    <Text style={[styles.boldGrey, localStyles.big]}>
+                                        {item.name + (item.displayNote === null ? '' : ': ' + item.displayNote)}
+                                    </Text>
+                                </TouchableHighlight>
+                            </Left>
+                            <Right>
+                                <TouchableHighlight onPress={() => this._showRanksPicker(optionKey, item)}>
+                                    <Text style={[styles.boldGrey, localStyles.big]}>
+                                        R{(item.multipleRanks ? item.totalRanks * item.rank : item.rank)}
+                                    </Text>
+                                </TouchableHighlight>
+                            </Right>
+                        </ListItem>
+                    );
+                })}
+            </List>
+        );
+    }
+
     _renderOptions(title, optionKey) {
         let arrayKey = common.toCamelCase(optionKey);
 
@@ -392,26 +431,7 @@ class BuilderScreen extends Component {
                         />
                     </View>
                 </View>
-                <List>
-                    {this.props.character[arrayKey].items.map((item, index) => {
-                        return (
-                            <ListItem key={'option-' + index} noIndent>
-                                <Left>
-                                    <TouchableHighlight onPress={() => this._showOptionInfo(item)}>
-                                        <Text style={styles.grey}>{item.name + (item.displayNote === null ? '' : ': ' + item.displayNote)}</Text>
-                                    </TouchableHighlight>
-                                </Left>
-                                <Right>
-                                    <TouchableHighlight onPress={() => this._showRanksPicker(optionKey, item)}>
-                                        <Text style={styles.grey}>
-                                            R{(item.multipleRanks ? item.totalRanks * item.rank : item.rank)}
-                                        </Text>
-                                    </TouchableHighlight>
-                                </Right>
-                            </ListItem>
-                        );
-                    })}
-                </List>
+                {this._renderOptionList(this.props.character[arrayKey].items, optionKey)}
             </View>
         );
     }
