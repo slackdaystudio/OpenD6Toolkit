@@ -10,6 +10,7 @@
     "native-base": "^2.8.1",
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.4",
+    "react-native-linear-gradient": "^2.4.3",
     "react-native-modal": "^7.0.0",
     "react-native-shake": "^3.2.2",
     "react-native-slider": "^0.11.0",
