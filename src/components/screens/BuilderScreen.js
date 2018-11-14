@@ -9,7 +9,8 @@ import InfoDialog from '../InfoDialog';
 import RanksDialog, { MODE_EDIT } from '../RanksDialog';
 import Appearance from '../builder/Appearance';
 import styles from '../../Styles';
-import { OPTION_ADVANTAGES, OPTION_COMPLICATIONS, OPTION_SPECIAL_ABILITIES } from '../../lib/Character';
+import { character, OPTION_ADVANTAGES, OPTION_COMPLICATIONS, OPTION_SPECIAL_ABILITIES } from '../../lib/Character';
+import { file } from '../../lib/File';
 import { common } from '../../lib/Common';
 import {
     updateRoller,
@@ -23,6 +24,7 @@ class BuilderScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         character: PropTypes.object.isRequired,
+        fileDir: PropTypes.string,
         updateRoller: PropTypes.func.isRequired,
         updateCharacterDieCode: PropTypes.func.isRequired,
         updateAppearance: PropTypes.func.isRequired,
@@ -55,7 +57,7 @@ class BuilderScreen extends Component {
         this.closeAttributeDialog = this._closeAttributeDialog.bind(this);
         this.closeInfoDialog = this._closeInfoDialog.bind(this);
         this.closeRanksDialog = this._closeRanksDialog.bind(this);
-        this.save = this._save.bind(this);
+        this.saveDieCode = this._saveDieCode.bind(this);
         this.updateDice = this._updateDice.bind(this);
         this.updateModifierDice = this._updateModifierDice.bind(this);
         this.updatePips = this._updatePips.bind(this);
@@ -110,7 +112,7 @@ class BuilderScreen extends Component {
         newState.infoDialog.visible = true;
         newState.dieCode.identifier = identifier;
         newState.infoDialog.title = identifier;
-        newState.infoDialog.info = this.props.character.getTemplateSkillOrAttribute(identifier).description;
+        newState.infoDialog.info = character.getTemplateSkillOrAttribute(this.props.character, identifier).description;
 
         this.setState(newState);
     }
@@ -134,7 +136,7 @@ class BuilderScreen extends Component {
     }
 
     _rollDice(dieCode) {
-        let totalDieCode = this.props.character.getTotalDieCode(dieCode);
+        let totalDieCode = character.getTotalDieCode(dieCode);
 
         if (totalDieCode.dice > 0) {
             this.props.updateRoller(totalDieCode.dice, totalDieCode.pips);
@@ -151,7 +153,7 @@ class BuilderScreen extends Component {
             modifierPips: parseInt(attributeDieCode.modifierPips, 10) + parseInt(skillDieCode.modifierPips, 10)
         };
 
-        let totalDieCode = this.props.character.getTotalDieCode(combinedDieCodes);
+        let totalDieCode = character.getTotalDieCode(combinedDieCodes);
 
         if (totalDieCode.dice >= 1) {
             this.props.updateRoller(totalDieCode.dice, totalDieCode.pips);
@@ -265,16 +267,16 @@ class BuilderScreen extends Component {
         this.setState(newState);
     }
 
-    _save(name) {
+    _saveDieCode(name) {
         let newState = {...this.state};
         newState.dieCode.errorMessage = null;
         newState.dieCode.identifier = name;
 
         this.setState(newState, () => {
             let attributeMin = this.props.character.template.attributeMin;
-            let isSkill = this.props.character.isSkill(this.state.dieCode.identifier);
-            let isExtranormal = this.props.character.isExtranormal(this.state.dieCode.identifier);
-            let totalDieCode = this.props.character.getTotalDieCode(this.state.dieCode);
+            let isSkill = character.isSkill(this.props.character, this.state.dieCode.identifier);
+            let isExtranormal = character.isExtranormal(this.props.character, this.state.dieCode.identifier);
+            let totalDieCode = character.getTotalDieCode(this.state.dieCode);
 
             if (isSkill && totalDieCode.dice < 0) {
                 newState.dieCode.errorMessage = 'Skills may not go below 0';
@@ -294,6 +296,19 @@ class BuilderScreen extends Component {
         });
     }
 
+    _save() {
+        if (this.props.character.name === undefined || this.props.character.name === null || this.props.character.name.trim() === '') {
+            let newState = {...this.state};
+            newState.infoDialog.visible = true;
+            newState.infoDialog.title = 'Name You Character';
+            newState.infoDialog.info = 'Please name your character before saving them';
+
+            this.setState(newState);
+        } else {
+            file.save(this.props.character);
+        }
+    }
+
     _renderAttributes() {
         return (
             <View>
@@ -302,7 +317,7 @@ class BuilderScreen extends Component {
                 </View>
                 <List>
                 {this.props.character.template.attributes.map((attribute, index) => {
-                    let dieCode = this.props.character.getDieCode(attribute.name);
+                    let dieCode = character.getDieCode(this.props.character, attribute.name);
 
                     return (
                         <View key={'atr-' + index}>
@@ -313,7 +328,7 @@ class BuilderScreen extends Component {
                                         onLongPress={() => this._showAttributeInfo(attribute.name)}
                                     >
                                         <View style={{paddingRight: 150, paddingTop: 10, paddingBottom: 10}}>
-                                            <Text style={[styles.boldGrey, localStyles.big, {}]}>
+                                            <Text style={[styles.boldGrey, styles.big, {}]}>
                                                 {attribute.name}
                                             </Text>
                                         </View>
@@ -324,9 +339,9 @@ class BuilderScreen extends Component {
                                         onPress={() => this._rollDice(dieCode)}
                                         onLongPress={() => this._editDieCode(attribute.name, dieCode)}
                                     >
-                                        <View style={{paddingLeft: 50, paddingTop: 10, paddingBottom: 10}}>
-                                            <Text style={[styles.boldGrey, localStyles.big]}>
-                                                {this.props.character.getFormattedDieCode(dieCode)}
+                                        <View style={{paddingLeft: 20, paddingTop: 10, paddingBottom: 10}}>
+                                            <Text style={[styles.boldGrey, styles.big]}>
+                                                {character.getFormattedDieCode(dieCode)}
                                             </Text>
                                         </View>
                                     </TouchableHighlight>
@@ -346,7 +361,7 @@ class BuilderScreen extends Component {
             <View>
                 {attribute.skills.map((skill, index) => {
                     if (this.state.attributeShow[attribute.name]) {
-                        let skillDieCode = this.props.character.getDieCode(skill.name);
+                        let skillDieCode = character.getDieCode(this.props.character, skill.name);
 
                         return (
                             <List key={'skill-' + index} style={{paddingLeft: 20}}>
@@ -363,9 +378,9 @@ class BuilderScreen extends Component {
                                             onPress={() => this._rollSkillDice(attributeDieCode, skillDieCode)}
                                             onLongPress={() => this._editDieCode(skill.name, skillDieCode)}
                                         >
-                                            <View style={{paddingLeft: 50, paddingTop: 10, paddingBottom: 10}}>
+                                            <View style={{paddingLeft: 20, paddingTop: 10, paddingBottom: 10}}>
                                                 <Text style={[styles.boldGrey, {lineHeight: 30}]}>
-                                                    {this.props.character.getFormattedDieCode(skillDieCode)}
+                                                    {character.getFormattedDieCode(skillDieCode)}
                                                 </Text>
                                             </View>
                                         </TouchableHighlight>
@@ -402,7 +417,7 @@ class BuilderScreen extends Component {
                             <Left>
                                 <TouchableHighlight onPress={() => this._showOptionInfo(item)}>
                                     <View style={{paddingTop: 10, paddingBottom: 10}}>
-                                        <Text style={[styles.boldGrey, localStyles.big]}>
+                                        <Text style={[styles.boldGrey, styles.big]}>
                                             {item.name + (item.displayNote === null ? '' : ': ' + item.displayNote)}
                                         </Text>
                                     </View>
@@ -411,7 +426,7 @@ class BuilderScreen extends Component {
                             <Right>
                                 <TouchableHighlight onPress={() => this._showRanksPicker(optionKey, item)}>
                                     <View style={{paddingLeft: 50, paddingTop: 10, paddingBottom: 10}}>
-                                        <Text style={[styles.boldGrey, localStyles.big]}>
+                                        <Text style={[styles.boldGrey, styles.big]}>
                                             R{(item.multipleRanks ? item.totalRanks * item.rank : item.rank)}
                                         </Text>
                                     </View>
@@ -456,16 +471,29 @@ class BuilderScreen extends Component {
                     <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
                     <View style={styles.titleContainer}>
                         <Text style={styles.grey}>
-                            <Text style={styles.boldGrey}>Total Points:</Text> {this.props.character.getTotalPoints()}
+                            <Text style={styles.boldGrey}>Total Points:</Text> {character.getTotalPoints(this.props.character)}
                         </Text>
                         <Text style={styles.grey}>
-                            <Text style={styles.boldGrey}>Complications:</Text> {this.props.character.getComplicationPoints()}
+                            <Text style={styles.boldGrey}>Complications:</Text> {character.getComplicationPoints(this.props.character)}
                         </Text>
                     </View>
                     {this._renderAttributes()}
                     {this._renderOptions('Advantages', OPTION_ADVANTAGES)}
                     {this._renderOptions('Complications', OPTION_COMPLICATIONS)}
                     {this._renderOptions('Special Abilities', OPTION_SPECIAL_ABILITIES)}
+                    <View style={{paddingBottom: 20}} />
+                    <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
+                        <View style={styles.buttonContainer}>
+                            <Button style={styles.button} onPress={() => this._save()}>
+                                <Text uppercase={false} style={styles.buttonText}>Save</Text>
+                            </Button>
+                        </View>
+                        <View style={styles.buttonContainer}>
+                            <Button style={styles.button} onPress={() => this.props.navigation.navigate('LoadCharacter')}>
+                                <Text uppercase={false} style={styles.buttonText}>Load</Text>
+                            </Button>
+                        </View>
+                    </View>
                     <View style={{paddingBottom: 20}} />
                     <AttributeDialog
                         visible={this.state.attributeDialog.visible}
@@ -476,7 +504,7 @@ class BuilderScreen extends Component {
                         modifierPips={this.state.dieCode.modifierPips}
                         errorMessage={this.state.dieCode.errorMessage}
                         close={this.closeAttributeDialog}
-                        onSave={this.save}
+                        onSave={this.saveDieCode}
                         onUpdateDice={this.updateDice}
                         onUpdateModifierDice={this.updateModifierDice}
                         onUpdatePips={this.updatePips}
@@ -503,16 +531,10 @@ class BuilderScreen extends Component {
 	}
 }
 
-const localStyles = StyleSheet.create({
-	big: {
-	    fontSize: 18,
-	    lineHeight: 40
-	}
-});
-
 const mapStateToProps = state => {
     return {
-        character: state.builder.character
+        character: state.builder.character,
+        fileDir: state.settings.fileDir
     };
 }
 

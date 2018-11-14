@@ -26,7 +26,7 @@ class HomeScreen extends Component {
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
                 <Text style={styles.heading}>Roller</Text>
-                <Text style={styles.grey}>Use the die roller to resolve actions in OpenD6.</Text>
+                <Text style={[styles.grey, {alignSelf: 'center'}]}>Use the die roller to resolve actions in OpenD6.</Text>
                 <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
                     <View style={styles.buttonContainer}>
                         <Button style={styles.button} onPress={() => this.props.navigation.navigate('DieRoller')}>
@@ -35,16 +35,21 @@ class HomeScreen extends Component {
                     </View>
                 </View>
                 <Text style={styles.heading}>Builder</Text>
-                <Text style={styles.grey}>Build a character using the OpenD6 game rules.</Text>
-                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
-                    <View style={styles.buttonContainer}>
-                        <Button style={styles.button} onPress={() => this.props.navigation.navigate('TemplateSelect')}>
-                            <Text uppercase={false} style={styles.buttonText}>New</Text>
-                        </Button>
-                    </View>
+                <Text style={[styles.grey, {alignSelf: 'center'}]}>Build a character using the OpenD6 game rules.</Text>
+                <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
                     <View style={styles.buttonContainer}>
                         <Button style={styles.button} onPress={() => this._onBuilderPress()}>
                             <Text uppercase={false} style={styles.buttonText}>Builder</Text>
+                        </Button>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button style={styles.button} onPress={() => this.props.navigation.navigate('LoadCharacter')}>
+                            <Text uppercase={false} style={styles.buttonText}>Load</Text>
+                        </Button>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button style={styles.button} onPress={() => this.props.navigation.navigate('TemplateSelect')}>
+                            <Text uppercase={false} style={styles.buttonText}>New</Text>
                         </Button>
                     </View>
                 </View>

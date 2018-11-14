@@ -25,6 +25,8 @@ export const REMOVE_OPTION = 'REMOVE_OPTION';
 
 export const SET_SETTING = 'SET_SETTING';
 
+export const LOAD_CHARACTER = 'LOAD_CHARACTER';
+
 export function updateRoller(dice, pips) {
     return {
         type: UPDATE_ROLLER,
@@ -99,6 +101,13 @@ export function setSetting(setting, value) {
     }
 }
 
+export function loadCharacter(character) {
+    return {
+        type: LOAD_CHARACTER,
+        payload: character
+    }
+}
+
 initialState = {
     roller: {
         dice: 1,
@@ -108,7 +117,8 @@ initialState = {
         character: null
     },
     settings: {
-        isLegend: false
+        isLegend: false,
+        fileDir: null
     }
 };
 
@@ -130,7 +140,7 @@ export default function reducer(state = initialState, action) {
             return newState;
         case UPDATE_CHARACTER_DIE_CODE:
             newState = {...state};
-            let skillOrAttribute = newState.builder.character.getAttributeOrSkill(action.payload.identifier);
+            let skillOrAttribute = character.getAttributeOrSkill(newState.builder.character, action.payload.identifier);
             skillOrAttribute.dice = action.payload.dice;
             skillOrAttribute.modifierDice = action.payload.modifierDice;
             skillOrAttribute.pips = action.payload.pips;
@@ -241,6 +251,20 @@ export default function reducer(state = initialState, action) {
             if (newState.settings.hasOwnProperty(action.payload.setting)) {
                 newState.settings[action.payload.setting] = action.payload.value;
             }
+
+            return newState;
+        case LOAD_CHARACTER:
+            newState = {
+                ...state,
+                builder: {
+                    ...state.builder,
+                    character: {
+                        ...state.builder.character
+                    }
+                }
+            };
+
+            newState.builder.character = JSON.parse(action.payload);
 
             return newState;
         default:

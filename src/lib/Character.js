@@ -53,156 +53,123 @@ class Character {
             specialAbilities: {
                 templateId: template.specialAbilitiesTemplateId,
                 items: []
-            },
-            getDieCode: function(name) {
-                let skillOrAttribute = this.getAttributeOrSkill(name);
-
-                return {
-                    dice: skillOrAttribute.dice,
-                    modifierDice: skillOrAttribute.modifierDice,
-                    pips: skillOrAttribute.pips,
-                    modifierPips: skillOrAttribute.modifierPips
-                }
-            },
-            getTotalPoints: function() {
-                let itemNames = ['advantages', 'specialAbilities'];
-                let totalPoints = 0;
-                let totalAttributePips = 0;
-                let totalSkillPips = 0;
-
-                for (let attribute of this.attributes) {
-                    totalPoints += attribute.dice * 4;
-                    totalAttributePips += attribute.pips;
-
-                    for (let skill of attribute.skills) {
-                        if (skill.dice > 0) {
-                            totalPoints += skill.dice;
-                            totalSkillPips += skill.pips;
-                        }
-                    }
-                }
-
-                totalPoints += this._calculatePipValue(totalAttributePips, POINT_MOD_ATTRIBUTE);
-                totalPoints += this._calculatePipValue(totalSkillPips, POINT_MOD_SKILL);
-
-                for (let itemName of itemNames) {
-                    for (let item of this[itemName].items) {
-                        if (item.multipleRanks) {
-                            totalPoints += item.totalRanks * item.rank;
-                        } else {
-                            totalPoints += item.rank;
-                        }
-                    }
-                }
-
-                return totalPoints;
-            },
-            getComplicationPoints: function() {
-                let complicationPoints = 0;
-
-                for (let item of this.complications.items) {
-                    if (item.multipleRanks) {
-                        complicationPoints += item.totalRanks * item.rank;
-                    } else {
-                        complicationPoints += item.rank;
-                    }
-                }
-
-                return complicationPoints;
-            },
-            getTotalDieCode: function(dieCode) {
-                let totalDieCode = {
-                    dice: dieCode.dice + (dieCode.modifierDice || 0),
-                    pips: dieCode.pips + (dieCode.modifierPips || 0)
-                }
-
-                switch (totalDieCode.pips) {
-                    case -2:
-                        totalDieCode.dice--;
-                        totalDieCode.pips = 1;
-                        break;
-                    case -1:
-                        totalDieCode.dice--;
-                        totalDieCode.pips = 2;
-                        break;
-                    case 3:
-                        totalDieCode.dice++;
-                        totalDieCode.pips = 0;
-                        break;
-                    case 4:
-                        totalDieCode.dice++;
-                        totalDieCode.pips = 1;
-                        break;
-                    default:
-                        // do nothing
-                }
-
-                return totalDieCode;
-            },
-            getFormattedDieCode: function(dieCode) {
-                let finalDieCode = this.getTotalDieCode(dieCode);
-
-                return finalDieCode.dice + 'D' + (finalDieCode.pips > 0 ? '+' + finalDieCode.pips : '');
-            },
-            isExtranormal: function(name) {
-                let skillOrAttribute = this.getAttributeOrSkill(name);
-
-                return skillOrAttribute.isExtranormal;
-            },
-            isSkill: function(name) {
-                let attributeOrSkill = this._getAttributeOrSkill(name, this.attributes);
-
-                return 'skills' in attributeOrSkill ? false : true;
-            },
-            getAttributeOrSkill: function(name) {
-                return this._getAttributeOrSkill(name, this.attributes);
-            },
-            getTemplateSkillOrAttribute: function(name) {
-                return this._getAttributeOrSkill(name, this.template.attributes);
-            },
-            _getAttributeOrSkill: function(name, attributes) {
-                let infoFound = false;
-                let skillOrAttribute = {name: DEFAULT_VALUE, description: DEFAULT_VALUE};
-
-                for (let attribute of attributes) {
-                    if (attribute.name === name) {
-                        skillOrAttribute = attribute;
-                        break;
-                    } else {
-                        for (let skill of attribute.skills) {
-                            if (skill.name === name) {
-                                skillOrAttribute = skill;
-                                infoFound = true;
-                                break;
-                            }
-                        }
-
-                        if (infoFound) {
-                            break;
-                        }
-                    }
-                }
-
-                return skillOrAttribute;
-            },
-            _calculatePipValue: function(pips, pointMultiplier) {
-                let totalPoints = 0;
-
-                if (pips > 0) {
-                    let result = pips / 3;
-
-                    if (pips < 4) {
-                        totalPoints += pointMultiplier;
-                    } else if (common.isInt(result)) {
-                        totalPoints += result * pointMultiplier;
-                    } else {
-                        totalPoints += Math.trunc(result) * pointMultiplier + 4;
-                    }
-                }
-
-                return totalPoints;
             }
         };
+    }
+
+    getDieCode(character, name) {
+        let skillOrAttribute = this.getAttributeOrSkill(character, name);
+
+        return {
+            dice: skillOrAttribute.dice,
+            modifierDice: skillOrAttribute.modifierDice,
+            pips: skillOrAttribute.pips,
+            modifierPips: skillOrAttribute.modifierPips
+        }
+    }
+
+    getTotalPoints(character) {
+        let itemNames = ['advantages', 'specialAbilities'];
+        let totalPoints = 0;
+        let totalAttributePips = 0;
+        let totalSkillPips = 0;
+
+        for (let attribute of character.attributes) {
+            totalPoints += attribute.dice * 4;
+            totalAttributePips += attribute.pips;
+
+            for (let skill of attribute.skills) {
+                if (skill.dice > 0) {
+                    totalPoints += skill.dice;
+                    totalSkillPips += skill.pips;
+                }
+            }
+        }
+
+        totalPoints += this._calculatePipValue(totalAttributePips, POINT_MOD_ATTRIBUTE);
+        totalPoints += this._calculatePipValue(totalSkillPips, POINT_MOD_SKILL);
+
+        for (let itemName of itemNames) {
+            for (let item of character[itemName].items) {
+                if (item.multipleRanks) {
+                    totalPoints += item.totalRanks * item.rank;
+                } else {
+                    totalPoints += item.rank;
+                }
+            }
+        }
+
+        return totalPoints;
+    }
+
+    getComplicationPoints(character) {
+        let complicationPoints = 0;
+
+        for (let item of character.complications.items) {
+            if (item.multipleRanks) {
+                complicationPoints += item.totalRanks * item.rank;
+            } else {
+                complicationPoints += item.rank;
+            }
+        }
+
+        return complicationPoints;
+    }
+
+    getTotalDieCode(dieCode) {
+        let totalDieCode = {
+            dice: dieCode.dice + (dieCode.modifierDice || 0),
+            pips: dieCode.pips + (dieCode.modifierPips || 0)
+        }
+
+        switch (totalDieCode.pips) {
+            case -2:
+                totalDieCode.dice--;
+                totalDieCode.pips = 1;
+                break;
+            case -1:
+                totalDieCode.dice--;
+                totalDieCode.pips = 2;
+                break;
+            case 3:
+                totalDieCode.dice++;
+                totalDieCode.pips = 0;
+                break;
+            case 4:
+                totalDieCode.dice++;
+                totalDieCode.pips = 1;
+                break;
+            default:
+                // do nothing
+        }
+
+        return totalDieCode;
+    }
+
+    getFormattedDieCode(dieCode) {
+        let finalDieCode = this.getTotalDieCode(dieCode);
+
+        return finalDieCode.dice + 'D' + (finalDieCode.pips > 0 ? '+' + finalDieCode.pips : '');
+    }
+
+    isExtranormal(character, name) {
+        let skillOrAttribute = this.getAttributeOrSkill(character, name);
+
+        return skillOrAttribute.isExtranormal;
+    }
+
+    isSkill(character, name) {
+        let attributeOrSkill = this._getAttributeOrSkill(name, character.attributes);
+
+        return 'skills' in attributeOrSkill ? false : true;
+    }
+
+    getAttributeOrSkill(character, name) {
+        return this._getAttributeOrSkill(name, character.attributes);
+    }
+
+    getTemplateSkillOrAttribute(character, name) {
+        return this._getAttributeOrSkill(name, character.template.attributes);
     }
 
     getTemplates() {
@@ -281,6 +248,50 @@ class Character {
         });
 
         return skills;
+    }
+
+    _getAttributeOrSkill(name, attributes) {
+        let infoFound = false;
+        let skillOrAttribute = {name: DEFAULT_VALUE, description: DEFAULT_VALUE};
+
+        for (let attribute of attributes) {
+            if (attribute.name === name) {
+                skillOrAttribute = attribute;
+                break;
+            } else {
+                for (let skill of attribute.skills) {
+                    if (skill.name === name) {
+                        skillOrAttribute = skill;
+                        infoFound = true;
+                        break;
+                    }
+                }
+
+                if (infoFound) {
+                    break;
+                }
+            }
+        }
+
+        return skillOrAttribute;
+    }
+
+    _calculatePipValue(pips, pointMultiplier) {
+        let totalPoints = 0;
+
+        if (pips > 0) {
+            let result = pips / 3;
+
+            if (pips < 4) {
+                totalPoints += pointMultiplier;
+            } else if (common.isInt(result)) {
+                totalPoints += result * pointMultiplier;
+            } else {
+                totalPoints += Math.trunc(result) * pointMultiplier + 4;
+            }
+        }
+
+        return totalPoints;
     }
 }
 

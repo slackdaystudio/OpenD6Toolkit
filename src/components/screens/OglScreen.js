@@ -55,6 +55,7 @@ export default class OglScreen extends Component {
                     D6 Space (WEG51012), Copyright 2004, Purgatory Publishing Inc.{'\n'}
                     D6 Space Aliens, Volume I (WEG 51022), Copyright 2005, Purgatory Publishing Inc.{'\n'}
                     D6 Fantasy (WEG51013), Copyright 2004, Purgatory Publishing Inc.{'\n'}
+                    D6 Legend, Copyright 2009, Purgatory Publishing Inc.{'\n'}
                     West End Games, WEG, and D6 System are trademarks and properties of Purgatory Publishing Inc.{'\n'}
                     {'\n\n'}
                     PRODUCT IDENTIFICATION:

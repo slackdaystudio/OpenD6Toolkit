@@ -32,9 +32,17 @@ class Sidebar extends Component {
          	<ListItem onPress={() => this.props.navigation.navigate('DieRoller')}>
 	      		<Text style={styles.grey}>Roller</Text>
 	      	</ListItem>
+	      	<ListItem itemDivider style={{backgroundColor: '#212121'}} />
          	<ListItem onPress={() => this._onBuilderPress()}>
 	      		<Text style={styles.grey}>Builder</Text>
 	      	</ListItem>
+         	<ListItem onPress={() => this.props.navigation.navigate('LoadCharacter')}>
+	      		<Text style={styles.grey}>Load</Text>
+	      	</ListItem>
+         	<ListItem onPress={() => this.props.navigation.navigate('TemplateSelect')}>
+	      		<Text style={styles.grey}>New</Text>
+	      	</ListItem>
+	      	<ListItem itemDivider style={{backgroundColor: '#212121'}} />
          	<ListItem onPress={() => this.props.navigation.navigate('Ogl')}>
 	      		<Text style={styles.grey}>Open Gaming License</Text>
 	      	</ListItem>

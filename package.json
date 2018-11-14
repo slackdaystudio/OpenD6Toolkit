@@ -10,6 +10,7 @@
     "native-base": "^2.8.1",
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.4",
+    "react-native-document-picker": "^2.1.0",
     "react-native-linear-gradient": "^2.4.3",
     "react-native-modal": "^7.0.0",
     "react-native-shake": "^3.2.2",
@@ -17,7 +18,8 @@
     "react-native-splash-screen": "^3.1.1",
     "react-navigation": "^1.0.3",
     "react-redux": "^5.1.0",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "rn-fetch-blob": "^0.10.13"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",

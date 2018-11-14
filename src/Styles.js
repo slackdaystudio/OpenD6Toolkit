@@ -12,7 +12,8 @@ export default StyleSheet.create({
 		fontSize: 26,
 		fontWeight: 'bold',
 		color: '#8B8888',
-		paddingTop: 20
+		paddingTop: 20,
+		alignSelf: 'center'
 	},
 	subHeading: {
 		alignSelf: 'center',
@@ -78,5 +79,9 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingTop: 10
-    }
+    },
+    big: {
+	    fontSize: 18,
+	    lineHeight: 40
+	}
 });

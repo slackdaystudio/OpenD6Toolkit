@@ -3,6 +3,8 @@ package com.opend6toolkit;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.reactnativedocumentpicker.ReactNativeDocumentPicker;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.clipsub.RNShake.RNShakeEventPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -26,6 +28,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFetchBlobPackage(),
+            new ReactNativeDocumentPicker(),
             new LinearGradientPackage(),
             new RNShakeEventPackage(),
             new SplashScreenReactPackage()
