@@ -312,9 +312,11 @@ class BuilderScreen extends Component {
                                         onPress={() => this.toggleAttributeShow(attribute.name)}
                                         onLongPress={() => this._showAttributeInfo(attribute.name)}
                                     >
-                                        <Text style={[styles.boldGrey, localStyles.big]}>
-                                            {attribute.name}
-                                        </Text>
+                                        <View style={{paddingRight: 150, paddingTop: 10, paddingBottom: 10}}>
+                                            <Text style={[styles.boldGrey, localStyles.big, {}]}>
+                                                {attribute.name}
+                                            </Text>
+                                        </View>
                                     </TouchableHighlight>
                                 </Left>
                                 <Right>
@@ -322,9 +324,11 @@ class BuilderScreen extends Component {
                                         onPress={() => this._rollDice(dieCode)}
                                         onLongPress={() => this._editDieCode(attribute.name, dieCode)}
                                     >
-                                        <Text style={[styles.boldGrey, localStyles.big]}>
-                                            {this.props.character.getFormattedDieCode(dieCode)}
-                                        </Text>
+                                        <View style={{paddingLeft: 50, paddingTop: 10, paddingBottom: 10}}>
+                                            <Text style={[styles.boldGrey, localStyles.big]}>
+                                                {this.props.character.getFormattedDieCode(dieCode)}
+                                            </Text>
+                                        </View>
                                     </TouchableHighlight>
                                 </Right>
                             </ListItem>
@@ -349,7 +353,9 @@ class BuilderScreen extends Component {
                                 <ListItem>
                                     <Left>
                                         <TouchableHighlight onLongPress={() => this._showAttributeInfo(skill.name)}>
-                                            <Text style={[styles.grey, {lineHeight: 30}]}>{'\t' + skill.name}</Text>
+                                            <View style={{paddingRight: 100, paddingTop: 10, paddingBottom: 10}}>
+                                                <Text style={[styles.grey, {lineHeight: 30}]}>{'\t' + skill.name}</Text>
+                                            </View>
                                         </TouchableHighlight>
                                     </Left>
                                     <Right>
@@ -357,9 +363,11 @@ class BuilderScreen extends Component {
                                             onPress={() => this._rollSkillDice(attributeDieCode, skillDieCode)}
                                             onLongPress={() => this._editDieCode(skill.name, skillDieCode)}
                                         >
-                                            <Text style={[styles.boldGrey, {lineHeight: 30}]}>
-                                                {this.props.character.getFormattedDieCode(skillDieCode)}
-                                            </Text>
+                                            <View style={{paddingLeft: 50, paddingTop: 10, paddingBottom: 10}}>
+                                                <Text style={[styles.boldGrey, {lineHeight: 30}]}>
+                                                    {this.props.character.getFormattedDieCode(skillDieCode)}
+                                                </Text>
+                                            </View>
                                         </TouchableHighlight>
                                     </Right>
                                 </ListItem>
@@ -393,16 +401,20 @@ class BuilderScreen extends Component {
                         <ListItem key={'option-' + index} noIndent>
                             <Left>
                                 <TouchableHighlight onPress={() => this._showOptionInfo(item)}>
-                                    <Text style={[styles.boldGrey, localStyles.big]}>
-                                        {item.name + (item.displayNote === null ? '' : ': ' + item.displayNote)}
-                                    </Text>
+                                    <View style={{paddingTop: 10, paddingBottom: 10}}>
+                                        <Text style={[styles.boldGrey, localStyles.big]}>
+                                            {item.name + (item.displayNote === null ? '' : ': ' + item.displayNote)}
+                                        </Text>
+                                    </View>
                                 </TouchableHighlight>
                             </Left>
                             <Right>
                                 <TouchableHighlight onPress={() => this._showRanksPicker(optionKey, item)}>
-                                    <Text style={[styles.boldGrey, localStyles.big]}>
-                                        R{(item.multipleRanks ? item.totalRanks * item.rank : item.rank)}
-                                    </Text>
+                                    <View style={{paddingLeft: 50, paddingTop: 10, paddingBottom: 10}}>
+                                        <Text style={[styles.boldGrey, localStyles.big]}>
+                                            R{(item.multipleRanks ? item.totalRanks * item.rank : item.rank)}
+                                        </Text>
+                                    </View>
                                 </TouchableHighlight>
                             </Right>
                         </ListItem>
@@ -425,7 +437,7 @@ class BuilderScreen extends Component {
                     <View style={{flex: 1, paddingTop: 20, justifyContent: 'space-around', alignItems: 'center'}}>
                         <Icon
                             type='FontAwesome'
-                            name='plus-square'
+                            name='plus-circle'
                             style={[styles.grey, {fontSize: 30, color: '#00ACED'}]}
                             onPress={() => this.props.navigation.navigate('Options', {optionKey: optionKey})}
                         />
