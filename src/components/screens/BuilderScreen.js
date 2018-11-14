@@ -7,7 +7,7 @@ import Header from '../Header';
 import AttributeDialog from '../AttributeDialog';
 import InfoDialog from '../InfoDialog';
 import RanksDialog, { MODE_EDIT } from '../RanksDialog';
-import Appearance from '../builder/Appearance';
+import Appearance from '../Appearance';
 import styles from '../../Styles';
 import { character, OPTION_ADVANTAGES, OPTION_COMPLICATIONS, OPTION_SPECIAL_ABILITIES } from '../../lib/Character';
 import { file } from '../../lib/File';
