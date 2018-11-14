@@ -442,6 +442,14 @@ class BuilderScreen extends Component {
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
                     <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.grey}>
+                            <Text style={styles.boldGrey}>Total Points:</Text> {this.props.character.getTotalPoints()}
+                        </Text>
+                        <Text style={styles.grey}>
+                            <Text style={styles.boldGrey}>Complications:</Text> {this.props.character.getComplicationPoints()}
+                        </Text>
+                    </View>
                     {this._renderAttributes()}
                     {this._renderOptions('Advantages', OPTION_ADVANTAGES)}
                     {this._renderOptions('Complications', OPTION_COMPLICATIONS)}

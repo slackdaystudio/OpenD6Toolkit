@@ -1,4 +1,5 @@
 import { Alert } from 'react-native';
+import { common } from './Common';
 
 const TEMPLATE_FANTASY = require('../../public/templates/fantasy.json');
 
@@ -58,6 +59,74 @@ class Character {
                     pips: skillOrAttribute.pips,
                     modifierPips: skillOrAttribute.modifierPips
                 }
+            },
+            getTotalPoints: function() {
+                let itemNames = ['advantages', 'specialAbilities'];
+                let totalPoints = 0;
+                let totalAttributePips = 0;
+                let totalSkillPips = 0;
+
+                for (let attribute of this.attributes) {
+                    totalPoints += attribute.dice * 4;
+                    totalAttributePips += attribute.pips;
+
+                    for (let skill of attribute.skills) {
+                        if (skill.dice > 0) {
+                            totalPoints += skill.dice;
+                            totalSkillPips += skill.pips;
+                        }
+                    }
+                }
+
+                if (totalAttributePips > 0) {
+                    let attributePipsResults = totalAttributePips / 3;
+
+                    if (totalAttributePips < 4) {
+                        totalPoints += 4;
+                    } else if (common.isInt(attributePipsResults)) {
+                        totalPoints += attributePipsResults * 4;
+                    } else {
+                        totalPoints += Math.trunc(attributePipsResults) * 4 + 4;
+                    }
+                }
+
+                if (totalSkillPips > 0) {
+                    let skillPipsResults = totalSkillPips / 3;
+
+                    if (totalSkillPips < 4) {
+                        totalPoints += 1;
+                    } else if (common.isInt(skillPipsResults)) {
+                        totalPoints += skillPipsResults;
+                    } else {
+                        totalPoints += Math.trunc(skillPipsResults) + 1;
+                    }
+                }
+
+
+                for (let itemName of itemNames) {
+                    for (let item of this[itemName].items) {
+                        if (item.multipleRanks) {
+                            totalPoints += item.totalRanks * item.rank;
+                        } else {
+                            totalPoints += item.rank;
+                        }
+                    }
+                }
+
+                return totalPoints;
+            },
+            getComplicationPoints: function() {
+                let complicationPoints = 0;
+
+                for (let item of this.complications.items) {
+                    if (item.multipleRanks) {
+                        complicationPoints += item.totalRanks * item.rank;
+                    } else {
+                        complicationPoints += item.rank;
+                    }
+                }
+
+                return complicationPoints;
             },
             getTotalDieCode: function(dieCode) {
                 let totalDieCode = {
