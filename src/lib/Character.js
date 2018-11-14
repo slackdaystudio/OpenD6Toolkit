@@ -13,6 +13,10 @@ const BASE_COMPLICATIONS = require('../../public/templates/complications/1/compl
 
 const BASE_SPECIAL_ABILITIES = require('../../public/templates/special_abilities/1/special_abilities.json');
 
+const POINT_MOD_ATTRIBUTE = 4;
+
+const POINT_MOD_SKILL = 1;
+
 export const TEMPLATE_FANTASY_NAME = 'Fantasy';
 
 export const TEMPLATE_ADVENTURE_NAME = 'Adventure';
@@ -78,30 +82,8 @@ class Character {
                     }
                 }
 
-                if (totalAttributePips > 0) {
-                    let attributePipsResults = totalAttributePips / 3;
-
-                    if (totalAttributePips < 4) {
-                        totalPoints += 4;
-                    } else if (common.isInt(attributePipsResults)) {
-                        totalPoints += attributePipsResults * 4;
-                    } else {
-                        totalPoints += Math.trunc(attributePipsResults) * 4 + 4;
-                    }
-                }
-
-                if (totalSkillPips > 0) {
-                    let skillPipsResults = totalSkillPips / 3;
-
-                    if (totalSkillPips < 4) {
-                        totalPoints += 1;
-                    } else if (common.isInt(skillPipsResults)) {
-                        totalPoints += skillPipsResults;
-                    } else {
-                        totalPoints += Math.trunc(skillPipsResults) + 1;
-                    }
-                }
-
+                totalPoints += this._calculatePipValue(totalAttributePips, POINT_MOD_ATTRIBUTE);
+                totalPoints += this._calculatePipValue(totalSkillPips, POINT_MOD_SKILL);
 
                 for (let itemName of itemNames) {
                     for (let item of this[itemName].items) {
@@ -202,6 +184,23 @@ class Character {
                 }
 
                 return skillOrAttribute;
+            },
+            _calculatePipValue: function(pips, pointMultiplier) {
+                let totalPoints = 0;
+
+                if (pips > 0) {
+                    let result = pips / 3;
+
+                    if (pips < 4) {
+                        totalPoints += pointMultiplier;
+                    } else if (common.isInt(result)) {
+                        totalPoints += result * pointMultiplier;
+                    } else {
+                        totalPoints += Math.trunc(result) * pointMultiplier + 4;
+                    }
+                }
+
+                return totalPoints;
             }
         };
     }
