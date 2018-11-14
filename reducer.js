@@ -23,6 +23,8 @@ export const UPDATE_OPTION = 'UPDATE_OPTION';
 
 export const REMOVE_OPTION = 'REMOVE_OPTION';
 
+export const SET_SETTING = 'SET_SETTING';
+
 export function updateRoller(dice, pips) {
     return {
         type: UPDATE_ROLLER,
@@ -87,6 +89,16 @@ export function removeOption(optionKey, item) {
     };
 }
 
+export function setSetting(setting, value) {
+    return {
+        type: SET_SETTING,
+        payload: {
+            setting: setting,
+            value: value
+        }
+    }
+}
+
 initialState = {
     roller: {
         dice: 1,
@@ -94,6 +106,9 @@ initialState = {
     },
     builder: {
         character: null
+    },
+    settings: {
+        isLegend: false
     }
 };
 
@@ -212,6 +227,19 @@ export default function reducer(state = initialState, action) {
 
             if (index > -1) {
                 newState.builder.character[optionKey].items.splice(index, 1);
+            }
+
+            return newState;
+        case SET_SETTING:
+            newState = {
+                ...state,
+                settings: {
+                    ...state.settings,
+                }
+            };
+
+            if (newState.settings.hasOwnProperty(action.payload.setting)) {
+                newState.settings[action.payload.setting] = action.payload.value;
             }
 
             return newState;

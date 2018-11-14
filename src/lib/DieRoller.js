@@ -8,6 +8,8 @@ export const STATE_CRITICAL_SUCCESS = 2;
 
 export const STATE_CRITICAL_FAILURE = 3;
 
+export const LEGEND_SUCCESS_THRESHOLD = 2;
+
 class DieRoller {
     roll(dice) {
         return this._roll(this._newResult(dice));

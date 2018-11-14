@@ -72,5 +72,11 @@ export default StyleSheet.create({
     row: {
         flex: 1,
         alignSelf: 'stretch',
+    },
+    titleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingTop: 10
     }
 });

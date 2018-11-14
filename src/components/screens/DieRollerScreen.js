@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { Platform, StyleSheet, ScrollView, View, TouchableHighlight } from 'react-native';
+import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Switch } from 'react-native';
 import { Container, Content, Button, Text, Picker, Item} from 'native-base';
 import RNShake from 'react-native-shake';
 import Header from '../Header';
@@ -10,9 +10,10 @@ import {
     dieRoller,
     STATE_NORMAL,
     STATE_CRITICAL_SUCCESS,
-    STATE_CRITICAL_FAILURE
+    STATE_CRITICAL_FAILURE,
+    LEGEND_SUCCESS_THRESHOLD
 } from '../../lib/DieRoller';
-import { updateRoller } from '../../../reducer';
+import { updateRoller, setSetting } from '../../../reducer';
 import styles from '../../Styles';
 
 class DieRollerScreen extends Component {
@@ -20,7 +21,9 @@ class DieRollerScreen extends Component {
         navigation: PropTypes.object.isRequired,
         dice: PropTypes.number.isRequired,
         pips: PropTypes.number.isRequired,
-        updateRoller: PropTypes.func.isRequired
+        isLegend: PropTypes.bool.isRequired,
+        updateRoller: PropTypes.func.isRequired,
+        setSetting: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -63,6 +66,10 @@ class DieRollerScreen extends Component {
     }
 
     _getTotal() {
+        return this.props.isLegend ? this._getTotalSuccesses() : this._getClassicTotal();
+    }
+
+    _getClassicTotal() {
         let total = this.state.result.rolls.length > 0 ? this.state.result.rolls.reduce((a, b) => a + b, 0) : 0;
 
         if (this.state.result.status === STATE_CRITICAL_SUCCESS) {
@@ -72,6 +79,30 @@ class DieRollerScreen extends Component {
         }
 
         return total + this.props.pips;
+    }
+
+    _getTotalSuccesses() {
+        let totalSuccesses = 0;
+
+        for (let roll of this.state.result.rolls) {
+            if (roll > LEGEND_SUCCESS_THRESHOLD) {
+                totalSuccesses++;
+            }
+        }
+
+        if (this.state.result.status === STATE_CRITICAL_SUCCESS) {
+            for (let bonusRoll of this.state.result.bonusRolls) {
+                if (bonusRoll >= LEGEND_SUCCESS_THRESHOLD) {
+                    totalSuccesses++;
+                }
+            }
+
+            totalSuccesses += (this.state.result.wildDieRoll > LEGEND_SUCCESS_THRESHOLD) ? 1 : 0;
+        } else if (this.state.result.status === STATE_NORMAL) {
+            totalSuccesses += (this.state.result.wildDieRoll > LEGEND_SUCCESS_THRESHOLD) ? 1 : 0;
+        }
+
+        return totalSuccesses;
     }
 
     _renderCriticalInfo() {
@@ -91,7 +122,7 @@ class DieRollerScreen extends Component {
             );
         }
 
-        return null;
+        return <Text />;
     }
 
     _renderRollButtonLabel() {
@@ -123,6 +154,31 @@ class DieRollerScreen extends Component {
         );
     }
 
+    _renderPipsPicker() {
+        if (this.props.isLegend) {
+            return null;
+        }
+
+        return (
+            <View>
+                <Picker
+                    inlinelabel
+                    label='Pips'
+                    style={styles.grey}
+                    textStyle={styles.grey}
+                    iosHeader="Select one"
+                    mode="dropdown"
+                    selectedValue={this.props.pips}
+                    onValueChange={(value) => this.updatePips(value)}
+                >
+                    <Item label="+0 pips" value={0} />
+                    <Item label="+1 pip" value={1} />
+                    <Item label="+2 pips" value={2} />
+                </Picker>
+            </View>
+        );
+    }
+
 	render() {
 		return (
 		  <Container style={styles.container}>
@@ -130,29 +186,29 @@ class DieRollerScreen extends Component {
             <Content style={styles.content}>
                 <Text style={styles.heading}>Roller</Text>
                 {this._renderResult()}
-                <Slider
-                    label='Dice:'
-                    value={parseInt(this.props.dice, 10)}
-                    step={1}
-                    min={1}
-                    max={30}
-                    onValueChange={this.updateDice}
-                    disabled={false}
-                />
-                <Picker
-                  inlinelabel
-                  label='Pips'
-                  style={styles.grey}
-                  textStyle={styles.grey}
-                  iosHeader="Select one"
-                  mode="dropdown"
-                  selectedValue={this.props.pips}
-                  onValueChange={(value) => this.updatePips(value)}
-                >
-                  <Item label="+0 pips" value={0} />
-                  <Item label="+1 pip" value={1} />
-                  <Item label="+2 pips" value={2} />
-                </Picker>
+                <View>
+                    <Slider
+                        label='Dice:'
+                        value={parseInt(this.props.dice, 10)}
+                        step={1}
+                        min={1}
+                        max={30}
+                        onValueChange={this.updateDice}
+                        disabled={false}
+                    />
+                </View>
+                {this._renderPipsPicker()}
+                <View style={styles.titleContainer}>
+                    <Text style={styles.grey}>Use D6 Legend rules?</Text>
+                    <View style={{paddingRight: 10}}>
+                        <Switch
+                            value={this.props.isLegend}
+                            onValueChange={() => this.props.setSetting('isLegend', !this.props.isLegend)}
+                            thumbColor='#00ACED'
+                            trackColor={{true: '#99e4ff', false: '#000000'}}
+                        />
+                    </View>
+                </View>
                 <View style={styles.buttonContainer}>
                     <Button block style={styles.button} onPress={this.roll}>
                         <Text uppercase={false}>{this._renderRollButtonLabel()}</Text>
@@ -174,12 +230,14 @@ const localStyles = StyleSheet.create({
 const mapStateToProps = state => {
     return {
         dice: state.roller.dice,
-        pips: state.roller.pips
+        pips: state.roller.pips,
+        isLegend: state.settings.isLegend
     };
 }
 
 const mapDispatchToProps = {
-    updateRoller
+    updateRoller,
+    setSetting
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DieRollerScreen);

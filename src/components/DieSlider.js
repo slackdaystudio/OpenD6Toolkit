@@ -122,7 +122,7 @@ export default class DieSlider extends Component {
                         disabled={this.props.disabled}
                         trackStyle={thumbStyles.track}
                         thumbStyle={thumbStyles.thumb}
-                        minimumTrackTintColor='#3da0ff'
+                        minimumTrackTintColor='#99e4ff'
                     />
 				</View>
 			</View>
@@ -149,7 +149,7 @@ const thumbStyles = StyleSheet.create({
 		height: 30,
 		borderRadius: 30 / 2,
 		backgroundColor: 'white',
-		borderColor: '#3da0ff',
+		borderColor: '#00ACED',
 		borderWidth: 2,
 	}
 });
