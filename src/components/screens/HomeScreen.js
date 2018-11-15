@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon } from 'native-base';
 import Header from '../Header';
+import Heading from '../Heading';
 import styles from '../../Styles';
 
 class HomeScreen extends Component {
@@ -25,7 +26,7 @@ class HomeScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Text style={styles.heading}>Roller</Text>
+                <Heading text='Roller' />
                 <Text style={[styles.grey, {alignSelf: 'center'}]}>Use the die roller to resolve actions in OpenD6.</Text>
                 <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
                     <View style={styles.buttonContainer}>
@@ -34,7 +35,7 @@ class HomeScreen extends Component {
                         </Button>
                     </View>
                 </View>
-                <Text style={styles.heading}>Builder</Text>
+                <Heading text='Builder' />
                 <Text style={[styles.grey, {alignSelf: 'center'}]}>Build a character using the OpenD6 game rules.</Text>
                 <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
                     <View style={styles.buttonContainer}>

@@ -5,6 +5,7 @@ import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Switch } fr
 import { Container, Content, Button, Text, Picker, Item} from 'native-base';
 import RNShake from 'react-native-shake';
 import Header from '../Header';
+import Heading from '../Heading';
 import Slider from '../DieSlider';
 import {
     dieRoller,
@@ -184,35 +185,37 @@ class DieRollerScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Text style={styles.heading}>Roller</Text>
-                {this._renderResult()}
-                <View>
-                    <Slider
-                        label='Dice:'
-                        value={parseInt(this.props.dice, 10)}
-                        step={1}
-                        min={1}
-                        max={30}
-                        onValueChange={this.updateDice}
-                        disabled={false}
-                    />
-                </View>
-                {this._renderPipsPicker()}
-                <View style={styles.titleContainer}>
-                    <Text style={styles.grey}>Use D6 Legend rules?</Text>
-                    <View style={{paddingRight: 10}}>
-                        <Switch
-                            value={this.props.isLegend}
-                            onValueChange={() => this.props.setSetting('isLegend', !this.props.isLegend)}
-                            thumbColor='#00ACED'
-                            trackColor={{true: '#99e4ff', false: '#000000'}}
+                <Heading text='Roller' />
+                <View style={styles.contentPadded}>
+                    {this._renderResult()}
+                    <View>
+                        <Slider
+                            label='Dice:'
+                            value={parseInt(this.props.dice, 10)}
+                            step={1}
+                            min={1}
+                            max={30}
+                            onValueChange={this.updateDice}
+                            disabled={false}
                         />
                     </View>
-                </View>
-                <View style={styles.buttonContainer}>
-                    <Button block style={styles.button} onPress={this.roll}>
-                        <Text uppercase={false}>{this._renderRollButtonLabel()}</Text>
-                    </Button>
+                    {this._renderPipsPicker()}
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.grey}>Use D6 Legend rules?</Text>
+                        <View style={{paddingRight: 10}}>
+                            <Switch
+                                value={this.props.isLegend}
+                                onValueChange={() => this.props.setSetting('isLegend', !this.props.isLegend)}
+                                thumbColor='#f57e20'
+                                trackColor={{true: '#fde5d2', false: '#4f4e4e'}}
+                            />
+                        </View>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button block style={styles.button} onPress={this.roll}>
+                            <Text uppercase={false}>{this._renderRollButtonLabel()}</Text>
+                        </Button>
+                    </View>
                 </View>
                 <View style={{paddingBottom: 20}} />
             </Content>

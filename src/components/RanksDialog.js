@@ -86,7 +86,7 @@ export default class RanksDialog extends Component {
                         <Icon
                             type='FontAwesome'
                             name='plus-square'
-                            style={[styles.grey, {fontSize: 30, color: '#00ACED', alignItems: 'flex-end'}]}
+                            style={[styles.grey, {fontSize: 30, color: '#f57e20', alignItems: 'flex-end'}]}
                             onPress={() => this._incrementRanks()}
                         />
                     </View>
@@ -97,7 +97,7 @@ export default class RanksDialog extends Component {
                         <Icon
                             type='FontAwesome'
                             name='minus-square'
-                            style={[styles.grey, {fontSize: 30, color: '#00ACED', alignItems: 'flex-start'}]}
+                            style={[styles.grey, {fontSize: 30, color: '#f57e20', alignItems: 'flex-start'}]}
                             onPress={() => this._decrementRanks()}
                         />
                     </View>
@@ -187,13 +187,13 @@ const localStyles = StyleSheet.create({
 	    justifyContent: 'flex-end'
 	},
 	modalContent: {
-        backgroundColor: '#111111',
+        backgroundColor: '#ffffff',
         padding: 22,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 4,
         borderWidth: 1,
-        borderColor: '#1e1e1e',
+        borderColor: '#f57e20',
         minHeight: 300
     }
 });

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Platform, StyleSheet, View } from 'react-native';
 import { Container, Content, Button, Text, List, ListItem, Left, Right, Icon } from 'native-base';
 import Header from '../Header';
+import Heading from '../Heading';
 import styles from '../../Styles';
 import { character, TEMPLATE_FANTASY } from '../../lib/Character';
 import { setTemplate } from '../../../reducer';
@@ -36,8 +37,8 @@ class TemplateSelectScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Text style={styles.heading}>Template Select</Text>
-                <Text style={styles.grey}>Select your template from the list below.</Text>
+                <Heading text="Template Select" />
+                <Text style={[styles.grey, {alignSelf: 'center'}]}>Select your template from the list below.</Text>
                 <List>
                     {character.getTemplates().map((template, index) => {
                         return (

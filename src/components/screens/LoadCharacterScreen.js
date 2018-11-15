@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, List, ListItem } from 'native-base';
 import Header from '../Header';
+import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
 import styles from '../../Styles';
 import { file } from '../../lib/File';
@@ -77,12 +78,13 @@ class LoadCharacterScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Text style={styles.heading}>Characters</Text>
+                <Heading text='Characters' />
                 <List>
                     {this.state.files.map((file, index) => {
                         return (
                             <ListItem key={'file-' + index} noIndent>
                                 <TouchableHighlight
+                                    underlayColor='#ffffff'
                                     onPress={() => this._onCharacterSelect(file)}
                                     onLongPress={() => this._onCharacterDelete(file)}
                                 >

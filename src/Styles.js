@@ -2,42 +2,46 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
 	container: {
-		backgroundColor: '#111111'
+		backgroundColor: '#ffffff'
 	},
 	content: {
-		paddingTop: 5,
-		paddingHorizontal: 10
+		paddingTop: 0,
+		paddingHorizontal: 0
+	},
+	contentPadded: {
+		paddingHorizontal: 5
 	},
 	heading: {
 		fontSize: 26,
 		fontWeight: 'bold',
-		color: '#8B8888',
-		paddingTop: 20,
+		color: '#4f4e4e',
+		paddingTop: 10,
+		paddingBottom: 10,
 		alignSelf: 'center'
 	},
 	subHeading: {
 		alignSelf: 'center',
 		fontWeight: 'bold',
 		textDecorationLine: 'underline',
-		color: '#2b2b2b'
+		color: '#4f4e4e'
 	},
 	buttonContainer: {
 		paddingVertical: 5
 	},
 	button: {
-		backgroundColor: '#00ACED',
+		backgroundColor: '#f57e20',
 		minWidth: 140,
 		justifyContent: 'center',
 		alignSelf: 'center'
 	},
 	modalButton: {
-		backgroundColor: '#00ACED',
+		backgroundColor: '#f57e20',
 		minWidth: 90,
 		justifyContent: 'center',
 		alignSelf: 'center'
 	},
 	buttonBig: {
-		backgroundColor: '#00ACED',
+		backgroundColor: '#f57e20',
 		minWidth: 300,
 		justifyContent: 'center',
 		alignSelf: 'center'
@@ -46,10 +50,10 @@ export default StyleSheet.create({
 		color: '#FFF'
 	},
 	grey: {
-		color: '#8B8888'
+		color: '#4f4e4e'
 	},
 	boldGrey: {
-		color: '#8B8888',
+		color: '#4f4e4e',
 		fontWeight: 'bold'
 	},
 	tabInactive: {

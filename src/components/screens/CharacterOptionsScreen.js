@@ -109,12 +109,12 @@ class CharacterOptionsScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <View style={styles.rowStart}>
-                    <View style={{flex: 1, paddingTop: 20, justifyContent: 'space-around', alignItems: 'center'}}>
+                <View style={[styles.rowStart, {backgroundColor: '#fde5d2'}]}>
+                    <View style={{flex: 1, paddingTop: 5, justifyContent: 'space-around', alignItems: 'center'}}>
                         <Icon
                             type='FontAwesome'
                             name='arrow-circle-left'
-                            style={[styles.grey, {fontSize: 30, color: '#00ACED'}]}
+                            style={[styles.grey, {fontSize: 30, color: '#f57e20'}]}
                             onPress={() => this.props.navigation.navigate('Builder')}
                         />
                     </View>
@@ -131,8 +131,8 @@ class CharacterOptionsScreen extends Component {
                             onPress={() => this._toggleDescriptionShow(option.name, option.rank)}
                             onLongPress={() => this._addOption(option)}
                         >
-                            <View style={{borderWidth: 1, borderColor: '#1e1e1e'}}>
-                                <CardItem style={{backgroundColor: '#111111'}}>
+                            <View style={{borderWidth: 1, borderColor: '#d1d1d1'}}>
+                                <CardItem style={{backgroundColor: '#f9f9f9'}}>
                                     <Body>
                                         <Text style={styles.grey}>
                                             <Text style={[styles.boldGrey, {fontSize: 20, lineHeight: 22}]}>{option.name}, R{option.rank + '\n'}</Text>

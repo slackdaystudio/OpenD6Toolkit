@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert } from 'react-native';
 import { Container, Content, Button, Text, Picker, Item, Input, List, ListItem, Left, Right, Icon} from 'native-base';
 import Header from '../Header';
+import Heading from '../Heading';
 import AttributeDialog from '../AttributeDialog';
 import InfoDialog from '../InfoDialog';
 import RanksDialog, { MODE_EDIT } from '../RanksDialog';
@@ -312,9 +313,7 @@ class BuilderScreen extends Component {
     _renderAttributes() {
         return (
             <View>
-                <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={styles.heading}>Attributes &amp; Skills</Text>
-                </View>
+                <Heading text='Attributes &amp; Skills' />
                 <List>
                 {this.props.character.template.attributes.map((attribute, index) => {
                     let dieCode = character.getDieCode(this.props.character, attribute.name);
@@ -324,6 +323,7 @@ class BuilderScreen extends Component {
                             <ListItem noIndent>
                                 <Left>
                                     <TouchableHighlight
+                                        underlayColor='#ffffff'
                                         onPress={() => this.toggleAttributeShow(attribute.name)}
                                         onLongPress={() => this._showAttributeInfo(attribute.name)}
                                     >
@@ -336,6 +336,7 @@ class BuilderScreen extends Component {
                                 </Left>
                                 <Right>
                                     <TouchableHighlight
+                                        underlayColor='#ffffff'
                                         onPress={() => this._rollDice(dieCode)}
                                         onLongPress={() => this._editDieCode(attribute.name, dieCode)}
                                     >
@@ -367,7 +368,7 @@ class BuilderScreen extends Component {
                             <List key={'skill-' + index} style={{paddingLeft: 20}}>
                                 <ListItem>
                                     <Left>
-                                        <TouchableHighlight onLongPress={() => this._showAttributeInfo(skill.name)}>
+                                        <TouchableHighlight underlayColor='#ffffff' onLongPress={() => this._showAttributeInfo(skill.name)}>
                                             <View style={{paddingRight: 100, paddingTop: 10, paddingBottom: 10}}>
                                                 <Text style={[styles.grey, {lineHeight: 30}]}>{'\t' + skill.name}</Text>
                                             </View>
@@ -375,6 +376,7 @@ class BuilderScreen extends Component {
                                     </Left>
                                     <Right>
                                         <TouchableHighlight
+                                            underlayColor='#ffffff'
                                             onPress={() => this._rollSkillDice(attributeDieCode, skillDieCode)}
                                             onLongPress={() => this._editDieCode(skill.name, skillDieCode)}
                                         >
@@ -415,7 +417,7 @@ class BuilderScreen extends Component {
                     return (
                         <ListItem key={'option-' + index} noIndent>
                             <Left>
-                                <TouchableHighlight onPress={() => this._showOptionInfo(item)}>
+                                <TouchableHighlight underlayColor='#ffffff' onPress={() => this._showOptionInfo(item)}>
                                     <View style={{paddingTop: 10, paddingBottom: 10}}>
                                         <Text style={[styles.boldGrey, styles.big]}>
                                             {item.name + (item.displayNote === null ? '' : ': ' + item.displayNote)}
@@ -424,7 +426,7 @@ class BuilderScreen extends Component {
                                 </TouchableHighlight>
                             </Left>
                             <Right>
-                                <TouchableHighlight onPress={() => this._showRanksPicker(optionKey, item)}>
+                                <TouchableHighlight underlayColor='#ffffff' onPress={() => this._showRanksPicker(optionKey, item)}>
                                     <View style={{paddingLeft: 50, paddingTop: 10, paddingBottom: 10}}>
                                         <Text style={[styles.boldGrey, styles.big]}>
                                             R{(item.multipleRanks ? item.totalRanks * item.rank : item.rank)}
@@ -444,16 +446,16 @@ class BuilderScreen extends Component {
 
         return (
             <View>
-                <View style={styles.rowStart}>
+                <View style={[styles.rowStart, {backgroundColor: '#fde5d2'}]}>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} />
                     <View style={{flex: 4, justifyContent: 'center', alignItems: 'center'}}>
                         <Text style={styles.heading}>{title}</Text>
                     </View>
-                    <View style={{flex: 1, paddingTop: 20, justifyContent: 'space-around', alignItems: 'center'}}>
+                    <View style={{flex: 1, paddingTop: 5, justifyContent: 'space-around', alignItems: 'center'}}>
                         <Icon
                             type='FontAwesome'
                             name='plus-circle'
-                            style={[styles.grey, {fontSize: 30, color: '#00ACED'}]}
+                            style={[styles.grey, {fontSize: 30, color: '#f57e20'}]}
                             onPress={() => this.props.navigation.navigate('Options', {optionKey: optionKey})}
                         />
                     </View>
@@ -468,15 +470,19 @@ class BuilderScreen extends Component {
 		    <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
+                    <Heading text='Builder' />
                     <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
-                    <View style={styles.titleContainer}>
-                        <Text style={styles.grey}>
-                            <Text style={styles.boldGrey}>Total Points:</Text> {character.getTotalPoints(this.props.character)}
-                        </Text>
-                        <Text style={styles.grey}>
-                            <Text style={styles.boldGrey}>Complications:</Text> {character.getComplicationPoints(this.props.character)}
-                        </Text>
+                    <View style={styles.contentPadded}>
+                        <View style={styles.titleContainer}>
+                            <Text style={styles.grey}>
+                                <Text style={styles.boldGrey}>Total Points:</Text> {character.getTotalPoints(this.props.character)}
+                            </Text>
+                            <Text style={styles.grey}>
+                                <Text style={styles.boldGrey}>Complications:</Text> {character.getComplicationPoints(this.props.character)}
+                            </Text>
+                        </View>
                     </View>
+                    <View style={{paddingBottom: 20}} />
                     {this._renderAttributes()}
                     {this._renderOptions('Advantages', OPTION_ADVANTAGES)}
                     {this._renderOptions('Complications', OPTION_COMPLICATIONS)}

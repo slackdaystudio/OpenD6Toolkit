@@ -26,25 +26,25 @@ class Sidebar extends Component {
           <List>
         	<ListItem onPress={() => this.props.navigation.navigate('Home')}>
 				<View>
-					<Image source={require('../../public/d6_logo_Blue_60x60.png')} />
+					<Image source={require('../../public/d6_logo_White_60x60.png')} />
 				</View>
 	      	</ListItem>
          	<ListItem onPress={() => this.props.navigation.navigate('DieRoller')}>
-	      		<Text style={styles.grey}>Roller</Text>
+	      		<Text style={{fontWeight: 'bold',color: '#ffffff'}}>Roller</Text>
 	      	</ListItem>
-	      	<ListItem itemDivider style={{backgroundColor: '#212121'}} />
+	      	<ListItem itemDivider style={{backgroundColor: '#f57e20'}} />
          	<ListItem onPress={() => this._onBuilderPress()}>
-	      		<Text style={styles.grey}>Builder</Text>
+	      		<Text style={{fontWeight: 'bold',color: '#ffffff'}}>Builder</Text>
 	      	</ListItem>
          	<ListItem onPress={() => this.props.navigation.navigate('LoadCharacter')}>
-	      		<Text style={styles.grey}>Load</Text>
+	      		<Text style={{fontWeight: 'bold',color: '#ffffff'}}>Load</Text>
 	      	</ListItem>
          	<ListItem onPress={() => this.props.navigation.navigate('TemplateSelect')}>
-	      		<Text style={styles.grey}>New</Text>
+	      		<Text style={{fontWeight: 'bold',color: '#ffffff'}}>New</Text>
 	      	</ListItem>
-	      	<ListItem itemDivider style={{backgroundColor: '#212121'}} />
+	      	<ListItem itemDivider style={{backgroundColor: '#f57e20'}} />
          	<ListItem onPress={() => this.props.navigation.navigate('Ogl')}>
-	      		<Text style={styles.grey}>Open Gaming License</Text>
+	      		<Text style={{fontWeight: 'bold',color: '#ffffff'}}>Open Gaming License</Text>
 	      	</ListItem>
           </List>
         </Content>
@@ -55,7 +55,7 @@ class Sidebar extends Component {
 
 const localStyles = StyleSheet.create({
 	container: {
-		backgroundColor: '#212121'
+		backgroundColor: '#f57e20'
 	}
 });
 

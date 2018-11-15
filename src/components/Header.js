@@ -17,13 +17,13 @@ export default class MyHeader extends Component {
                   <Left>
                     <View style={localStyles.logo}>
                         <TouchableHighlight underlayColor='#3da0ff' onPress={() => this.props.navigation.navigate('Home')}>
-                            <Image source={require('../../public/d6_logo_Blue_60x60.png')} />
+                            <Image source={require('../../public/d6_logo_White_60x60.png')} />
                         </TouchableHighlight>
                     </View>
                   </Left>
                   <Right>
                     <Button transparent onPress={() => this.props.navigation.navigate("DrawerOpen")}>
-                      <Icon name='menu' style={{color: '#00ACED', paddingBottom: Platform.OS === 'ios' ? 15 : 0}} />
+                      <Icon name='menu' style={{color: '#ffffff', paddingBottom: Platform.OS === 'ios' ? 15 : 0}} />
                     </Button>
                   </Right>
                 </Header>
@@ -34,7 +34,7 @@ export default class MyHeader extends Component {
 
 const localStyles = StyleSheet.create({
 	header: {
-		backgroundColor: '#010101',
+		backgroundColor: '#f57e20',
 		height: Platform.OS === 'ios' ? 60 : 70,
 	},
 	logo: {

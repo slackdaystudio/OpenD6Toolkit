@@ -142,13 +142,13 @@ const localStyles = StyleSheet.create({
 	    alignSelf: 'center',
 	},
 	modalContent: {
-        backgroundColor: '#111111',
+        backgroundColor: '#ffffff',
         padding: 22,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 4,
         borderWidth: 1,
-        borderColor: '#1e1e1e',
+        borderColor: '#f57e20',
         minHeight: 300
     },
     errorMessage: {

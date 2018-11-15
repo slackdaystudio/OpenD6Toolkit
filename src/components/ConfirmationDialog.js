@@ -72,13 +72,13 @@ export default class ConfirmationDialog extends Component {
 
 const localStyles = StyleSheet.create({
 	modalContent: {
-        backgroundColor: '#111111',
+        backgroundColor: '#ffffff',
         padding: 22,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 4,
         borderWidth: 1,
-        borderColor: '#1e1e1e',
+        borderColor: '#f57e20',
         height: 200
     }
 });
