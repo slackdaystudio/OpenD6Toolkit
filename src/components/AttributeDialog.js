@@ -57,7 +57,7 @@ export default class AttributeDialog extends Component {
                         <Picker
                             inlinelabel
                             label='Pips'
-                            style={styles.grey}
+                            style={styles.picker}
                             textStyle={styles.grey}
                             placeholderIconColor="#FFFFFF"
                             iosHeader="Select one"
@@ -91,7 +91,7 @@ export default class AttributeDialog extends Component {
                         <Picker
                             inlinelabel
                             label='modifier Pips'
-                            style={styles.grey}
+                            style={styles.picker}
                             textStyle={styles.grey}
                             placeholderIconColor="#FFFFFF"
                             iosHeader="Select one"

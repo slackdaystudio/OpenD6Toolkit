@@ -56,6 +56,8 @@
 		C6273B5D25AE462086A4ED39 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DD2CF2F38CA4CB8BCD9A662 /* libBVLinearGradient.a */; };
 		14F1C39E78524356A412E1F6 /* libRNDocumentPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D858CFD779044B9B94D0B7D /* libRNDocumentPicker.a */; };
 		82C33E793A7E4AF9B58F4F25 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6C3B38C96442E9B57A2688 /* libRNFetchBlob.a */; };
+		BDB17B176B2C49B1ADEE5ED4 /* TempusSansITC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AAA92DF58044721A8AEB2F9 /* TempusSansITC.ttf */; };
+		34971B2C38D3445497CCDFC6 /* Tempus Sans ITC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3DFE2BD4BD0C4C15827EBC7B /* Tempus Sans ITC.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -385,6 +387,8 @@
 		5D858CFD779044B9B94D0B7D /* libRNDocumentPicker.a */ = {isa = PBXFileReference; name = "libRNDocumentPicker.a"; path = "libRNDocumentPicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		91796B1624DA4F3196D593AC /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; name = "RNFetchBlob.xcodeproj"; path = "../node_modules/rn-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		1F6C3B38C96442E9B57A2688 /* libRNFetchBlob.a */ = {isa = PBXFileReference; name = "libRNFetchBlob.a"; path = "libRNFetchBlob.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		7AAA92DF58044721A8AEB2F9 /* TempusSansITC.ttf */ = {isa = PBXFileReference; name = "TempusSansITC.ttf"; path = "../assets/fonts/TempusSansITC.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3DFE2BD4BD0C4C15827EBC7B /* Tempus Sans ITC.ttf */ = {isa = PBXFileReference; name = "Tempus Sans ITC.ttf"; path = "../assets/fonts/Tempus Sans ITC.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -673,6 +677,8 @@
 				E46B9176E5714BC380D55772 /* rubicon-icon-font.ttf */,
 				BF280204D994491A83CB3F4E /* SimpleLineIcons.ttf */,
 				3752D80C4BFC4F94AA82F350 /* Zocial.ttf */,
+				7AAA92DF58044721A8AEB2F9 /* TempusSansITC.ttf */,
+				3DFE2BD4BD0C4C15827EBC7B /* Tempus Sans ITC.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1138,6 +1144,8 @@
 				BFA6FEE9EFCF425583131EEF /* rubicon-icon-font.ttf in Resources */,
 				427E7DD61FAD407FBA919E8B /* SimpleLineIcons.ttf in Resources */,
 				E227AB60CEB949BEB5325280 /* Zocial.ttf in Resources */,
+				BDB17B176B2C49B1ADEE5ED4 /* TempusSansITC.ttf in Resources */,
+				34971B2C38D3445497CCDFC6 /* Tempus Sans ITC.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

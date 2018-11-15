@@ -13,7 +13,7 @@ export default StyleSheet.create({
 	},
 	heading: {
 		fontSize: 26,
-		fontWeight: 'bold',
+		fontFamily: 'Tempus Sans ITC',
 		color: '#4f4e4e',
 		paddingTop: 10,
 		paddingBottom: 10,
@@ -49,8 +49,12 @@ export default StyleSheet.create({
 	buttonText: {
 		color: '#FFF'
 	},
-	grey: {
+	picker: {
 		color: '#4f4e4e'
+	},
+	grey: {
+		color: '#4f4e4e',
+		fontFamily: 'Helvetica-Nue',
 	},
 	boldGrey: {
 		color: '#4f4e4e',

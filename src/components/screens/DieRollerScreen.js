@@ -165,7 +165,7 @@ class DieRollerScreen extends Component {
                 <Picker
                     inlinelabel
                     label='Pips'
-                    style={styles.grey}
+                    style={styles.picker}
                     textStyle={styles.grey}
                     iosHeader="Select one"
                     mode="dropdown"
