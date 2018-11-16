@@ -9,13 +9,15 @@ import HomeScreen from './src/components/screens/HomeScreen';
 import DieRollerScreen from './src/components/screens/DieRollerScreen';
 import TemplateSelectScreen from './src/components/screens/TemplateSelectScreen';
 import BuilderScreen from './src/components/screens/BuilderScreen';
+import SpecializationScreen from './src/components/screens/SpecializationScreen';
 import LoadCharacterScreen from './src/components/screens/LoadCharacterScreen';
 import CharacterOptionsScreen from './src/components/screens/CharacterOptionsScreen';
 import OglScreen from './src/components/screens/OglScreen';
 import Sidebar from './src/components/Sidebar';
 import reducer from './reducer'
 
-const RootStack = DrawerNavigator({
+const RootStack = DrawerNavigator(
+    {
 		Home: {
 			screen: HomeScreen,
 		},
@@ -28,6 +30,9 @@ const RootStack = DrawerNavigator({
         Builder: {
             screen: BuilderScreen,
         },
+        Specialization: {
+            screen: SpecializationScreen,
+        },
         LoadCharacter: {
             screen: LoadCharacterScreen,
         },
@@ -37,7 +42,8 @@ const RootStack = DrawerNavigator({
         Ogl: {
             screen: OglScreen,
         }
-	}, {
+	},
+	{
 		initialRouteName: 'Home',
 		drawerPosition: 'right',
 		contentComponent: props => <Sidebar {...props} />

@@ -4,6 +4,7 @@ import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import { Container, Content, Button, Text, Item, Input, Picker, Form, Label, Icon } from 'native-base';
 import Modal from "react-native-modal";
 import ErrorMessage from './ErrorMessage';
+import Heading from './Heading';
 import styles from '../Styles';
 
 export const MODE_ADD = 'ADD';
@@ -81,7 +82,7 @@ export default class RanksDialog extends Component {
     _renderFormControls() {
         if (this.props.item !== null && this.props.item.multipleRanks) {
             return (
-                <View style={localStyles.rowStart}>
+                <View style={styles.rowStart}>
                     <View style={localStyles.row}>
                         <Icon
                             type='FontAwesome'
@@ -148,24 +149,24 @@ export default class RanksDialog extends Component {
                 onBackButtonPress={() => this.props.onClose()}
                 onBackdropPress={() => this.props.onClose()}
             >
-                <View style={localStyles.modalContent}>
-                    <Text style={[styles.heading, {paddingTop: 0}]}>
-                        {this.props.item === null ? 'Select Rank' : this.props.item.name}
-                    </Text>
-                    <ErrorMessage errorMessage={this.state.errorMessage} />
-                    <Item stackedLabel>
-                        <Label>Note</Label>
-                        <Input
-                            style={[styles.grey, {maxWidth: 250}]}
-                            maxLength={30}
-                            value={this.state.displayNote}
-                            onChangeText={(value) => this._updateDisplayNote(value)}
-                        />
-                    </Item>
-                    {this._renderFormControls()}
-                    <View style={localStyles.rowStart}>
-                        {this._renderSaveButton()}
-                        {this._renderDeleteButton()}
+                <View style={styles.modal}>
+                    <Heading text={this.props.item === null ? 'Select Rank' : this.props.item.name} />
+                    <View style={styles.modalContent}>
+                        <ErrorMessage errorMessage={this.state.errorMessage} />
+                        <Item stackedLabel>
+                            <Label>Note</Label>
+                            <Input
+                                style={[styles.grey, {maxWidth: 250}]}
+                                maxLength={30}
+                                value={this.state.displayNote}
+                                onChangeText={(value) => this._updateDisplayNote(value)}
+                            />
+                        </Item>
+                        {this._renderFormControls()}
+                        <View style={styles.rowStart}>
+                            {this._renderSaveButton()}
+                            {this._renderDeleteButton()}
+                        </View>
                     </View>
                 </View>
             </Modal>
@@ -174,26 +175,10 @@ export default class RanksDialog extends Component {
 }
 
 const localStyles = StyleSheet.create({
-	rowStart: {
-        flex: 1,
-        alignItems:'center',
-        justifyContent:'center',
-        flexDirection: 'row'
-	},
 	row: {
 	    flex: 1,
 	    alignSelf: 'center',
 	    alignItems:'center',
 	    justifyContent: 'flex-end'
-	},
-	modalContent: {
-        backgroundColor: '#ffffff',
-        padding: 22,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 4,
-        borderWidth: 1,
-        borderColor: '#f57e20',
-        minHeight: 300
-    }
+	}
 });

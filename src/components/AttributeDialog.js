@@ -4,6 +4,7 @@ import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import { Container, Content, Button, Text, Item, Input, Picker, Form, Label } from 'native-base';
 import Modal from "react-native-modal";
 import ErrorMessage from './ErrorMessage';
+import Heading from './Heading';
 import styles from '../Styles';
 
 export default class AttributeDialog extends Component {
@@ -35,82 +36,84 @@ export default class AttributeDialog extends Component {
 
     _renderEditDieCode() {
         return (
-            <View style={localStyles.modalContent}>
-                <Text style={[styles.heading, {paddingTop: 0}]}>Edit {this.props.identifier}</Text>
-                <ErrorMessage errorMessage={this.props.errorMessage} />
-                <View style={localStyles.rowStart}>
-                    <View style={localStyles.row}>
-                        <Text style={styles.grey}>Base</Text>
+            <View style={styles.modal}>
+                <Heading text={'Edit ' + this.props.identifier} />
+                <View style={styles.modalContent}>
+                    <ErrorMessage errorMessage={this.props.errorMessage} />
+                    <View style={styles.rowStart}>
+                        <View style={[styles.row, {alignSelf: 'center'}]}>
+                            <Text style={styles.grey}>Base</Text>
+                        </View>
+                        <View style={[styles.row, {alignSelf: 'center'}]}>
+                            <Item underline>
+                                <Input
+                                    style={styles.grey}
+                                    keyboardType='numeric'
+                                    maxLength={2}
+                                    value={this.props.dice}
+                                    onChangeText={(value) => this.props.onUpdateDice(value)}
+                                />
+                            </Item>
+                        </View>
+                        <View style={[styles.row, {flex: 2, alignSelf: 'center'}]}>
+                            <Picker
+                                inlinelabel
+                                label='Pips'
+                                style={styles.picker}
+                                textStyle={styles.grey}
+                                placeholderIconColor="#FFFFFF"
+                                iosHeader="Select one"
+                                mode="dropdown"
+                                selectedValue={this.props.pips}
+                                onValueChange={(value) => this.props.onUpdatePips(value)}
+                            >
+                                <Item label="+0 pips" value={0} />
+                                <Item label="+1 pip" value={1} />
+                                <Item label="+2 pips" value={2} />
+                            </Picker>
+                        </View>
                     </View>
-                    <View style={localStyles.row}>
-                        <Item underline>
-                            <Input
-                                style={styles.grey}
-                                keyboardType='numeric'
-                                maxLength={2}
-                                value={this.props.dice}
-                                onChangeText={(value) => this.props.onUpdateDice(value)}
-                            />
-                        </Item>
+                    <View style={[styles.rowStart, {alignSelf: 'center'}]}>
+                        <View style={[styles.row, {alignSelf: 'center'}]}>
+                            <Text style={styles.grey}>Modifier</Text>
+                        </View>
+                        <View style={[styles.row, {alignSelf: 'center'}]}>
+                            <Item underline>
+                                <Input
+                                    underline
+                                    style={styles.grey}
+                                    keyboardType='numeric'
+                                    maxLength={3}
+                                    value={this.props.modifierDice}
+                                    onChangeText={(value) => this.props.onUpdateModifierDice(value)}
+                                />
+                            </Item>
+                        </View>
+                        <View style={[styles.row, {alignSelf: 'center', flex: 2}]}>
+                            <Picker
+                                inlinelabel
+                                label='modifier Pips'
+                                style={styles.picker}
+                                textStyle={styles.grey}
+                                placeholderIconColor="#FFFFFF"
+                                iosHeader="Select one"
+                                mode="dropdown"
+                                selectedValue={this.props.modifierPips}
+                                onValueChange={(value) => this.props.onUpdateModifierPips(value)}
+                            >
+                                <Item label="-2 pips" value={-2} />
+                                <Item label="-1 pips" value={-1} />
+                                <Item label="+0 pips" value={0} />
+                                <Item label="+1 pip" value={1} />
+                                <Item label="+2 pips" value={2} />
+                            </Picker>
+                        </View>
                     </View>
-                    <View style={localStyles.row, {flex: 2}}>
-                        <Picker
-                            inlinelabel
-                            label='Pips'
-                            style={styles.picker}
-                            textStyle={styles.grey}
-                            placeholderIconColor="#FFFFFF"
-                            iosHeader="Select one"
-                            mode="dropdown"
-                            selectedValue={this.props.pips}
-                            onValueChange={(value) => this.props.onUpdatePips(value)}
-                        >
-                            <Item label="+0 pips" value={0} />
-                            <Item label="+1 pip" value={1} />
-                            <Item label="+2 pips" value={2} />
-                        </Picker>
+                    <View style={styles.buttonContainer}>
+                        <Button block style={styles.button} onPress={() => this.props.onSave(this.props.identifier)}>
+                            <Text uppercase={false}>Save</Text>
+                        </Button>
                     </View>
-                </View>
-                <View style={localStyles.rowStart}>
-                    <View style={localStyles.row}>
-                        <Text style={styles.grey}>Modifier</Text>
-                    </View>
-                    <View style={localStyles.row}>
-                        <Item underline>
-                            <Input
-                                underline
-                                style={styles.grey}
-                                keyboardType='numeric'
-                                maxLength={3}
-                                value={this.props.modifierDice}
-                                onChangeText={(value) => this.props.onUpdateModifierDice(value)}
-                            />
-                        </Item>
-                    </View>
-                    <View style={localStyles.row, {flex: 2}}>
-                        <Picker
-                            inlinelabel
-                            label='modifier Pips'
-                            style={styles.picker}
-                            textStyle={styles.grey}
-                            placeholderIconColor="#FFFFFF"
-                            iosHeader="Select one"
-                            mode="dropdown"
-                            selectedValue={this.props.modifierPips}
-                            onValueChange={(value) => this.props.onUpdateModifierPips(value)}
-                        >
-                            <Item label="-2 pips" value={-2} />
-                            <Item label="-1 pips" value={-1} />
-                            <Item label="+0 pips" value={0} />
-                            <Item label="+1 pip" value={1} />
-                            <Item label="+2 pips" value={2} />
-                        </Picker>
-                    </View>
-                </View>
-                <View style={styles.buttonContainer}>
-                    <Button block style={styles.button} onPress={() => this.props.onSave(this.props.identifier)}>
-                        <Text uppercase={false}>Save</Text>
-                    </Button>
                 </View>
             </View>
         );
@@ -130,37 +133,15 @@ export default class AttributeDialog extends Component {
         );
 	}
 }
-
-const localStyles = StyleSheet.create({
-	rowStart: {
-        flex: 1,
-        alignSelf: 'stretch',
-        flexDirection: 'row'
-	},
-	row: {
-	    flex: 1,
-	    alignSelf: 'center',
-	},
-	modalContent: {
-        backgroundColor: '#ffffff',
-        padding: 22,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 4,
-        borderWidth: 1,
-        borderColor: '#f57e20',
-        minHeight: 300
-    },
-    errorMessage: {
-        borderWidth: 1,
-        borderRadius: 4,
-        borderColor: '#bc1212',
-        backgroundColor: '#e8b9b9',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'stretch',
-        fontSize: 20,
-        lineHeight: 25
-    }
-});
+//
+//const localStyles = StyleSheet.create({
+//	rowStart: {
+//        flex: 1,
+//        alignSelf: 'stretch',
+//        flexDirection: 'row'
+//	},
+//	row: {
+//	    flex: 1,
+//	    alignSelf: 'center',
+//	}
+//});

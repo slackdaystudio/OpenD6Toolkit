@@ -25,7 +25,6 @@ class BuilderScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         character: PropTypes.object.isRequired,
-        fileDir: PropTypes.string,
         updateRoller: PropTypes.func.isRequired,
         updateCharacterDieCode: PropTypes.func.isRequired,
         updateAppearance: PropTypes.func.isRequired,
@@ -162,6 +161,10 @@ class BuilderScreen extends Component {
         }
     }
 
+    _rollSpecializationDice(specialization) {
+        Alert.alert('Calling roll');
+    }
+
     _updateDice(value) {
         let newState = {...this.state};
         let dice = '';
@@ -249,6 +252,7 @@ class BuilderScreen extends Component {
         let newState = {...this.state}
         newState.attributeDialog.visible = false;
         newState.dieCode = this._initDieCode();
+        newState.ranksDialog.errorMessage = null;
 
         this.setState(newState);
     }
@@ -264,6 +268,7 @@ class BuilderScreen extends Component {
         let newState = {...this.state}
         newState.ranksDialog.visible = false;
         newState.ranksDialog.item = null;
+        newState.ranksDialog.errorMessage = null;
 
         this.setState(newState);
     }
@@ -353,6 +358,7 @@ class BuilderScreen extends Component {
                     )
                 })}
                 </List>
+                {this._renderSpecializations()}
             </View>
         );
     }
@@ -394,6 +400,64 @@ class BuilderScreen extends Component {
 
                     return null;
                 })}
+            </View>
+        );
+    }
+
+    _renderSpecializations() {
+        if (this.props.character.specializations.length === 0) {
+            return (
+                <View>
+                    <Heading text='Specializations'
+                        onAddButtonPress={() => this.props.navigation.navigate('Specialization')}
+                    />
+                    <List>
+                        <ListItem key={'option-none'} noIndent>
+                            <Left>
+                                <Text style={styles.grey}>None</Text>
+                            </Left>
+                        </ListItem>
+                    </List>
+                </View>
+            );
+        }
+
+        return (
+            <View>
+                <Heading
+                    text='Specializations'
+                    onAddButtonPress={() => this.props.navigation.navigate('Specialization', {specialization: null})}
+                />
+                <List>
+                {this.props.character.specializations.map((specialization, index) => {
+                    return (
+                        <ListItem key={'specialization-' + index} noIndent>
+                            <Left>
+                                <TouchableHighlight underlayColor='#ffffff' onPress={() => {}}>
+                                    <View style={{paddingTop: 10, paddingBottom: 10}}>
+                                        <Text style={[styles.boldGrey, styles.big]}>
+                                            {specialization.name}
+                                        </Text>
+                                    </View>
+                                </TouchableHighlight>
+                            </Left>
+                            <Right>
+                                <TouchableHighlight
+                                    underlayColor='#ffffff'
+                                    onPress={() => this._rollSpecializationDice(specialization)}
+                                    onLongPress={() => this.props.navigation.navigate('Specialization', {specialization: specialization})}
+                                >
+                                    <View style={{paddingLeft: 20, paddingTop: 10, paddingBottom: 10}}>
+                                        <Text style={[styles.boldGrey, {lineHeight: 30}]}>
+                                            {specialization.getFormattedDieCode(specialization.dieCode)}
+                                        </Text>
+                                    </View>
+                                </TouchableHighlight>
+                            </Right>
+                        </ListItem>
+                    );
+                })}
+                </List>
             </View>
         );
     }
@@ -446,20 +510,10 @@ class BuilderScreen extends Component {
 
         return (
             <View>
-                <View style={[styles.rowStart, {backgroundColor: '#fde5d2'}]}>
-                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} />
-                    <View style={{flex: 4, justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={styles.heading}>{title}</Text>
-                    </View>
-                    <View style={{flex: 1, paddingTop: 5, justifyContent: 'space-around', alignItems: 'center'}}>
-                        <Icon
-                            type='FontAwesome'
-                            name='plus-circle'
-                            style={[styles.grey, {fontSize: 30, color: '#f57e20'}]}
-                            onPress={() => this.props.navigation.navigate('Options', {optionKey: optionKey})}
-                        />
-                    </View>
-                </View>
+                <Heading
+                    text={title}
+                    onAddButtonPress={() => this.props.navigation.navigate('Options', {optionKey: optionKey})}
+                />
                 {this._renderOptionList(this.props.character[arrayKey].items, optionKey)}
             </View>
         );
@@ -539,8 +593,7 @@ class BuilderScreen extends Component {
 
 const mapStateToProps = state => {
     return {
-        character: state.builder.character,
-        fileDir: state.settings.fileDir
+        character: state.builder.character
     };
 }
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Platform, StyleSheet, View, TouchableHighlight, BackHandler, Alert } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Toast } from 'native-base';
 import Header from '../Header';
+import Heading from '../Heading';
 import RanksDialog, { MODE_ADD } from '../RanksDialog';
 import styles from '../../Styles';
 import { character, OPTION_ADVANTAGES, OPTION_COMPLICATIONS } from '../../lib/Character';
@@ -109,20 +110,10 @@ class CharacterOptionsScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <View style={[styles.rowStart, {backgroundColor: '#fde5d2'}]}>
-                    <View style={{flex: 1, paddingTop: 5, justifyContent: 'space-around', alignItems: 'center'}}>
-                        <Icon
-                            type='FontAwesome'
-                            name='arrow-circle-left'
-                            style={[styles.grey, {fontSize: 30, color: '#f57e20'}]}
-                            onPress={() => this.props.navigation.navigate('Builder')}
-                        />
-                    </View>
-                    <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={styles.heading}>{this.state.optionKey}</Text>
-                    </View>
-                    <View style={{flex: 1, alignItems: 'flex-end'}} />
-                </View>
+                <Heading
+                    text={this.state.optionKey}
+                    onBackButtonPress={() => this.props.navigation.navigate('Builder')}
+                />
                 <View style={{paddingBottom: 20}} />
                 {this.state.options.map((option, index) => {
                     return (

@@ -42,6 +42,7 @@ class Character {
             hairColor: '',
             eyeColor: '',
             attributes: this._initAttributes(template.attributes, template.attributeMin),
+            specializations: [],
             advantages: {
                 templateId: template.advantagesTemplateId,
                 items: []

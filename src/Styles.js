@@ -91,5 +91,32 @@ export default StyleSheet.create({
     big: {
 	    fontSize: 18,
 	    lineHeight: 40
-	}
+	},
+	modal: {
+        borderRadius: 4,
+        borderWidth: 1,
+        borderColor: '#f57e20',
+        flex: 1,
+        flexDirection: 'column',
+        maxHeight: 310
+	},
+	modalContent: {
+	    backgroundColor: '#ffffff',
+        padding: 22,
+        justifyContent: 'center',
+        alignItems: 'stretch',
+        height: 255
+    },
+    errorMessage: {
+        borderWidth: 1,
+        borderRadius: 4,
+        borderColor: '#bc1212',
+        backgroundColor: '#e8b9b9',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'stretch',
+        fontSize: 20,
+        lineHeight: 25
+    }
 });

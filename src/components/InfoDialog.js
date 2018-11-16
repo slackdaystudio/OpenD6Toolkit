@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { Container, Content, Button, Text } from 'native-base';
 import Modal from "react-native-modal";
+import Heading from './Heading';
 import styles from '../Styles';
 
 export default class InfoDialog extends Component {
@@ -42,35 +43,25 @@ export default class InfoDialog extends Component {
                 scrollTo={this._handleScrollTo}
                 scrollOffsetMax={300 - 200}
             >
-                <View style={localStyles.modalContent}>
-                    <ScrollView
-                        ref={ref => (this.scrollViewRef = ref)}
-                        onScroll={this._handleOnScroll}
-                        scrollEventThrottle={16}
-                    >
-                        <Text style={[styles.heading, {paddingTop: 0}]}>{this.props.title}</Text>
-                        <Text style={styles.grey}>{this.props.info}</Text>
-                    </ScrollView>
-                    <View style={styles.buttonContainer}>
-                        <Button block style={styles.button} onPress={() => this.props.onClose()}>
-                            <Text uppercase={false}>Close</Text>
-                        </Button>
+                <View style={styles.modal}>
+                    <Heading text={this.props.title} />
+                    <View style={[styles.modalContent, {minHeight: 170}]}>
+                        <ScrollView
+                            style={{maxHeight: 165}}
+                            ref={ref => (this.scrollViewRef = ref)}
+                            onScroll={this._handleOnScroll}
+                            scrollEventThrottle={16}
+                        >
+                            <Text style={styles.grey}>{this.props.info}</Text>
+                        </ScrollView>
+                        <View style={styles.buttonContainer}>
+                            <Button block style={styles.button} onPress={() => this.props.onClose()}>
+                                <Text uppercase={false}>Close</Text>
+                            </Button>
+                        </View>
                     </View>
                 </View>
             </Modal>
         );
 	}
 }
-
-const localStyles = StyleSheet.create({
-	modalContent: {
-        backgroundColor: '#ffffff',
-        padding: 22,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 4,
-        borderWidth: 1,
-        borderColor: '#f57e20',
-        maxHeight: 300
-    }
-});
