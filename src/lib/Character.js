@@ -94,15 +94,14 @@ class Character {
             totalAttributePips += attribute.pips;
 
             for (let skill of attribute.skills) {
-                if (skill.dice > 0) {
-                    totalPoints += skill.dice;
-                    totalSkillPips += skill.pips;
-                }
+                totalPoints += skill.dice > 0 ? skill.dice: 0;
+                totalSkillPips += skill.pips > 0 ? skill.pips : 0;
             }
         }
 
         totalPoints += this._calculatePipValue(totalAttributePips, POINT_MOD_ATTRIBUTE);
         totalPoints += this._calculatePipValue(totalSkillPips, POINT_MOD_SKILL);
+        totalPoints += this._calculateSpecializationPoints(character);
 
         for (let itemName of itemNames) {
             for (let item of character[itemName].items) {
@@ -317,12 +316,75 @@ class Character {
             } else if (common.isInt(result)) {
                 totalPoints += result * pointMultiplier;
             } else {
-                totalPoints += Math.trunc(result) * pointMultiplier + 4;
+                totalPoints += Math.trunc(result) * pointMultiplier + pointMultiplier;
             }
         }
 
         return totalPoints;
     }
+
+    _calculateSpecializationPoints(character) {
+        let totalPoints = 0;
+        let dice = 0;
+        let pips = 0;
+
+        character.specializations.map((specialization, index) => {
+            dice += specialization.dice;
+            pips += specialization.pips;
+        });
+
+
+        let diceAndPips = this._pipsToDice(dice, pips);
+
+        if (diceAndPips.dice > 0 || diceAndPips.pips > 0) {
+            let result = diceAndPips.dice / 3;
+
+            if (common.isFloat(result) || diceAndPips.pips > 0) {
+                result += 1;
+            }
+
+            totalPoints += Math.trunc(result);
+        }
+
+        return totalPoints;
+    }
+
+    _pipsToDice(dice, pips) {
+        let result = pips / 3;
+
+        if (common.isInt(result)) {
+            dice += result;
+        } else {
+            dice += Math.trunc(result);
+            pips = 3 - Math.ceil(3 * Math.round(result / 3 % 1 * 100) / 100);
+        }
+
+        return {
+            dice: dice,
+            pips: pips
+        }
+    }
+
+//    _fillFractionalDice(fractionalDice, pips, totalPoints) {
+//        if (pips === 0) {
+//            return totalPoints;
+//        }
+//
+//        for (let i = fractionalDice; i < 0.99; i + 0.33) {
+//            result = pips / 3;
+//
+//            if (pips < 4) {
+//                break;
+//            } else if (common.isInt(result)) {
+//
+//                if (result ) {
+//
+//                }
+//            }
+//        }
+//
+//        return totalPoints;
+//    }
 }
 
 export let character = new Character();

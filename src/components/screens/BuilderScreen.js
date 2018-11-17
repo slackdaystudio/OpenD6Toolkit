@@ -459,7 +459,7 @@ class BuilderScreen extends Component {
                                     onPress={() => this._rollSpecializationDice(specialization)}
                                 >
                                     <View style={{paddingLeft: 20, paddingTop: 10, paddingBottom: 10}}>
-                                        <Text style={[styles.boldGrey, {lineHeight: 30}]}>
+                                        <Text style={[styles.grey, {lineHeight: 30}]}>
                                             {specialization.dice + 'D' + (specialization.pips > 0 ? '+' + specialization.pips : '')}
                                         </Text>
                                     </View>
