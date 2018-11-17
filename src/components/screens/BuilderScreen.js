@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert } from 'react-native';
-import { Container, Content, Button, Text, Picker, Item, Input, List, ListItem, Left, Right, Icon} from 'native-base';
+import { Container, Content, Button, Text, Picker, Item, Input, List, ListItem, Left, Right, Body, Icon} from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
 import AttributeDialog from '../AttributeDialog';
@@ -162,7 +162,16 @@ class BuilderScreen extends Component {
     }
 
     _rollSpecializationDice(specialization) {
-        Alert.alert('Calling roll');
+        let attribute = character.getAttributeBySkill(specialization.skillName, this.props.character.attributes);
+        let attributeDieCode = character.getDieCode(this.props.character, attribute.name);
+        let specializationDieCode = {
+            dice: specialization.dice,
+            modifierDice: 0,
+            pips: specialization.pips,
+            modifierPips: 0
+        }
+
+        this._rollSkillDice(attributeDieCode, specializationDieCode);
     }
 
     _updateDice(value) {
@@ -333,7 +342,7 @@ class BuilderScreen extends Component {
                                         onLongPress={() => this._showAttributeInfo(attribute.name)}
                                     >
                                         <View style={{paddingRight: 150, paddingTop: 10, paddingBottom: 10}}>
-                                            <Text style={[styles.boldGrey, styles.big, {}]}>
+                                            <Text style={[styles.grey, styles.big, {}]}>
                                                 {attribute.name}
                                             </Text>
                                         </View>
@@ -371,15 +380,15 @@ class BuilderScreen extends Component {
                         let skillDieCode = character.getDieCode(this.props.character, skill.name);
 
                         return (
-                            <List key={'skill-' + index} style={{paddingLeft: 20}}>
+                            <List key={'skill-' + index} style={{paddingLeft: 0}}>
                                 <ListItem>
-                                    <Left>
+                                    <Body>
                                         <TouchableHighlight underlayColor='#ffffff' onLongPress={() => this._showAttributeInfo(skill.name)}>
                                             <View style={{paddingRight: 100, paddingTop: 10, paddingBottom: 10}}>
                                                 <Text style={[styles.grey, {lineHeight: 30}]}>{'\t' + skill.name}</Text>
                                             </View>
                                         </TouchableHighlight>
-                                    </Left>
+                                    </Body>
                                     <Right>
                                         <TouchableHighlight
                                             underlayColor='#ffffff'
@@ -412,7 +421,7 @@ class BuilderScreen extends Component {
                         onAddButtonPress={() => this.props.navigation.navigate('Specialization')}
                     />
                     <List>
-                        <ListItem key={'option-none'} noIndent>
+                        <ListItem key={'specialization-none'} noIndent>
                             <Left>
                                 <Text style={styles.grey}>None</Text>
                             </Left>
@@ -426,30 +435,32 @@ class BuilderScreen extends Component {
             <View>
                 <Heading
                     text='Specializations'
-                    onAddButtonPress={() => this.props.navigation.navigate('Specialization', {specialization: null})}
+                    onAddButtonPress={() => this.props.navigation.navigate('Specialization')}
                 />
                 <List>
                 {this.props.character.specializations.map((specialization, index) => {
                     return (
                         <ListItem key={'specialization-' + index} noIndent>
-                            <Left>
-                                <TouchableHighlight underlayColor='#ffffff' onPress={() => {}}>
+                            <Body>
+                                <TouchableHighlight
+                                    underlayColor='#ffffff'
+                                    onPress={() => this.props.navigation.navigate('Specialization', {specialization: specialization})}
+                                >
                                     <View style={{paddingTop: 10, paddingBottom: 10}}>
-                                        <Text style={[styles.boldGrey, styles.big]}>
-                                            {specialization.name}
+                                        <Text style={[styles.grey, styles.big]}>
+                                            {specialization.skillName + ': ' + specialization.name}
                                         </Text>
                                     </View>
                                 </TouchableHighlight>
-                            </Left>
+                            </Body>
                             <Right>
                                 <TouchableHighlight
                                     underlayColor='#ffffff'
                                     onPress={() => this._rollSpecializationDice(specialization)}
-                                    onLongPress={() => this.props.navigation.navigate('Specialization', {specialization: specialization})}
                                 >
                                     <View style={{paddingLeft: 20, paddingTop: 10, paddingBottom: 10}}>
                                         <Text style={[styles.boldGrey, {lineHeight: 30}]}>
-                                            {specialization.getFormattedDieCode(specialization.dieCode)}
+                                            {specialization.dice + 'D' + (specialization.pips > 0 ? '+' + specialization.pips : '')}
                                         </Text>
                                     </View>
                                 </TouchableHighlight>
@@ -480,7 +491,7 @@ class BuilderScreen extends Component {
                 {options.map((item, index) => {
                     return (
                         <ListItem key={'option-' + index} noIndent>
-                            <Left>
+                            <Body>
                                 <TouchableHighlight underlayColor='#ffffff' onPress={() => this._showOptionInfo(item)}>
                                     <View style={{paddingTop: 10, paddingBottom: 10}}>
                                         <Text style={[styles.boldGrey, styles.big]}>
@@ -488,11 +499,11 @@ class BuilderScreen extends Component {
                                         </Text>
                                     </View>
                                 </TouchableHighlight>
-                            </Left>
+                            </Body>
                             <Right>
                                 <TouchableHighlight underlayColor='#ffffff' onPress={() => this._showRanksPicker(optionKey, item)}>
                                     <View style={{paddingLeft: 50, paddingTop: 10, paddingBottom: 10}}>
-                                        <Text style={[styles.boldGrey, styles.big]}>
+                                        <Text style={[styles.grey, styles.big]}>
                                             R{(item.multipleRanks ? item.totalRanks * item.rank : item.rank)}
                                         </Text>
                                     </View>

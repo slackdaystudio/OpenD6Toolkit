@@ -1,28 +1,38 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { StyleSheet, View, TouchableHighlight, BackHandler } from 'react-native';
+import { StyleSheet, View, TouchableHighlight, BackHandler, Alert } from 'react-native';
 import { Container, Content, Button, Text, Item, Input, Picker, Form, Label } from 'native-base';
 import Header from '../Header';
 import ErrorMessage from '../ErrorMessage';
 import Heading from '../Heading';
 import styles from '../../Styles';
 import { character } from '../../lib/Character';
+import { editSpecialization } from '../../../reducer';
 
 class SpecializationScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-        character: PropTypes.object.isRequired
+        character: PropTypes.object.isRequired,
+        editSpecialization: PropTypes.func.isRequired
     }
 
     constructor(props) {
         super(props);
 
-        let specialization = props.navigation.state.params || this._initSpecialization()
+        let specialization = this._initSpecialization();
+        let selectedAttribute = props.character.attributes[0];
+
+        if (props.navigation.state.params !== undefined && props.navigation.state.params.hasOwnProperty('specialization')) {
+            specialization = props.navigation.state.params.specialization;
+            selectedAttribute = character.getAttributeBySkill(specialization.skillName, this.props.character.attributes);
+
+            delete props.navigation.state.params.specialization;
+        }
 
         this.state = {
             specialization: specialization,
-            selectedAttribute: props.character.attributes[0],
+            selectedAttribute: selectedAttribute,
             errorMessage: null
         }
     }
@@ -37,10 +47,11 @@ class SpecializationScreen extends Component {
 
     _initSpecialization() {
         return {
-           name: null,
-           skillName: null,
-           dice: 0,
-           pips: 0
+            uuid: null,
+            name: '',
+            skillName: null,
+            dice: 1,
+            pips: 0
        };
     }
 
@@ -73,7 +84,21 @@ class SpecializationScreen extends Component {
 
     _updateDice(value) {
         let newState = {...this.state};
-        newState.specialization.dice = value;
+        let dice = '';
+
+        if (value === '') {
+            dice = value;
+        } else {
+            dice = parseInt(value, 10) || 1;
+
+            if (dice > 30) {
+                dice = 30;
+            } else if (dice < 1) {
+                dice = 1;
+            }
+        }
+
+        newState.specialization.dice = dice;
 
         this.setState(newState);
     }
@@ -86,7 +111,26 @@ class SpecializationScreen extends Component {
     }
 
     _save() {
+        this.setState({errorMessage: null}, () => {
+            let errorMessage = null;
 
+            if (this.state.specialization.dice === '') {
+                errorMessage = 'Specializations may not go below 0';
+            } else if (this.state.specialization.name.trim().length < 3) {
+                errorMessage = 'Please provide a specialization name of at least 3 characters';
+            }
+
+            if (errorMessage !== null) {
+                this.setState({errorMessage: errorMessage});
+                return;
+            }
+
+            if (this.state.errorMessage === null) {
+                this.props.editSpecialization(this.state.specialization);
+
+                this.props.navigation.navigate('Builder');
+            }
+        })
     }
 
     _renderAttributePicker() {
@@ -130,12 +174,14 @@ class SpecializationScreen extends Component {
     }
 
 	render() {
+	    let mode = this.state.specialization.uuid === null ? 'Add' : 'Edit';
+
         return (
 		    <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
                     <Heading
-                        text='Edit Specialization'
+                        text={mode + ' Specialization'}
                         onBackButtonPress={() => this.props.navigation.navigate('Builder')}
                     />
                     <ErrorMessage errorMessage={this.state.errorMessage} />
@@ -203,6 +249,8 @@ const mapStateToProps = state => {
     };
 }
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+    editSpecialization
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(SpecializationScreen)

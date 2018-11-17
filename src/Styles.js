@@ -54,7 +54,7 @@ export default StyleSheet.create({
 	},
 	grey: {
 		color: '#4f4e4e',
-		fontFamily: 'Arial, Helvetica-Nue',
+		fontFamily: 'Arial, Helvetica-Nue, Tempus Sans ITC',
 	},
 	boldGrey: {
 		color: '#4f4e4e',

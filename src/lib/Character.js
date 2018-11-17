@@ -173,6 +173,21 @@ class Character {
         return this._getAttributeOrSkill(name, character.template.attributes);
     }
 
+    getAttributeBySkill(skillName, attributes) {
+        let parentAttribute = null;
+
+        for (let attribute of attributes) {
+            for (let skill of attribute.skills) {
+                if (skill.name === skillName) {
+                    parentAttribute = attribute;
+                    break;
+                }
+            }
+        }
+
+        return parentAttribute;
+    }
+
     getTemplates() {
         let templates = [];
 

@@ -1,12 +1,12 @@
 import { Alert } from 'react-native';
-
 import {
     OPTION_ADVANTAGES,
     OPTION_COMPLICATIONS,
     TEMPLATE_FANTASY,
     character
 } from './src/lib/Character';
-
+//var uuid = require('react-native-uuid');
+import uuid from 'react-native-uuid';
 import { common } from './src/lib/Common';
 
 export const UPDATE_ROLLER = 'UPDATE_ROLLER';
@@ -16,6 +16,8 @@ export const SET_TEMPLATE = 'SET_TEMPLATE';
 export const UPDATE_CHARACTER_DIE_CODE = 'UPDATE_CHARACTER_DIE_CODE';
 
 export const UPDATE_APPEARANCE = 'UPDATE_APPEARANCE';
+
+export const EDIT_SPECIALIZATION = 'EDIT_SPECIALIZATION';
 
 export const ADD_OPTION = 'ADD_OPTION';
 
@@ -58,6 +60,13 @@ export function updateAppearance(key, value) {
             key: key,
             value: value
         }
+    };
+}
+
+export function editSpecialization(specialization) {
+    return {
+        type: EDIT_SPECIALIZATION,
+        payload: specialization
     };
 }
 
@@ -159,6 +168,31 @@ export default function reducer(state = initialState, action) {
             };
 
             newState.builder.character[action.payload.key] = action.payload.value;
+
+            return newState;
+        case EDIT_SPECIALIZATION:
+            newState = {
+                ...state,
+                builder: {
+                    ...state.builder,
+                    character: {
+                        ...state.builder.character
+                    }
+                }
+            };
+
+            if (action.payload.uuid === null) {
+                action.payload.uuid = uuid.v4();
+
+                newState.builder.character.specializations.push(action.payload);
+            } else {
+                for (let i = 0; i < newState.builder.character.specializations.length; i++) {
+                    if (newState.builder.character.specializations[i].uuid === action.payload.uuid) {
+                        newState.builder.character.specializations[i] = {...action.payload};
+                        break;
+                    }
+                }
+            }
 
             return newState;
         case ADD_OPTION:
