@@ -355,7 +355,7 @@ class BuilderScreen extends Component {
                                         onLongPress={() => this._editDieCode(attribute.name, dieCode)}
                                     >
                                         <View style={{paddingLeft: 20, paddingTop: 10, paddingBottom: 10}}>
-                                            <Text style={[styles.boldGrey, styles.big]}>
+                                            <Text style={[styles.grey, styles.big]}>
                                                 {character.getFormattedDieCode(dieCode)}
                                             </Text>
                                         </View>
@@ -396,7 +396,7 @@ class BuilderScreen extends Component {
                                             onLongPress={() => this._editDieCode(skill.name, skillDieCode)}
                                         >
                                             <View style={{paddingLeft: 20, paddingTop: 10, paddingBottom: 10}}>
-                                                <Text style={[styles.boldGrey, {lineHeight: 30}]}>
+                                                <Text style={[styles.grey, {lineHeight: 30}]}>
                                                     {character.getFormattedDieCode(skillDieCode)}
                                                 </Text>
                                             </View>
@@ -422,9 +422,9 @@ class BuilderScreen extends Component {
                     />
                     <List>
                         <ListItem key={'specialization-none'} noIndent>
-                            <Left>
+                            <Body>
                                 <Text style={styles.grey}>None</Text>
-                            </Left>
+                            </Body>
                         </ListItem>
                     </List>
                 </View>
@@ -478,9 +478,9 @@ class BuilderScreen extends Component {
             return (
                 <List>
                     <ListItem key={'option-none'} noIndent>
-                        <Left>
+                        <Body>
                             <Text style={styles.grey}>None</Text>
-                        </Left>
+                        </Body>
                     </ListItem>
                 </List>
             );
@@ -494,7 +494,7 @@ class BuilderScreen extends Component {
                             <Body>
                                 <TouchableHighlight underlayColor='#ffffff' onPress={() => this._showOptionInfo(item)}>
                                     <View style={{paddingTop: 10, paddingBottom: 10}}>
-                                        <Text style={[styles.boldGrey, styles.big]}>
+                                        <Text style={[styles.grey, styles.big]}>
                                             {item.name + (item.displayNote === null ? '' : ': ' + item.displayNote)}
                                         </Text>
                                     </View>
