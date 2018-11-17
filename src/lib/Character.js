@@ -364,27 +364,6 @@ class Character {
             pips: pips
         }
     }
-
-//    _fillFractionalDice(fractionalDice, pips, totalPoints) {
-//        if (pips === 0) {
-//            return totalPoints;
-//        }
-//
-//        for (let i = fractionalDice; i < 0.99; i + 0.33) {
-//            result = pips / 3;
-//
-//            if (pips < 4) {
-//                break;
-//            } else if (common.isInt(result)) {
-//
-//                if (result ) {
-//
-//                }
-//            }
-//        }
-//
-//        return totalPoints;
-//    }
 }
 
 export let character = new Character();
