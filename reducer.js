@@ -19,6 +19,8 @@ export const UPDATE_APPEARANCE = 'UPDATE_APPEARANCE';
 
 export const EDIT_SPECIALIZATION = 'EDIT_SPECIALIZATION';
 
+export const DELETE_SPECIALIZATION = 'DELETE_SPECIALIZATION';
+
 export const ADD_OPTION = 'ADD_OPTION';
 
 export const UPDATE_OPTION = 'UPDATE_OPTION';
@@ -66,6 +68,13 @@ export function updateAppearance(key, value) {
 export function editSpecialization(specialization) {
     return {
         type: EDIT_SPECIALIZATION,
+        payload: specialization
+    };
+}
+
+export function deleteSpecialization(specialization) {
+    return {
+        type: DELETE_SPECIALIZATION,
         payload: specialization
     };
 }
@@ -192,6 +201,29 @@ export default function reducer(state = initialState, action) {
                         break;
                     }
                 }
+            }
+
+            return newState;
+        case DELETE_SPECIALIZATION:
+            newState = {
+                ...state,
+                builder: {
+                    ...state.builder,
+                    character: {
+                        ...state.builder.character
+                    }
+                }
+            };
+
+            for (let i = 0; i < newState.builder.character.specializations.length; i++) {
+                if (newState.builder.character.specializations[i].uuid === action.payload.uuid) {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index > -1) {
+                newState.builder.character.specializations.splice(index, 1);
             }
 
             return newState;

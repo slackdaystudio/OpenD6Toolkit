@@ -8,13 +8,14 @@ import ErrorMessage from '../ErrorMessage';
 import Heading from '../Heading';
 import styles from '../../Styles';
 import { character } from '../../lib/Character';
-import { editSpecialization } from '../../../reducer';
+import { editSpecialization, deleteSpecialization } from '../../../reducer';
 
 class SpecializationScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         character: PropTypes.object.isRequired,
-        editSpecialization: PropTypes.func.isRequired
+        editSpecialization: PropTypes.func.isRequired,
+        deleteSpecialization: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -29,6 +30,8 @@ class SpecializationScreen extends Component {
 
             delete props.navigation.state.params.specialization;
         }
+
+        specialization.skillName = selectedAttribute.skills[0].name;
 
         this.state = {
             specialization: specialization,
@@ -133,6 +136,12 @@ class SpecializationScreen extends Component {
         })
     }
 
+    _delete() {
+        this.props.deleteSpecialization(this.state.specialization);
+
+        this.props.navigation.navigate('Builder');
+    }
+
     _renderAttributePicker() {
         return (
             <Picker
@@ -170,6 +179,20 @@ class SpecializationScreen extends Component {
                     return <Item key={skill.name} label={skill.name} value={skill.name} />
                 })}
             </Picker>
+        );
+    }
+
+    _renderDeleteButton() {
+        if (this.state.specialization.uuid === null) {
+            return null;
+        }
+
+        return (
+            <View style={styles.buttonContainer}>
+                <Button block style={styles.button} onPress={() => this._delete()}>
+                    <Text uppercase={false}>Delete</Text>
+                </Button>
+            </View>
         );
     }
 
@@ -232,10 +255,13 @@ class SpecializationScreen extends Component {
                         </View>
                     </View>
                     <View style={{paddingBottom: 20}} />
-                    <View style={styles.buttonContainer}>
-                        <Button block style={styles.button} onPress={() => this._save()}>
-                            <Text uppercase={false}>Save</Text>
-                        </Button>
+                    <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
+                        <View style={styles.buttonContainer}>
+                            <Button block style={styles.button} onPress={() => this._save()}>
+                                <Text uppercase={false}>Save</Text>
+                            </Button>
+                        </View>
+                        {this._renderDeleteButton()}
                     </View>
                 </Content>
             </Container>
@@ -250,7 +276,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    editSpecialization
+    editSpecialization,
+    deleteSpecialization
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SpecializationScreen)
