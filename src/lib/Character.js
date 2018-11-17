@@ -33,6 +33,20 @@ const DEFAULT_VALUE = '--'
 
 class Character {
     create(template) {
+        let templateAdvantages = null;
+        let templateComplications = null;
+        let templateSpecialAbilities = null;
+
+        if (template.name === 'Adventure' || template.name === 'Fantasy' || template.name === 'Space') {
+            templateAdvantages = this._getOptions(OPTION_ADVANTAGES);
+            templateComplications = this._getOptions(OPTION_COMPLICATIONS);
+            templateSpecialAbilities = this._getOptions(OPTION_SPECIAL_ABILITIES);
+        } else {
+            templateAdvantages = template.advantages || null;
+            templateComplications = template.complications || null;
+            templateSpecialAbilities = template.specialAbilities || null;
+        }
+
         return {
             template: template,
             name: '',
@@ -44,15 +58,15 @@ class Character {
             attributes: this._initAttributes(template.attributes, template.attributeMin),
             specializations: [],
             advantages: {
-                templateId: template.advantagesTemplateId,
+                template: templateAdvantages,
                 items: []
             },
             complications: {
-                templateId: template.complicationsTemplateId,
+                template: templateComplications,
                 items: []
             },
             specialAbilities: {
-                templateId: template.specialAbilitiesTemplateId,
+                template: templateSpecialAbilities,
                 items: []
             }
         };
@@ -211,7 +225,7 @@ class Character {
         }
     }
 
-    getOptions(optionsKey) {
+    _getOptions(optionsKey) {
         let options = null;
 
         switch (optionsKey) {

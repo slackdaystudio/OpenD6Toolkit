@@ -8,6 +8,7 @@ import Heading from '../Heading';
 import RanksDialog, { MODE_ADD } from '../RanksDialog';
 import styles from '../../Styles';
 import { character, OPTION_ADVANTAGES, OPTION_COMPLICATIONS } from '../../lib/Character';
+import { common } from '../../lib/Common';
 import { addOption } from '../../../reducer';
 
 class CharacterOptionsScreen extends Component {
@@ -21,7 +22,7 @@ class CharacterOptionsScreen extends Component {
         super(props);
 
         let optionKey = props.navigation.state.params.optionKey;
-        let options = character.getOptions(optionKey).items;
+        let options = props.character[common.toCamelCase(optionKey)].template.items;
 
         this.state = {
             options: this._initOptions(options),
