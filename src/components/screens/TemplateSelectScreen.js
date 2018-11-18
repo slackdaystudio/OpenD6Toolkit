@@ -1,12 +1,14 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Platform, StyleSheet, View } from 'react-native';
-import { Container, Content, Button, Text, List, ListItem, Left, Right, Icon } from 'native-base';
+import { Platform, StyleSheet, View, Alert } from 'react-native';
+import { Container, Content, Button, Text, List, ListItem, Left, Right, Icon, Spinner } from 'native-base';
+import settle from 'promise-settle';
 import Header from '../Header';
 import Heading from '../Heading';
 import styles from '../../Styles';
 import { character, TEMPLATE_FANTASY } from '../../lib/Character';
+import { file } from '../../lib/File';
 import { setTemplate } from '../../../reducer';
 
 class TemplateSelectScreen extends Component {
@@ -20,19 +22,47 @@ class TemplateSelectScreen extends Component {
         super(props);
 
         this.state = {
-            selected: TEMPLATE_FANTASY
+            selected: TEMPLATE_FANTASY,
+            templates: [],
+            showSpinner: false
         };
     }
 
-    _next(templateName) {
-        this.setState({selected: templateName}, () => {
-            this.props.setTemplate(templateName);
+    componentDidMount() {
+        let newState = {...this.state};
+
+        character.getTemplates().then((templates) => {
+            newState.templates = templates;
+
+            this.setState(newState);
+        });
+    }
+
+    _next(template) {
+        let newState = {...this.state};
+        newState.showSpinner = true;
+        newState.selected = template;
+
+        this.setState(newState, () => {
+            this.props.setTemplate(template);
 
             this.props.navigation.navigate('Builder');
         });
     }
 
 	render() {
+	    if (this.state.showSpinner || this.state.templates === undefined || this.state.templates.length === 0) {
+	        return (
+              <Container style={styles.container}>
+                <Header navigation={this.props.navigation} />
+                <Content style={styles.content}>
+                    <Heading text="Template Select" />
+                    <Spinner />
+                </Content>
+              </Container>
+	        );
+	    }
+
 		return (
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
@@ -40,9 +70,9 @@ class TemplateSelectScreen extends Component {
                 <Heading text="Template Select" />
                 <Text style={[styles.grey, {alignSelf: 'center'}]}>Select your template from the list below.</Text>
                 <List>
-                    {character.getTemplates().map((template, index) => {
+                    {this.state.templates.map((template, index) => {
                         return (
-                            <ListItem noIndent key={'t-' + index} onPress={() => this._next(template.name)}>
+                            <ListItem noIndent key={'t-' + index} onPress={() => this._next(template)}>
                                 <Left>
                                     <Text style={styles.grey}>{template.name}</Text>
                                 </Left>

@@ -41,10 +41,10 @@ export function updateRoller(dice, pips) {
     };
 }
 
-export function setTemplate(name) {
+export function setTemplate(template) {
     return {
         type: SET_TEMPLATE,
-        payload: character.loadTemplate(name)
+        payload: template
     };
 }
 

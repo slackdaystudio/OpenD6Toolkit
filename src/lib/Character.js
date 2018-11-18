@@ -1,5 +1,6 @@
 import { Alert } from 'react-native';
 import { common } from './Common';
+import { file } from './File';
 
 const TEMPLATE_FANTASY = require('../../public/templates/fantasy.json');
 
@@ -37,7 +38,9 @@ class Character {
         let templateComplications = null;
         let templateSpecialAbilities = null;
 
-        if (template.name === 'Adventure' || template.name === 'Fantasy' || template.name === 'Space') {
+        if (template.name === TEMPLATE_FANTASY_NAME ||
+            template.name === TEMPLATE_ADVENTURE_NAME ||
+            template.name === TEMPLATE_SPACE_NAME) {
             templateAdvantages = this._getOptions(OPTION_ADVANTAGES);
             templateComplications = this._getOptions(OPTION_COMPLICATIONS);
             templateSpecialAbilities = this._getOptions(OPTION_SPECIAL_ABILITIES);
@@ -202,26 +205,18 @@ class Character {
     }
 
     getTemplates() {
-        let templates = [];
+        return file.getTemplates().then((customTemplates) => {
+            let templates = [];
+            templates.push(TEMPLATE_FANTASY);
+            templates.push(TEMPLATE_ADVENTURE);
+            templates.push(TEMPLATE_SPACE);
 
-        templates.push(TEMPLATE_FANTASY);
-        templates.push(TEMPLATE_ADVENTURE);
-        templates.push(TEMPLATE_SPACE);
+            for (let i = 0; i < customTemplates.length; i++) {
+                templates.push(JSON.parse(customTemplates[i]))
+            }
 
-        return templates;
-    }
-
-    loadTemplate(name) {
-        switch(name) {
-            case TEMPLATE_FANTASY_NAME:
-                return TEMPLATE_FANTASY;
-            case TEMPLATE_ADVENTURE_NAME:
-                return TEMPLATE_ADVENTURE;
-            case TEMPLATE_SPACE_NAME:
-                return TEMPLATE_SPACE;
-            default:
-                // do nothing
-        }
+            return templates;
+        });
     }
 
     _getOptions(optionsKey) {

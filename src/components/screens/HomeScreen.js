@@ -6,6 +6,7 @@ import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon }
 import Header from '../Header';
 import Heading from '../Heading';
 import styles from '../../Styles';
+import { file } from '../../lib/File';
 
 class HomeScreen extends Component {
     static propTypes = {
@@ -19,6 +20,10 @@ class HomeScreen extends Component {
         } else {
             this.props.navigation.navigate('Builder');
         }
+    }
+
+    _onTemplateUploadPress() {
+        file.loadGameTemplate(() => {}, () => {});
     }
 
 	render() {
@@ -51,6 +56,15 @@ class HomeScreen extends Component {
                     <View style={styles.buttonContainer}>
                         <Button style={styles.button} onPress={() => this.props.navigation.navigate('TemplateSelect')}>
                             <Text uppercase={false} style={styles.buttonText}>New</Text>
+                        </Button>
+                    </View>
+                </View>
+                <Heading text='Templates' />
+                <Text style={[styles.grey, {alignSelf: 'center'}]}>Upload a game template to use to build a character.</Text>
+                <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
+                    <View style={styles.buttonContainer}>
+                        <Button style={styles.button} onPress={() => this._onTemplateUploadPress()}>
+                            <Text uppercase={false} style={styles.buttonText}>Upload</Text>
                         </Button>
                     </View>
                 </View>

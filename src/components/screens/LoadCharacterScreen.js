@@ -38,7 +38,7 @@ class LoadCharacterScreen extends Component {
     }
 
     _deleteConfirmed() {
-        file.delete(this.state.confirmationDialog.fileName).then(() => {
+        file.deleteCharacter(this.state.confirmationDialog.fileName).then(() => {
             this._updateFileList();
         });
 
@@ -54,7 +54,7 @@ class LoadCharacterScreen extends Component {
     }
 
      _onCharacterSelect(fileName) {
-        file.load(fileName, () => {}, this.props.loadCharacter).then(() => {
+        file.loadCharacter(fileName, () => {}, this.props.loadCharacter).then(() => {
             this.props.navigation.navigate('Builder');
         });
     }

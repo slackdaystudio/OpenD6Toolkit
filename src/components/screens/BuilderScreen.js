@@ -320,7 +320,7 @@ class BuilderScreen extends Component {
 
             this.setState(newState);
         } else {
-            file.save(this.props.character);
+            file.saveCharacter(this.props.character);
         }
     }
 
