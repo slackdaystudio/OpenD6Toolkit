@@ -245,6 +245,8 @@ export default function reducer(state = initialState, action) {
                 }
             };
 
+            action.payload.item.uuid = uuid.v4();
+
             newState.builder.character[optionKey].items.push(action.payload.item);
 
             return newState;
@@ -267,7 +269,7 @@ export default function reducer(state = initialState, action) {
             };
 
             for (let i = 0; i < newState.builder.character[optionKey].items.length; i++) {
-                if (newState.builder.character[optionKey].items[i].id === action.payload.item.id) {
+                if (newState.builder.character[optionKey].items[i].uuid === action.payload.item.uuid) {
                     newState.builder.character[optionKey].items[i] = {...action.payload.item};
                     break;
                 }
@@ -295,7 +297,7 @@ export default function reducer(state = initialState, action) {
             let index = -1;
 
             for (let i = 0; i < newState.builder.character[optionKey].items.length; i++) {
-                if (newState.builder.character[optionKey].items[i].id === action.payload.item.id) {
+                if (newState.builder.character[optionKey].items[i].uuid === action.payload.item.uuid) {
                     index = i;
                     break;
                 }
