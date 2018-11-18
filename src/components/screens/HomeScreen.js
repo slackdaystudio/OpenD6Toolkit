@@ -67,6 +67,11 @@ class HomeScreen extends Component {
                             <Text uppercase={false} style={styles.buttonText}>Upload</Text>
                         </Button>
                     </View>
+                    <View style={styles.buttonContainer}>
+                        <Button style={styles.button} onPress={() => this.props.navigation.navigate('TemplateDelete')}>
+                            <Text uppercase={false} style={styles.buttonText}>Delete</Text>
+                        </Button>
+                    </View>
                 </View>
                 <View style={{paddingBottom: 20}} />
             </Content>

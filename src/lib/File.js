@@ -56,6 +56,20 @@ class File {
         }
     }
 
+    async deleteTemplate(template) {
+        let path = this._getTemplatePath(template.name, true);
+
+        RNFetchBlob.fs.unlink(path).then(() => {
+            Toast.show({
+                text: 'Template deleted',
+                position: 'bottom',
+                buttonText: 'OK'
+            });
+        }).catch((error) => {
+            Alert.alert(error.message);
+        });
+    }
+
     async loadCharacter(characterName, startLoad, endLoad) {1
         let path = this._getCharacterPath(characterName, false);
 
