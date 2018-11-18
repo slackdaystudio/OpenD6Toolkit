@@ -45,9 +45,9 @@ class Character {
             templateComplications = this._getOptions(OPTION_COMPLICATIONS);
             templateSpecialAbilities = this._getOptions(OPTION_SPECIAL_ABILITIES);
         } else {
-            templateAdvantages = template.advantages || null;
-            templateComplications = template.complications || null;
-            templateSpecialAbilities = template.specialAbilities || null;
+            templateAdvantages = {"items": template.advantages} || null;
+            templateComplications = {"items": template.complications} || null;
+            templateSpecialAbilities = {"items": template.specialAbilities} || null;
         }
 
         return {

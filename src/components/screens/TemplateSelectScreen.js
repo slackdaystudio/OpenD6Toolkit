@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, StyleSheet, View, Alert } from 'react-native';
 import { Container, Content, Button, Text, List, ListItem, Left, Right, Icon, Spinner } from 'native-base';
-import settle from 'promise-settle';
 import Header from '../Header';
 import Heading from '../Heading';
 import styles from '../../Styles';

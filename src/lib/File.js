@@ -2,7 +2,6 @@ import { Platform, AsyncStorage, Alert } from 'react-native';
 import { Toast } from 'native-base';
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
 import RNFetchBlob from 'rn-fetch-blob'
-import settle from 'promise-settle';
 import { common } from './Common';
 
 const CHARACTER_DIR = RNFetchBlob.fs.dirs.DocumentDir + '/OpenD6Toolkit/characters/';
