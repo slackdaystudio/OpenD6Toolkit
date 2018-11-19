@@ -187,7 +187,15 @@ export default function reducer(state = initialState, action) {
 
             return newState;
         case UPDATE_CHARACTER_DIE_CODE:
-            newState = {...state};
+            newState = {
+                ...state,
+                builder: {
+                    ...state.builder,
+                    character: {
+                        ...state.builder.character
+                    }
+                }
+            };
             let skillOrAttribute = character.getAttributeOrSkill(newState.builder.character, action.payload.identifier);
             skillOrAttribute.dice = action.payload.dice;
             skillOrAttribute.modifierDice = action.payload.modifierDice;
