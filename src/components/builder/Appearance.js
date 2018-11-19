@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { Platform, StyleSheet, View } from 'react-native';
 import { Container, Content, Button, Text, Form, Item, Label, Input } from 'native-base';
-import styles from '../Styles';
+import styles from '../../Styles';
 
 export default class Appearance extends Component {
     static propTypes = {
