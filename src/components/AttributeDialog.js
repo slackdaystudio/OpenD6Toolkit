@@ -133,15 +133,3 @@ export default class AttributeDialog extends Component {
         );
 	}
 }
-//
-//const localStyles = StyleSheet.create({
-//	rowStart: {
-//        flex: 1,
-//        alignSelf: 'stretch',
-//        flexDirection: 'row'
-//	},
-//	row: {
-//	    flex: 1,
-//	    alignSelf: 'center',
-//	}
-//});

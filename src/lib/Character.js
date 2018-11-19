@@ -71,6 +71,21 @@ class Character {
             specialAbilities: {
                 template: templateSpecialAbilities,
                 items: []
+            },
+            health: {
+                useBodyPoints: false,
+                wounds: {
+                    stunned: false,
+                    wounded: false,
+                    severelyWounded: false,
+                    incapacitated: false,
+                    mortallyWounded: false,
+                    dead: false
+                },
+                bodyPoints: {
+                    max: 0,
+                    current: 0,
+                }
             }
         };
     }

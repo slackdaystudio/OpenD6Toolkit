@@ -27,6 +27,12 @@ export const UPDATE_OPTION = 'UPDATE_OPTION';
 
 export const REMOVE_OPTION = 'REMOVE_OPTION';
 
+export const UPDATE_HEALTH_SYSTEM = 'UPDATE_HEALTH_SYSTEM';
+
+export const UPDATE_WOUNDS = 'UPDATE_WOUNDS';
+
+export const UPDATE_BODY_POINTS = 'UPDATE_BODY_POINTS';
+
 export const SET_SETTING = 'SET_SETTING';
 
 export const LOAD_CHARACTER = 'LOAD_CHARACTER';
@@ -105,6 +111,30 @@ export function removeOption(optionKey, item) {
         payload: {
             optionKey: optionKey,
             item: item
+        }
+    };
+}
+
+export function updateHealthSystem(isBodyPoints) {
+    return {
+        type: UPDATE_HEALTH_SYSTEM,
+        payload: null
+    };
+}
+
+export function updateWounds(woundLevel) {
+    return {
+        type: UPDATE_WOUNDS,
+        payload: woundLevel
+    };
+}
+
+export function updateBodyPoints(key, value) {
+    return {
+        type: UPDATE_BODY_POINTS,
+        payload: {
+            key: key,
+            value: value
         }
     };
 }
@@ -306,6 +336,57 @@ export default function reducer(state = initialState, action) {
             if (index > -1) {
                 newState.builder.character[optionKey].items.splice(index, 1);
             }
+
+            return newState;
+        case UPDATE_HEALTH_SYSTEM:
+            newState = {
+                ...state,
+                builder: {
+                    ...state.builder,
+                    character: {
+                        ...state.builder.character,
+                        health: {
+                            ...state.builder.character.health
+                        }
+                    }
+                }
+            };
+
+            newState.builder.character.health.useBodyPoints = !newState.builder.character.health.useBodyPoints;
+
+            return newState;
+        case UPDATE_WOUNDS:
+            newState = {
+                ...state,
+                builder: {
+                    ...state.builder,
+                    character: {
+                        ...state.builder.character,
+                        health: {
+                            ...state.builder.character.health
+                        }
+                    }
+                }
+            };
+
+            newState.builder.character.health.wounds[action.payload] = !newState.builder.character.health.wounds[action.payload];
+
+            return newState;
+        case UPDATE_BODY_POINTS:
+            newState = {
+                ...state,
+                builder: {
+                    ...state.builder,
+                    character: {
+                        ...state.builder.character,
+                        health: {
+                            ...state.builder.character.health
+                        }
+                    }
+                }
+            };
+
+            newState.builder.character.health.bodyPoints[action.payload.key] = action.payload.value;
 
             return newState;
         case SET_SETTING:

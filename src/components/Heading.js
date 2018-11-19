@@ -14,7 +14,7 @@ export default class Heading extends Component {
     _renderAddButton() {
         if (typeof this.props.onAddButtonPress === 'function') {
             return (
-                <View style={{flex: 1, paddingTop: 5, justifyContent: 'space-around', alignItems: 'center'}}>
+                <View style={{flex: 1, paddingTop: 3, justifyContent: 'space-around', alignItems: 'center'}}>
                     <Icon
                         type='FontAwesome'
                         name='plus-circle'
@@ -31,7 +31,7 @@ export default class Heading extends Component {
     _renderBackButton() {
         if (typeof this.props.onBackButtonPress === 'function') {
             return (
-                <View style={{flex: 1, paddingTop: 5, justifyContent: 'space-around', alignItems: 'center'}}>
+                <View style={{flex: 1, paddingTop: 3, justifyContent: 'space-around', alignItems: 'center'}}>
                     <Icon
                         type='FontAwesome'
                         name='arrow-circle-left'
