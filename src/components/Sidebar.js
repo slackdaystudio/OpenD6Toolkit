@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, Image, StatusBar, View } from "react-native";
 import { Container, Content, Text, List, ListItem } from "native-base";
 import styles from '../Styles';
+import { file } from '../lib/File';
 
 class Sidebar extends Component {
     static propTypes = {
@@ -19,38 +20,49 @@ class Sidebar extends Component {
         }
     }
 
-  render() {
-    return (
-      <Container style={localStyles.container}>
-        <Content>
-          <List>
-        	<ListItem onPress={() => this.props.navigation.navigate('Home')}>
-				<View>
-					<Image source={require('../../public/d6_logo_White_60x60.png')} />
-				</View>
-	      	</ListItem>
-         	<ListItem onPress={() => this.props.navigation.navigate('DieRoller')}>
-	      		<Text style={{fontWeight: 'bold',color: '#ffffff'}}>Roller</Text>
-	      	</ListItem>
-	      	<ListItem itemDivider style={{backgroundColor: '#f57e20'}} />
-         	<ListItem onPress={() => this._onBuilderPress()}>
-	      		<Text style={{fontWeight: 'bold',color: '#ffffff'}}>Builder</Text>
-	      	</ListItem>
-         	<ListItem onPress={() => this.props.navigation.navigate('LoadCharacter')}>
-	      		<Text style={{fontWeight: 'bold',color: '#ffffff'}}>Load</Text>
-	      	</ListItem>
-         	<ListItem onPress={() => this.props.navigation.navigate('TemplateSelect')}>
-	      		<Text style={{fontWeight: 'bold',color: '#ffffff'}}>New</Text>
-	      	</ListItem>
-	      	<ListItem itemDivider style={{backgroundColor: '#f57e20'}} />
-         	<ListItem onPress={() => this.props.navigation.navigate('Ogl')}>
-	      		<Text style={{fontWeight: 'bold',color: '#ffffff'}}>Open Gaming License</Text>
-	      	</ListItem>
-          </List>
-        </Content>
-      </Container>
-    );
-  }
+    _onTemplateUploadPress() {
+        file.loadGameTemplate(() => {}, () => {});
+    }
+
+    render() {
+        return (
+            <Container style={localStyles.container}>
+                <Content>
+                    <List>
+        	            <ListItem onPress={() => this.props.navigation.navigate('Home')}>
+                            <View>
+                                <Image source={require('../../public/d6_logo_White_60x60.png')} />
+                            </View>
+                        </ListItem>
+                        <ListItem onPress={() => this.props.navigation.navigate('DieRoller')}>
+                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Roller</Text>
+                        </ListItem>
+                        <ListItem itemDivider style={{backgroundColor: '#f57e20'}} />
+                        <ListItem onPress={() => this._onBuilderPress()}>
+                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Builder</Text>
+                        </ListItem>
+                        <ListItem onPress={() => this.props.navigation.navigate('LoadCharacter')}>
+                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Load</Text>
+                        </ListItem>
+                        <ListItem onPress={() => this.props.navigation.navigate('TemplateSelect')}>
+                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>New</Text>
+                        </ListItem>
+                        <ListItem itemDivider style={{backgroundColor: '#f57e20'}} />
+                        <ListItem onPress={() => this._onTemplateUploadPress()}>
+                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Upload Template</Text>
+                        </ListItem>
+                        <ListItem onPress={() => this.props.navigation.navigate('TemplateDelete')}>
+                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Delete Template</Text>
+                        </ListItem>
+                        <ListItem itemDivider style={{backgroundColor: '#f57e20'}} />
+                        <ListItem onPress={() => this.props.navigation.navigate('Ogl')}>
+                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Open Gaming License</Text>
+                        </ListItem>
+                    </List>
+                </Content>
+            </Container>
+        );
+    }
 }
 
 const localStyles = StyleSheet.create({
