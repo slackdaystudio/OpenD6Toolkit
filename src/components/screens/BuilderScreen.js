@@ -72,7 +72,7 @@ class BuilderScreen extends Component {
 		    <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Heading text='Builder' />
+                    <Heading text='Name &amp; Species' />
                     <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
                     <View style={styles.contentPadded}>
                         <View style={styles.titleContainer}>
