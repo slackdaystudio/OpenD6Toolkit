@@ -111,7 +111,7 @@ export default class AttributeDialog extends Component {
                     </View>
                     <View style={styles.buttonContainer}>
                         <Button block style={styles.button} onPress={() => this.props.onSave(this.props.identifier)}>
-                            <Text uppercase={false}>Save</Text>
+                            <Text uppercase={false} style={styles.buttonText}>Save</Text>
                         </Button>
                     </View>
                 </View>

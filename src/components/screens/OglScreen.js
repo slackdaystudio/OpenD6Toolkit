@@ -17,7 +17,7 @@ export default class OglScreen extends Component {
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
                 <Heading text="Open Gaming License" />
-                <View style={styles.contentPadded}>
+                <View style={[styles.contentPadded, {paddingTop: 20}]}>
                     <Text style={styles.grey}>
                         OPEN GAME LICENSE Version 1.0a
                         {'\n\n'}

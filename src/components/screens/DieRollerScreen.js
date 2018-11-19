@@ -213,7 +213,7 @@ class DieRollerScreen extends Component {
                     </View>
                     <View style={styles.buttonContainer}>
                         <Button block style={styles.button} onPress={this.roll}>
-                            <Text uppercase={false}>{this._renderRollButtonLabel()}</Text>
+                            <Text uppercase={false} style={styles.buttonText}>{this._renderRollButtonLabel()}</Text>
                         </Button>
                     </View>
                 </View>

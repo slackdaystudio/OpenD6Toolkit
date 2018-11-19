@@ -290,7 +290,7 @@ export default class AttributesAndSkills extends Component {
                                     onLongPress={() => this._showAttributeInfo(attribute.name)}
                                 >
                                     <View style={{paddingRight: 150, paddingTop: 10, paddingBottom: 10}}>
-                                        <Text style={[styles.grey, styles.big, {}]}>
+                                        <Text style={[styles.grey, styles.big]}>
                                             {attribute.name}
                                         </Text>
                                     </View>

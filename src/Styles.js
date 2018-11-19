@@ -47,7 +47,9 @@ export default StyleSheet.create({
 		alignSelf: 'center'
 	},
 	buttonText: {
-		color: '#FFF'
+		color: '#FFF',
+	    fontSize: 18,
+	    lineHeight: 40
 	},
 	picker: {
 		color: '#4f4e4e'

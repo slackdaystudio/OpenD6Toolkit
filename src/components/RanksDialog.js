@@ -114,7 +114,7 @@ export default class RanksDialog extends Component {
             return (
                 <View style={[styles.buttonContainer, styles.row]}>
                     <Button block style={styles.modalButton} onPress={() => this._save()}>
-                        <Text uppercase={false}>Save</Text>
+                        <Text uppercase={false} style={styles.buttonText}>Save</Text>
                     </Button>
                 </View>
             );
@@ -134,7 +134,7 @@ export default class RanksDialog extends Component {
         return (
             <View style={[styles.buttonContainer, styles.row]}>
                 <Button block style={styles.modalButton} onPress={() => action()}>
-                    <Text uppercase={false}>{label}</Text>
+                    <Text uppercase={false} style={styles.buttonText}>{label}</Text>
                 </Button>
             </View>
         );

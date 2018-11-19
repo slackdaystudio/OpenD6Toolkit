@@ -56,7 +56,7 @@ export default class InfoDialog extends Component {
                         </ScrollView>
                         <View style={styles.buttonContainer}>
                             <Button block style={styles.button} onPress={() => this.props.onClose()}>
-                                <Text uppercase={false}>Close</Text>
+                                <Text uppercase={false} style={styles.buttonText}>Close</Text>
                             </Button>
                         </View>
                     </View>
