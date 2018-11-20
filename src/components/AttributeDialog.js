@@ -5,6 +5,7 @@ import { Container, Content, Button, Text, Item, Input, Picker, Form, Label } fr
 import Modal from "react-native-modal";
 import ErrorMessage from './ErrorMessage';
 import Heading from './Heading';
+import LogoButton from './LogoButton';
 import styles from '../Styles';
 
 export default class AttributeDialog extends Component {
@@ -109,11 +110,7 @@ export default class AttributeDialog extends Component {
                             </Picker>
                         </View>
                     </View>
-                    <View style={styles.buttonContainer}>
-                        <Button block style={styles.button} onPress={() => this.props.onSave(this.props.identifier)}>
-                            <Text uppercase={false} style={styles.buttonText}>Save</Text>
-                        </Button>
-                    </View>
+                    <LogoButton label='Save' onPress={() => this.props.onSave(this.props.identifier)} />
                 </View>
             </View>
         );

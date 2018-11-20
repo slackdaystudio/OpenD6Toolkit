@@ -30,9 +30,10 @@ export default StyleSheet.create({
 	},
 	button: {
 		backgroundColor: '#f57e20',
-		minWidth: 140,
-		justifyContent: 'center',
-		alignSelf: 'center'
+		minWidth: 160,
+		height: 45,
+		alignSelf: 'center',
+		flexDirection: 'row'
 	},
 	modalButton: {
 		backgroundColor: '#f57e20',
@@ -49,7 +50,8 @@ export default StyleSheet.create({
 	buttonText: {
 		color: '#FFF',
 	    fontSize: 18,
-	    lineHeight: 40
+	    lineHeight: 40,
+	    flex: 2
 	},
 	picker: {
 		color: '#4f4e4e'

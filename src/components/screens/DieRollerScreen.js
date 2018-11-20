@@ -6,6 +6,7 @@ import { Container, Content, Button, Text, Picker, Item} from 'native-base';
 import RNShake from 'react-native-shake';
 import Header from '../Header';
 import Heading from '../Heading';
+import LogoButton from '../LogoButton';
 import Slider from '../DieSlider';
 import {
     dieRoller,
@@ -211,11 +212,7 @@ class DieRollerScreen extends Component {
                             />
                         </View>
                     </View>
-                    <View style={styles.buttonContainer}>
-                        <Button block style={styles.button} onPress={this.roll}>
-                            <Text uppercase={false} style={styles.buttonText}>{this._renderRollButtonLabel()}</Text>
-                        </Button>
-                    </View>
+                    <LogoButton label={this._renderRollButtonLabel()} onPress={() => this.roll()} />
                 </View>
                 <View style={{paddingBottom: 20}} />
             </Content>

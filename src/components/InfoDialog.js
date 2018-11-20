@@ -4,6 +4,7 @@ import { StyleSheet, View, ScrollView } from 'react-native';
 import { Container, Content, Button, Text } from 'native-base';
 import Modal from "react-native-modal";
 import Heading from './Heading';
+import LogoButton from './LogoButton';
 import styles from '../Styles';
 
 export default class InfoDialog extends Component {
@@ -54,11 +55,7 @@ export default class InfoDialog extends Component {
                         >
                             <Text style={styles.grey}>{this.props.info}</Text>
                         </ScrollView>
-                        <View style={styles.buttonContainer}>
-                            <Button block style={styles.button} onPress={() => this.props.onClose()}>
-                                <Text uppercase={false} style={styles.buttonText}>Close</Text>
-                            </Button>
-                        </View>
+                        <LogoButton label='Close' onPress={() => this.props.onClose()} />
                     </View>
                 </View>
             </Modal>

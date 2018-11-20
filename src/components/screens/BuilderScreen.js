@@ -5,6 +5,7 @@ import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert } fro
 import { Container, Content, Button, Text, Picker, Item, Input, List, ListItem, Left, Right, Body, Icon} from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
+import LogoButton from '../LogoButton';
 import Appearance from '../builder/Appearance';
 import AttributesAndSkills from '../builder/AttributesAndSkills';
 import Specializations from '../builder/Specializations';
@@ -135,16 +136,8 @@ class BuilderScreen extends Component {
                     />
                     <View style={{paddingBottom: 20}} />
                     <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
-                        <View style={styles.buttonContainer}>
-                            <Button style={styles.button} onPress={() => this._save()}>
-                                <Text uppercase={false} style={styles.buttonText}>Save</Text>
-                            </Button>
-                        </View>
-                        <View style={styles.buttonContainer}>
-                            <Button style={styles.button} onPress={() => this.props.navigation.navigate('LoadCharacter')}>
-                                <Text uppercase={false} style={styles.buttonText}>Load</Text>
-                            </Button>
-                        </View>
+                        <LogoButton label='Save' onPress={() => this._save()} />
+                        <LogoButton label='Load' onPress={() => this.props.navigation.navigate('LoadCharacter')} />
                     </View>
                     <View style={{paddingBottom: 20}} />
                     <InfoDialog

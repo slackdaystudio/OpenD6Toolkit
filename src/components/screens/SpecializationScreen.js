@@ -6,6 +6,7 @@ import { Container, Content, Button, Text, Item, Input, Picker, Form, Label } fr
 import Header from '../Header';
 import ErrorMessage from '../ErrorMessage';
 import Heading from '../Heading';
+import LogoButton from '../LogoButton';
 import styles from '../../Styles';
 import { character } from '../../lib/Character';
 import { editSpecialization, deleteSpecialization } from '../../../reducer';
@@ -187,13 +188,7 @@ class SpecializationScreen extends Component {
             return null;
         }
 
-        return (
-            <View style={styles.buttonContainer}>
-                <Button block style={styles.button} onPress={() => this._delete()}>
-                    <Text uppercase={false}>Delete</Text>
-                </Button>
-            </View>
-        );
+        return <LogoButton label='Delete' onPress={() => this._delete()} />
     }
 
 	render() {
@@ -256,11 +251,7 @@ class SpecializationScreen extends Component {
                     </View>
                     <View style={{paddingBottom: 20}} />
                     <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
-                        <View style={styles.buttonContainer}>
-                            <Button block style={styles.button} onPress={() => this._save()}>
-                                <Text uppercase={false}>Save</Text>
-                            </Button>
-                        </View>
+                        <LogoButton label='Save' onPress={() => this._save()} />
                         {this._renderDeleteButton()}
                     </View>
                 </Content>

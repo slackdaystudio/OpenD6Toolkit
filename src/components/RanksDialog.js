@@ -5,6 +5,7 @@ import { Container, Content, Button, Text, Item, Input, Picker, Form, Label, Ico
 import Modal from "react-native-modal";
 import ErrorMessage from './ErrorMessage';
 import Heading from './Heading';
+import LogoButton from './LogoButton';
 import styles from '../Styles';
 
 export const MODE_ADD = 'ADD';
@@ -111,13 +112,7 @@ export default class RanksDialog extends Component {
 
     _renderSaveButton() {
         if (this.props.item !== null) {
-            return (
-                <View style={[styles.buttonContainer, styles.row]}>
-                    <Button block style={styles.modalButton} onPress={() => this._save()}>
-                        <Text uppercase={false} style={styles.buttonText}>Save</Text>
-                    </Button>
-                </View>
-            );
+            return <LogoButton label='Save' onPress={() => this._save()} maxWidth={130} />
         }
 
         return null;
@@ -131,13 +126,7 @@ export default class RanksDialog extends Component {
             action = this.props.onClose;
         }
 
-        return (
-            <View style={[styles.buttonContainer, styles.row]}>
-                <Button block style={styles.modalButton} onPress={() => action()}>
-                    <Text uppercase={false} style={styles.buttonText}>{label}</Text>
-                </Button>
-            </View>
-        );
+        return <LogoButton label={label} onPress={() => action()} maxWidth={130} />
     }
 
 	render() {
@@ -163,7 +152,7 @@ export default class RanksDialog extends Component {
                             />
                         </Item>
                         {this._renderFormControls()}
-                        <View style={styles.rowStart}>
+                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
                             {this._renderSaveButton()}
                             {this._renderDeleteButton()}
                         </View>
