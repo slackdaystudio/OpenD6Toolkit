@@ -84,8 +84,10 @@ class CharacterOptionsScreen extends Component {
         Toast.show({
             text: item.name + ', R' + (item.multipleRanks ? item.totalRanks * item.rank : item.rank) + ' has been added',
             position: 'bottom',
-            textStyle: {color: '#00ACED'},
-            buttonText: 'OK'
+            buttonText: 'OK',
+            textStyle: {color: '#fde5d2'},
+            buttonTextStyle: { color: '#f57e20' },
+            duration: 3000
         });
     }
 

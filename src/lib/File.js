@@ -30,7 +30,10 @@ class File {
                     Toast.show({
                         text: 'Unsupported file type: ' + result.type,
                         position: 'bottom',
-                        buttonText: 'OK'
+                        buttonText: 'OK',
+                        textStyle: {color: '#fde5d2'},
+                        buttonTextStyle: { color: '#f57e20' },
+                        duration: 3000
                     });
 
                     return;
@@ -63,7 +66,10 @@ class File {
             Toast.show({
                 text: 'Template deleted',
                 position: 'bottom',
-                buttonText: 'OK'
+                buttonText: 'OK',
+                textStyle: {color: '#fde5d2'},
+                buttonTextStyle: { color: '#f57e20' },
+                duration: 3000
             });
         }).catch((error) => {
             Alert.alert(error.message);
@@ -80,7 +86,10 @@ class File {
             Toast.show({
                 text: 'Character successfully loaded',
                 position: 'bottom',
-                buttonText: 'OK'
+                buttonText: 'OK',
+                textStyle: {color: '#fde5d2'},
+                buttonTextStyle: { color: '#f57e20' },
+                duration: 3000
             });
 
             endLoad(character);
@@ -89,6 +98,8 @@ class File {
                 text: error.message,
                 position: 'bottom',
                 buttonText: 'OK',
+                textStyle: {color: '#fde5d2'},
+                buttonTextStyle: { color: '#f57e20' },
                 duration: 3000
             });
 
@@ -103,7 +114,10 @@ class File {
             Toast.show({
                 text: 'Character saved',
                 position: 'bottom',
-                buttonText: 'OK'
+                buttonText: 'OK',
+                textStyle: {color: '#fde5d2'},
+                buttonTextStyle: { color: '#f57e20' },
+                duration: 3000
             });
         });
     }
@@ -126,7 +140,10 @@ class File {
             Toast.show({
                 text: 'Character deleted',
                 position: 'bottom',
-                buttonText: 'OK'
+                buttonText: 'OK',
+                textStyle: {color: '#fde5d2'},
+                buttonTextStyle: { color: '#f57e20' },
+                duration: 3000
             });
         }).catch((error) => {
             Alert.alert(error.message);
@@ -169,7 +186,10 @@ class File {
                 Toast.show({
                     text: 'Template saved',
                     position: 'bottom',
-                    buttonText: 'OK'
+                    buttonText: 'OK',
+                    textStyle: {color: '#fde5d2'},
+                    buttonTextStyle: { color: '#f57e20' },
+                    duration: 3000
                 });
             });
 
