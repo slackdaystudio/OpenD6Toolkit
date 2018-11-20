@@ -82,18 +82,17 @@ class LoadCharacterScreen extends Component {
                 <List>
                     {this.state.files.map((file, index) => {
                         return (
-                            <ListItem key={'file-' + index} noIndent>
-                                <TouchableHighlight
-                                    underlayColor='#ffffff'
-                                    onPress={() => this._onCharacterSelect(file)}
-                                    onLongPress={() => this._onCharacterDelete(file)}
-                                >
-                                    <View style={{paddingTop: 10, paddingBottom: 10}}>
-                                        <Text style={styles.boldGrey}>
-                                            {file.substring(0, file.length - 5)}
-                                        </Text>
-                                    </View>
-                                </TouchableHighlight>
+                            <ListItem
+                                key={'file-' + index}
+                                noIndent
+                                onPress={() => this._onCharacterSelect(file)}
+                                onLongPress={() => this._onCharacterDelete(file)}
+                            >
+                                <View style={{paddingTop: 10, paddingBottom: 10}}>
+                                    <Text style={styles.boldGrey}>
+                                        {file.substring(0, file.length - 5)}
+                                    </Text>
+                                </View>
                             </ListItem>
                         );
                     })}
