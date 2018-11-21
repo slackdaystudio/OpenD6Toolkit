@@ -15,6 +15,7 @@ import {
     STATE_CRITICAL_FAILURE,
     LEGEND_SUCCESS_THRESHOLD
 } from '../../lib/DieRoller';
+import { statistics } from '../../lib/Statistics';
 import { updateRoller, setSetting } from '../../../reducer';
 import styles from '../../Styles';
 
@@ -53,10 +54,14 @@ class DieRollerScreen extends Component {
    	}
 
 	_roll() {
-	    let newState = {...this.state};
-	    newState.result = dieRoller.roll(this.props.dice);
+        result = dieRoller.roll(this.props.dice);
 
-	    this.setState(newState);
+        statistics.add(result).then(() => {
+            let newState = {...this.state};
+            newState.result = result;
+
+            this.setState(newState);
+        });
 	}
 
     _updateDice(value) {

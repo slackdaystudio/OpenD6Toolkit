@@ -13,8 +13,10 @@ import SpecializationScreen from './src/components/screens/SpecializationScreen'
 import LoadCharacterScreen from './src/components/screens/LoadCharacterScreen';
 import CharacterOptionsScreen from './src/components/screens/CharacterOptionsScreen';
 import TemplateDeleteScreen from './src/components/screens/TemplateDeleteScreen';
+import StatisticsScreen from './src/components/screens/StatisticsScreen';
 import OglScreen from './src/components/screens/OglScreen';
 import Sidebar from './src/components/Sidebar';
+import { statistics } from './src/lib/Statistics';
 import reducer from './reducer'
 
 const RootStack = DrawerNavigator(
@@ -43,6 +45,9 @@ const RootStack = DrawerNavigator(
         TemplateDelete: {
             screen: TemplateDeleteScreen,
         },
+        Statistics: {
+            screen: StatisticsScreen,
+        },
         Ogl: {
             screen: OglScreen,
         }
@@ -57,6 +62,14 @@ const RootStack = DrawerNavigator(
 const store = createStore(reducer, applyMiddleware());
 
 export default class App extends Component<Props> {
+    componentDidMount() {
+		let stats = statistics.init();
+
+		AsyncStorage.getItem('statistics').then((statistics) => {
+		    stats = statistics;
+		});
+    }
+
 	render() {
 		return (
 		    <Provider store={store}>
