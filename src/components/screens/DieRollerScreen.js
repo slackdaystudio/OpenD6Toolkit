@@ -233,7 +233,7 @@ class DieRollerScreen extends Component {
                             value={parseInt(this.props.dice, 10)}
                             step={1}
                             min={1}
-                            max={30}
+                            max={60}
                             onValueChange={this.updateDice}
                             disabled={false}
                         />
