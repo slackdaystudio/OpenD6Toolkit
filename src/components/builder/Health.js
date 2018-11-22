@@ -14,7 +14,6 @@ export default class Health extends Component {
     }
 
     _updateBodyPoints(key, value) {
-        let newState = {...this.state};
         let bodyPoints = '';
 
         if (value === '' || value === '-') {

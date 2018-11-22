@@ -15,7 +15,7 @@ export default class LogoButton extends Component {
     _renderLogo() {
         if (this.props.showLogo) {
             return (
-               <View style={{flex: 1}}>
+                <View style={{flex: 1}}>
                     <Image source={require('../../public/d6_logo_White_30x30.png')}/>
                 </View>
             )
@@ -27,7 +27,10 @@ export default class LogoButton extends Component {
 	render() {
 		return (
             <View style={styles.buttonContainer}>
-                <Button style={[styles.button, {maxWidth: this.props.maxWidth === null ? 170 : this.props.maxWidth}]} onPress={() => this.props.onPress()}>
+                <Button
+                    style={[styles.button, {maxWidth: this.props.maxWidth}]}
+                    onPress={() => this.props.onPress()}
+                >
                     {this._renderLogo()}
                     <Text uppercase={false} style={styles.buttonText}>{this.props.label}</Text>
                 </Button>
@@ -38,5 +41,5 @@ export default class LogoButton extends Component {
 
 LogoButton.defaultProps = {
     showLogo: true,
-    maxWidth: null
+    maxWidth: 170
 };

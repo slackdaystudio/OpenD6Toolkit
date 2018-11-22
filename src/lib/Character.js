@@ -86,6 +86,15 @@ class Character {
                     max: 0,
                     current: 0,
                 }
+            },
+            defenses: {
+                useStaticDefenses: false,
+                staticDefenses: {
+                    block: 0,
+                    dodge: 0,
+                    parry: 0,
+                    soak: 0
+                }
             }
         };
     }

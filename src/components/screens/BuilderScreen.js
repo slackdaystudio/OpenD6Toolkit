@@ -11,6 +11,7 @@ import AttributesAndSkills from '../builder/AttributesAndSkills';
 import Specializations from '../builder/Specializations';
 import Options from '../builder/Options';
 import Health from '../builder/Health';
+import Defenses from '../builder/Defenses';
 import InfoDialog from '../InfoDialog';
 import styles from '../../Styles';
 import { character, OPTION_ADVANTAGES, OPTION_COMPLICATIONS, OPTION_SPECIAL_ABILITIES } from '../../lib/Character';
@@ -24,7 +25,9 @@ import {
     removeOption,
     updateHealthSystem,
     updateWounds,
-    updateBodyPoints
+    updateBodyPoints,
+    updateDefenseSystem,
+    updateStaticDefense
 } from '../../../reducer';
 
 class BuilderScreen extends Component {
@@ -38,7 +41,9 @@ class BuilderScreen extends Component {
         removeOption: PropTypes.func.isRequired,
         updateHealthSystem: PropTypes.func.isRequired,
         updateWounds: PropTypes.func.isRequired,
-        updateBodyPoints: PropTypes.func.isRequired
+        updateBodyPoints: PropTypes.func.isRequired,
+        updateDefenseSystem: PropTypes.func.isRequired,
+        updateStaticDefense: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -134,6 +139,11 @@ class BuilderScreen extends Component {
                         updateWounds={this.props.updateWounds}
                         updateBodyPoints={this.props.updateBodyPoints}
                     />
+                    <Defenses
+                        character={this.props.character}
+                        updateDefenseSystem={this.props.updateDefenseSystem}
+                        updateStaticDefense={this.props.updateStaticDefense}
+                    />
                     <View style={{paddingBottom: 20}} />
                     <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
                         <LogoButton label='Save' onPress={() => this._save()} />
@@ -166,7 +176,9 @@ const mapDispatchToProps = {
     removeOption,
     updateHealthSystem,
     updateWounds,
-    updateBodyPoints
+    updateBodyPoints,
+    updateDefenseSystem,
+    updateStaticDefense
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuilderScreen);

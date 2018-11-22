@@ -33,6 +33,10 @@ export const UPDATE_WOUNDS = 'UPDATE_WOUNDS';
 
 export const UPDATE_BODY_POINTS = 'UPDATE_BODY_POINTS';
 
+export const UPDATE_DEFENSE_SYSTEM = 'UPDATE_DEFENSE_SYSTEM';
+
+export const UPDATE_STATIC_DEFENSE = 'UPDATE_STATIC_DEFENSE';
+
 export const SET_SETTING = 'SET_SETTING';
 
 export const LOAD_CHARACTER = 'LOAD_CHARACTER';
@@ -132,6 +136,23 @@ export function updateWounds(woundLevel) {
 export function updateBodyPoints(key, value) {
     return {
         type: UPDATE_BODY_POINTS,
+        payload: {
+            key: key,
+            value: value
+        }
+    };
+}
+
+export function updateDefenseSystem() {
+    return {
+        type: UPDATE_DEFENSE_SYSTEM,
+        payload: null
+    };
+}
+
+export function updateStaticDefense(key, value) {
+    return {
+        type: UPDATE_STATIC_DEFENSE,
         payload: {
             key: key,
             value: value
@@ -395,6 +416,40 @@ export default function reducer(state = initialState, action) {
             };
 
             newState.builder.character.health.bodyPoints[action.payload.key] = action.payload.value;
+
+            return newState;
+        case UPDATE_DEFENSE_SYSTEM:
+            newState = {
+                ...state,
+                builder: {
+                    ...state.builder,
+                    character: {
+                        ...state.builder.character,
+                        defenses: {
+                            ...state.builder.character.defenses
+                        }
+                    }
+                }
+            };
+
+            newState.builder.character.defenses.useStaticDefenses = !newState.builder.character.defenses.useStaticDefenses;;
+
+            return newState;
+        case UPDATE_STATIC_DEFENSE:
+            newState = {
+                ...state,
+                builder: {
+                    ...state.builder,
+                    character: {
+                        ...state.builder.character,
+                        defenses: {
+                            ...state.builder.character.defenses
+                        }
+                    }
+                }
+            };
+
+            newState.builder.character.defenses.staticDefenses[action.payload.key] = action.payload.value;
 
             return newState;
         case SET_SETTING:
