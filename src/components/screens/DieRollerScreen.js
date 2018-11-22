@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Switch } from 'react-native';
 import { Container, Content, Button, Text, Picker, Item} from 'native-base';
 import RNShake from 'react-native-shake';
+import * as Animatable from 'react-native-animatable';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
@@ -53,6 +54,16 @@ class DieRollerScreen extends Component {
    		RNShake.removeEventListener('shake');
    	}
 
+    handleViewRef = ref => this.view = ref;
+
+    criticalSuccessAnimation() {
+        this.view.shake(2000).then(endState => {});
+    }
+
+    criticalFailureAnimation() {
+        this.view.bounce(2000).then(endState => {});
+    }
+
 	_roll() {
         result = dieRoller.roll(this.props.dice);
 
@@ -60,7 +71,13 @@ class DieRollerScreen extends Component {
             let newState = {...this.state};
             newState.result = result;
 
-            this.setState(newState);
+            this.setState(newState, () => {
+                if (this.state.result.status === STATE_CRITICAL_SUCCESS) {
+                    this.criticalSuccessAnimation();
+                } else if (this.state.result.status === STATE_CRITICAL_FAILURE) {
+                    this.criticalFailureAnimation();
+                }
+            });
         });
 	}
 
@@ -112,6 +129,18 @@ class DieRollerScreen extends Component {
         return totalSuccesses;
     }
 
+    _getResultColor() {
+        let color = '#4f4e4e';
+
+        if (this.state.result.status === STATE_CRITICAL_SUCCESS) {
+            color = '#61B33E';
+        } else if (this.state.result.status === STATE_CRITICAL_FAILURE) {
+            color = '#B5374F';
+        }
+
+        return color;
+    }
+
     _renderCriticalInfo() {
         if (this.state.result.status === STATE_CRITICAL_SUCCESS) {
             return (
@@ -149,7 +178,11 @@ class DieRollerScreen extends Component {
 
         return (
             <View>
-                <Text style={[styles.grey, localStyles.rollResult]}>{this._getTotal()}</Text>
+                <Animatable.View ref={this.handleViewRef}>
+                    <Text style={[styles.grey, localStyles.rollResult, {color: this._getResultColor()}]}>
+                        {this._getTotal()}
+                    </Text>
+                </Animatable.View>
                 <Text style={styles.grey}>
                     <Text style={styles.boldGrey}>Rolls: </Text>{this.state.result.rolls.join(', ')}
                 </Text>
@@ -228,7 +261,8 @@ class DieRollerScreen extends Component {
 
 const localStyles = StyleSheet.create({
 	rollResult: {
-		fontSize: 75
+		fontSize: 90,
+		fontWeight: 'bold'
 	}
 })
 
