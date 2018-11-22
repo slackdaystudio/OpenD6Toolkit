@@ -190,7 +190,7 @@ export default class StatisticsScreen extends Component {
                 <List>
                     <ListItem>
                       <Left>
-                        <Text style={styles.boldGrey}>Total Critical Failres:</Text>
+                        <Text style={styles.boldGrey}>Total Critical Failures:</Text>
                       </Left>
                       <Right>
                         <Text style={styles.grey}>{this.state.stats.criticalFailures}</Text>
