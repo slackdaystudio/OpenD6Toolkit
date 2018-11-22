@@ -63,15 +63,11 @@ const store = createStore(reducer, applyMiddleware());
 
 export default class App extends Component<Props> {
     componentDidMount() {
-		let stats = null;
-
-		AsyncStorage.getItem('statistics').then((statistics) => {
-		    stats = statistics;
+		AsyncStorage.getItem('statistics').then((stats) => {
+            if (stats === null) {
+                statistics.init().then(() => console.log('Stats initialized'));
+            }
 		});
-
-		if (stats === null) {
-		    statistics.init().then(() => console.log('Stats initialized'));
-		}
     }
 
 	render() {

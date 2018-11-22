@@ -3,6 +3,8 @@ import { StyleSheet, AsyncStorage, View, ScrollView } from 'react-native';
 import { Container, Content, Text, List, ListItem, Left, Right, Spinner, Tabs, Tab, ScrollableTab } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
+import LogoButton from '../LogoButton';
+import ConfirmationDialog from '../ConfirmationDialog';
 import { statistics, CONTEXTUALLY_INFINITE } from '../../lib/Statistics';
 import { chart } from '../../lib/Chart';
 import styles from '../../Styles';
@@ -12,16 +14,53 @@ export default class StatisticsScreen extends Component {
         super(props);
 
         this.state = {
-            stats: null
+            stats: null,
+            confirmationDialog: {
+                visible: false,
+                title: 'Clear Statistics',
+                info: 'This is permanent, are you certain you want to clear your die statistics?',
+            }
         }
+
+        this.onOk = this._onClearConfirm.bind(this);
+        this.onClose = this._onConfirmationClose.bind(this);
     }
 
     componentDidMount() {
+        this._loadStats();
+    }
+
+    _loadStats(callback) {
         AsyncStorage.getItem('statistics').then((statistics) => {
-            this.setState({
-                stats: JSON.parse(statistics)
-            }) ;
+            let newState = {...this.state};
+            newState.stats = JSON.parse(statistics);
+
+            this.setState(newState, () => {
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            });
         });
+    }
+
+    _clearStats() {
+        let newState = {...this.state};
+        newState.confirmationDialog.visible = true;
+
+        this.setState(newState);
+    }
+
+    _onClearConfirm() {
+        statistics.init().then(() => {
+            this._loadStats(this.onClose);
+        });
+    }
+
+    _onConfirmationClose() {
+        let newState = {...this.state};
+        newState.confirmationDialog.visible = false;
+
+        this.setState(newState);
     }
 
     _renderAverageRoll() {
@@ -190,6 +229,16 @@ export default class StatisticsScreen extends Component {
                       </Right>
                     </ListItem>
                 </List>
+                <View style={{paddingBottom: 20}} />
+                <LogoButton label={'Clear'} onPress={() => this._clearStats()} />
+                <View style={{paddingBottom: 20}} />
+                <ConfirmationDialog
+                    visible={this.state.confirmationDialog.visible}
+                    title={this.state.confirmationDialog.title}
+                    info={this.state.confirmationDialog.info}
+                    onOk={this.onOk}
+                    onClose={this.onClose}
+                />
 	        </Content>
 	      </Container>
 		);
