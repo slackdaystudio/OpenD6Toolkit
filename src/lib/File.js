@@ -4,9 +4,9 @@ import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker
 import RNFetchBlob from 'rn-fetch-blob'
 import { common } from './Common';
 
-const CHARACTER_DIR = RNFetchBlob.fs.dirs.DocumentDir + '/OpenD6Toolkit/characters/';
+const CHARACTER_DIR = RNFetchBlob.fs.dirs.DocumentDir + '/characters/';
 
-const TEMPLATE_DIR = RNFetchBlob.fs.dirs.DocumentDir + '/OpenD6Toolkit/templates/';
+const TEMPLATE_DIR = RNFetchBlob.fs.dirs.DocumentDir + '/templates/';
 
 class File {
     loadGameTemplate(startLoad, endLoad) {
@@ -44,6 +44,8 @@ class File {
 
     async getTemplates() {
         try {
+            await this._make_save_location(TEMPLATE_DIR);
+
             let files = await RNFetchBlob.fs.ls(TEMPLATE_DIR);
             let promises = files.map((file) => {
                 let path = this._getTemplatePath(file, false);
@@ -80,7 +82,7 @@ class File {
         let path = this._getCharacterPath(characterName, false);
 
         startLoad();
-        this._make_save_location(CHARACTER_DIR);
+        await this._make_save_location(CHARACTER_DIR);
 
         await RNFetchBlob.fs.readFile(path, 'utf8').then((character) => {
             Toast.show({
@@ -108,7 +110,7 @@ class File {
     }
 
     async saveCharacter(character) {
-        this._make_save_location(CHARACTER_DIR);
+        await this._make_save_location(CHARACTER_DIR);
 
         await RNFetchBlob.fs.writeFile(this._getCharacterPath(character.name), JSON.stringify(character), 'utf8').then(() => {
             Toast.show({
@@ -123,7 +125,7 @@ class File {
     }
 
     async getCharacters() {
-        this._make_save_location(CHARACTER_DIR);
+        await this._make_save_location(CHARACTER_DIR);
         let characters = [];
 
         await RNFetchBlob.fs.ls(CHARACTER_DIR).then((files) => {
@@ -150,16 +152,14 @@ class File {
         });
     }
 
-    _make_save_location(location) {
-        RNFetchBlob.fs.exists(location).then((exist) => {
-            if (!exist) {
-                RNFetchBlob.fs.mkdir(location).catch((error) => {
-                    Alert.alert('Cannot create save directory');
-                });
-            }
-        }).catch((error) => {
-            Alert.alert(error.message);
-        });
+    async _make_save_location(location) {
+        let exists =  await RNFetchBlob.fs.exists(location);
+
+        if (!exists) {
+            RNFetchBlob.fs.mkdir(location).catch((error) => {
+                Alert.alert('Cannot create save directory');
+            });
+        }
     }
 
     _getCharacterPath(characterName, withExtension=true) {
@@ -174,8 +174,8 @@ class File {
         return text.replace(/[/\\?%*:|"<>]/g, '_');
     }
 
-    _saveTemplate(uri, startLoad, endLoad) {
-        this._make_save_location(TEMPLATE_DIR);
+    async _saveTemplate(uri, startLoad, endLoad) {
+        await this._make_save_location(TEMPLATE_DIR);
 
         startLoad();
 
