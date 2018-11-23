@@ -102,9 +102,19 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
+        }
+    }
+    signingConfigs {
+        release {
+            if (project.hasProperty('OPENDSIX_RELEASE_STORE_FILE')) {
+                storeFile file(OPENDSIX_RELEASE_STORE_FILE)
+                storePassword OPENDSIX_RELEASE_STORE_PASSWORD
+                keyAlias OPENDSIX_RELEASE_KEY_ALIAS
+                keyPassword OPENDSIX_RELEASE_KEY_PASSWORD
+            }
         }
     }
     splits {
@@ -119,6 +129,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
