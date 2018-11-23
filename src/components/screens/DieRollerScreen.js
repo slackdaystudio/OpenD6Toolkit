@@ -94,7 +94,7 @@ class DieRollerScreen extends Component {
     }
 
     _getClassicTotal() {
-        let total = this.state.result.dice.length > 1 ? this.state.result.rolls.reduce((a, b) => a + b, 0) : 0;
+        let total = this.state.result.dice > 1 ? this.state.result.rolls.reduce((a, b) => a + b, 0) : 0;
 
         if (this.state.result.status === STATE_CRITICAL_SUCCESS) {
             total += this.state.result.bonusRolls.reduce((a, b) => a + b, 0) + this.state.result.wildDieRoll;
