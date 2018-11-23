@@ -1,7 +1,7 @@
 # OpenD6Toolkit
 A mobile app for all things OpenD6
 
-[![PreReleaseVideo](https://img.youtube.com/vi/3GGaBId5rp8E/0.jpg)](https://www.youtube.com/watch?v=3GGaBId5rp8E)
+[![Pre Release Video](https://img.youtube.com/vi/3GGaBId5rp8/0.jpg)](https://www.youtube.com/watch?v=3GGaBId5rp8 "OpenD6 Toolkit Pre-Release Video")
 
 Templates may be downloaded/shared at https://github.com/sentry0/OpenD6Toolkit-Game-Templates
 
