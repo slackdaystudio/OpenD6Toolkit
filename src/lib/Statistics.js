@@ -51,10 +51,15 @@ class Statistics {
             stats.lowestCriticalSuccess = total < stats.lowestCriticalSuccess ? total : stats.lowestCriticalSuccess;
         } else if (resultRoll.status === STATE_CRITICAL_FAILURE) {
             stats.penaltyDiceRolled++;
-            stats.penaltyDiceTotal += resultRoll.penaltyRoll;
+            stats.penaltyDiceTotal += rolls.length === 1 ? resultRoll.wildDieRoll : resultRoll.penaltyRoll;
             stats.criticalFailures++;
             stats.largestCriticalFailure = resultRoll.penaltyRoll > stats.largestCriticalFailure ? resultRoll.penaltyRoll : stats.largestCriticalFailure;
-            stats.lowestCriticalFailure = resultRoll.penaltyRoll < stats.lowestCriticalFailure ? resultRoll.penaltyRoll : stats.lowestCriticalFailure;
+
+            if (rolls.length === 1) {
+                stats.lowestCriticalFailure = resultRoll.wildDieRoll < stats.lowestCriticalFailure ? resultRoll.wildDieRoll : stats.lowestCriticalFailure;
+            } else {
+                stats.lowestCriticalFailure = resultRoll.penaltyRoll < stats.lowestCriticalFailure ? resultRoll.penaltyRoll : stats.lowestCriticalFailure;
+            }
         }
 
         this._updateDistributions(rolls, stats.distributions);
@@ -69,7 +74,9 @@ class Statistics {
         if (resultRoll.status === STATE_CRITICAL_SUCCESS) {
             rolls.concat(resultRoll.bonusRolls)
         } else if (resultRoll.status === STATE_CRITICAL_FAILURE) {
-            rolls.push(resultRoll.penaltyRoll);
+            if (resultRoll.rolls.length > 1) {
+                rolls.push(resultRoll.penaltyRoll);
+            }
         }
 
         return rolls;

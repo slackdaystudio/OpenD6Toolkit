@@ -94,7 +94,7 @@ class DieRollerScreen extends Component {
     }
 
     _getClassicTotal() {
-        let total = this.state.result.rolls.length > 0 ? this.state.result.rolls.reduce((a, b) => a + b, 0) : 0;
+        let total = this.state.result.dice.length > 1 ? this.state.result.rolls.reduce((a, b) => a + b, 0) : 0;
 
         if (this.state.result.status === STATE_CRITICAL_SUCCESS) {
             total += this.state.result.bonusRolls.reduce((a, b) => a + b, 0) + this.state.result.wildDieRoll;
@@ -153,7 +153,7 @@ class DieRollerScreen extends Component {
         if (this.state.result.status === STATE_CRITICAL_FAILURE) {
             return (
                 <Text style={styles.grey}>
-                    <Text style={styles.boldGrey}>Penalty Die: </Text>{this.state.result.penaltyRoll}
+                    <Text style={styles.boldGrey}>Penalty Die: </Text>{this.state.result.dice > 1 ? this.state.result.penaltyRoll : ''}
                 </Text>
             );
         }
@@ -184,7 +184,7 @@ class DieRollerScreen extends Component {
                     </Text>
                 </Animatable.View>
                 <Text style={styles.grey}>
-                    <Text style={styles.boldGrey}>Rolls: </Text>{this.state.result.rolls.join(', ')}
+                    <Text style={styles.boldGrey}>Rolls: </Text>{this.state.result.dice > 1 ? this.state.result.rolls.join(', ') : ''}
                 </Text>
                 <Text style={styles.grey}>
                     <Text style={styles.boldGrey}>Wild Die: </Text>{this.state.result.wildDieRoll}
