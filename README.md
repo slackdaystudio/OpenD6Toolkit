@@ -1,20 +1,26 @@
 # OpenD6Toolkit
 A mobile app for all things OpenD6
 
-Currently this app is just a simple die roller but in the future I plan on adding in a character creator/manager.
+[![PreReleaseVideo](https://img.youtube.com/vi/3GGaBId5rp8E/0.jpg)](https://www.youtube.com/watch?v=3GGaBId5rp8E)
 
-I want to allow users to pick the type of campaign they're playing: Adventure, Fantasy, Space etc. and have a character template pre-populated with the following:
- * Appropriate Attributes for the genre
- * Skills for the genre
- * Advantages
- * Complications
- * Special Abilities
- 
-Once a template has been picked I want to allow users to build characters either using the template system or a point based system.  Ideally, I will have a system that allows for the management of characters.  Load, Import/Export, Save, Delete.
+Templates may be downloaded/shared at https://github.com/sentry0/OpenD6Toolkit-Game-Templates
 
-Early Screencaps
-================
-![Imgur Image](https://i.imgur.com/sOzlTbB.png?1)
-![Imgur Image](https://i.imgur.com/vDd9Tun.png?1)
-![Imgur Image](https://i.imgur.com/9nsnN3L.png?1)
-![Imgur Image](https://i.imgur.com/XhEheS7.png?1)
+## Features
+ - Die roller
+   - Supports both classic and Legend styles of rolling
+   - Statistics are also tracked on your dice
+ - Character tools
+   - Select a template to build your character from
+   - Automatically calculates your point cost
+   - Supports the three base genres out of the box (Adventure, Fantasy, Space)
+   - Supports all options (Advantages, Complications, Special Abilities)
+   - Save/Load/Delete characters
+ - Game Templates
+   - The app supports custom game templates that may be used to build characters
+   - There is a companion project for sharing templates here - https://github.com/sentry0/OpenD6Toolkit-Game-Templates
+   - Custom templates means you can support games that use the Mini-6 ruleset easily
+
+## Future Plans
+ - Embed the full SRD into the app
+ - GM tools (campaign log, initiative chart, NPC health tracker)
+ - A library of OGL OpenD6 and related games
