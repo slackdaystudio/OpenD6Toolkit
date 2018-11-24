@@ -90,11 +90,9 @@ class File {
         startLoad();
 
         let character = null;
-        let path = await this._getCharacterPath(characterName, false);
-
-        await this._make_save_location(this._getPath(DEFAULT_CHARACTER_DIR));
 
         try {
+            let path = await this._getCharacterPath(characterName, false);
             character = await RNFetchBlob.fs.readFile(path, 'utf8');
 
             Toast.show({
