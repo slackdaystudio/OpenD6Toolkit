@@ -68,11 +68,13 @@ class Statistics {
     }
 
     _getAllRolls(resultRoll) {
-        let rolls = resultRoll.rolls;
+        let rolls = resultRoll.rolls.slice();
         rolls.push(resultRoll.wildDieRoll);
 
         if (resultRoll.status === STATE_CRITICAL_SUCCESS) {
-            rolls.concat(resultRoll.bonusRolls)
+            for (let bonusRoll of resultRoll.bonusRolls) {
+                rolls.push(bonusRoll);
+            }
         } else if (resultRoll.status === STATE_CRITICAL_FAILURE) {
             if (resultRoll.rolls.length > 1) {
                 rolls.push(resultRoll.penaltyRoll);
