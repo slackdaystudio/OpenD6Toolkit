@@ -1,12 +1,16 @@
-import { Platform, AsyncStorage, Alert } from 'react-native';
+import { Platform, PermissionsAndroid, AsyncStorage, Alert } from 'react-native';
 import { Toast } from 'native-base';
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
 import RNFetchBlob from 'rn-fetch-blob'
 import { common } from './Common';
 
-const CHARACTER_DIR = RNFetchBlob.fs.dirs.DocumentDir + '/characters/';
+const ANDROID_CHARACTER_DIR = '/storage/emulated/0/OpenD6Toolkit/characters/'
 
-const TEMPLATE_DIR = RNFetchBlob.fs.dirs.DocumentDir + '/templates/';
+const ANDROID_TEMPLATE_DIR = '/storage/emulated/0/OpenD6Toolkit/templates/'
+
+const DEFAULT_CHARACTER_DIR = RNFetchBlob.fs.dirs.DocumentDir + '/characters/';
+
+const DEFAULT_TEMPLATE_DIR = RNFetchBlob.fs.dirs.DocumentDir + '/templates/';
 
 class File {
     loadGameTemplate(startLoad, endLoad) {
@@ -44,16 +48,18 @@ class File {
 
     async getTemplates() {
         try {
-            await this._make_save_location(TEMPLATE_DIR);
+            let path = await this._getPath(DEFAULT_TEMPLATE_DIR);
+            let files = await RNFetchBlob.fs.ls(path);
+            let templates = [];
+            let template = null;
+            let templatePath = null;
 
-            let files = await RNFetchBlob.fs.ls(TEMPLATE_DIR);
-            let promises = files.map((file) => {
-                let path = this._getTemplatePath(file, false);
+            for (let file of files) {
+                templatePath = await this._getTemplatePath(file, false);
+                template = await RNFetchBlob.fs.readFile(templatePath, 'utf8')
 
-                return RNFetchBlob.fs.readFile(path, 'utf8');
-            });
-
-            let templates = await Promise.all(promises);
+                templates.push(template);
+            }
 
             return templates;
         } catch(error) {
@@ -62,9 +68,11 @@ class File {
     }
 
     async deleteTemplate(template) {
-        let path = this._getTemplatePath(template.name, true);
+        let path = await this._getTemplatePath(template.name, true);
 
-        RNFetchBlob.fs.unlink(path).then(() => {
+        try {
+            await RNFetchBlob.fs.unlink(path);
+
             Toast.show({
                 text: 'Template deleted',
                 position: 'bottom',
@@ -73,18 +81,22 @@ class File {
                 buttonTextStyle: { color: '#f57e20' },
                 duration: 3000
             });
-        }).catch((error) => {
+        } catch (error) {
             Alert.alert(error.message);
-        });
+        }
     }
 
-    async loadCharacter(characterName, startLoad, endLoad) {1
-        let path = this._getCharacterPath(characterName, false);
-
+    async loadCharacter(characterName, startLoad, endLoad) {
         startLoad();
-        await this._make_save_location(CHARACTER_DIR);
 
-        await RNFetchBlob.fs.readFile(path, 'utf8').then((character) => {
+        let character = null;
+        let path = await this._getCharacterPath(characterName, false);
+
+        await this._make_save_location(this._getPath(DEFAULT_CHARACTER_DIR));
+
+        try {
+            character = await RNFetchBlob.fs.readFile(path, 'utf8');
+
             Toast.show({
                 text: 'Character successfully loaded',
                 position: 'bottom',
@@ -93,9 +105,7 @@ class File {
                 buttonTextStyle: { color: '#f57e20' },
                 duration: 3000
             });
-
-            endLoad(character);
-        }).catch((error) => {
+        } catch (error) {
             Toast.show({
                 text: error.message,
                 position: 'bottom',
@@ -104,41 +114,39 @@ class File {
                 buttonTextStyle: { color: '#f57e20' },
                 duration: 3000
             });
-
-            endLoad(null);
-        });
+        } finally {
+            endLoad(character);
+        }
     }
 
     async saveCharacter(character) {
-        await this._make_save_location(CHARACTER_DIR);
+        let characterPath = await this._getCharacterPath(character.name);
 
-        await RNFetchBlob.fs.writeFile(this._getCharacterPath(character.name), JSON.stringify(character), 'utf8').then(() => {
-            Toast.show({
-                text: 'Character saved',
-                position: 'bottom',
-                buttonText: 'OK',
-                textStyle: {color: '#fde5d2'},
-                buttonTextStyle: { color: '#f57e20' },
-                duration: 3000
-            });
+        await RNFetchBlob.fs.writeFile(characterPath, JSON.stringify(character), 'utf8');
+
+        Toast.show({
+            text: 'Character saved',
+            position: 'bottom',
+            buttonText: 'OK',
+            textStyle: {color: '#fde5d2'},
+            buttonTextStyle: { color: '#f57e20' },
+            duration: 3000
         });
     }
 
     async getCharacters() {
-        await this._make_save_location(CHARACTER_DIR);
-        let characters = [];
-
-        await RNFetchBlob.fs.ls(CHARACTER_DIR).then((files) => {
-            characters = files;
-        });
+        let path = await this._getPath(DEFAULT_CHARACTER_DIR);
+        let characters = await RNFetchBlob.fs.ls(path);
 
         return characters;
     }
 
     async deleteCharacter(fileName) {
-        let path = this._getCharacterPath(fileName, false);
+        let path = await this._getCharacterPath(fileName, false);
 
-        RNFetchBlob.fs.unlink(path).then(() => {
+        try {
+            await RNFetchBlob.fs.unlink(path);
+
             Toast.show({
                 text: 'Character deleted',
                 position: 'bottom',
@@ -147,9 +155,35 @@ class File {
                 buttonTextStyle: { color: '#f57e20' },
                 duration: 3000
             });
-        }).catch((error) => {
+        } catch (error) {
             Alert.alert(error.message);
-        });
+        }
+    }
+
+    async _ask_for_write_permission() {
+        if (Platform.OS === 'android') {
+            try {
+                let check = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
+
+                if (check === PermissionsAndroid.RESULTS.GRANTED) {
+                    return check;
+                }
+
+                const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                    {
+                        'title': 'OpenD6 Toolkit File System Permission',
+                        'message': 'OpenD6 Toolkit needs read/write access to your device to save characters and game templates'
+                    }
+                );
+
+                return granted;
+            } catch (error) {
+                Alert.alert(error.message);
+            }
+        }
+
+        return null;
     }
 
     async _make_save_location(location) {
@@ -162,12 +196,34 @@ class File {
         }
     }
 
-    _getCharacterPath(characterName, withExtension=true) {
-        return CHARACTER_DIR + this._stripInvalidCharacters(characterName) + (withExtension ? '.json' : '');
+    async _getPath(defaultPath) {
+        let path = defaultPath;
+        let androidWritePermission = await this._ask_for_write_permission();
+
+        if (androidWritePermission === PermissionsAndroid.RESULTS.GRANTED) {
+            if (path === DEFAULT_CHARACTER_DIR) {
+                path = ANDROID_CHARACTER_DIR;
+            } else {
+                path = ANDROID_TEMPLATE_DIR;
+            }
+        }
+
+        await this._make_save_location(path);
+
+        return path;
     }
 
-    _getTemplatePath(templateName, withExtension=true) {
-        return TEMPLATE_DIR + this._stripInvalidCharacters(templateName) + (withExtension ? '.json' : '');
+
+    async _getCharacterPath(characterName, withExtension=true) {
+        let path = await this._getPath(DEFAULT_CHARACTER_DIR);
+
+        return path + this._stripInvalidCharacters(characterName) + (withExtension ? '.json' : '');
+    }
+
+    async _getTemplatePath(templateName, withExtension=true) {
+        let path = await this._getPath(DEFAULT_TEMPLATE_DIR);
+
+        return path + this._stripInvalidCharacters(templateName) + (withExtension ? '.json' : '');
     }
 
     _stripInvalidCharacters(text) {
@@ -175,29 +231,28 @@ class File {
     }
 
     async _saveTemplate(uri, startLoad, endLoad) {
-        await this._make_save_location(TEMPLATE_DIR);
-
         startLoad();
 
-        RNFetchBlob.fs.readFile(uri, 'utf8').then((data) => {
+        try {
+            let data = await RNFetchBlob.fs.readFile(uri, 'utf8');
             let template = JSON.parse(data);
+            let path = await this._getTemplatePath(template.name);
 
-            RNFetchBlob.fs.writeFile(this._getTemplatePath(template.name), data, '', 'utf8').then(() => {
-                Toast.show({
-                    text: 'Template saved',
-                    position: 'bottom',
-                    buttonText: 'OK',
-                    textStyle: {color: '#fde5d2'},
-                    buttonTextStyle: { color: '#f57e20' },
-                    duration: 3000
-                });
+            await RNFetchBlob.fs.writeFile(path, data, '', 'utf8');
+
+            Toast.show({
+                text: 'Template saved',
+                position: 'bottom',
+                buttonText: 'OK',
+                textStyle: {color: '#fde5d2'},
+                buttonTextStyle: { color: '#f57e20' },
+                duration: 3000
             });
-
-            endLoad();
-        }).catch((error) => {
-            endLoad();
+        } catch (error) {
             Alert.alert(error.message);
-        });
+        } finally {
+            endLoad();
+        }
     }
 }
 
