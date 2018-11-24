@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StyleSheet, Image, StatusBar, View } from "react-native";
 import { Container, Content, Text, List, ListItem } from "native-base";
+import { ifIphoneX } from 'react-native-iphone-x-helper';
 import styles from '../Styles';
 import { file } from '../lib/File';
 
@@ -71,7 +72,12 @@ class Sidebar extends Component {
 
 const localStyles = StyleSheet.create({
 	container: {
-		backgroundColor: '#f57e20'
+		backgroundColor: '#f57e20',
+        	...ifIphoneX({
+            		paddingTop: 50
+        	}, {
+            		paddingTop: 20
+        	})
 	}
 });
 
