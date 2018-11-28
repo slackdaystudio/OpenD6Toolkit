@@ -68,6 +68,8 @@ export default class App extends Component<Props> {
                 statistics.init().then(() => console.log('Stats initialized'));
             }
 		});
+
+		SplashScreen.hide();
     }
 
 	render() {

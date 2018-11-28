@@ -7,7 +7,7 @@ export default StyleSheet.create({
 		...ifIphoneX({
             		paddingTop: 50
         	}, {
-            		paddingTop: 20
+            		paddingTop: (Platform.OS === 'ios' ? 20 : 0)
         	})	
 	},
 	content: {
