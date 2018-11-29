@@ -24,3 +24,4 @@ Templates may be downloaded/shared at https://github.com/sentry0/OpenD6Toolkit-G
  - Embed the full SRD into the app
  - GM tools (campaign log, initiative chart, NPC health tracker)
  - A library of OGL OpenD6 and related games
+ - Print support for characters
