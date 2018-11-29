@@ -54,10 +54,10 @@ export default StyleSheet.create({
 		alignSelf: 'center'
 	},
 	buttonText: {
-		color: '#FFF',
-	    fontSize: 18,
-	    lineHeight: 40,
-	    flex: 2
+	    	color: '#FFF',
+	    	fontSize: 18,
+	    	lineHeight: 35,
+	    	flex: 2
 	},
 	picker: {
 		color: '#4f4e4e'
