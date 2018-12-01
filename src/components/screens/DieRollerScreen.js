@@ -95,18 +95,17 @@ class DieRollerScreen extends Component {
 
     _getClassicTotal() {
         let total = this.state.result.dice > 1 ? this.state.result.rolls.reduce((a, b) => a + b, 0) : 0;
+        total += this.state.result.wildDieRoll
 
         if (this.state.result.status === STATE_CRITICAL_SUCCESS) {
-            total += this.state.result.bonusRolls.reduce((a, b) => a + b, 0) + this.state.result.wildDieRoll;
-        } else if (this.state.result.status === STATE_NORMAL) {
-            total += this.state.result.wildDieRoll;
+            total += this.state.result.bonusRolls.reduce((a, b) => a + b, 0);
         }
 
         return total + this.props.pips;
     }
 
     _getTotalSuccesses() {
-        let totalSuccesses = 0;
+        let totalSuccesses = this.state.result.wildDieRoll > LEGEND_SUCCESS_THRESHOLD ? 1 : 0;
 
         for (let roll of this.state.result.rolls) {
             if (roll > LEGEND_SUCCESS_THRESHOLD) {
@@ -120,10 +119,6 @@ class DieRollerScreen extends Component {
                     totalSuccesses++;
                 }
             }
-
-            totalSuccesses += (this.state.result.wildDieRoll > LEGEND_SUCCESS_THRESHOLD) ? 1 : 0;
-        } else if (this.state.result.status === STATE_NORMAL) {
-            totalSuccesses += (this.state.result.wildDieRoll > LEGEND_SUCCESS_THRESHOLD) ? 1 : 0;
         }
 
         return totalSuccesses;
