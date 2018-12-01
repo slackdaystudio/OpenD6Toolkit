@@ -18,9 +18,10 @@ Templates may be downloaded/shared at https://github.com/sentry0/OpenD6Toolkit-G
  - Game Templates
    - The app supports custom game templates that may be used to build characters
    - There is a companion project for sharing templates here - https://github.com/sentry0/OpenD6Toolkit-Game-Templates
-   - Custom templates means you can support games that use the Mini-6 ruleset easily
+   - Custom templates means you can support games that use the Mini Six ruleset easily
 
 ## Future Plans
  - Embed the full SRD into the app
  - GM tools (campaign log, initiative chart, NPC health tracker)
  - A library of OGL OpenD6 and related games
+ - Print support for characters
