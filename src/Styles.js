@@ -57,7 +57,8 @@ export default StyleSheet.create({
 	    	color: '#FFF',
 	    	fontSize: 18,
 	    	lineHeight: 35,
-	    	flex: 2
+	    	textAlign: 'center',
+	    	flex: 4
 	},
 	picker: {
 		color: '#4f4e4e'

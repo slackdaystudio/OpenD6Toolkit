@@ -17,7 +17,7 @@ import {
     LEGEND_SUCCESS_THRESHOLD
 } from '../../lib/DieRoller';
 import { statistics } from '../../lib/Statistics';
-import { updateRoller, setSetting } from '../../../reducer';
+import { updateMassRoller, setSetting } from '../../../reducer';
 import styles from '../../Styles';
 
 class DieRollerScreen extends Component {
@@ -25,8 +25,9 @@ class DieRollerScreen extends Component {
         navigation: PropTypes.object.isRequired,
         dice: PropTypes.number.isRequired,
         pips: PropTypes.number.isRequired,
+        rolls: PropTypes.number.isRequired,
         isLegend: PropTypes.bool.isRequired,
-        updateRoller: PropTypes.func.isRequired,
+        updateMassRoller: PropTypes.func.isRequired,
         setSetting: PropTypes.func.isRequired
     }
 
@@ -36,11 +37,13 @@ class DieRollerScreen extends Component {
         this.state = {
             dice: props.dice,
             pips: props.pips,
-            result: null
+            rolls: props.rolls,
+            result: []
         };
 
         this.roll = this._roll.bind(this);
         this.updateDice = this._updateDice.bind(this);
+        this.updateRolls = this._updateRolls.bind(this);
         this.updatePips = this._updatePips.bind(this);
     }
 
@@ -54,89 +57,57 @@ class DieRollerScreen extends Component {
    		RNShake.removeEventListener('shake');
    	}
 
-    handleViewRef = ref => this.view = ref;
-
-    criticalSuccessAnimation() {
-        this.view.shake(2000).then(endState => {});
-    }
-
-    criticalFailureAnimation() {
-        this.view.bounce(2000).then(endState => {});
-    }
-
 	_roll() {
-        result = dieRoller.roll(this.props.dice);
+        let newState = {...this.state};
+        newState.result = [];
 
-        statistics.add(result).then(() => {
-            let newState = {...this.state};
-            newState.result = result;
+        for (let i = 0; i < this.props.rolls; i++) {
+            newState.result.push(dieRoller.roll(this.props.dice));
+        }
 
-            this.setState(newState, () => {
-                if (this.state.result.status === STATE_CRITICAL_SUCCESS) {
-                    this.criticalSuccessAnimation();
-                } else if (this.state.result.status === STATE_CRITICAL_FAILURE) {
-                    this.criticalFailureAnimation();
-                }
-            });
-        });
+        this.setState(newState);
 	}
 
     _updateDice(value) {
-        this.props.updateRoller(value, this.props.pips);
+        this.props.updateMassRoller(this.props.rolls, value, this.props.pips);
+    }
+
+    _updateRolls(value) {
+        this.props.updateMassRoller(value, this.props.dice, this.props.pips);
     }
 
     _updatePips(value) {
-        this.props.updateRoller(this.props.dice, value);
+        this.props.updateMassRoller(this.props.rolls, this.props.dice, value);
     }
 
-    _getTotal() {
-        return this.props.isLegend ? this._getTotalSuccesses() : this._getClassicTotal();
+    _getTotal(result) {
+        return this.props.isLegend ? this._getTotalSuccesses(result) : this._getClassicTotal(result);
     }
 
-    _getClassicTotal() {
-        return dieRoller.getClassicTotal(this.state.result, this.props.pips);
+    _getClassicTotal(result) {
+        return dieRoller.getClassicTotal(result, this.props.pips);
     }
 
-    _getTotalSuccesses() {
-        return dieRoller.getTotalSuccesses(this.state.result);
+    _getTotalSuccesses(result) {
+        return dieRoller.getTotalSuccesses(result);
     }
 
-    _getResultColor() {
+    _getResultColor(result) {
         let color = '#4f4e4e';
 
-        if (this.state.result.status === STATE_CRITICAL_SUCCESS) {
+        if (result.status === STATE_CRITICAL_SUCCESS) {
             color = '#61B33E';
-        } else if (this.state.result.status === STATE_CRITICAL_FAILURE) {
+        } else if (result.status === STATE_CRITICAL_FAILURE) {
             color = '#B5374F';
         }
 
         return color;
     }
 
-    _renderCriticalInfo() {
-        if (this.state.result.status === STATE_CRITICAL_SUCCESS) {
-            return (
-                <Text style={styles.grey}>
-                    <Text style={styles.boldGrey}>Bonus Roll(s): </Text>{this.state.result.bonusRolls.join(', ')}
-                </Text>
-            );
-        }
-
-        if (this.state.result.status === STATE_CRITICAL_FAILURE) {
-            return (
-                <Text style={styles.grey}>
-                    <Text style={styles.boldGrey}>Penalty Die: </Text>{this.state.result.dice > 1 ? this.state.result.penaltyRoll : ''}
-                </Text>
-            );
-        }
-
-        return <Text />;
-    }
-
     _renderRollButtonLabel() {
         let label = 'Roll'
 
-        if (this.state.result === null) {
+        if (this.state.result.length === 0) {
             return label;
         }
 
@@ -150,18 +121,19 @@ class DieRollerScreen extends Component {
 
         return (
             <View>
-                <Animatable.View ref={this.handleViewRef}>
-                    <Text style={[styles.grey, localStyles.rollResult, {color: this._getResultColor()}]}>
-                        {this._getTotal()}
-                    </Text>
-                </Animatable.View>
-                <Text style={styles.grey}>
-                    <Text style={styles.boldGrey}>Rolls: </Text>{this.state.result.dice > 1 ? this.state.result.rolls.join(', ') : ''}
+                <Text>
+                {this.state.result.map((result, index) => {
+                    return (
+                        <Text
+                            key={'roll-' + index}
+                            style={[styles.grey, localStyles.rollResult, {color: this._getResultColor(result)}]}
+                        >
+                            {this._getTotal(result)}
+                            {(index + 1 === this.state.result.length) ? '' : ', '}
+                        </Text>
+                    );
+                })}
                 </Text>
-                <Text style={styles.grey}>
-                    <Text style={styles.boldGrey}>Wild Die: </Text>{this.state.result.wildDieRoll}
-                </Text>
-                {this._renderCriticalInfo()}
             </View>
         );
     }
@@ -196,7 +168,7 @@ class DieRollerScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Heading text='Roller' />
+                <Heading text='Mass Roller' />
                 <View style={styles.contentPadded}>
                     {this._renderResult()}
                     <View>
@@ -211,6 +183,17 @@ class DieRollerScreen extends Component {
                         />
                     </View>
                     {this._renderPipsPicker()}
+                    <View>
+                        <Slider
+                            label='Rolls:'
+                            value={parseInt(this.props.rolls, 10)}
+                            step={1}
+                            min={1}
+                            max={20}
+                            onValueChange={this.updateRolls}
+                            disabled={false}
+                        />
+                    </View>
                     <View style={styles.titleContainer}>
                         <Text style={styles.grey}>Use D6 Legend rules?</Text>
                         <View style={{paddingRight: 10}}>
@@ -233,21 +216,22 @@ class DieRollerScreen extends Component {
 
 const localStyles = StyleSheet.create({
 	rollResult: {
-		fontSize: 90,
+		fontSize: 70,
 		fontWeight: 'bold'
 	}
 })
 
 const mapStateToProps = state => {
     return {
-        dice: state.roller.dice,
-        pips: state.roller.pips,
+        dice: state.massRoller.dice,
+        rolls: state.massRoller.rolls,
+        pips: state.massRoller.pips,
         isLegend: state.settings.isLegend
     };
 }
 
 const mapDispatchToProps = {
-    updateRoller,
+    updateMassRoller,
     setSetting
 }
 

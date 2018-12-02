@@ -62,6 +62,11 @@ class HomeScreen extends Component {
                     <LogoButton label='Upload' onPress={() => this.onTemplateUploadPress()} />
                     <LogoButton label='Delete' onPress={() => this.onPress('TemplateDelete')} />
                 </View>
+                <Heading text='GM Tools' />
+                <Text style={[styles.grey, {alignSelf: 'center'}]}>Tools to help GMs manage their games.</Text>
+                <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
+                    <LogoButton label='Mass Roller' onPress={() => this.onPress('MassRoller')} />
+                </View>
                 <View style={{paddingBottom: 20}} />
             </Content>
 	      </Container>

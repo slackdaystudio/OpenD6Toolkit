@@ -15,6 +15,37 @@ class DieRoller {
         return this._roll(this._newResult(dice));
     }
 
+    getClassicTotal(result, pips) {
+        let total = result.dice > 1 ? result.rolls.reduce((a, b) => a + b, 0) : 0;
+        total += result.wildDieRoll
+
+        if (result.status === STATE_CRITICAL_SUCCESS) {
+            total += result.bonusRolls.reduce((a, b) => a + b, 0);
+        }
+
+        return total + pips;
+    }
+
+    getTotalSuccesses(result) {
+        let totalSuccesses = result.wildDieRoll > LEGEND_SUCCESS_THRESHOLD ? 1 : 0;
+
+        for (let roll of result.rolls) {
+            if (roll > LEGEND_SUCCESS_THRESHOLD) {
+                totalSuccesses++;
+            }
+        }
+
+        if (result.status === STATE_CRITICAL_SUCCESS) {
+            for (let bonusRoll of result.bonusRolls) {
+                if (bonusRoll >= LEGEND_SUCCESS_THRESHOLD) {
+                    totalSuccesses++;
+                }
+            }
+        }
+
+        return totalSuccesses;
+    }
+
     _roll(result) {
         let totalNormalRolls = result.dice - 1;
         result.wildDieRoll = this._rollDie();

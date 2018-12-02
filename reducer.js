@@ -5,11 +5,12 @@ import {
     TEMPLATE_FANTASY,
     character
 } from './src/lib/Character';
-//var uuid = require('react-native-uuid');
 import uuid from 'react-native-uuid';
 import { common } from './src/lib/Common';
 
 export const UPDATE_ROLLER = 'UPDATE_ROLLER';
+
+export const UPDATE_MASS_ROLLER = 'UPDATE_MASS_ROLLER';
 
 export const SET_TEMPLATE = 'SET_TEMPLATE';
 
@@ -45,6 +46,17 @@ export function updateRoller(dice, pips) {
     return {
         type: UPDATE_ROLLER,
         payload: {
+            dice: dice,
+            pips: pips
+        }
+    };
+}
+
+export function updateMassRoller(rolls, dice, pips) {
+    return {
+        type: UPDATE_MASS_ROLLER,
+        payload: {
+            rolls: rolls,
             dice: dice,
             pips: pips
         }
@@ -182,6 +194,11 @@ initialState = {
         dice: 1,
         pips: 0
     },
+    massRoller: {
+        rolls: 1,
+        dice: 1,
+        pips: 0
+    },
     builder: {
         character: null
     },
@@ -200,6 +217,13 @@ export default function reducer(state = initialState, action) {
             newState = {...state};
             newState.roller.dice = parseInt(action.payload.dice, 10);
             newState.roller.pips = parseInt(action.payload.pips, 10);
+
+            return newState;
+        case UPDATE_MASS_ROLLER:
+            newState = {...state};
+            newState.massRoller.rolls = parseInt(action.payload.rolls, 10);
+            newState.massRoller.dice = parseInt(action.payload.dice, 10);
+            newState.massRoller.pips = parseInt(action.payload.pips, 10);
 
             return newState;
         case SET_TEMPLATE:

@@ -21,7 +21,7 @@ export default class LogoButton extends Component {
             )
         }
 
-        return null;
+        return <View style={{flex: 1}} />;
     }
 
 	render() {
