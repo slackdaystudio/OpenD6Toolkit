@@ -62,7 +62,7 @@ export default class Row extends Component {
                 styles.row,
                 this._style,
             ]}>
-                <Text style={styles.text}>{this.props.data.label}</Text>
+                <Text style={styles.text}>{this.props.data.roll} - {this.props.data.label}</Text>
             </Animated.View>
         );
     }

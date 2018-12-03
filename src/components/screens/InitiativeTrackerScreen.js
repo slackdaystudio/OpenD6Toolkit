@@ -28,6 +28,7 @@ class InitiativeTrackerScreen extends Component {
             initDialog: {
                 visible: false,
                 uuid: null,
+                roll: 0,
                 label: '',
                 errorMessage: null
             },
@@ -47,6 +48,7 @@ class InitiativeTrackerScreen extends Component {
         newState.initDialog.visible = true;
         newState.initDialog.uuid = null;
         newState.initDialog.label = '';
+        newState.initDialog.roll = 0;
 
         this.setState(newState);
     }
@@ -58,14 +60,15 @@ class InitiativeTrackerScreen extends Component {
         this.setState(newState);
     }
 
-    _save(uuid, label) {
+    _save(uuid, label, roll) {
         let newState = {...this.state};
 
-        this.props.editInitiative(uuid, label);
+        this.props.editInitiative(uuid, label, roll);
 
         newState.initDialog.visible = false;
         newState.initDialog.uuid = uuid;
         newState.initDialog.label = label;
+        newState.initDialog.roll = parseInt(roll, 10);
 
         this.setState(newState);
     }
@@ -95,6 +98,7 @@ class InitiativeTrackerScreen extends Component {
             if (i === parseInt(key, 10)) {
                 newState.initDialog.uuid = this.props.initiativeEntries[i.toString()].uuid;
                 newState.initDialog.label = this.props.initiativeEntries[i.toString()].label;
+                newState.initDialog.roll = parseInt(this.props.initiativeEntries[i.toString()].roll, 10);
                 break;
             }
         }
@@ -144,6 +148,7 @@ class InitiativeTrackerScreen extends Component {
                     visible={this.state.initDialog.visible}
                     uuid={this.state.initDialog.uuid}
                     label={this.state.initDialog.label}
+                    roll={this.state.initDialog.roll}
                     onClose={this.close}
                     onSave={this.save}
                     onRemove={this.remove}

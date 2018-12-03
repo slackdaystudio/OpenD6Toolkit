@@ -13,6 +13,7 @@ export default class InitiativeDialog extends Component {
         visible: PropTypes.bool.isRequired,
         uuid: PropTypes.string,
         label: PropTypes.string,
+        roll: PropTypes.number,
         onClose: PropTypes.func,
         onSave: PropTypes.func,
         onRemove: PropTypes.func
@@ -22,10 +23,12 @@ export default class InitiativeDialog extends Component {
         super(props);
 
         this.state = {
+            roll: 0,
             label: '',
             errorMessage: null,
         }
 
+        this.onUpdateRoll = this._onUpdateRoll.bind(this);
         this.onUpdateLabel = this._onUpdateLabel.bind(this);
         this.onSave = this._save.bind(this);
     }
@@ -33,7 +36,8 @@ export default class InitiativeDialog extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.label !== null && prevProps.label !== this.props.label) {
             this.setState({
-                label: this.props.label
+                label: this.props.label,
+                roll: this.props.roll
             });
         }
     }
@@ -41,6 +45,13 @@ export default class InitiativeDialog extends Component {
     _onUpdateLabel(value) {
         let newState = {...this.state};
         newState.label = value;
+
+        this.setState(newState);
+    }
+
+    _onUpdateRoll(value) {
+        let newState = {...this.state};
+        newState.roll = value;
 
         this.setState(newState);
     }
@@ -56,7 +67,7 @@ export default class InitiativeDialog extends Component {
             return;
         }
 
-        this.props.onSave(this.props.uuid, this.state.label);
+        this.props.onSave(this.props.uuid, this.state.label, this.state.roll);
     }
 
     _renderDeleteButton() {
@@ -79,16 +90,30 @@ export default class InitiativeDialog extends Component {
                     <Heading text={'Edit Initiative'} />
                     <View style={styles.modalContent}>
                         <ErrorMessage errorMessage={this.state.errorMessage} />
-                        <View style={{paddingBottom: 20}}>
-                            <Item stackedLabel>
-                                <Label>Name</Label>
-                                <Input
-                                    style={styles.grey}
-                                    maxLength={30}
-                                    value={this.state.label}
-                                    onChangeText={(value) => this.onUpdateLabel(value)}
-                                />
-                            </Item>
+                        <View style={[styles.titleContainer, {paddingBottom: 20}]}>
+                            <View>
+                                <Item stackedLabel style={{width: 50}}>
+                                    <Label>Roll</Label>
+                                    <Input
+                                        style={styles.grey}
+                                        keyboardType='numeric'
+                                        maxLength={4}
+                                        value={this.state.roll.toString()}
+                                        onChangeText={(value) => this.onUpdateRoll(value)}
+                                    />
+                                </Item>
+                            </View>
+                            <View>
+                                <Item stackedLabel style={{width: 250}}>
+                                    <Label>Name</Label>
+                                    <Input
+                                        style={styles.grey}
+                                        maxLength={30}
+                                        value={this.state.label}
+                                        onChangeText={(value) => this.onUpdateLabel(value)}
+                                    />
+                                </Item>
+                            </View>
                         </View>
                         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
                             <LogoButton label='Save' onPress={() => this.onSave(this.state.label)} maxWidth={130} />

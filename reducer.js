@@ -195,12 +195,13 @@ export function loadCharacter(character) {
     }
 }
 
-export function editInitiative(uuid, label) {
+export function editInitiative(uuid, label, roll) {
     return {
         type: EDIT_INITIATIVE,
         payload: {
             uuid: uuid,
-            label: label
+            label: label,
+            roll: roll
         }
     }
 }
@@ -547,7 +548,8 @@ export default function reducer(state = initialState, action) {
                     newState.initiativeEntries = {
                         0: {
                             uuid: uuid.v4(),
-                            label: action.payload.label
+                            label: action.payload.label,
+                            roll: parseInt(action.payload.roll, 10)
                         }
                     }
                 } else {
@@ -555,13 +557,15 @@ export default function reducer(state = initialState, action) {
 
                     newState.initiativeEntries[position] = {
                         uuid: uuid.v4(),
-                        label: action.payload.label
+                        label: action.payload.label,
+                        roll: parseInt(action.payload.roll, 10)
                     };
                 }
             } else {
                 for (let i = 0; i < Object.keys(newState.initiativeEntries).length; i++) {
                     if (newState.initiativeEntries[i].uuid === action.payload.uuid) {
                         newState.initiativeEntries[i].label = action.payload.label;
+                        newState.initiativeEntries[i].roll = action.payload.roll;
                         break;
                     }
                 }
