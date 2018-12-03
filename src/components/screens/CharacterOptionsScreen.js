@@ -125,8 +125,8 @@ class CharacterOptionsScreen extends Component {
                             onPress={() => this._toggleDescriptionShow(option.name, option.rank)}
                             onLongPress={() => this._addOption(option)}
                         >
-                            <View style={{borderWidth: 1, borderColor: '#d1d1d1'}}>
-                                <CardItem style={{backgroundColor: '#f9f9f9'}}>
+                            <View style={{borderWidth: 1, borderColor: '#B78A67'}}>
+                                <CardItem style={{backgroundColor: '#FFF8F2'}}>
                                     <Body>
                                         <Text style={styles.grey}>
                                             <Text style={[styles.boldGrey, {fontSize: 20, lineHeight: 22}]}>{option.name}, R{option.rank + '\n'}</Text>
