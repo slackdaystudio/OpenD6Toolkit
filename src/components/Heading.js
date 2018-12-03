@@ -48,7 +48,7 @@ export default class Heading extends Component {
 	render() {
 	    if (typeof this.props.onAddButtonPress === 'function' || typeof this.props.onBackButtonPress === 'function') {
 	        return (
-                <View style={[styles.rowStart, {backgroundColor: '#fde5d2'}]}>
+                <View style={[styles.rowStart, {backgroundColor: '#fde5d2', maxHeight: 53}]}>
                     {this._renderBackButton()}
                     <View style={{flex: 4, justifyContent: 'center', alignItems: 'center'}}>
                         <Text style={styles.heading}>{this.props.text}</Text>
@@ -59,7 +59,7 @@ export default class Heading extends Component {
 	    }
 
 		return (
-            <View style={{flex: 1, backgroundColor: '#fde5d2'}}>
+            <View style={{flex: 1, backgroundColor: '#fde5d2', maxHeight: 53}}>
                 <Text style={styles.heading}>{this.props.text}</Text>
             </View>
 		);

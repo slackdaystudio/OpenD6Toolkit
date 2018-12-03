@@ -67,6 +67,9 @@ class HomeScreen extends Component {
                 <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
                     <LogoButton label='Mass Roller' onPress={() => this.onPress('MassRoller')} />
                 </View>
+                <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
+                    <LogoButton label='Initiative' onPress={() => this.onPress('InitiativeTracker')} />
+                </View>
                 <View style={{paddingBottom: 20}} />
             </Content>
 	      </Container>

@@ -5,10 +5,10 @@ export default StyleSheet.create({
 	container: {
 		backgroundColor: '#ffffff',
 		...ifIphoneX({
-            		paddingTop: 50
-        	}, {
-            		paddingTop: (Platform.OS === 'ios' ? 20 : 0)
-        	})	
+            paddingTop: 50
+        }, {
+            paddingTop: (Platform.OS === 'ios' ? 20 : 0)
+        })
 	},
 	content: {
 		paddingTop: 0,

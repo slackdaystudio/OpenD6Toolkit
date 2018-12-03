@@ -14,6 +14,7 @@ import LoadCharacterScreen from './src/components/screens/LoadCharacterScreen';
 import CharacterOptionsScreen from './src/components/screens/CharacterOptionsScreen';
 import TemplateDeleteScreen from './src/components/screens/TemplateDeleteScreen';
 import MassRollerScreen from './src/components/screens/MassRollerScreen';
+import InitiativeTrackerScreen from './src/components/screens/InitiativeTrackerScreen';
 import StatisticsScreen from './src/components/screens/StatisticsScreen';
 import OglScreen from './src/components/screens/OglScreen';
 import Sidebar from './src/components/Sidebar';
@@ -48,6 +49,9 @@ const RootStack = DrawerNavigator(
         },
         MassRoller: {
             screen: MassRollerScreen,
+        },
+        InitiativeTracker: {
+            screen: InitiativeTrackerScreen,
         },
         Statistics: {
             screen: StatisticsScreen,
