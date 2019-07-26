@@ -15,7 +15,7 @@ const DEFAULT_TEMPLATE_DIR = RNFetchBlob.fs.dirs.DocumentDir + '/templates/';
 class File {
     async loadGameTemplate(startLoad, endLoad) {
         try {
-            const res = await DocumentPicker.pick({
+            const result = await DocumentPicker.pick({
                 type: [DocumentPicker.types.allFiles],
             });
 
@@ -37,7 +37,7 @@ class File {
 
                 return;
             }
-        } catch (err) {
+        } catch (error) {
             const isCancel = await DocumentPicker.isCancel(error);
 
             if (!isCancel) {
