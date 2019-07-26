@@ -56,7 +56,7 @@ class File {
 
             for (let file of files) {
                 templatePath = await this._getTemplatePath(file, false);
-                template = await RNFetchBlob.fs.readFile(templatePath, 'utf8')
+                template = await this._readFile(templatePath)
 
                 templates.push(template);
             }
@@ -93,7 +93,7 @@ class File {
 
         try {
             let path = await this._getCharacterPath(characterName, false);
-            character = await RNFetchBlob.fs.readFile(path, 'utf8');
+            character = await this._readFile(path);
 
             Toast.show({
                 text: 'Character successfully loaded',
@@ -232,7 +232,7 @@ class File {
         startLoad();
 
         try {
-            let data = await RNFetchBlob.fs.readFile(uri, 'utf8');
+            let data = await this._readFile(uri);
             let template = JSON.parse(data);
             let path = await this._getTemplatePath(template.name);
 
@@ -251,6 +251,18 @@ class File {
         } finally {
             endLoad();
         }
+    }
+
+    async _readFile(uri) {
+        let filePath = uri.startsWith('file://') ? uri.substring(7) : uri; ;
+
+        if (Platform.OS === 'ios' && !common.isIPad() && /\/org\.diceless\.OpenD6Toolkit\-Inbox/.test(filePath) === false) {
+            let arr = uri.split('/');
+            const dirs = RNFetchBlob.fs.dirs;
+            filePath = `${dirs.DocumentDir}/${arr[arr.length - 1]}`;
+        }
+
+        return await RNFetchBlob.fs.readFile(filePath, 'utf8')
     }
 }
 
