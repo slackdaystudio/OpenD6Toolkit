@@ -45,13 +45,13 @@ class DieRollerScreen extends Component {
     }
 
     componentWillMount() {
-        RNShake.addEventListener('shake', () => {
+        RNShake.addEventListener('ShakeEvent', () => {
             this.roll();
         });
     }
 
  	componentWillUnmount() {
-   		RNShake.removeEventListener('shake');
+   		RNShake.removeEventListener('ShakeEvent');
    	}
 
     handleViewRef = ref => this.view = ref;
