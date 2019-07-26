@@ -6,7 +6,7 @@
  */
 
 #import <UIKit/UIKit.h>
-
+#import <React/RCTBridgeDelegate.h>
 #import "AppDelegate.h"
 
 int main(int argc, char * argv[]) {
