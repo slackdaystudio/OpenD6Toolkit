@@ -1,6 +1,6 @@
 import { Platform, PermissionsAndroid, AsyncStorage, Alert } from 'react-native';
 import { Toast } from 'native-base';
-import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
+import DocumentPicker from 'react-native-document-picker';
 import RNFetchBlob from 'rn-fetch-blob'
 import { common } from './Common';
 
@@ -13,36 +13,36 @@ const DEFAULT_CHARACTER_DIR = RNFetchBlob.fs.dirs.DocumentDir + '/characters/';
 const DEFAULT_TEMPLATE_DIR = RNFetchBlob.fs.dirs.DocumentDir + '/templates/';
 
 class File {
-    loadGameTemplate(startLoad, endLoad) {
-        if (common.isIPad()) {
-            DocumentPicker.show({
-                top: 0,
-                left: 0,
-                filetype: ['public.data']
-            }, (error, uri) => {
-                this._saveTemplate(uri.uri, startLoad, endLoad);
+    async loadGameTemplate(startLoad, endLoad) {
+        try {
+            const res = await DocumentPicker.pick({
+                type: [DocumentPicker.types.allFiles],
             });
-        } else {
-            DocumentPicker.show({filetype: [DocumentPickerUtil.allFiles()]},(error, result) => {
-                if (result === null) {
-                    return;
-                }
 
-		        if ((Platform.OS === 'ios' && result.fileName.endsWith('.json')) || result.type === 'application/json') {
-                    this._saveTemplate(result.uri, startLoad, endLoad);
-                } else {
-                    Toast.show({
-                        text: 'Unsupported file type: ' + result.type,
-                        position: 'bottom',
-                        buttonText: 'OK',
-                        textStyle: {color: '#fde5d2'},
-                        buttonTextStyle: { color: '#f57e20' },
-                        duration: 3000
-                    });
+            if (result === null) {
+                return;
+            }
 
-                    return;
-                }
-            });
+            if (result.name.toLowerCase().endsWith('.json')) {
+                this._saveTemplate(result.uri, startLoad, endLoad);
+            } else {
+                Toast.show({
+                    text: 'Unsupported file type: ' + result.type,
+                    position: 'bottom',
+                    buttonText: 'OK',
+                    textStyle: {color: '#fde5d2'},
+                    buttonTextStyle: { color: '#f57e20' },
+                    duration: 3000
+                });
+
+                return;
+            }
+        } catch (err) {
+            const isCancel = await DocumentPicker.isCancel(error);
+
+            if (!isCancel) {
+                Alert.alert(error.message);
+            }
         }
     }
 
