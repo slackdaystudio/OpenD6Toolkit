@@ -115,6 +115,7 @@ class BuilderScreen extends Component {
                         character={this.props.character}
                         updateCharacterDieCode={this.props.updateCharacterDieCode}
                         updateRoller={this.props.updateRoller}
+                        updateMove={this.props.updateAppearance}
                     />
                     <Specializations
                         navigation={this.props.navigation}

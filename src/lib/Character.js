@@ -58,6 +58,12 @@ class Character {
             species: '',
             hairColor: '',
             eyeColor: '',
+            background: '',
+            appearance: '',
+            equipment: '',
+            characterPoints: template.characterPoints,
+            fatePoints: template.fatePoints,
+            move: template.move,
             attributes: this._initAttributes(template.attributes, template.attributeMin),
             specializations: [],
             advantages: {

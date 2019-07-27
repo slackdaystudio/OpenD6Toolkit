@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, TouchableHighlight } from 'react-native';
-import { Container, Content, Text, List, ListItem, Left, Right, Body, Button, Icon } from 'native-base';
+import { Container, Content, Text, List, ListItem, Left, Right, Body, Button, Icon, Input } from 'native-base';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import styles from '../../Styles';
 import Heading from '../Heading';
@@ -14,7 +14,8 @@ export default class AttributesAndSkills extends Component {
         navigation: PropTypes.object.isRequired,
         character: PropTypes.object.isRequired,
         updateCharacterDieCode: PropTypes.func.isRequired,
-        updateRoller: PropTypes.func.isRequired
+        updateRoller: PropTypes.func.isRequired,
+        updateMove: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -38,6 +39,7 @@ export default class AttributesAndSkills extends Component {
         this.saveDieCode = this._saveDieCode.bind(this);
         this.updateDice = this._updateDice.bind(this);
         this.updateModifierDice = this._updateModifierDice.bind(this);
+        this.updateMove = this._updateMove.bind(this);
         this.updatePips = this._updatePips.bind(this);
         this.updateModifierPips = this._updateModifierPips.bind(this);
         this.closeInfoDialog = this._closeInfoDialog.bind(this);
@@ -235,6 +237,24 @@ export default class AttributesAndSkills extends Component {
         });
     }
 
+    _updateMove(value) {
+        let move = '';
+
+        if (value === '' || value === '-') {
+            move = value;
+        } else {
+            move = parseInt(value, 10) || 1;
+
+            if (move > 9999) {
+                move = 9999;
+            } else if (move < 0) {
+                move = 0;
+            }
+        }
+
+        this.props.updateMove('move', move);
+    }
+
     _renderSkills(attribute, attributeDieCode) {
         return (
             <View>
@@ -288,6 +308,31 @@ export default class AttributesAndSkills extends Component {
                 })}
             </View>
         );
+    }
+
+    _renderMove() {
+        move = this.props.character.move === undefined ? 10 : this.props.character.move;
+
+        return (
+            <ListItem noIndent>
+                <Left>
+                    <View style={[localStyles.standaloneRowFront, {paddingRight: 150, paddingTop: 10, paddingBottom: 10}]}>
+                        <Text style={[styles.grey, styles.big]}>
+                            Move
+                        </Text>
+                    </View>
+                </Left>
+                <Right>
+                    <Input
+                        style={styles.grey}
+                        keyboardType='numeric'
+                        maxLength={4}
+                        value={move.toString()}
+                        onChangeText={(value) => this._updateMove(value)}
+                    />
+                </Right>
+            </ListItem>
+        )
     }
 
     _renderAttributes() {
@@ -345,6 +390,7 @@ export default class AttributesAndSkills extends Component {
                     </View>
                 )
             })}
+            {this._renderMove()}
             </List>
         );
     }
