@@ -1,7 +1,8 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, TouchableHighlight } from 'react-native';
-import { Container, Content, Text, List, ListItem, Left, Right, Body } from 'native-base';
+import { Container, Content, Text, List, ListItem, Left, Right, Body, Button, Icon } from 'native-base';
+import { SwipeRow } from 'react-native-swipe-list-view';
 import styles from '../../Styles';
 import Heading from '../Heading';
 import AttributeDialog from '../AttributeDialog';
@@ -20,6 +21,7 @@ export default class AttributesAndSkills extends Component {
         super(props);
 
         this.state = {
+            attributes: props.character.template.attributes,
             attributeDialog: {
                 visible: false
             },
@@ -243,18 +245,32 @@ export default class AttributesAndSkills extends Component {
                         return (
                             <List key={'skill-' + index} style={{paddingLeft: 0}}>
                                 <ListItem>
-                                    <Body>
-                                        <TouchableHighlight underlayColor='#ffffff' onLongPress={() => this._showAttributeInfo(skill.name)}>
-                                            <View style={{paddingRight: 100, paddingTop: 10, paddingBottom: 10}}>
-                                                <Text style={[styles.grey, {lineHeight: 30}]}>{'\t' + skill.name}</Text>
+                                    <Body style={{width: 30}}>
+                                        <SwipeRow leftOpenValue={75} disableLeftSwipe={true}>
+                                            <View style={localStyles.standaloneRowBack}>
+                                                <Icon
+                                                    type='FontAwesome'
+                                                    name='info-circle'
+                                                    style={[styles.grey, {fontSize: 30, color: '#f57e20', width: 30}]}
+                                                    onPress={() => this._showAttributeInfo(skill.name)}
+                                                />
+                                                <View style={{paddingRight: 5}} />
+                                                <Icon
+                                                    type='FontAwesome'
+                                                    name='edit'
+                                                    style={[styles.grey, {fontSize: 30, color: '#f57e20', width: 30}]}
+                                                    onPress={() => this._editDieCode(skill.name, skillDieCode)}
+                                                />
                                             </View>
-                                        </TouchableHighlight>
+                                            <View style={[localStyles.standaloneRowFront, {paddingRight: 100, paddingTop: 10, paddingBottom: 10}]}>
+                                                <Text style={[styles.grey, {lineHeight: 30}]}>{skill.name}</Text>
+                                            </View>
+                                        </SwipeRow>
                                     </Body>
                                     <Right>
                                         <TouchableHighlight
                                             underlayColor='#ffffff'
                                             onPress={() => this._rollSkillDice(attributeDieCode, skillDieCode)}
-                                            onLongPress={() => this._editDieCode(skill.name, skillDieCode)}
                                         >
                                             <View style={{paddingLeft: 20, paddingTop: 10, paddingBottom: 10}}>
                                                 <Text style={[styles.grey, {lineHeight: 30}]}>
@@ -284,23 +300,38 @@ export default class AttributesAndSkills extends Component {
                     <View key={'atr-' + index}>
                         <ListItem noIndent>
                             <Left>
-                                <TouchableHighlight
-                                    underlayColor='#ffffff'
-                                    onPress={() => this._toggleAttributeShow(attribute.name)}
-                                    onLongPress={() => this._showAttributeInfo(attribute.name)}
-                                >
-                                    <View style={{paddingRight: 150, paddingTop: 10, paddingBottom: 10}}>
-                                        <Text style={[styles.grey, styles.big]}>
-                                            {attribute.name}
-                                        </Text>
+                                <SwipeRow leftOpenValue={75} disableLeftSwipe={true}>
+                                    <View style={localStyles.standaloneRowBack}>
+                                        <Icon
+                                            type='FontAwesome'
+                                            name='info-circle'
+                                            style={[styles.grey, {fontSize: 30, color: '#f57e20', width: 30}]}
+                                            onPress={() => this._showAttributeInfo(attribute.name)}
+                                        />
+                                        <View style={{paddingRight: 5}} />
+                                        <Icon
+                                            type='FontAwesome'
+                                            name='edit'
+                                            style={[styles.grey, {fontSize: 30, color: '#f57e20', width: 30}]}
+                                            onPress={() => this._editDieCode(attribute.name, dieCode)}
+                                        />
                                     </View>
-                                </TouchableHighlight>
+                                    <View style={[localStyles.standaloneRowFront, {paddingRight: 150, paddingTop: 10, paddingBottom: 10}]}>
+                                        <TouchableHighlight
+                                            underlayColor='#ffffff'
+                                            onPress={() => this._toggleAttributeShow(attribute.name)}
+                                        >
+                                            <Text style={[styles.grey, styles.big]}>
+                                                {attribute.name}
+                                            </Text>
+                                        </TouchableHighlight>
+                                    </View>
+                                </SwipeRow>
                             </Left>
                             <Right>
                                 <TouchableHighlight
                                     underlayColor='#ffffff'
                                     onPress={() => this._rollDice(dieCode)}
-                                    onLongPress={() => this._editDieCode(attribute.name, dieCode)}
                                 >
                                     <View style={{paddingLeft: 20, paddingTop: 10, paddingBottom: 10}}>
                                         <Text style={[styles.grey, styles.big]}>
@@ -348,3 +379,18 @@ export default class AttributesAndSkills extends Component {
 		);
 	}
 }
+
+const localStyles = StyleSheet.create({
+	standaloneRowFront: {
+		alignItems: 'flex-start',
+		backgroundColor: '#FFF',
+		justifyContent: 'center',
+		height: 70,
+	},
+	standaloneRowBack: {
+		alignItems: 'center',
+		backgroundColor: '#FFF',
+		flex: 1,
+		flexDirection: 'row'
+	}
+});
