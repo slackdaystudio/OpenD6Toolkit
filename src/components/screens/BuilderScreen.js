@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert, BackHandler } from 'react-native';
-import { Container, Content, Button, Text, Picker, Item, Label, Input, List, ListItem, Left, Right, Body, Icon} from 'native-base';
+import { Container, Content, Button, Text, Picker, Item, Label, Input, List, ListItem, Left, Right, Body, Icon, Tab, Tabs, Textarea, Footer, FooterTab } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
@@ -113,114 +113,164 @@ class BuilderScreen extends Component {
 	render() {
 	    let characterPoints = this.props.character.characterPoints == undefined ? 5 : this.props.character.characterPoints;
 	    let fatePoints = this.props.character.fatePoints == undefined ? 2 : this.props.character.fatePoints;
+	    let background = this.props.character.background == undefined ? 2 : this.props.character.background;
+	    let appearance = this.props.character.appearance == undefined ? 2 : this.props.character.appearance;
 
 		return (
 		    <Container style={styles.container}>
-                <Header navigation={this.props.navigation} />
+                <Header navigation={this.props.navigation} hasTabs={true} />
                 <Content style={styles.content}>
-                    <Heading text='Name &amp; Species' />
-                    <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
-                    <View style={styles.titleContainer}>
-                        <View style={{paddingLeft: 30}}>
-                            <Item stackedLabel style={{width: 150}}>
-                                <Label>Character Points</Label>
-                                <Input
-                                    style={styles.grey}
-                                    keyboardType='numeric'
-                                    maxLength={4}
-                                    value={characterPoints.toString()}
-                                    onChangeText={(value) => this._updatePoints('characterPoints', value)}
-                                />
-                            </Item>
-                        </View>
-                        <View style={{paddingRight: 30}}>
-                            <Item stackedLabel style={{width: 150}}>
-                                <Label>Fate Points</Label>
-                                <Input
-                                    style={styles.grey}
-                                    keyboardType='numeric'
-                                    maxLength={4}
-                                    value={fatePoints.toString()}
-                                    onChangeText={(value) => this._updatePoints('fatePoints', value)}
-                                />
-                            </Item>
-                        </View>
-                    </View>
-                    <View style={[styles.contentPadded, {paddingHorizontal: 30}]}>
-                        <View style={styles.titleContainer}>
-                            <Text style={styles.grey}>
-                                <Text style={styles.boldGrey}>Total Points:</Text> {character.getTotalPoints(this.props.character)}
-                            </Text>
-                            <Text style={styles.grey}>
-                                <Text style={styles.boldGrey}>Complications:</Text> {character.getComplicationPoints(this.props.character)}
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={{paddingBottom: 20}} />
-                    <AttributesAndSkills
-                        navigation={this.props.navigation}
-                        character={this.props.character}
-                        updateCharacterDieCode={this.props.updateCharacterDieCode}
-                        updateRoller={this.props.updateRoller}
-                        updateMove={this.props.updateAppearance}
-                    />
-                    <Specializations
-                        navigation={this.props.navigation}
-                        character={this.props.character}
-                        updateRoller={this.props.updateRoller}
-                    />
-                    <Options
-                        title='Advantages'
-                        optionKey={OPTION_ADVANTAGES}
-                        navigation={this.props.navigation}
-                        character={this.props.character}
-                        updateOption={this.props.updateOption}
-                        removeOption={this.props.removeOption}
-                    />
-                    <Options
-                        title='Complications'
-                        optionKey={OPTION_COMPLICATIONS}
-                        navigation={this.props.navigation}
-                        character={this.props.character}
-                        updateOption={this.props.updateOption}
-                        removeOption={this.props.removeOption}
-                    />
-                    <Options
-                        title='Special Abilities'
-                        optionKey={OPTION_SPECIAL_ABILITIES}
-                        navigation={this.props.navigation}
-                        character={this.props.character}
-                        updateOption={this.props.updateOption}
-                        removeOption={this.props.removeOption}
-                    />
-                    <Health
-                        character={this.props.character}
-                        updateHealthSystem={this.props.updateHealthSystem}
-                        updateWounds={this.props.updateWounds}
-                        updateBodyPoints={this.props.updateBodyPoints}
-                    />
-                    <Defenses
-                        character={this.props.character}
-                        updateDefenseSystem={this.props.updateDefenseSystem}
-                        updateStaticDefense={this.props.updateStaticDefense}
-                    />
-                    <View style={{paddingBottom: 20}} />
-                    <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
-                        <LogoButton label='Save' onPress={() => this._save()} />
-                        <LogoButton label='Load' onPress={() => this.props.navigation.navigate('LoadCharacter')} />
-                    </View>
-                    <View style={{paddingBottom: 20}} />
-                    <InfoDialog
-                        visible={this.state.infoDialog.visible}
-                        title={this.state.infoDialog.title}
-                        info={this.state.infoDialog.info}
-                        onClose={this.closeInfoDialog}
-                    />
+                    <Tabs>
+                        <Tab heading='Character' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle}>
+                            <Heading text='Name &amp; Species' />
+                            <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
+                            <View style={styles.titleContainer}>
+                                <View style={{paddingLeft: 30}}>
+                                    <Item stackedLabel style={{width: 150}}>
+                                        <Label>Character Points</Label>
+                                        <Input
+                                            style={styles.grey}
+                                            keyboardType='numeric'
+                                            maxLength={4}
+                                            value={characterPoints.toString()}
+                                            onChangeText={(value) => this._updatePoints('characterPoints', value)}
+                                        />
+                                    </Item>
+                                </View>
+                                <View style={{paddingRight: 30}}>
+                                    <Item stackedLabel style={{width: 150}}>
+                                        <Label>Fate Points</Label>
+                                        <Input
+                                            style={styles.grey}
+                                            keyboardType='numeric'
+                                            maxLength={4}
+                                            value={fatePoints.toString()}
+                                            onChangeText={(value) => this._updatePoints('fatePoints', value)}
+                                        />
+                                    </Item>
+                                </View>
+                            </View>
+                            <View style={[styles.contentPadded, {paddingHorizontal: 30}]}>
+                                <View style={styles.titleContainer}>
+                                    <Text style={styles.grey}>
+                                        <Text style={styles.boldGrey}>Total Points:</Text> {character.getTotalPoints(this.props.character)}
+                                    </Text>
+                                    <Text style={styles.grey}>
+                                        <Text style={styles.boldGrey}>Complications:</Text> {character.getComplicationPoints(this.props.character)}
+                                    </Text>
+                                </View>
+                            </View>
+                            <View style={{paddingBottom: 20}} />
+                            <AttributesAndSkills
+                                navigation={this.props.navigation}
+                                character={this.props.character}
+                                updateCharacterDieCode={this.props.updateCharacterDieCode}
+                                updateRoller={this.props.updateRoller}
+                                updateMove={this.props.updateAppearance}
+                            />
+                            <Specializations
+                                navigation={this.props.navigation}
+                                character={this.props.character}
+                                updateRoller={this.props.updateRoller}
+                            />
+                            <Options
+                                title='Advantages'
+                                optionKey={OPTION_ADVANTAGES}
+                                navigation={this.props.navigation}
+                                character={this.props.character}
+                                updateOption={this.props.updateOption}
+                                removeOption={this.props.removeOption}
+                            />
+                            <Options
+                                title='Complications'
+                                optionKey={OPTION_COMPLICATIONS}
+                                navigation={this.props.navigation}
+                                character={this.props.character}
+                                updateOption={this.props.updateOption}
+                                removeOption={this.props.removeOption}
+                            />
+                            <Options
+                                title='Special Abilities'
+                                optionKey={OPTION_SPECIAL_ABILITIES}
+                                navigation={this.props.navigation}
+                                character={this.props.character}
+                                updateOption={this.props.updateOption}
+                                removeOption={this.props.removeOption}
+                            />
+                            <Health
+                                character={this.props.character}
+                                updateHealthSystem={this.props.updateHealthSystem}
+                                updateWounds={this.props.updateWounds}
+                                updateBodyPoints={this.props.updateBodyPoints}
+                            />
+                            <Defenses
+                                character={this.props.character}
+                                updateDefenseSystem={this.props.updateDefenseSystem}
+                                updateStaticDefense={this.props.updateStaticDefense}
+                            />
+                            <View style={{paddingBottom: 20}} />
+                            <InfoDialog
+                                visible={this.state.infoDialog.visible}
+                                title={this.state.infoDialog.title}
+                                info={this.state.infoDialog.info}
+                                onClose={this.closeInfoDialog}
+                            />
+                        </Tab>
+                        <Tab heading='Background' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle}>
+                            <Heading text='Background' />
+                            <Textarea
+                                rowSpan={10}
+                                bordered
+                                maxLength={5000}
+                                value={background}
+                                onChangeText={(value) => this.props.updateAppearance('background', value)}
+                            />
+                            <View style={{paddingBottom: 20}} />
+                            <Heading text='Appearance' />
+                            <Textarea
+                                rowSpan={10}
+                                bordered
+                                maxLength={5000}
+                                value={appearance}
+                                onChangeText={(value) => this.props.updateAppearance('appearance', value)}
+                            />
+                        </Tab>
+                    </Tabs>
                 </Content>
+                <Footer>
+                    <FooterTab style={{justifyContent: 'center', backgroundColor: '#f57e20'}}>
+                        <View style={styles.buttonContainer}>
+                            <Button
+                                style={styles.button}
+                                onPress={() => this._save()}
+                            >
+                                <Text uppercase={false} style={styles.buttonText}>Save</Text>
+                            </Button>
+                        </View>
+                        <View style={styles.buttonContainer}>
+                            <Button
+                                style={styles.button}
+                                onPress={() => this.props.navigation.navigate('LoadCharacter')}
+                            >
+                                <Text uppercase={false} style={styles.buttonText}>Load</Text>
+                            </Button>
+                        </View>
+                    </FooterTab>
+                </Footer>
 	        </Container>
 		);
 	}
 }
+
+const localStyles = StyleSheet.create({
+	tabHeading: {
+		backgroundColor: '#f57e20'
+	},
+	activeTabStyle: {
+		backgroundColor: '#f57e20',
+		color: '#FFF'
+	}
+});
 
 const mapStateToProps = state => {
     return {
