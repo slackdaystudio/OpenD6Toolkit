@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert, BackHandler } from 'react-native';
-import { Container, Content, Button, Text, Picker, Item, Input, List, ListItem, Left, Right, Body, Icon} from 'native-base';
+import { Container, Content, Button, Text, Picker, Item, Label, Input, List, ListItem, Left, Right, Body, Icon} from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
@@ -92,13 +92,60 @@ class BuilderScreen extends Component {
         }
     }
 
+    _updatePoints(key, value) {
+        let points = '';
+
+        if (value === '' || value === '-') {
+            points = value;
+        } else {
+            points = parseInt(value, 10) || 1;
+
+            if (points > 9999) {
+                points = 9999;
+            } else if (points < 0) {
+                points = 0;
+            }
+        }
+
+        this.props.updateAppearance(key, points);
+    }
+
 	render() {
+	    let characterPoints = this.props.character.characterPoints == undefined ? 5 : this.props.character.characterPoints;
+	    let fatePoints = this.props.character.fatePoints == undefined ? 2 : this.props.character.fatePoints;
+
 		return (
 		    <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
                     <Heading text='Name &amp; Species' />
                     <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
+                    <View style={styles.titleContainer}>
+                        <View style={{paddingLeft: 30}}>
+                            <Item stackedLabel style={{width: 150}}>
+                                <Label>Character Points</Label>
+                                <Input
+                                    style={styles.grey}
+                                    keyboardType='numeric'
+                                    maxLength={4}
+                                    value={characterPoints.toString()}
+                                    onChangeText={(value) => this._updatePoints('characterPoints', value)}
+                                />
+                            </Item>
+                        </View>
+                        <View style={{paddingRight: 30}}>
+                            <Item stackedLabel style={{width: 150}}>
+                                <Label>Fate Points</Label>
+                                <Input
+                                    style={styles.grey}
+                                    keyboardType='numeric'
+                                    maxLength={4}
+                                    value={fatePoints.toString()}
+                                    onChangeText={(value) => this._updatePoints('fatePoints', value)}
+                                />
+                            </Item>
+                        </View>
+                    </View>
                     <View style={[styles.contentPadded, {paddingHorizontal: 30}]}>
                         <View style={styles.titleContainer}>
                             <Text style={styles.grey}>
