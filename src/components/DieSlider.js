@@ -52,7 +52,7 @@ export default class DieSlider extends Component {
     _isInputValid(value) {
         if (value === '' || value === '-') {
             this.setState({textValue: value}, () => {
-                this.onValueChange(0);
+                this.onValueChange(1);
             });
 
             return false;
@@ -108,6 +108,7 @@ export default class DieSlider extends Component {
                                 maxLength={(this._isFraction() ? 5 : 3)}
                                 value={this.state.textValue.toString()}
                                 onChangeText={(value) => this.onTextValueChange(value)}
+                                onFocus={(value) => this.onTextValueChange('')}
                             />
                         </Item>
                     </View>
