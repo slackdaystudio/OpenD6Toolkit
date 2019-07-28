@@ -116,7 +116,9 @@ class BuilderScreen extends Component {
 	    let fatePoints = this.props.character.fatePoints == undefined ? 2 : this.props.character.fatePoints;
 	    let background = this.props.character.background == undefined ? '' : this.props.character.background;
 	    let appearance = this.props.character.appearance == undefined ? '' : this.props.character.appearance;
+	    let currency = this.props.character.currency == undefined ? '' : this.props.character.currency;
 	    let equipment = this.props.character.equipment == undefined ? '' : this.props.character.equipment;
+	    let notes = this.props.character.notes == undefined ? '' : this.props.character.notes;
 
 		return (
 		    <Container style={styles.container}>
@@ -227,6 +229,14 @@ class BuilderScreen extends Component {
                                 value={equipment}
                                 onChangeText={(value) => this.props.updateAppearance('equipment', value)}
                             />
+                            <Heading text='Currency' />
+                            <Textarea
+                                rowSpan={5}
+                                bordered
+                                maxLength={1000}
+                                value={currency}
+                                onChangeText={(value) => this.props.updateAppearance('currency', value)}
+                            />
                         </Tab>
                         <Tab heading='Background' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
                             <Heading text='Background' />
@@ -245,6 +255,16 @@ class BuilderScreen extends Component {
                                 maxLength={5000}
                                 value={appearance}
                                 onChangeText={(value) => this.props.updateAppearance('appearance', value)}
+                            />
+                        </Tab>
+                        <Tab heading='Notes' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
+                            <Heading text='Notes' />
+                            <Textarea
+                                rowSpan={15}
+                                bordered
+                                maxLength={10000}
+                                value={notes}
+                                onChangeText={(value) => this.props.updateAppearance('notes', value)}
                             />
                         </Tab>
                     </Tabs>
