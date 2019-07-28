@@ -20,6 +20,7 @@ class HomeScreen extends Component {
 
         this.onBuilderPress = this._onBuilderPress.bind(this);
         this.onTemplateUploadPress = this._onTemplateUploadPress.bind(this);
+        this.onPress = this._onPress.bind(this);
     }
 
     _onBuilderPress() {
@@ -28,6 +29,10 @@ class HomeScreen extends Component {
         } else {
             this.props.navigation.navigate('Builder');
         }
+    }
+
+    _onPress(location) {
+        this.props.navigation.navigate(location)
     }
 
     _onTemplateUploadPress() {
