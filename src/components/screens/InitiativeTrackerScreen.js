@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StyleSheet, Dimensions, Platform, Alert } from 'react-native';
-import { Container, View, Content, Text, Icon, Fab } from 'native-base';
+import { Container, View, Content, Text, Icon, Fab, Footer, FooterTab, Button } from 'native-base';
 import SortableList from 'react-native-sortable-list';
 import Header from '../Header';
 import Heading from '../Heading';
 import InitiativeRow from '../InitiativeRow';
 import InitiativeDialog from '../InitiativeDialog';
 import styles from '../../Styles';
-import { editInitiative, editInitiativeOrder, removeInitiative } from '../../../reducer';
+import { editInitiative, editInitiativeOrder, removeInitiative, sortInitiative } from '../../../reducer';
 
 const window = Dimensions.get('window');
 
@@ -18,7 +18,8 @@ class InitiativeTrackerScreen extends Component {
         navigation: PropTypes.object.isRequired,
         initiativeEntries: PropTypes.object,
         editInitiative: PropTypes.func.isRequired,
-        removeInitiative: PropTypes.func.isRequired
+        removeInitiative: PropTypes.func.isRequired,
+        sortInitiative: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -109,10 +110,8 @@ class InitiativeTrackerScreen extends Component {
     _renderBody() {
         if (this.props.initiativeEntries === null) {
             return (
-                <View>
-                    <Content style={styles.content}>
-                        <Text style={[styles.grey, {alignSelf: 'center'}]}>Add an character entry to get started.</Text>
-                    </Content>
+                <View style={localStyles.container}>
+                    <Text style={[styles.grey, {alignSelf: 'center'}]}>Add a character entry to get started.</Text>
                 </View>
             );
         }
@@ -153,6 +152,14 @@ class InitiativeTrackerScreen extends Component {
                     onSave={this.save}
                     onRemove={this.remove}
                 />
+                <Footer>
+                    <FooterTab style={{justifyContent: 'center', backgroundColor: '#f57e20'}}>
+                        <Button vertical onPress={() => this.props.sortInitiative()}>
+                            <Icon type='FontAwesome' name='sort-down' style={{color: '#FFF'}} />
+                            <Text uppercase={false} style={{color: '#FFF'}}>Sort</Text>
+                        </Button>
+                    </FooterTab>
+                </Footer>
             </Container>
         );
     }
@@ -195,7 +202,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     editInitiative,
     editInitiativeOrder,
-    removeInitiative
+    removeInitiative,
+    sortInitiative
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InitiativeTrackerScreen);

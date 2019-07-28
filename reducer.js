@@ -48,6 +48,8 @@ export const EDIT_INITIATIVE_ORDER = 'EDIT_INITIATIVE_ORDER';
 
 export const REMOVE_INITIATIVE = 'REMOVE_INITIATIVE';
 
+export const SORT_INITIATIVE = 'SORT_INITIATIVE';
+
 export function updateRoller(dice, pips) {
     return {
         type: UPDATE_ROLLER,
@@ -217,6 +219,13 @@ export function removeInitiative(uuid) {
     return {
         type: REMOVE_INITIATIVE,
         payload: uuid
+    }
+}
+
+export function sortInitiative() {
+    return {
+        type: SORT_INITIATIVE,
+        payload: null
     }
 }
 
@@ -622,6 +631,37 @@ export default function reducer(state = initialState, action) {
 
                 newState.initiativeEntries = newInit;
             }
+
+            return newState;
+        case SORT_INITIATIVE:
+            newState = {
+                ...state,
+                initiativeEntries: {
+                    ...state.initiativeEntries
+                }
+            };
+
+            let initiatives = [];
+
+            for (let key of Object.keys(newState.initiativeEntries)) {
+                initiatives.push(newState.initiativeEntries[key]);
+            }
+
+            initiatives.sort((a, b) => a.roll < b.roll);
+
+            let newInit = {};
+            let i = 0;
+
+            for (let key of initiatives) {
+                newInit[i] = {
+                    uuid: initiatives[i].uuid,
+                    label: initiatives[i].label,
+                    roll: initiatives[i].roll
+                };
+                i++;
+            }
+
+            newState.initiativeEntries = newInit;
 
             return newState;
         default:
