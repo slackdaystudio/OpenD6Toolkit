@@ -115,12 +115,13 @@ class BuilderScreen extends Component {
 	    let fatePoints = this.props.character.fatePoints == undefined ? 2 : this.props.character.fatePoints;
 	    let background = this.props.character.background == undefined ? 2 : this.props.character.background;
 	    let appearance = this.props.character.appearance == undefined ? 2 : this.props.character.appearance;
+	    let equipment = this.props.character.equipment == undefined ? 2 : this.props.character.equipment;
 
 		return (
 		    <Container style={styles.container}>
                 <Header navigation={this.props.navigation} hasTabs={true} />
                 <Content style={styles.content}>
-                    <Tabs>
+                    <Tabs locked={true}>
                         <Tab heading='Character' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle}>
                             <Heading text='Name &amp; Species' />
                             <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
@@ -214,6 +215,16 @@ class BuilderScreen extends Component {
                                 title={this.state.infoDialog.title}
                                 info={this.state.infoDialog.info}
                                 onClose={this.closeInfoDialog}
+                            />
+                        </Tab>
+                        <Tab heading='Equipment' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle}>
+                            <Heading text='Equipment' />
+                            <Textarea
+                                rowSpan={10}
+                                bordered
+                                maxLength={5000}
+                                value={equipment}
+                                onChangeText={(value) => this.props.updateAppearance('equipment', value)}
                             />
                         </Tab>
                         <Tab heading='Background' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle}>
