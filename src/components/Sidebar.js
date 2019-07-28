@@ -42,12 +42,6 @@ class Sidebar extends Component {
                         <ListItem onPress={() => this._onBuilderPress()}>
                             <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Builder</Text>
                         </ListItem>
-                        <ListItem onPress={() => this.props.navigation.navigate('LoadCharacter')}>
-                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Load</Text>
-                        </ListItem>
-                        <ListItem onPress={() => this.props.navigation.navigate('TemplateSelect')}>
-                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>New</Text>
-                        </ListItem>
                         <ListItem itemDivider style={{backgroundColor: '#f57e20'}} />
                         <ListItem onPress={() => this._onTemplateUploadPress()}>
                             <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Upload Template</Text>

@@ -271,22 +271,18 @@ class BuilderScreen extends Component {
                 </Content>
                 <Footer>
                     <FooterTab style={{justifyContent: 'center', backgroundColor: '#f57e20'}}>
-                        <View style={styles.buttonContainer}>
-                            <Button
-                                style={styles.button}
-                                onPress={() => this._save()}
-                            >
-                                <Text uppercase={false} style={styles.buttonText}>Save</Text>
-                            </Button>
-                        </View>
-                        <View style={styles.buttonContainer}>
-                            <Button
-                                style={styles.button}
-                                onPress={() => this.props.navigation.navigate('LoadCharacter')}
-                            >
-                                <Text uppercase={false} style={styles.buttonText}>Load</Text>
-                            </Button>
-                        </View>
+                        <Button vertical onPress={() => this.props.navigation.navigate('TemplateSelect')}>
+                            <Icon type='FontAwesome' name='file' style={{color: '#FFF'}} />
+                            <Text uppercase={false} style={{color: '#FFF'}}>New</Text>
+                        </Button>
+                        <Button vertical onPress={() => this._save()}>
+                            <Icon type='FontAwesome' name='save' style={{color: '#FFF'}} />
+                            <Text uppercase={false} style={{color: '#FFF'}}>Save</Text>
+                        </Button>
+                        <Button vertical onPress={() => this.props.navigation.navigate('LoadCharacter')}>
+                            <Icon type='FontAwesome' name='folder-open' style={{color: '#FFF'}}/>
+                            <Text uppercase={false} style={{color: '#FFF'}}>Open</Text>
+                        </Button>
                     </FooterTab>
                 </Footer>
 	        </Container>

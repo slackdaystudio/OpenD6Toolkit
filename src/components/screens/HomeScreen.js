@@ -20,7 +20,6 @@ class HomeScreen extends Component {
 
         this.onBuilderPress = this._onBuilderPress.bind(this);
         this.onTemplateUploadPress = this._onTemplateUploadPress.bind(this);
-        this.onPress = this._onPress.bind(this);
     }
 
     _onBuilderPress() {
@@ -29,10 +28,6 @@ class HomeScreen extends Component {
         } else {
             this.props.navigation.navigate('Builder');
         }
-    }
-
-    _onPress(location) {
-        this.props.navigation.navigate(location)
     }
 
     _onTemplateUploadPress() {
@@ -53,8 +48,6 @@ class HomeScreen extends Component {
                 <Text style={[styles.grey, {alignSelf: 'center'}]}>Build a character using the OpenD6 game rules.</Text>
                 <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
                     <LogoButton label='Builder' onPress={() => this.onBuilderPress()} />
-                    <LogoButton label='Load' onPress={() => this.onPress('LoadCharacter')} />
-                    <LogoButton label='New' onPress={() => this.onPress('TemplateSelect')} />
                 </View>
                 <Heading text='Templates' />
                 <Text style={[styles.grey, {alignSelf: 'center'}]}>Manage game templates used to build characters.</Text>
