@@ -87,11 +87,11 @@ class File {
     }
 
     async loadCharacter(characterName, startLoad, endLoad) {
-        startLoad();
-
         let character = null;
 
         try {
+	    startLoad();
+
             let path = await this._getCharacterPath(characterName, false);
             character = await this._readFile(path);
 
@@ -229,14 +229,14 @@ class File {
     }
 
     async _saveTemplate(uri, startLoad, endLoad) {
-        startLoad();
-
         try {
+	    startLoad();
+
             let data = await this._readFile(uri);
             let template = JSON.parse(data);
             let path = await this._getTemplatePath(template.name);
 
-            await RNFetchBlob.fs.writeFile(path, data, '', 'utf8');
+            await RNFetchBlob.fs.writeFile(path, data, 'utf8');
 
             Toast.show({
                 text: 'Template saved',
@@ -254,15 +254,15 @@ class File {
     }
 
     async _readFile(uri) {
-        let filePath = uri.startsWith('file://') ? uri.substring(7) : uri; ;
-
-        if (Platform.OS === 'ios' && !common.isIPad() && /\/org\.diceless\.OpenD6Toolkit\-Inbox/.test(filePath) === false) {
-            let arr = uri.split('/');
+	let filePath = uri.startsWith('file://') ? uri.substring(7) : uri;
+        
+	if (Platform.OS === 'ios' && !common.isIPad() && /OpenD6Toolkit\-Inbox/.test(filePath) === false) {
+  	    let arr = uri.split('/');
             const dirs = RNFetchBlob.fs.dirs;
-            filePath = `${dirs.DocumentDir}/${arr[arr.length - 1]}`;
+            filePath = `${dirs.DocumentDir}/${arr[arr.length - 2]}/${arr[arr.length - 1]}`;
         }
 
-        return await RNFetchBlob.fs.readFile(filePath, 'utf8')
+        return await RNFetchBlob.fs.readFile(decodeURI(filePath), 'utf8')
     }
 }
 
