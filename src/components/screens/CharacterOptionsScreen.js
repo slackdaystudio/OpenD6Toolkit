@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, StyleSheet, View, TouchableHighlight, BackHandler, Alert } from 'react-native';
-import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Toast } from 'native-base';
+import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Item, Icon, Input, Label, Toast } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
 import RanksDialog, { MODE_ADD } from '../RanksDialog';
@@ -23,13 +23,18 @@ class CharacterOptionsScreen extends Component {
 
         let optionKey = props.navigation.state.params.optionKey;
         let options = props.character[common.toCamelCase(optionKey)].template.items;
+        let initOptions = this._initOptions(options);
 
         this.state = {
-            options: this._initOptions(options),
+            options: initOptions,
             optionShow: this._initOptionsShow(options),
             optionKey: optionKey,
             selectedOption: null,
-            showRanksDialog: false
+            showRanksDialog: false,
+            search: {
+                term: '',
+                results: initOptions
+            }
         }
 
         this.addOptionToCharacter = this._addOptionToCharacter.bind(this);
@@ -98,6 +103,27 @@ class CharacterOptionsScreen extends Component {
         });
     }
 
+    _search(term) {
+        let newState = {...this.state};
+        let results = [];
+
+        if (term.length >= 2) {
+            for (let option of newState.options) {
+                if (RegExp(term, 'gi').test(option.name) || RegExp(term, 'gi').test(option.description)) {
+                    results.push(option);
+                }
+            }
+
+            newState.search.results = results;
+        } else {
+            newState.search.results = newState.options;
+        }
+
+        newState.search.term = term;
+
+        this.setState(newState);
+    }
+
     _renderDescription(item) {
         let description = item.description;
 
@@ -106,6 +132,20 @@ class CharacterOptionsScreen extends Component {
         }
 
         return description.length > 75 ? description.substring(0, 72) + '...' : description;
+    }
+
+    _renderFilterMessage() {
+        if (this.state.options.length != this.state.search.results.length) {
+            return (
+                <View style={{paddingTop: 20}}>
+                    <Text style={styles.grey}>
+                        Showing {this.state.search.results.length} of {this.state.options.length} {this.state.optionKey}
+                    </Text>
+                </View>
+            );
+        }
+
+        return null;
     }
 
 	render() {
@@ -117,8 +157,18 @@ class CharacterOptionsScreen extends Component {
                     text={this.state.optionKey}
                     onBackButtonPress={() => this.props.navigation.navigate('Builder')}
                 />
+                <Item>
+                    <Icon active name='search' />
+                    <Input
+                        style={styles.grey}
+                        maxLength={255}
+                        value={this.state.search.term}
+                        onChangeText={(value) => this._search(value)}
+                    />
+                </Item>
+                {this._renderFilterMessage()}
                 <View style={{paddingBottom: 20}} />
-                {this.state.options.map((option, index) => {
+                {this.state.search.results.map((option, index) => {
                     return (
                         <TouchableHighlight
                             key={'option-' + index}

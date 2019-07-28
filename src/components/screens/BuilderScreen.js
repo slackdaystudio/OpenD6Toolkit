@@ -111,11 +111,12 @@ class BuilderScreen extends Component {
     }
 
 	render() {
+	    // These properties were added in after the first production release so there needs to be an undefined check
 	    let characterPoints = this.props.character.characterPoints == undefined ? 5 : this.props.character.characterPoints;
 	    let fatePoints = this.props.character.fatePoints == undefined ? 2 : this.props.character.fatePoints;
-	    let background = this.props.character.background == undefined ? 2 : this.props.character.background;
-	    let appearance = this.props.character.appearance == undefined ? 2 : this.props.character.appearance;
-	    let equipment = this.props.character.equipment == undefined ? 2 : this.props.character.equipment;
+	    let background = this.props.character.background == undefined ? '' : this.props.character.background;
+	    let appearance = this.props.character.appearance == undefined ? '' : this.props.character.appearance;
+	    let equipment = this.props.character.equipment == undefined ? '' : this.props.character.equipment;
 
 		return (
 		    <Container style={styles.container}>
