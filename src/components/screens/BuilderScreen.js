@@ -128,6 +128,7 @@ class BuilderScreen extends Component {
                         <Tab heading='Character' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
                             <Heading text='Name &amp; Species' />
                             <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
+                            <Heading text='Points' />
                             <View style={styles.titleContainer}>
                                 <View style={{paddingLeft: 30}}>
                                     <Item stackedLabel style={{width: 150}}>
@@ -157,10 +158,10 @@ class BuilderScreen extends Component {
                             <View style={[styles.contentPadded, {paddingHorizontal: 30}]}>
                                 <View style={styles.titleContainer}>
                                     <Text style={styles.grey}>
-                                        <Text style={styles.boldGrey}>Total Points:</Text> {character.getTotalPoints(this.props.character)}
+                                        <Text style={styles.boldGrey}>Build Points:</Text> {character.getTotalPoints(this.props.character)}
                                     </Text>
                                     <Text style={styles.grey}>
-                                        <Text style={styles.boldGrey}>Complications:</Text> {character.getComplicationPoints(this.props.character)}
+                                        <Text style={styles.boldGrey}>Complication Points:</Text> {character.getComplicationPoints(this.props.character)}
                                     </Text>
                                 </View>
                             </View>
