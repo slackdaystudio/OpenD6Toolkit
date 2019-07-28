@@ -122,8 +122,8 @@ class BuilderScreen extends Component {
 		    <Container style={styles.container}>
                 <Header navigation={this.props.navigation} hasTabs={true} />
                 <Content style={styles.content}>
-                    <Tabs locked={true}>
-                        <Tab heading='Character' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle}>
+                    <Tabs locked={true} tabBarUnderlineStyle={{backgroundColor: '#FFF'}}>
+                        <Tab heading='Character' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
                             <Heading text='Name &amp; Species' />
                             <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
                             <View style={styles.titleContainer}>
@@ -218,7 +218,7 @@ class BuilderScreen extends Component {
                                 onClose={this.closeInfoDialog}
                             />
                         </Tab>
-                        <Tab heading='Equipment' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle}>
+                        <Tab heading='Equipment' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
                             <Heading text='Equipment' />
                             <Textarea
                                 rowSpan={10}
@@ -228,7 +228,7 @@ class BuilderScreen extends Component {
                                 onChangeText={(value) => this.props.updateAppearance('equipment', value)}
                             />
                         </Tab>
-                        <Tab heading='Background' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle}>
+                        <Tab heading='Background' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
                             <Heading text='Background' />
                             <Textarea
                                 rowSpan={10}
