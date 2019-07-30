@@ -1,12 +1,16 @@
 import { Platform, PermissionsAndroid, AsyncStorage, Alert } from 'react-native';
 import { Toast } from 'native-base';
 import DocumentPicker from 'react-native-document-picker';
-import RNFetchBlob from 'rn-fetch-blob'
+import RNFetchBlob from 'rn-fetch-blob';
+import moment from "moment";
+import { zip, unzip } from 'react-native-zip-archive';
 import { common } from './Common';
 
-const ANDROID_CHARACTER_DIR = '/storage/emulated/0/OpenD6Toolkit/characters/'
+const ANDROID_ROOT_DIR = '/storage/emulated/0/OpenD6Toolkit';
 
-const ANDROID_TEMPLATE_DIR = '/storage/emulated/0/OpenD6Toolkit/templates/'
+const ANDROID_CHARACTER_DIR = ANDROID_ROOT_DIR + '/characters/';
+
+const ANDROID_TEMPLATE_DIR = ANDROID_ROOT_DIR + '/templates/';
 
 const DEFAULT_CHARACTER_DIR = RNFetchBlob.fs.dirs.DocumentDir + '/characters/';
 
@@ -156,6 +160,41 @@ class File {
         } catch (error) {
             Alert.alert(error.message);
         }
+    }
+
+    backup() {
+        let now = moment().format('YYYYMMDDhhmmss');
+//        let archive = await zip(`${ANDROID_CHARACTER_DIR}Snirt.json`, `${RNFetchBlob.fs.dirs.DownloadDir}/OpenD6Toolkit_backups_${now}.zip`);
+        Alert.alert(`${RNFetchBlob.fs.dirs.SDCardDir}/OpenD6Toolkit_${now}.zip`);
+        zip(ANDROID_CHARACTER_DIR + 'Snirt.json', `${RNFetchBlob.fs.dirs.SDCardDir}/OpenD6Toolkit_${now}.zip`).then((path) => {
+            Alert.alert(`zip completed at ${path}`)
+        }).catch((error) => {
+            Toast.show({
+                text: JSON.stringify(error),
+                position: 'bottom',
+                buttonText: 'OK',
+                textStyle: {color: '#fde5d2'},
+                buttonTextStyle: { color: '#f57e20' },
+                duration: 3000
+            });
+        });
+//        Alert.alert(`Backed up date to ${archive}`);
+//        RNFetchBlob
+//            .config({
+//                addAndroidDownloads : {
+//                    useDownloadManager : true, // <-- this is the only thing required
+//                    // Optional, override notification setting (default to true)
+//                    notification : false,
+//                    // Optional, but recommended since android DownloadManager will fail when
+//                    // the url does not contains a file extension, by default the mime type will be text/plain
+//                    mime : 'application/zip',
+//                    description : 'OpenD6 Toolkit backups.'
+//                }
+//            })
+//            .fs.readFile('GET', 'http://example.com/file/somefile').then((resp) => {
+//                // the path of downloaded file
+//                resp.path()
+//            });
     }
 
     async _ask_for_write_permission() {

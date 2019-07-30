@@ -50,6 +50,10 @@ class Sidebar extends Component {
                             <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Delete Template</Text>
                         </ListItem>
                         <ListItem itemDivider style={{backgroundColor: '#f57e20'}} />
+                        <ListItem onPress={() => this.props.navigation.navigate('BackupAndRestore')}>
+                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Backup &amp; Restore</Text>
+                        </ListItem>
+                        <ListItem itemDivider style={{backgroundColor: '#f57e20'}} />
                         <ListItem onPress={() => this.props.navigation.navigate('Statistics')}>
                             <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Statistics</Text>
                         </ListItem>

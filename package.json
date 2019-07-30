@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "buffer": "^5.2.1",
+    "moment": "^2.24.0",
     "native-base": "^2.13.4",
     "react": "16.8.6",
     "react-native": "0.60.4",
@@ -29,6 +30,7 @@
     "react-native-svg-charts": "^5.2.0",
     "react-native-swipe-list-view": "^2.0.0",
     "react-native-uuid": "^1.4.9",
+    "react-native-zip-archive": "^4.1.1",
     "react-navigation": "^1.0.3",
     "react-redux": "^5.1.0",
     "redux": "^4.0.1",
