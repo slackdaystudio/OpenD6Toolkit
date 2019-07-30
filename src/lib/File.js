@@ -6,7 +6,7 @@ import moment from "moment";
 import { zip, unzip } from 'react-native-zip-archive';
 import { common } from './Common';
 
-const ANDROID_ROOT_DIR = '/storage/emulated/0/OpenD6Toolkit';
+const ANDROID_ROOT_DIR = RNFetchBlob.fs.dirs.SDCardDir + '/OpenD6Toolkit';
 
 const ANDROID_CHARACTER_DIR = ANDROID_ROOT_DIR + '/characters/';
 
@@ -94,7 +94,7 @@ class File {
         let character = null;
 
         try {
-	    startLoad();
+	        startLoad();
 
             let path = await this._getCharacterPath(characterName, false);
             character = await this._readFile(path);
@@ -162,39 +162,105 @@ class File {
         }
     }
 
-    backup() {
-        let now = moment().format('YYYYMMDDhhmmss');
-//        let archive = await zip(`${ANDROID_CHARACTER_DIR}Snirt.json`, `${RNFetchBlob.fs.dirs.DownloadDir}/OpenD6Toolkit_backups_${now}.zip`);
-        Alert.alert(`${RNFetchBlob.fs.dirs.SDCardDir}/OpenD6Toolkit_${now}.zip`);
-        zip(ANDROID_CHARACTER_DIR + 'Snirt.json', `${RNFetchBlob.fs.dirs.SDCardDir}/OpenD6Toolkit_${now}.zip`).then((path) => {
-            Alert.alert(`zip completed at ${path}`)
-        }).catch((error) => {
-            Toast.show({
-                text: JSON.stringify(error),
-                position: 'bottom',
-                buttonText: 'OK',
-                textStyle: {color: '#fde5d2'},
-                buttonTextStyle: { color: '#f57e20' },
-                duration: 3000
-            });
-        });
-//        Alert.alert(`Backed up date to ${archive}`);
-//        RNFetchBlob
-//            .config({
-//                addAndroidDownloads : {
-//                    useDownloadManager : true, // <-- this is the only thing required
-//                    // Optional, override notification setting (default to true)
-//                    notification : false,
-//                    // Optional, but recommended since android DownloadManager will fail when
-//                    // the url does not contains a file extension, by default the mime type will be text/plain
-//                    mime : 'application/zip',
-//                    description : 'OpenD6 Toolkit backups.'
-//                }
-//            })
-//            .fs.readFile('GET', 'http://example.com/file/somefile').then((resp) => {
-//                // the path of downloaded file
-//                resp.path()
-//            });
+    async backup() {
+        let result = {
+            backupSuccess: false,
+            backupName: null
+        };
+
+        try {
+            const now = moment().format('YYYYMMDDhhmmss');
+            const backupName = `OpenD6Toolkit_${now}.zip`;
+            const appDir = await this._getPath(ANDROID_ROOT_DIR);
+            const archiveDir = Platform.os === 'ios' ? RNFetchBlob.fs.dirs.DocumentDir : RNFetchBlob.fs.dirs.DownloadDir;
+            await zip(appDir, `${archiveDir}/${backupName}`);
+
+            result.backupSuccess = true;
+            result.backupName = backupName;
+        } catch (error) {
+            Alert.alert(error.message);
+        }
+
+        return result;
+    }
+
+    async restore() {
+        let result = {
+            loadSuccess: false,
+            backupName: null
+        };
+        let pickerResults = null;
+
+        try {
+            if (Platform.OS === 'android') {
+                const androidWritePermission = await this._ask_for_write_permission();
+
+                if (androidWritePermission === PermissionsAndroid.RESULTS.GRANTED) {
+                    pickerResults = await DocumentPicker.pick({
+                        type: [DocumentPicker.types.allFiles],
+                    });
+                } else {
+                    return result;
+                }
+            } else {
+                pickerResults = await DocumentPicker.pick({
+                    type: [DocumentPicker.types.allFiles],
+                });
+            }
+
+            if (pickerResults === null) {
+                return result;
+            }
+
+            if (pickerResults.name.toLowerCase().endsWith('.zip')) {
+                await this._restoreCharactersAndTemplates(pickerResults.uri, result);
+            } else {
+                throw 'Unsupported file type: ' + pickerResults.type;
+            }
+        } catch (error) {
+            const isCancel = await DocumentPicker.isCancel(error);
+
+            if (!isCancel) {
+               Toast.show({
+                    text: error.message,
+                    position: 'bottom',
+                    buttonText: 'OK',
+                    textStyle: {color: '#fde5d2'},
+                    buttonTextStyle: { color: '#f57e20' },
+                    duration: 30000
+                });
+            }
+        }
+
+        return result;
+    }
+
+    async _restoreCharactersAndTemplates(uri, result) {
+        const charactersDirExists = await RNFetchBlob.fs.exists(ANDROID_CHARACTER_DIR);
+        const templateDirExists = await RNFetchBlob.fs.exists(ANDROID_TEMPLATE_DIR);
+
+        if (charactersDirExists) {
+            await RNFetchBlob.fs.unlink(ANDROID_CHARACTER_DIR);
+        }
+
+        if (templateDirExists) {
+            await RNFetchBlob.fs.unlink(ANDROID_TEMPLATE_DIR);
+        }
+
+        let fileName = uri;
+
+        if (/raw\:/i.test(decodeURIComponent(uri))) {
+            let parts = decodeURIComponent(uri).split('raw:');
+
+            fileName = parts[1];
+        }
+
+        await unzip(fileName, ANDROID_ROOT_DIR);
+
+        const fileNameParts = decodeURIComponent(uri).split('/');
+
+        result.loadSuccess = true;
+        result.backupName = fileNameParts[fileNameParts.length - 1];
     }
 
     async _ask_for_write_permission() {
@@ -240,8 +306,10 @@ class File {
         if (androidWritePermission === PermissionsAndroid.RESULTS.GRANTED) {
             if (path === DEFAULT_CHARACTER_DIR) {
                 path = ANDROID_CHARACTER_DIR;
-            } else {
+            } else if (path === DEFAULT_TEMPLATE_DIR) {
                 path = ANDROID_TEMPLATE_DIR;
+            } else {
+                path = ANDROID_ROOT_DIR;
             }
         }
 
@@ -293,10 +361,10 @@ class File {
     }
 
     async _readFile(uri) {
-	let filePath = uri.startsWith('file://') ? uri.substring(7) : uri;
-        
-	if (Platform.OS === 'ios' && !common.isIPad() && /OpenD6Toolkit\-Inbox/.test(filePath) === false) {
-  	    let arr = uri.split('/');
+        let filePath = uri.startsWith('file://') ? uri.substring(7) : uri;
+
+        if (Platform.OS === 'ios' && !common.isIPad() && /OpenD6Toolkit\-Inbox/.test(filePath) === false) {
+            let arr = uri.split('/');
             const dirs = RNFetchBlob.fs.dirs;
             filePath = `${dirs.DocumentDir}/${arr[arr.length - 2]}/${arr[arr.length - 1]}`;
         }
