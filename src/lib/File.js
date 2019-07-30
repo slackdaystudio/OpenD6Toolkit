@@ -171,7 +171,7 @@ class File {
         try {
             const now = moment().format('YYYYMMDDhhmmss');
             const backupName = `OpenD6Toolkit_${now}.zip`;
-            const appDir = await this._getPath(ANDROID_ROOT_DIR);
+            const appDir = await this._getPath(RNFetchBlob.fs.dirs.DocumentDir);
             const archiveDir = Platform.os === 'ios' ? RNFetchBlob.fs.dirs.DocumentDir : RNFetchBlob.fs.dirs.DownloadDir;
             await zip(appDir, `${archiveDir}/${backupName}`);
 

@@ -34,7 +34,8 @@
     "react-navigation": "^1.0.3",
     "react-redux": "^5.1.0",
     "redux": "^4.0.1",
-    "rn-fetch-blob": "^0.10.16"
+    "rn-fetch-blob": "^0.10.16",
+    "tar": "^4.4.10"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",

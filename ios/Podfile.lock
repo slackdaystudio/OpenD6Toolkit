@@ -93,6 +93,14 @@ PODS:
     - React-Core
   - RNSVG (8.0.11):
     - React
+  - RNZipArchive (4.1.1):
+    - React
+    - RNZipArchive/Core (= 4.1.1)
+    - SSZipArchive (= 2.2.2)
+  - RNZipArchive/Core (4.1.1):
+    - React
+    - SSZipArchive (= 2.2.2)
+  - SSZipArchive (2.2.2)
   - yoga (0.60.4.React)
 
 DEPENDENCIES:
@@ -123,11 +131,13 @@ DEPENDENCIES:
   - React-RCTWebSocket (from `../node_modules/react-native/Libraries/WebSocket`)
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - RNSVG (from `../node_modules/react-native-svg`)
+  - RNZipArchive (from `../node_modules/react-native-zip-archive`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - boost-for-react-native
+    - SSZipArchive
 
 EXTERNAL SOURCES:
   BVLinearGradient:
@@ -184,6 +194,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/rn-fetch-blob"
   RNSVG:
     :path: "../node_modules/react-native-svg"
+  RNZipArchive:
+    :path: "../node_modules/react-native-zip-archive"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -216,6 +228,8 @@ SPEC CHECKSUMS:
   React-RCTWebSocket: 163873f4cdd5f1058a9483443404fc3801581cb6
   rn-fetch-blob: 651b8d076b43d0d7aa294a3d9ec16c00aab8bef9
   RNSVG: c3d27cf99f8484d3d8f8bb017b5438fd321267cf
+  RNZipArchive: 8356d40e2e64dde90b88e2abf49773e7dfa5f24d
+  SSZipArchive: fa16b8cc4cdeceb698e5e5d9f67e9558532fbf23
   yoga: c2c050f6ae6e222534760cc82f559b89214b67e2
 
 PODFILE CHECKSUM: 82254434299701f7f4a2a81d175b556b21e114b2
