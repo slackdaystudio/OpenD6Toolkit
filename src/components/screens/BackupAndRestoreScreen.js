@@ -41,7 +41,7 @@ class BackupAndRestoreScreen extends Component {
                 infoDialog: {
                     visible: true,
                     title: 'Backup Succeeded',
-                    info: `The backup "${result.backupName}" has been created in your Download directory`
+                    info: `The backup "${result.backupName}" has been created in your ${result.backupFolder} directory`
                 }
             });
         } else {
@@ -73,7 +73,7 @@ class BackupAndRestoreScreen extends Component {
                 infoDialog: {
                     visible: true,
                     title: 'Restore Failed',
-                    info: 'The restoration has failed'
+                    info: `The restoration failed: ${result.error}`
                 }
             });
         }

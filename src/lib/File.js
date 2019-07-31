@@ -168,6 +168,7 @@ class File {
         let result = {
             backupSuccess: false,
             backupName: null,
+            backupFolder: null,
             error: null
         };
 
@@ -187,6 +188,10 @@ class File {
 
             result.backupSuccess = true;
             result.backupName = backupName;
+
+            const archiveDirParts = archiveDir.split('/');
+
+            result.backupFolder = archiveDirParts[archiveDirParts.length - 1];
         } catch (error) {
             result.error = error.message;
         }
