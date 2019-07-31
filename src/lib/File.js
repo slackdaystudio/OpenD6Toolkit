@@ -215,7 +215,7 @@ class File {
                 }
             } else {
                 pickerResults = await DocumentPicker.pick({
-                    type: [DocumentPicker.types.allFiles],
+                    type: ['public.archive'],
                 });
             }
 
@@ -270,8 +270,8 @@ class File {
             await RNFetchBlob.fs.unlink(templateDir);
         }
 
-        let fileName = uri;
-
+        let fileName = uri.startsWith('file://') ? uri.substring(7) : uri;
+	
         if (/raw\:/i.test(decodeURIComponent(uri))) {
             let parts = decodeURIComponent(uri).split('raw:');
 
