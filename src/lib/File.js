@@ -175,7 +175,7 @@ class File {
             const now = moment().format('YYYYMMDDhhmmss');
             const backupName = `OpenD6Toolkit_${now}.zip`;
             const appDir = await this._getPath(DEFAULT_ROOT_DIR);
-            const archiveDir = Platform.os === 'ios' ? RNFetchBlob.fs.dirs.DocumentDir : RNFetchBlob.fs.dirs.DownloadDir;
+            const archiveDir = Platform.OS === 'ios' ? RNFetchBlob.fs.dirs.DocumentDir : RNFetchBlob.fs.dirs.DownloadDir;
             const characterDir = await this._getPath(DEFAULT_CHARACTER_DIR);
             const templateDir = await this._getPath(DEFAULT_TEMPLATE_DIR);
             const backupDir = `${appDir}/backup_${now}`;
