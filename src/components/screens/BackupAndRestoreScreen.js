@@ -1,5 +1,6 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon } from 'native-base';
 import Header from '../Header';
@@ -8,10 +9,12 @@ import LogoButton from '../LogoButton';
 import InfoDialog from '../InfoDialog';
 import styles from '../../Styles';
 import { file } from '../../lib/File';
+import { clearLoadedCharacter } from '../../../reducer';
 
-export default class BackupAndRestoreScreen extends Component {
+class BackupAndRestoreScreen extends Component {
     static propTypes = {
-        navigation: PropTypes.object.isRequired
+        navigation: PropTypes.object.isRequired,
+        clearLoadedCharacter: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -31,75 +34,48 @@ export default class BackupAndRestoreScreen extends Component {
     }
 
     async _onBackup(location) {
-        let result = {
-            backupSuccess: false,
-            backupName: null
-        }
+        let result = await file.backup();
 
-        try {
-            result = await file.backup();
-        } catch (error) {
-            Toast.show({
-                text: 'Error: ' + error.message,
-                position: 'bottom',
-                buttonText: 'OK',
-                textStyle: {color: '#fde5d2'},
-                buttonTextStyle: { color: '#f57e20' },
-                duration: 3000
+        if (result.backupSuccess) {
+            this.setState({
+                infoDialog: {
+                    visible: true,
+                    title: 'Backup Succeeded',
+                    info: `The backup "${result.backupName}" has been created in your Download directory`
+                }
             });
-        } finally {
-            if (result.backupSuccess) {
-                this.setState({
-                    infoDialog: {
-                        visible: true,
-                        title: 'Backup Succeeded',
-                        info: `The backup "${result.backupName}" has been created in your Download directory`
-                    }
-                });
-            } else {
-                this.setState({
-                    infoDialog: {
-                        visible: true,
-                        title: 'Backup Failed',
-                        info: `The backup failed: ${result.error}`
-                    }
-                });
-            }
+        } else {
+            this.setState({
+                infoDialog: {
+                    visible: true,
+                    title: 'Backup Failed',
+                    info: `The backup failed: ${result.error}`
+                }
+            });
         }
     }
 
     async _onRestore() {
-        let result = null;
+        let result = await file.restore();
 
-        try {
-            result = await file.restore();
-        } catch (error) {
-            Toast.show({
-                text: 'Error: ' + error.message,
-                position: 'bottom',
-                buttonText: 'OK',
-                textStyle: {color: '#fde5d2'},
-                buttonTextStyle: { color: '#f57e20' },
-                duration: 3000
+        if (result.loadSuccess) {
+            this.props.clearLoadedCharacter();
+
+            this.setState({
+                infoDialog: {
+                    visible: true,
+                    title: 'Restore Succeeded',
+                    info: `The backup "${result.backupName}" has been successfully restored`
+                }
             });
-        } finally {
-            if (result.loadSuccess) {
-                this.setState({
-                    infoDialog: {
-                        visible: true,
-                        title: 'Restore Succeeded',
-                        info: `The backup "${result.backupName}" has been successfully restored`
-                    }
-                });
-            } else {
-                this.setState({
-                    infoDialog: {
-                        visible: true,
-                        title: 'Restore Failed',
-                        info: 'The restoration has failed'
-                    }
-                });
-            }
+        } else {
+            this.setState({
+                infoDialog: {
+                    visible: true,
+                    title: 'Restore Failed',
+                    info: 'The restoration has failed'
+                }
+            });
         }
     }
 
@@ -138,3 +114,13 @@ export default class BackupAndRestoreScreen extends Component {
 		);
 	}
 }
+
+const mapStateToProps = state => {
+    return {};
+}
+
+const mapDispatchToProps = {
+    clearLoadedCharacter
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BackupAndRestoreScreen);

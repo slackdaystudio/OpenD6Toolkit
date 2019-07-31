@@ -42,6 +42,8 @@ export const SET_SETTING = 'SET_SETTING';
 
 export const LOAD_CHARACTER = 'LOAD_CHARACTER';
 
+export const CLEAR_LOADED_CHARACTER = 'CLEAR_LOADED_CHARACTER';
+
 export const EDIT_INITIATIVE = 'EDIT_INITIATIVE';
 
 export const EDIT_INITIATIVE_ORDER = 'EDIT_INITIATIVE_ORDER';
@@ -194,6 +196,13 @@ export function loadCharacter(character) {
     return {
         type: LOAD_CHARACTER,
         payload: character
+    }
+}
+
+export function clearLoadedCharacter() {
+    return {
+        type: CLEAR_LOADED_CHARACTER,
+        payload: null
     }
 }
 
@@ -542,6 +551,20 @@ export default function reducer(state = initialState, action) {
             };
 
             newState.builder.character = JSON.parse(action.payload);
+
+            return newState;
+        case CLEAR_LOADED_CHARACTER:
+            newState = {
+                ...state,
+                builder: {
+                    ...state.builder,
+                    character: {
+                        ...state.builder.character
+                    }
+                }
+            };
+
+            newState.builder.character = null;
 
             return newState;
         case EDIT_INITIATIVE:
