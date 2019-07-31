@@ -12,9 +12,11 @@ const ANDROID_CHARACTER_DIR = ANDROID_ROOT_DIR + '/characters/';
 
 const ANDROID_TEMPLATE_DIR = ANDROID_ROOT_DIR + '/templates/';
 
-const DEFAULT_CHARACTER_DIR = RNFetchBlob.fs.dirs.DocumentDir + '/characters/';
+const DEFAULT_ROOT_DIR = RNFetchBlob.fs.dirs.DocumentDir;
 
-const DEFAULT_TEMPLATE_DIR = RNFetchBlob.fs.dirs.DocumentDir + '/templates/';
+const DEFAULT_CHARACTER_DIR = DEFAULT_ROOT_DIR + '/characters/';
+
+const DEFAULT_TEMPLATE_DIR = DEFAULT_ROOT_DIR + '/templates/';
 
 class File {
     async loadGameTemplate(startLoad, endLoad) {
@@ -165,20 +167,28 @@ class File {
     async backup() {
         let result = {
             backupSuccess: false,
-            backupName: null
+            backupName: null,
+            error: null
         };
 
         try {
             const now = moment().format('YYYYMMDDhhmmss');
             const backupName = `OpenD6Toolkit_${now}.zip`;
-            const appDir = await this._getPath(RNFetchBlob.fs.dirs.DocumentDir);
+            const appDir = await this._getPath(DEFAULT_ROOT_DIR);
             const archiveDir = Platform.os === 'ios' ? RNFetchBlob.fs.dirs.DocumentDir : RNFetchBlob.fs.dirs.DownloadDir;
-            await zip(appDir, `${archiveDir}/${backupName}`);
+            const characterDir = await this._getPath(DEFAULT_CHARACTER_DIR);
+            const templateDir = await this._getPath(DEFAULT_TEMPLATE_DIR);
+            const backupDir = `${appDir}/backup_${now}`;
+
+            await this._makeBackupDir(backupDir);
+            await this._copyCharactersAndTemplates(backupDir, characterDir, templateDir);
+            await zip(backupDir, `${archiveDir}/${backupName}`);
+            await RNFetchBlob.fs.unlink(backupDir);
 
             result.backupSuccess = true;
             result.backupName = backupName;
         } catch (error) {
-            Alert.alert(error.message);
+            result.error = error.message;
         }
 
         return result;
@@ -187,7 +197,8 @@ class File {
     async restore() {
         let result = {
             loadSuccess: false,
-            backupName: null
+            backupName: null,
+            error: null
         };
         let pickerResults = null;
 
@@ -221,30 +232,42 @@ class File {
             const isCancel = await DocumentPicker.isCancel(error);
 
             if (!isCancel) {
-               Toast.show({
-                    text: error.message,
-                    position: 'bottom',
-                    buttonText: 'OK',
-                    textStyle: {color: '#fde5d2'},
-                    buttonTextStyle: { color: '#f57e20' },
-                    duration: 30000
-                });
+               result.error = error.message;
             }
         }
 
         return result;
     }
 
+    async _copyCharactersAndTemplates(backupDir, characterDir, templateDir) {
+        let fileNames = [];
+        let pathParts = [];
+
+        for (let dir of [characterDir, templateDir]) {
+            pathParts = dir.split('/');
+            fileNames = await RNFetchBlob.fs.ls(dir);
+
+            for (let fileName of fileNames) {
+                if (/\.json$/i.test(fileName)) {
+                    await RNFetchBlob.fs.cp(`${dir}/${fileName}`, `${backupDir}/${pathParts[pathParts.length - 2]}/${fileName}`);
+                }
+            }
+        }
+    }
+
     async _restoreCharactersAndTemplates(uri, result) {
-        const charactersDirExists = await RNFetchBlob.fs.exists(ANDROID_CHARACTER_DIR);
-        const templateDirExists = await RNFetchBlob.fs.exists(ANDROID_TEMPLATE_DIR);
+        const appDir = await this._getPath(DEFAULT_ROOT_DIR);
+        const characterDir = await this._getPath(DEFAULT_CHARACTER_DIR);
+        const templateDir = await this._getPath(DEFAULT_TEMPLATE_DIR);
+        const charactersDirExists = await RNFetchBlob.fs.exists(characterDir);
+        const templateDirExists = await RNFetchBlob.fs.exists(templateDir);
 
         if (charactersDirExists) {
-            await RNFetchBlob.fs.unlink(ANDROID_CHARACTER_DIR);
+            await RNFetchBlob.fs.unlink(characterDir);
         }
 
         if (templateDirExists) {
-            await RNFetchBlob.fs.unlink(ANDROID_TEMPLATE_DIR);
+            await RNFetchBlob.fs.unlink(templateDir);
         }
 
         let fileName = uri;
@@ -255,7 +278,7 @@ class File {
             fileName = parts[1];
         }
 
-        await unzip(fileName, ANDROID_ROOT_DIR);
+        await unzip(fileName, appDir);
 
         const fileNameParts = decodeURIComponent(uri).split('/');
 
@@ -289,14 +312,28 @@ class File {
         return null;
     }
 
-    async _make_save_location(location) {
-        let exists =  await RNFetchBlob.fs.exists(location);
+    async _makeSaveLocation(location) {
+        try {
+            const exists =  await RNFetchBlob.fs.exists(location);
 
-        if (!exists) {
-            RNFetchBlob.fs.mkdir(location).catch((error) => {
-                Alert.alert('Cannot create save directory');
-            });
+            if (!exists) {
+                await RNFetchBlob.fs.mkdir(location);
+            }
+        } catch (error) {
+            Alert.alert(error.message);
         }
+    }
+
+    async _makeBackupDir(location) {
+        const exists =  await RNFetchBlob.fs.exists(location);
+
+        if (exists) {
+            await RNFetchBlob.fs.unlink(location)
+        }
+
+        await RNFetchBlob.fs.mkdir(location);
+        await RNFetchBlob.fs.mkdir(`${location}/characters`);
+        await RNFetchBlob.fs.mkdir(`${location}/templates`);
     }
 
     async _getPath(defaultPath) {
@@ -308,12 +345,14 @@ class File {
                 path = ANDROID_CHARACTER_DIR;
             } else if (path === DEFAULT_TEMPLATE_DIR) {
                 path = ANDROID_TEMPLATE_DIR;
+            } else if (path === DEFAULT_ROOT_DIR) {
+                path = Platform.OS === 'ios' ? RNFetchBlob.dirs.DocumentDir : ANDROID_ROOT_DIR;
             } else {
-                path = ANDROID_ROOT_DIR;
+                throw `Unknown path: {$path}`;
             }
         }
 
-        await this._make_save_location(path);
+        await this._makeSaveLocation(path);
 
         return path;
     }

@@ -61,7 +61,7 @@ export default class BackupAndRestoreScreen extends Component {
                     infoDialog: {
                         visible: true,
                         title: 'Backup Failed',
-                        info: 'The backup failed'
+                        info: `The backup failed: ${result.error}`
                     }
                 });
             }
