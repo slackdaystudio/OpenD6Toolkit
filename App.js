@@ -26,9 +26,9 @@ import reducer from './reducer'
 
 const RootStack = DrawerNavigator(
     {
-		Home: {
-			screen: HomeScreen,
-		},
+        Home: {
+            screen: HomeScreen,
+        },
         DieRoller: {
             screen: DieRollerScreen,
         },
@@ -83,22 +83,22 @@ const store = createStore(reducer, applyMiddleware());
 
 export default class App extends Component<Props> {
     componentDidMount() {
-		AsyncStorage.getItem('statistics').then((stats) => {
+        AsyncStorage.getItem('statistics').then((stats) => {
             if (stats === null) {
                 statistics.init().then(() => console.log('Stats initialized'));
             }
-		});
+        });
 
-		SplashScreen.hide();
+        SplashScreen.hide();
     }
 
-	render() {
-		return (
-		    <Provider store={store}>
+    render() {
+        return (
+            <Provider store={store}>
                 <Root>
                     <RootStack />
                 </Root>
-			</Provider>
-		);
-	}
+            </Provider>
+        );
+    }
 }

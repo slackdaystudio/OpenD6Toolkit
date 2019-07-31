@@ -52,6 +52,8 @@ export const REMOVE_INITIATIVE = 'REMOVE_INITIATIVE';
 
 export const SORT_INITIATIVE = 'SORT_INITIATIVE';
 
+export const SET_ARCHITECT_TEMPLATE = 'SET_ARCHITECT_TEMPLATE';
+
 export function updateRoller(dice, pips) {
     return {
         type: UPDATE_ROLLER,
@@ -235,6 +237,13 @@ export function sortInitiative() {
     return {
         type: SORT_INITIATIVE,
         payload: null
+    }
+}
+
+export function setArchitectTemplate(template) {
+    return {
+        type: SET_ARCHITECT_TEMPLATE,
+        payload: template
     }
 }
 
@@ -688,6 +697,20 @@ export default function reducer(state = initialState, action) {
             }
 
             newState.initiativeEntries = newInit;
+
+            return newState;
+        case SET_ARCHITECT_TEMPLATE:
+            newState = {
+                ...state,
+                architect: {
+                    ...state.architect,
+                    template: {
+                        ...state.architect.template
+                    }
+                }
+            };
+
+            newState.architect.template = action.payload;
 
             return newState;
         default:

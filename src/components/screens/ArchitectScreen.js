@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image } from 'react-native';
-import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Tab, Tabs, Footer, FooterTab } from 'native-base';
+import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Tab, Tabs, ScrollableTab, Footer, FooterTab } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
@@ -23,7 +23,7 @@ class ArchitectScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} hasTabs={true} />
             <Content style={styles.content}>
-                    <Tabs locked={true} tabBarUnderlineStyle={{backgroundColor: '#FFF'}}>
+                    <Tabs locked={true} tabBarUnderlineStyle={{backgroundColor: '#FFF'}} renderTabBar={()=> <ScrollableTab />}>
                         <Tab heading='Attributes &amp; Skills' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
                             <Heading text='Attributes &amp; Skills' />
                         </Tab>
