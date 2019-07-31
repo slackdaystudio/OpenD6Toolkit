@@ -12,13 +12,15 @@ import { file } from '../../lib/File';
 class HomeScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-        character: PropTypes.object
+        character: PropTypes.object,
+        template: PropTypes.object
     }
 
     constructor(props) {
         super(props);
 
         this.onBuilderPress = this._onBuilderPress.bind(this);
+        this.onArchitectPress = this._onArchitectPress.bind(this);
         this.onTemplateUploadPress = this._onTemplateUploadPress.bind(this);
         this.onPress = this._onPress.bind(this);
     }
@@ -28,6 +30,14 @@ class HomeScreen extends Component {
             this.props.navigation.navigate('TemplateSelect');
         } else {
             this.props.navigation.navigate('Builder');
+        }
+    }
+
+    _onArchitectPress() {
+        if (this.props.template == null) {
+            this.props.navigation.navigate('NewTemplate');
+        } else {
+            this.props.navigation.navigate('Architect');
         }
     }
 
@@ -57,6 +67,7 @@ class HomeScreen extends Component {
                 <Heading text='Templates' />
                 <Text style={[styles.grey, {alignSelf: 'center'}]}>Manage game templates used to build characters.</Text>
                 <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
+                    <LogoButton label='Architect' onPress={() => this.onArchitectPress()} />
                     <LogoButton label='Upload' onPress={() => this.onTemplateUploadPress()} />
                     <LogoButton label='Delete' onPress={() => this.onPress('TemplateDelete')} />
                 </View>
@@ -77,7 +88,8 @@ class HomeScreen extends Component {
 
 const mapStateToProps = state => {
     return {
-        character: state.builder.character
+        character: state.builder.character,
+        template: state.architect.template
     };
 }
 

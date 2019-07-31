@@ -8,11 +8,13 @@ import SplashScreen from 'react-native-splash-screen'
 import HomeScreen from './src/components/screens/HomeScreen';
 import DieRollerScreen from './src/components/screens/DieRollerScreen';
 import TemplateSelectScreen from './src/components/screens/TemplateSelectScreen';
+import TemplateDeleteScreen from './src/components/screens/TemplateDeleteScreen';
+import NewTemplateScreen from './src/components/screens/NewTemplateScreen';
+import ArchitectScreen from './src/components/screens/ArchitectScreen';
 import BuilderScreen from './src/components/screens/BuilderScreen';
 import SpecializationScreen from './src/components/screens/SpecializationScreen';
 import LoadCharacterScreen from './src/components/screens/LoadCharacterScreen';
 import CharacterOptionsScreen from './src/components/screens/CharacterOptionsScreen';
-import TemplateDeleteScreen from './src/components/screens/TemplateDeleteScreen';
 import MassRollerScreen from './src/components/screens/MassRollerScreen';
 import InitiativeTrackerScreen from './src/components/screens/InitiativeTrackerScreen';
 import BackupAndRestoreScreen from './src/components/screens/BackupAndRestoreScreen';
@@ -32,6 +34,12 @@ const RootStack = DrawerNavigator(
         },
         TemplateSelect: {
             screen: TemplateSelectScreen,
+        },
+        NewTemplate: {
+            screen: NewTemplateScreen,
+        },
+        Architect: {
+            screen: ArchitectScreen,
         },
         Builder: {
             screen: BuilderScreen,

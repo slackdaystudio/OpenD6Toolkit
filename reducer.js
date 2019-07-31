@@ -251,6 +251,9 @@ initialState = {
     builder: {
         character: null
     },
+    architect: {
+        template: null
+    },
     initiativeEntries: null,
     settings: {
         isLegend: false,
