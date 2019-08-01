@@ -54,6 +54,12 @@ export const SORT_INITIATIVE = 'SORT_INITIATIVE';
 
 export const SET_ARCHITECT_TEMPLATE = 'SET_ARCHITECT_TEMPLATE';
 
+export const SAVE_TEMPLATE_ATTRIBUTE = 'SAVE_TEMPLATE_ATTRIBUTE';
+
+export const ADD_TEMPLATE_ATTRIBUTE = 'ADD_TEMPLATE_ATTRIBUTE';
+
+export const DELETE_TEMPLATE_ATTRIBUTE = 'DELETE_TEMPLATE_ATTRIBUTE';
+
 export function updateRoller(dice, pips) {
     return {
         type: UPDATE_ROLLER,
@@ -244,6 +250,30 @@ export function setArchitectTemplate(template) {
     return {
         type: SET_ARCHITECT_TEMPLATE,
         payload: template
+    }
+}
+
+export function saveTemplateAttribute(attribute, index) {
+    return {
+        type: SAVE_TEMPLATE_ATTRIBUTE,
+        payload: {
+            attribute: attribute,
+            index: index
+        }
+    }
+}
+
+export function addTemplateAttribute() {
+    return {
+        type: ADD_TEMPLATE_ATTRIBUTE,
+        payload: null
+    }
+}
+
+export function deleteTemplateAttribute(attribute) {
+    return {
+        type: DELETE_TEMPLATE_ATTRIBUTE,
+        payload: attribute
     }
 }
 
@@ -711,6 +741,63 @@ export default function reducer(state = initialState, action) {
             };
 
             newState.architect.template = action.payload;
+
+            return newState;
+        case SAVE_TEMPLATE_ATTRIBUTE:
+            newState = {
+                ...state,
+                architect: {
+                    ...state.architect,
+                    template: {
+                        ...state.architect.template
+                    }
+                }
+            };
+
+            newState.architect.template.attributes[action.payload.index] = action.payload.attribute;
+
+            return newState;
+        case ADD_TEMPLATE_ATTRIBUTE:
+            newState = {
+                ...state,
+                architect: {
+                    ...state.architect,
+                    template: {
+                        ...state.architect.template
+                    }
+                }
+            };
+
+            let newIndex = newState.architect.template.attributes.length - 1;
+
+            newState.architect.template.attributes[newIndex].name = '';
+            newState.architect.template.attributes[newIndex].description = '';
+            newState.architect.template.attributes[newIndex].skills = [];
+
+            return newState;
+        case DELETE_TEMPLATE_ATTRIBUTE:
+            newState = {
+                ...state,
+                architect: {
+                    ...state.architect,
+                    template: {
+                        ...state.architect.template
+                    }
+                }
+            };
+
+            let deleteIndex = -1;
+
+            for (let i = 0; i < newState.architect.template.attributes.length; i++) {
+                if (newState.architect.template.attributes[i].name === action.payload.name) {
+                    deleteIndex = i;
+                    break;
+                }
+            }
+
+            if (deleteIndex >= 0) {
+                newState.architect.template.attributes.splice(deleteIndex, 1);
+            }
 
             return newState;
         default:

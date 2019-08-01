@@ -1,5 +1,6 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import { Container, Content, Text, CardItem, Card, Left, Right, Body, Button, Icon, Input } from 'native-base';
 import { SwipeRow } from 'react-native-swipe-list-view';
@@ -7,11 +8,14 @@ import styles from '../../Styles';
 import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
 import { character } from '../../lib/Character';
+import { addTemplateAttribute, deleteTemplateAttribute } from '../../../reducer';
 
-export default class AttributesAndSkills extends Component {
+class AttributesAndSkills extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-        template: PropTypes.object.isRequired
+        template: PropTypes.object.isRequired,
+        addTemplateAttribute: PropTypes.func.isRequired,
+        deleteTemplateAttribute: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -20,6 +24,7 @@ export default class AttributesAndSkills extends Component {
         this.state = {
             attributes: props.template.attributes,
             attributeShow: this._initAttributeShow(props),
+            toBeDeleted: null,
             confirmationDialog: {
                 visible: false,
                 title: 'Delete Attribute',
@@ -45,16 +50,20 @@ export default class AttributesAndSkills extends Component {
     _delete(attribute) {
         let newState = {...this.state};
         newState.confirmationDialog.visible = true;
+        newState.toBeDeleted = attribute;
 
         this.setState(newState);
     }
 
     _deleteConfirmed() {
-//        file.deleteTemplate(this.state.selectedTemplate).then(() => {
-//            this._updateFileList();
-//        });
+        this.props.deleteTemplateAttribute(this.state.toBeDeleted);
 
-        this._closeConfirmationDialog();
+        let newState = {...this.state};
+        newState.toBeDeleted = null;
+
+        this.setState(newState, () => {
+            this._closeConfirmationDialog();
+        });
     }
 
     _closeConfirmationDialog() {
@@ -62,6 +71,14 @@ export default class AttributesAndSkills extends Component {
         newState.confirmationDialog.visible = false;
 
         this.setState(newState);
+    }
+
+    _addAttribute() {
+        this.props.addTemplateAttribute();
+
+        let index = this.props.template.attributes.length - 1;
+
+        this.props.navigation.navigate('EditAttribute', {attribute: this.props.template.attributes[index]});
     }
 
     _toggleAttributeShow(attribute) {
@@ -84,13 +101,13 @@ export default class AttributesAndSkills extends Component {
 	render() {
 		return (
             <View>
-                <Heading text='Attributes' onAddButtonPress={() => {}} />
+                <Heading text='Attributes' onBackButtonPress={() => {}} onAddButtonPress={() => this._addAttribute()} />
                 {this.props.template.attributes.map((attribute, index) => {
                     return (
                         <Card key={'atr-' + index}>
                             <CardItem>
                                 <Body>
-                                    <Text style={{fontSize: 25, fontWeight: 'bold'}}>
+                                    <Text style={[styles.boldGrey, {fontSize: 25}]}>
                                         {attribute.name}
                                     </Text>
                                 </Body>
@@ -146,3 +163,14 @@ const localStyles = StyleSheet.create({
         color: '#f57e20'
 	}
 });
+
+const mapStateToProps = state => {
+    return {};
+}
+
+const mapDispatchToProps = {
+    addTemplateAttribute,
+    deleteTemplateAttribute
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AttributesAndSkills);

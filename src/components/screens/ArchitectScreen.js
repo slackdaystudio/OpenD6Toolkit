@@ -13,7 +13,8 @@ import { file } from '../../lib/File';
 class ArchitectScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-        template: PropTypes.object.isRequired
+        template: PropTypes.object.isRequired,
+        addTemplateAttribute: PropTypes.func.isRequired
     }
 
     constructor(props) {

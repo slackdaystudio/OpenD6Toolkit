@@ -2,17 +2,19 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert, Switch } from 'react-native';
-import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Form, Label, Item, Input, Textarea, List, ListItem, Left, Right } from 'native-base';
+import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Form, Label, Item, Input, Textarea, Toast, Left, Right } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
 import styles from '../../Styles';
 import { template } from '../../lib/Template';
+import { saveTemplateAttribute } from '../../../reducer';
 
 class EditAttributeScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         attributeName: PropTypes.string.isRequired,
+        saveTemplateAttribute: PropTypes.func.isRequired,
         template: PropTypes.object
     }
 
@@ -32,6 +34,30 @@ class EditAttributeScreen extends Component {
         this.setState(newState);
     }
 
+    _save() {
+        if (template.isAttributeNameUnique(this.state.attribute, this.state.attributeIndex, this.props.template)) {
+            this.props.saveTemplateAttribute(this.state.attribute, this.state.attributeIndex);
+
+            Toast.show({
+                text: (this.state.attribute.name === '' ? 'The attribute' : this.state.attribute.name) + ' has been saved',
+                position: 'bottom',
+                buttonText: 'OK',
+                textStyle: {color: '#fde5d2'},
+                buttonTextStyle: { color: '#f57e20' },
+                duration: 3000
+            });
+        } else {
+            Toast.show({
+                text: 'The attribute "' + this.state.attribute.name + '" already exists',
+                position: 'bottom',
+                buttonText: 'OK',
+                textStyle: {color: '#fde5d2'},
+                buttonTextStyle: { color: '#f57e20' },
+                duration: 3000
+            });
+        }
+    }
+
     _renderSkills() {
         if (this.state.attribute.skills.length > 0) {
             return (
@@ -41,7 +67,7 @@ class EditAttributeScreen extends Component {
                             <Card>
                                 <CardItem>
                                     <Body>
-                                        <Text style={[styles.boldGrey, {fontSize: 25, fontWeight: 'bold'}]}>{skill.name}</Text>
+                                        <Text style={[styles.boldGrey, {fontSize: 25}]}>{skill.name}</Text>
                                     </Body>
                                     <Right>
                                         <View style={{flex: 1, flexDirection: 'row'}}>
@@ -80,7 +106,7 @@ class EditAttributeScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Heading text='Attribute'onAddButtonPress={() => {}} />
+                <Heading text='Attribute' onBackButtonPress={() => this.props.navigation.navigate('Architect')} />
                 <Form>
                     <Item stackedLabel>
                         <Label style={{fontWeight: 'bold'}}>Name</Label>
@@ -113,7 +139,7 @@ class EditAttributeScreen extends Component {
                     </Item>
                 </Form>
                 <View style={{paddingBottom: 20}} />
-                <LogoButton label='Save' onPress={() => {}} />
+                <LogoButton label='Save' onPress={() => this._save()} />
                 <View style={{paddingBottom: 20}} />
                 <Heading text='Skills' onAddButtonPress={() => {}} />
                 {this._renderSkills()}
@@ -137,6 +163,8 @@ const mapStateToProps = state => {
     };
 }
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+    saveTemplateAttribute
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditAttributeScreen);
