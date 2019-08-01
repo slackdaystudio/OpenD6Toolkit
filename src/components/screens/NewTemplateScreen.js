@@ -71,7 +71,7 @@ class NewTemplateScreen extends Component {
                 <List>
                     {this.state.templates.map((template, index) => {
                         return (
-                            <ListItem noIndent key={'t-' + index} onPress={(template) => this._selectTemplate(template)}>
+                            <ListItem noIndent key={'t-' + index} onPress={() => this._selectTemplate(template)}>
                                 <Left>
                                     <Text style={styles.grey}>{template.name}</Text>
                                 </Left>

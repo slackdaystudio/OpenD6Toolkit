@@ -11,6 +11,7 @@ import TemplateSelectScreen from './src/components/screens/TemplateSelectScreen'
 import TemplateDeleteScreen from './src/components/screens/TemplateDeleteScreen';
 import NewTemplateScreen from './src/components/screens/NewTemplateScreen';
 import ArchitectScreen from './src/components/screens/ArchitectScreen';
+import EditAttributeScreen from './src/components/screens/EditAttributeScreen';
 import BuilderScreen from './src/components/screens/BuilderScreen';
 import SpecializationScreen from './src/components/screens/SpecializationScreen';
 import LoadCharacterScreen from './src/components/screens/LoadCharacterScreen';
@@ -40,6 +41,9 @@ const RootStack = DrawerNavigator(
         },
         Architect: {
             screen: ArchitectScreen,
+        },
+        EditAttribute: {
+            screen: EditAttributeScreen,
         },
         Builder: {
             screen: BuilderScreen,
