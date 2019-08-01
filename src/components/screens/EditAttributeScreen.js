@@ -6,15 +6,17 @@ import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, 
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
+import ConfirmationDialog from '../ConfirmationDialog';
 import styles from '../../Styles';
 import { template } from '../../lib/Template';
-import { saveTemplateAttribute } from '../../../reducer';
+import { saveTemplateAttribute, deleteTemplateSkill } from '../../../reducer';
 
 class EditAttributeScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         attributeName: PropTypes.string.isRequired,
         saveTemplateAttribute: PropTypes.func.isRequired,
+        deleteTemplateSkill: PropTypes.func.isRequired,
         template: PropTypes.object
     }
 
@@ -23,8 +25,43 @@ class EditAttributeScreen extends Component {
 
         this.state = {
             attribute: props.navigation.state.params.attribute,
-            attributeIndex: template.getAttributeIndex(props.navigation.state.params.attribute.name, props.template)
+            attributeIndex: template.getAttributeIndex(props.navigation.state.params.attribute.name, props.template),
+            toBeDeleted: null,
+            confirmationDialog: {
+                visible: false,
+                title: 'Delete Skill',
+                info: 'This is permanent, are you certain you want to delete this skill?'
+            }
         };
+
+        this.onClose = this._closeConfirmationDialog.bind(this);
+        this.onOk = this._deleteConfirmed.bind(this);
+    }
+
+    _delete(skill) {
+        let newState = {...this.state};
+        newState.confirmationDialog.visible = true;
+        newState.toBeDeleted = skill;
+
+        this.setState(newState);
+    }
+
+    _deleteConfirmed() {
+        this.props.deleteTemplateSkill(this.state.attribute.name, this.state.toBeDeleted);
+
+        let newState = {...this.state};
+        newState.toBeDeleted = null;
+
+        this.setState(newState, () => {
+            this._closeConfirmationDialog();
+        });
+    }
+
+    _closeConfirmationDialog() {
+        let newState = {...this.state};
+        newState.confirmationDialog.visible = false;
+
+        this.setState(newState);
     }
 
     _updateAttributeField(key, value) {
@@ -35,27 +72,22 @@ class EditAttributeScreen extends Component {
     }
 
     _save() {
+        let message = 'The attribute "' + this.state.attribute.name + '" already exists';
+
         if (template.isAttributeNameUnique(this.state.attribute, this.state.attributeIndex, this.props.template)) {
             this.props.saveTemplateAttribute(this.state.attribute, this.state.attributeIndex);
 
-            Toast.show({
-                text: (this.state.attribute.name === '' ? 'The attribute' : this.state.attribute.name) + ' has been saved',
-                position: 'bottom',
-                buttonText: 'OK',
-                textStyle: {color: '#fde5d2'},
-                buttonTextStyle: { color: '#f57e20' },
-                duration: 3000
-            });
-        } else {
-            Toast.show({
-                text: 'The attribute "' + this.state.attribute.name + '" already exists',
-                position: 'bottom',
-                buttonText: 'OK',
-                textStyle: {color: '#fde5d2'},
-                buttonTextStyle: { color: '#f57e20' },
-                duration: 3000
-            });
+            message = this.state.attribute.name === '' ? 'The attribute' : this.state.attribute.name + ' has been saved';
         }
+
+        Toast.show({
+            text: 'The attribute "' + this.state.attribute.name + '" already exists',
+            position: 'bottom',
+            buttonText: 'OK',
+            textStyle: {color: '#fde5d2'},
+            buttonTextStyle: { color: '#f57e20' },
+            duration: 3000
+        });
     }
 
     _renderSkills() {
@@ -75,7 +107,7 @@ class EditAttributeScreen extends Component {
                                                 type='FontAwesome'
                                                 name='trash'
                                                 style={[localStyles.button, {paddingRight: 10}]}
-                                                onPress={() => {}}
+                                                onPress={() => this._delete(skill)}
                                             />
                                             <Icon
                                                 type='FontAwesome'
@@ -144,6 +176,13 @@ class EditAttributeScreen extends Component {
                 <Heading text='Skills' onAddButtonPress={() => {}} />
                 {this._renderSkills()}
                 <View style={{paddingBottom: 20}} />
+                <ConfirmationDialog
+                    visible={this.state.confirmationDialog.visible}
+                    title={this.state.confirmationDialog.title}
+                    info={this.state.confirmationDialog.info}
+                    onOk={this.onOk}
+                    onClose={this.onClose}
+                />
             </Content>
 	      </Container>
 		);
@@ -164,7 +203,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    saveTemplateAttribute
+    saveTemplateAttribute,
+    deleteTemplateSkill
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditAttributeScreen);

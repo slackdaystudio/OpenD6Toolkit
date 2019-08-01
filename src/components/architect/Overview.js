@@ -14,7 +14,8 @@ class Overview extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         template: PropTypes.object.isRequired,
-        updateTemplateOverview: PropTypes.func.isRequired
+        updateTemplateOverview: PropTypes.func.isRequired,
+        isTemplateNameUnique: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -22,7 +23,7 @@ class Overview extends Component {
 
         this.state = {
             template: props.template
-        }
+        };
     }
 
     _updateTemplateOverview(key, value) {
@@ -60,7 +61,7 @@ class Overview extends Component {
 	render() {
 		return (
             <View>
-                <Heading text='Overview' onBackButtonPress={() => {}} />
+                <Heading text='Overview' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                 <Form>
                     <Item stackedLabel>
                         <Label style={{fontWeight: 'bold'}}>Name</Label>

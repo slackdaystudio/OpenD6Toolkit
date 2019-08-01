@@ -62,6 +62,8 @@ export const ADD_TEMPLATE_ATTRIBUTE = 'ADD_TEMPLATE_ATTRIBUTE';
 
 export const DELETE_TEMPLATE_ATTRIBUTE = 'DELETE_TEMPLATE_ATTRIBUTE';
 
+export const DELETE_TEMPLATE_SKILL = 'DELETE_TEMPLATE_SKILL';
+
 export function updateRoller(dice, pips) {
     return {
         type: UPDATE_ROLLER,
@@ -286,6 +288,16 @@ export function deleteTemplateAttribute(attribute) {
     return {
         type: DELETE_TEMPLATE_ATTRIBUTE,
         payload: attribute
+    }
+}
+
+export function deleteTemplateSkill(name, skill) {
+    return {
+        type: DELETE_TEMPLATE_SKILL,
+        payload: {
+            name: name,
+            skill: skill
+        }
     }
 }
 
@@ -812,17 +824,36 @@ export default function reducer(state = initialState, action) {
                 }
             };
 
-            let deleteIndex = -1;
-
             for (let i = 0; i < newState.architect.template.attributes.length; i++) {
                 if (newState.architect.template.attributes[i].name === action.payload.name) {
-                    deleteIndex = i;
+                    newState.architect.template.attributes.splice(i, 1);
                     break;
                 }
             }
 
-            if (deleteIndex >= 0) {
-                newState.architect.template.attributes.splice(deleteIndex, 1);
+            return newState;
+        case DELETE_TEMPLATE_SKILL:
+            newState = {
+                ...state,
+                architect: {
+                    ...state.architect,
+                    template: {
+                        ...state.architect.template
+                    }
+                }
+            };
+
+            for (let i = 0; i < newState.architect.template.attributes.length; i++) {
+                if (newState.architect.template.attributes[i].name === action.payload.name) {
+                    for (let j = 0; j < newState.architect.template.attributes[i].skills.length; j++) {
+                        if (newState.architect.template.attributes[i].skills[j].name === action.payload.skill.name) {
+                            newState.architect.template.attributes[i].skills.splice(j, 1);
+                            break;
+                        }
+                    }
+
+                    break;
+                }
             }
 
             return newState;
