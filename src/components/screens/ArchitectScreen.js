@@ -7,6 +7,7 @@ import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
 import AttributesAndSkills from '../architect/AttributesAndSkills';
+import Overview from '../architect/Overview';
 import styles from '../../Styles';
 import { file } from '../../lib/File';
 
@@ -27,6 +28,9 @@ class ArchitectScreen extends Component {
             <Header navigation={this.props.navigation} hasTabs={true} />
             <Content style={styles.content}>
                     <Tabs locked={true} tabBarUnderlineStyle={{backgroundColor: '#FFF'}} renderTabBar={()=> <ScrollableTab />}>
+                        <Tab heading='Overview' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
+                            <Overview navigation={this.props.navigation} template={this.props.template} />
+                        </Tab>
                         <Tab heading='Attributes' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
                             <AttributesAndSkills navigation={this.props.navigation} template={this.props.template} />
                         </Tab>

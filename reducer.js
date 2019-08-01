@@ -54,6 +54,8 @@ export const SORT_INITIATIVE = 'SORT_INITIATIVE';
 
 export const SET_ARCHITECT_TEMPLATE = 'SET_ARCHITECT_TEMPLATE';
 
+export const UPDATE_TEMPLATE_OVERVIEW = 'UPDATE_TEMPLATE_OVERVIEW';
+
 export const SAVE_TEMPLATE_ATTRIBUTE = 'SAVE_TEMPLATE_ATTRIBUTE';
 
 export const ADD_TEMPLATE_ATTRIBUTE = 'ADD_TEMPLATE_ATTRIBUTE';
@@ -250,6 +252,16 @@ export function setArchitectTemplate(template) {
     return {
         type: SET_ARCHITECT_TEMPLATE,
         payload: template
+    }
+}
+
+export function updateTemplateOverview(key, value) {
+    return {
+        type: UPDATE_TEMPLATE_OVERVIEW,
+        payload: {
+            key: key,
+            value: value
+        }
     }
 }
 
@@ -755,6 +767,20 @@ export default function reducer(state = initialState, action) {
             };
 
             newState.architect.template.attributes[action.payload.index] = action.payload.attribute;
+
+            return newState;
+        case UPDATE_TEMPLATE_OVERVIEW:
+            newState = {
+                ...state,
+                architect: {
+                    ...state.architect,
+                    template: {
+                        ...state.architect.template
+                    }
+                }
+            };
+
+            newState.architect.template[action.payload.key] = action.payload.value;
 
             return newState;
         case ADD_TEMPLATE_ATTRIBUTE:
