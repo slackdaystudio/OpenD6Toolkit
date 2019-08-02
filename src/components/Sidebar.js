@@ -22,7 +22,7 @@ class Sidebar extends Component {
     }
 
     _onTemplateUploadPress() {
-        file.loadGameTemplate(() => {}, () => {});
+        file.uploadTemplate(() => {}, () => {});
     }
 
     render() {

@@ -14,8 +14,7 @@ import { file } from '../../lib/File';
 class ArchitectScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-        template: PropTypes.object.isRequired,
-        addTemplateAttribute: PropTypes.func.isRequired
+        template: PropTypes.object.isRequired
     }
 
     constructor(props) {
@@ -47,15 +46,15 @@ class ArchitectScreen extends Component {
                 </Content>
                 <Footer>
                     <FooterTab style={{justifyContent: 'center', backgroundColor: '#f57e20'}}>
-                        <Button vertical onPress={() => {}}>
+                        <Button vertical onPress={() => this.props.navigation.navigate('NewTemplate')}>
                             <Icon type='FontAwesome' name='file' style={{color: '#FFF'}} />
                             <Text uppercase={false} style={{color: '#FFF'}}>New</Text>
                         </Button>
-                        <Button vertical onPress={() => {}}>
+                        <Button vertical onPress={() => file.saveTemplate(this.props.template)}>
                             <Icon type='FontAwesome' name='save' style={{color: '#FFF'}} />
                             <Text uppercase={false} style={{color: '#FFF'}}>Save</Text>
                         </Button>
-                        <Button vertical onPress={() => {}}>
+                        <Button vertical onPress={() => this.props.navigation.navigate('OpenTemplate')}>
                             <Icon type='FontAwesome' name='folder-open' style={{color: '#FFF'}}/>
                             <Text uppercase={false} style={{color: '#FFF'}}>Open</Text>
                         </Button>

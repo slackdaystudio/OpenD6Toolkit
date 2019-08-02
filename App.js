@@ -10,6 +10,7 @@ import DieRollerScreen from './src/components/screens/DieRollerScreen';
 import TemplateSelectScreen from './src/components/screens/TemplateSelectScreen';
 import TemplateDeleteScreen from './src/components/screens/TemplateDeleteScreen';
 import NewTemplateScreen from './src/components/screens/NewTemplateScreen';
+import OpenTemplateScreen from './src/components/screens/OpenTemplateScreen';
 import ArchitectScreen from './src/components/screens/ArchitectScreen';
 import EditAttributeScreen from './src/components/screens/EditAttributeScreen';
 import EditSkillScreen from './src/components/screens/EditSkillScreen';
@@ -39,6 +40,9 @@ const RootStack = DrawerNavigator(
         },
         NewTemplate: {
             screen: NewTemplateScreen,
+        },
+        OpenTemplate: {
+            screen: OpenTemplateScreen,
         },
         Architect: {
             screen: ArchitectScreen,

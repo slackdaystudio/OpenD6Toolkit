@@ -46,7 +46,7 @@ class HomeScreen extends Component {
     }
 
     _onTemplateUploadPress() {
-        file.loadGameTemplate(() => {}, () => {});
+        file.uploadTemplate(() => {}, () => {});
     }
 
 	render() {

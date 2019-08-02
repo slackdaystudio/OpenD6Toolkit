@@ -5,6 +5,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import moment from "moment";
 import { zip, unzip } from 'react-native-zip-archive';
 import { common } from './Common';
+import { TEMPLATE_FANTASY_NAME, TEMPLATE_ADVENTURE_NAME, TEMPLATE_SPACE_NAME} from './Character';
 
 const ANDROID_ROOT_DIR = RNFetchBlob.fs.dirs.SDCardDir + '/OpenD6Toolkit';
 
@@ -18,8 +19,10 @@ const DEFAULT_CHARACTER_DIR = DEFAULT_ROOT_DIR + '/characters/';
 
 const DEFAULT_TEMPLATE_DIR = DEFAULT_ROOT_DIR + '/templates/';
 
+const BUILT_IN_TEMPLATE_NAMES = [TEMPLATE_FANTASY_NAME, TEMPLATE_ADVENTURE_NAME, TEMPLATE_SPACE_NAME];
+
 class File {
-    async loadGameTemplate(startLoad, endLoad) {
+    async uploadTemplate(startLoad, endLoad) {
         try {
             const result = await DocumentPicker.pick({
                 type: [DocumentPicker.types.allFiles],
@@ -49,6 +52,62 @@ class File {
             if (!isCancel) {
                 Alert.alert(error.message);
             }
+        }
+    }
+
+    async getCustomTemplates() {
+        let templates = [];
+
+        try {
+            const existingTemplates = await this.getTemplates();
+            let currentTemplate = {};
+
+            for (let existingTemplate of existingTemplates) {
+                currentTemplate = JSON.parse(existingTemplate);
+
+                if (!BUILT_IN_TEMPLATE_NAMES.includes(currentTemplate.name)) {
+                    templates.push(currentTemplate);
+                }
+            }
+
+            return templates;
+        } catch (error) {
+            Toast.show({
+                text: error.message,
+                position: 'bottom',
+                buttonText: 'OK',
+                textStyle: {color: '#fde5d2'},
+                buttonTextStyle: { color: '#f57e20' },
+                duration: 3000
+            });
+        }
+    }
+
+    async saveTemplate(template) {
+        let message = 'Unable to save template';
+
+        try {
+            let templatePath = await this._getTemplatePath(template.name);
+            let currentTemplate = {};
+
+            if (BUILT_IN_TEMPLATE_NAMES.includes(template.name)) {
+                message = 'You cannot name a template identically to one of the 3 built in templates';
+            } else {
+                await RNFetchBlob.fs.writeFile(templatePath, JSON.stringify(template), 'utf8');
+
+                message = `Template "${template.name}" was saved`;
+            }
+        } catch (error) {
+            message = error.message;
+        } finally {
+            Toast.show({
+                text: message,
+                position: 'bottom',
+                buttonText: 'OK',
+                textStyle: {color: '#fde5d2'},
+                buttonTextStyle: { color: '#f57e20' },
+                duration: 3000
+            });
         }
     }
 
