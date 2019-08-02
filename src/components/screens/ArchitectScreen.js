@@ -58,6 +58,14 @@ class ArchitectScreen extends Component {
                             <Icon type='FontAwesome' name='folder-open' style={{color: '#FFF'}}/>
                             <Text uppercase={false} style={{color: '#FFF'}}>Open</Text>
                         </Button>
+                        <Button vertical onPress={() => file.uploadTemplate(() => {}, () => {})}>
+                            <Icon type='FontAwesome' name='download' style={{color: '#FFF'}}/>
+                            <Text uppercase={false} style={{color: '#FFF'}}>Import</Text>
+                        </Button>
+                        <Button vertical onPress={() => this.props.navigation.navigate('TemplateDelete')}>
+                            <Icon type='FontAwesome' name='trash' style={{color: '#FFF'}}/>
+                            <Text uppercase={false} style={{color: '#FFF'}}>Delete</Text>
+                        </Button>
                     </FooterTab>
                 </Footer>
 	      </Container>

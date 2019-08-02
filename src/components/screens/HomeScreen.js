@@ -21,7 +21,6 @@ class HomeScreen extends Component {
 
         this.onBuilderPress = this._onBuilderPress.bind(this);
         this.onArchitectPress = this._onArchitectPress.bind(this);
-        this.onTemplateUploadPress = this._onTemplateUploadPress.bind(this);
         this.onPress = this._onPress.bind(this);
     }
 
@@ -42,11 +41,7 @@ class HomeScreen extends Component {
     }
 
     _onPress(location) {
-        this.props.navigation.navigate(location)
-    }
-
-    _onTemplateUploadPress() {
-        file.uploadTemplate(() => {}, () => {});
+        this.props.navigation.navigate(location);
     }
 
 	render() {
@@ -68,8 +63,6 @@ class HomeScreen extends Component {
                 <Text style={[styles.grey, {alignSelf: 'center'}]}>Manage game templates used to build characters.</Text>
                 <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
                     <LogoButton label='Architect' onPress={() => this.onArchitectPress()} />
-                    <LogoButton label='Upload' onPress={() => this.onTemplateUploadPress()} />
-                    <LogoButton label='Delete' onPress={() => this.onPress('TemplateDelete')} />
                 </View>
                 <Heading text='GM Tools' />
                 <Text style={[styles.grey, {alignSelf: 'center'}]}>Tools to help GMs manage their games.</Text>

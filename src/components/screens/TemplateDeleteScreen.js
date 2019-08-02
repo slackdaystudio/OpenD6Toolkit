@@ -91,7 +91,7 @@ export default class TemplateDeleteScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Heading text="Delete Template" />
+                <Heading text="Delete Template" onBackButtonPress={() => this.props.navigation.navigate('Architect')} />
                 <Text style={[styles.grey, {alignSelf: 'center'}]}>Long press to delete a template.</Text>
                 <List>
                     {this.state.templates.map((template, index) => {
