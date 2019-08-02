@@ -9,13 +9,12 @@ import LogoButton from '../LogoButton';
 import ConfirmationDialog from '../ConfirmationDialog';
 import styles from '../../Styles';
 import { template } from '../../lib/Template';
-import { saveTemplateAttribute, deleteTemplateSkill } from '../../../reducer';
+import { editTemplateAttribute, deleteTemplateSkill } from '../../../reducer';
 
 class EditAttributeScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-        attributeName: PropTypes.string.isRequired,
-        saveTemplateAttribute: PropTypes.func.isRequired,
+        editTemplateAttribute: PropTypes.func.isRequired,
         deleteTemplateSkill: PropTypes.func.isRequired,
         template: PropTypes.object
     }
@@ -68,25 +67,8 @@ class EditAttributeScreen extends Component {
         let newState = {...this.state};
         newState.attribute[key] = value;
 
-        this.setState(newState);
-    }
-
-    _save() {
-        let message = 'The attribute "' + this.state.attribute.name + '" already exists';
-
-        if (template.isAttributeNameUnique(this.state.attribute, this.state.attributeIndex, this.props.template)) {
-            this.props.saveTemplateAttribute(this.state.attribute, this.state.attributeIndex);
-
-            message = this.state.attribute.name === '' ? 'The attribute' : this.state.attribute.name + ' has been saved';
-        }
-
-        Toast.show({
-            text: 'The attribute "' + this.state.attribute.name + '" already exists',
-            position: 'bottom',
-            buttonText: 'OK',
-            textStyle: {color: '#fde5d2'},
-            buttonTextStyle: { color: '#f57e20' },
-            duration: 3000
+        this.setState(newState, () => {
+            this.props.editTemplateAttribute(this.state.attribute, this.state.attributeIndex);
         });
     }
 
@@ -113,7 +95,7 @@ class EditAttributeScreen extends Component {
                                                 type='FontAwesome'
                                                 name='edit'
                                                 style={[localStyles.button, {paddingTop: 3}]}
-                                                onPress={() => {}}
+                                                onPress={() => this.props.navigation.navigate('EditSkill', {attribute: this.state.attribute, skill: skill})}
                                             />
                                         </View>
                                     </Right>
@@ -171,8 +153,6 @@ class EditAttributeScreen extends Component {
                     </Item>
                 </Form>
                 <View style={{paddingBottom: 20}} />
-                <LogoButton label='Save' onPress={() => this._save()} />
-                <View style={{paddingBottom: 20}} />
                 <Heading text='Skills' onAddButtonPress={() => {}} />
                 {this._renderSkills()}
                 <View style={{paddingBottom: 20}} />
@@ -203,7 +183,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    saveTemplateAttribute,
+    editTemplateAttribute,
     deleteTemplateSkill
 }
 

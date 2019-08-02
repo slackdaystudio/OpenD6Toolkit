@@ -56,11 +56,13 @@ export const SET_ARCHITECT_TEMPLATE = 'SET_ARCHITECT_TEMPLATE';
 
 export const UPDATE_TEMPLATE_OVERVIEW = 'UPDATE_TEMPLATE_OVERVIEW';
 
-export const SAVE_TEMPLATE_ATTRIBUTE = 'SAVE_TEMPLATE_ATTRIBUTE';
+export const EDIT_TEMPLATE_ATTRIBUTE = 'EDIT_TEMPLATE_ATTRIBUTE';
 
 export const ADD_TEMPLATE_ATTRIBUTE = 'ADD_TEMPLATE_ATTRIBUTE';
 
 export const DELETE_TEMPLATE_ATTRIBUTE = 'DELETE_TEMPLATE_ATTRIBUTE';
+
+export const EDIT_TEMPLATE_SKILL = 'EDIT_TEMPLATE_SKILL';
 
 export const DELETE_TEMPLATE_SKILL = 'DELETE_TEMPLATE_SKILL';
 
@@ -267,9 +269,9 @@ export function updateTemplateOverview(key, value) {
     }
 }
 
-export function saveTemplateAttribute(attribute, index) {
+export function editTemplateAttribute(attribute, index) {
     return {
-        type: SAVE_TEMPLATE_ATTRIBUTE,
+        type: EDIT_TEMPLATE_ATTRIBUTE,
         payload: {
             attribute: attribute,
             index: index
@@ -288,6 +290,17 @@ export function deleteTemplateAttribute(attribute) {
     return {
         type: DELETE_TEMPLATE_ATTRIBUTE,
         payload: attribute
+    }
+}
+
+export function editTemplateSkill(attribute, skill, index) {
+    return {
+        type: EDIT_TEMPLATE_SKILL,
+        payload: {
+            attribute: attribute,
+            skill: skill,
+            index: index
+        }
     }
 }
 
@@ -767,20 +780,6 @@ export default function reducer(state = initialState, action) {
             newState.architect.template = action.payload;
 
             return newState;
-        case SAVE_TEMPLATE_ATTRIBUTE:
-            newState = {
-                ...state,
-                architect: {
-                    ...state.architect,
-                    template: {
-                        ...state.architect.template
-                    }
-                }
-            };
-
-            newState.architect.template.attributes[action.payload.index] = action.payload.attribute;
-
-            return newState;
         case UPDATE_TEMPLATE_OVERVIEW:
             newState = {
                 ...state,
@@ -793,6 +792,20 @@ export default function reducer(state = initialState, action) {
             };
 
             newState.architect.template[action.payload.key] = action.payload.value;
+
+            return newState;
+        case EDIT_TEMPLATE_ATTRIBUTE:
+            newState = {
+                ...state,
+                architect: {
+                    ...state.architect,
+                    template: {
+                        ...state.architect.template
+                    }
+                }
+            };
+
+            newState.architect.template.attributes[action.payload.index] = action.payload.attribute;
 
             return newState;
         case ADD_TEMPLATE_ATTRIBUTE:
@@ -827,6 +840,25 @@ export default function reducer(state = initialState, action) {
             for (let i = 0; i < newState.architect.template.attributes.length; i++) {
                 if (newState.architect.template.attributes[i].name === action.payload.name) {
                     newState.architect.template.attributes.splice(i, 1);
+                    break;
+                }
+            }
+
+            return newState;
+        case EDIT_TEMPLATE_SKILL:
+            newState = {
+                ...state,
+                architect: {
+                    ...state.architect,
+                    template: {
+                        ...state.architect.template
+                    }
+                }
+            };
+
+            for (let i = 0; i < newState.architect.template.attributes.length; i++) {
+                if (newState.architect.template.attributes[i].name === action.payload.attribute.name) {
+                    newState.architect.template.attributes[i].skills[action.payload.index] = action.payload.skill;
                     break;
                 }
             }
