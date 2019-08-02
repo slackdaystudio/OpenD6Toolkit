@@ -239,9 +239,9 @@ class Character {
     getTemplates() {
         return file.getTemplates().then((customTemplates) => {
             let templates = [];
-            templates.push(TEMPLATE_FANTASY);
-            templates.push(TEMPLATE_ADVENTURE);
-            templates.push(TEMPLATE_SPACE);
+            templates.push(this._assembleBuiltInTemplate(TEMPLATE_FANTASY));
+            templates.push(this._assembleBuiltInTemplate(TEMPLATE_ADVENTURE));
+            templates.push(this._assembleBuiltInTemplate(TEMPLATE_SPACE));
 
             for (let i = 0; i < customTemplates.length; i++) {
                 templates.push(JSON.parse(customTemplates[i]))
@@ -249,6 +249,14 @@ class Character {
 
             return templates;
         });
+    }
+
+    _assembleBuiltInTemplate(template) {
+        template.advantages = BASE_ADVANTAGES.items;
+        template.complications = BASE_COMPLICATIONS.items;
+        template.specialAbilities = BASE_SPECIAL_ABILITIES.items;
+
+        return template;
     }
 
     _getOptions(optionsKey) {
