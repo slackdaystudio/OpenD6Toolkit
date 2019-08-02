@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, StyleSheet, View, TouchableHighlight, BackHandler, Alert } from 'react-native';
-import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Item, Icon, Input, Label, Toast } from 'native-base';
+import { Container, Content, Button, Text, Spinner, Card, CardItem, Left, Right, Body, Item, Icon, Input, Label, Toast } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
 import RanksDialog, { MODE_ADD } from '../RanksDialog';
@@ -21,19 +21,20 @@ class CharacterOptionsScreen extends Component {
     constructor(props) {
         super(props);
 
-        let optionKey = props.navigation.state.params.optionKey;
-        let options = props.character[common.toCamelCase(optionKey)].template.items;
-        let initOptions = this._initOptions(options);
+        const optionKey = props.navigation.state.params.optionKey;
+        const options = props.character[common.toCamelCase(optionKey)].template.items;
+        const displayOptions =  this._initOptionsShow(options);
 
         this.state = {
-            options: initOptions,
-            optionShow: this._initOptionsShow(options),
+            options: options,
+            optionShow: displayOptions.optionsState,
+            optionChevron: displayOptions.chevronsState,
             optionKey: optionKey,
             selectedOption: null,
             showRanksDialog: false,
             search: {
                 term: '',
-                results: initOptions
+                results: options
             }
         }
 
@@ -49,29 +50,25 @@ class CharacterOptionsScreen extends Component {
         });
     }
 
-    _initOptions(options) {
-        let optionsList = [];
-
-        options.map((option, index) => {
-            optionsList.push(option);
-        });
-
-        return optionsList;
-    }
-
     _initOptionsShow(options) {
-        let optionsShow = {};
+        let optionsState = {};
+        let chevronsState = {}
 
         options.map((option, index) => {
-            optionsShow[option.name + option.rank] = false
+            optionsState[option.name + option.rank] = false;
+            chevronsState[option.name + option.rank] = 'chevron-circle-down';
         });
 
-        return optionsShow;
+        return {
+            optionsState: optionsState,
+            chevronsState: chevronsState
+        };
     }
 
     _toggleDescriptionShow(name, rank) {
         let newState = {...this.state};
         newState.optionShow[name + rank] = !newState.optionShow[name + rank];
+        newState.optionChevron[name + rank] = newState.optionChevron[name + rank] === 'chevron-circle-down' ? 'chevron-circle-up' : 'chevron-circle-down';
 
         this.setState(newState);
     }
@@ -131,7 +128,7 @@ class CharacterOptionsScreen extends Component {
             return description;
         }
 
-        return description.length > 75 ? description.substring(0, 72) + '...' : description;
+        return description.length > 100 ? description.substring(0, 97) + '...' : description;
     }
 
     _renderFilterMessage() {
@@ -146,6 +143,10 @@ class CharacterOptionsScreen extends Component {
         }
 
         return null;
+    }
+
+    _getChevronName() {
+
     }
 
 	render() {
@@ -170,22 +171,34 @@ class CharacterOptionsScreen extends Component {
                 <View style={{paddingBottom: 20}} />
                 {this.state.search.results.map((option, index) => {
                     return (
-                        <TouchableHighlight
-                            key={'option-' + index}
-                            onPress={() => this._toggleDescriptionShow(option.name, option.rank)}
-                            onLongPress={() => this._addOption(option)}
-                        >
-                            <View style={{borderWidth: 1, borderColor: '#B78A67'}}>
-                                <CardItem style={{backgroundColor: '#FFF8F2'}}>
-                                    <Body>
-                                        <Text style={styles.grey}>
-                                            <Text style={[styles.boldGrey, {fontSize: 20, lineHeight: 22}]}>{option.name}, R{option.rank + '\n'}</Text>
-                                            <Text style={styles.grey}>{this._renderDescription(option)}</Text>
-                                        </Text>
-                                    </Body>
-                                </CardItem>
-                            </View>
-                        </TouchableHighlight>
+                        <Card>
+                            <CardItem>
+                                <Body>
+                                    <Text style={[styles.boldGrey, {fontSize: 20, lineHeight: 22}]}>{option.name} R{option.rank}</Text>
+                                </Body>
+                                <Right>
+                                    <View style={{flex: 1, flexDirection: 'row'}}>
+                                        <Icon
+                                            type='FontAwesome'
+                                            name={this.state.optionChevron[option.name + option.rank]}
+                                            style={[localStyles.button, {paddingRight: 10}]}
+                                            onPress={() => this._toggleDescriptionShow(option.name, option.rank)}
+                                        />
+                                        <Icon
+                                            type='FontAwesome'
+                                            name='plus-circle'
+                                            style={localStyles.button}
+                                            onPress={() => this._addOption(option)}
+                                        />
+                                    </View>
+                                </Right>
+                            </CardItem>
+                            <CardItem>
+                                <Body>
+                                    <Text style={styles.grey}>{this._renderDescription(option)}</Text>
+                                </Body>
+                            </CardItem>
+                        </Card>
                     )
                 })}
                 <View style={{paddingBottom: 20}} />
@@ -202,6 +215,13 @@ class CharacterOptionsScreen extends Component {
 		);
 	}
 }
+
+const localStyles = StyleSheet.create({
+	button: {
+        fontSize: 30,
+        color: '#f57e20'
+	}
+});
 
 const mapStateToProps = state => {
     return {
