@@ -7,6 +7,7 @@ import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
 import ArchitectFooter from '../ArchitectFooter';
+import { TAB_ADVANTAGES, TAB_SPECIAL_ABILITIES, TAB_COMPLICATIONS } from './ArchitectScreen';
 import styles from '../../Styles';
 import { template } from '../../lib/Template';
 import { common } from '../../lib/Common';
@@ -39,12 +40,25 @@ class EditOptionScreen extends Component {
         });
     }
 
+    _getArchitectSelectedTab() {
+        switch (this.state.optionKey) {
+            case 'Advantages':
+                return TAB_ADVANTAGES;
+            case "Special Abilities":
+                return TAB_SPECIAL_ABILITIES;
+            case "Complications":
+                return TAB_COMPLICATIONS;
+            default:
+                // do nothing, the Overview tab will be selected
+        }
+    }
+
 	render() {
 		return (
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Heading text={this.state.optionKey} onBackButtonPress={() => this.props.navigation.navigate('Architect')} />
+                <Heading text={this.state.optionKey} onBackButtonPress={() => this.props.navigation.navigate('Architect', {selectedTab: this._getArchitectSelectedTab()})} />
                 <Form>
                     <Item stackedLabel>
                         <Label style={{fontWeight: 'bold'}}>ID</Label>

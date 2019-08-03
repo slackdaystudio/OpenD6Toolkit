@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image } from 'react-native';
+import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Tab, Tabs, ScrollableTab, Footer, FooterTab } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
@@ -13,6 +13,16 @@ import Options from '../architect/Options';
 import styles from '../../Styles';
 import { file } from '../../lib/File';
 
+export const TAB_OVERVIEW = 0;
+
+export const TAB_ATTRIBUTES = 1;
+
+export const TAB_ADVANTAGES = 2;
+
+export const TAB_SPECIAL_ABILITIES = 3;
+
+export const TAB_COMPLICATIONS = 4;
+
 class ArchitectScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
@@ -21,6 +31,28 @@ class ArchitectScreen extends Component {
 
     constructor(props) {
         super(props);
+
+        let selectedTab = TAB_OVERVIEW;
+
+        try {
+            selectedTab = props.navigation.state.params.selectedTab;
+        } catch (error) {
+            // swallow this exception
+        } finally {
+            this.state = {
+                selectedTab: selectedTab
+            };
+        }
+    }
+
+    componentDidMount() {
+        if (this.state.selectedTab < TAB_OVERVIEW) {
+            this.state.selectedTab = TAB_OVERVIEW;
+        } else if (this.state.selectedTab > TAB_COMPLICATIONS) {
+            this.state.selectedTab = TAB_COMPLICATIONS;
+        }
+
+        setTimeout(this.tabs.goToPage.bind(this.tabs, this.state.selectedTab));
     }
 
 	render() {
@@ -28,7 +60,7 @@ class ArchitectScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} hasTabs={true} />
             <Content style={styles.content}>
-                <Tabs locked={true} tabBarUnderlineStyle={{backgroundColor: '#FFF'}} renderTabBar={()=> <ScrollableTab />}>
+                <Tabs ref={(t) => { this.tabs = t; return;}} locked={true} tabBarUnderlineStyle={{backgroundColor: '#FFF'}} renderTabBar={()=> <ScrollableTab />}>
                     <Tab heading='Overview' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
                         <Overview navigation={this.props.navigation} template={this.props.template} />
                     </Tab>

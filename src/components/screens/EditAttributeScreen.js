@@ -8,6 +8,7 @@ import Heading from '../Heading';
 import LogoButton from '../LogoButton';
 import ArchitectFooter from '../ArchitectFooter';
 import ConfirmationDialog from '../ConfirmationDialog';
+import { TAB_ATTRIBUTES } from './ArchitectScreen';
 import styles from '../../Styles';
 import { template } from '../../lib/Template';
 import { editTemplateAttribute, deleteTemplateSkill } from '../../../reducer';
@@ -121,7 +122,7 @@ class EditAttributeScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Heading text='Attribute' onBackButtonPress={() => this.props.navigation.navigate('Architect')} />
+                <Heading text='Attribute' onBackButtonPress={() => this.props.navigation.navigate('Architect', {selectedTab: TAB_ATTRIBUTES})} />
                 <Form>
                     <Item stackedLabel>
                         <Label style={{fontWeight: 'bold'}}>Name</Label>
