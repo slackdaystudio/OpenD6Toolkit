@@ -9,20 +9,21 @@ import RanksDialog, { MODE_ADD } from '../RanksDialog';
 import styles from '../../Styles';
 import { character, OPTION_ADVANTAGES, OPTION_COMPLICATIONS } from '../../lib/Character';
 import { common } from '../../lib/Common';
-import { addOption } from '../../../reducer';
 
-class CharacterOptionsScreen extends Component {
+const BACK_BUTTON_START_DIFF = 9;
+
+export default class Options extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-        character: PropTypes.object.isRequired,
-        addOption: PropTypes.func.isRequired
+        optionKey: PropTypes.string.isRequired,
+        template: PropTypes.object.isRequired
     }
 
     constructor(props) {
         super(props);
 
-        const optionKey = props.navigation.state.params.optionKey;
-        const options = props.character[common.toCamelCase(optionKey)].template.items;
+        const optionKey = props.optionKey;
+        const options = props.template[common.toCamelCase(optionKey)];
         const displayOptions =  this._initOptionsShow(options);
 
         this.state = {
@@ -30,24 +31,17 @@ class CharacterOptionsScreen extends Component {
             optionShow: displayOptions.optionsState,
             optionChevron: displayOptions.chevronsState,
             optionKey: optionKey,
-            selectedOption: null,
-            showRanksDialog: false,
             search: {
                 term: '',
                 results: options
+            },
+            pagination: {
+                currentPage: 1,
+                itemsPerPage: 10,
+                startOnItem: 1,
+                totalPages: Math.ceil(options.length / 10)
             }
         }
-
-        this.addOptionToCharacter = this._addOptionToCharacter.bind(this);
-        this.closeRanksDialog = this._closeRanksDialog.bind(this);
-    }
-
-    componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', () => {
-            this.props.navigation.navigate('Builder');
-
-            return true;
-        });
     }
 
     _initOptionsShow(options) {
@@ -73,33 +67,6 @@ class CharacterOptionsScreen extends Component {
         this.setState(newState);
     }
 
-    _addOption(item) {
-        this.setState({
-            selectedOption: item,
-            showRanksDialog: true
-        });
-    }
-
-    _addOptionToCharacter(optionKey, item) {
-        this.props.addOption(optionKey, item);
-
-        Toast.show({
-            text: item.name + ', R' + (item.multipleRanks ? item.totalRanks * item.rank : item.rank) + ' has been added',
-            position: 'bottom',
-            buttonText: 'OK',
-            textStyle: {color: '#fde5d2'},
-            buttonTextStyle: { color: '#f57e20' },
-            duration: 3000
-        });
-    }
-
-    _closeRanksDialog() {
-        this.setState({
-            selectedOption: null,
-            showRanksDialog: false
-        });
-    }
-
     _search(term) {
         let newState = {...this.state};
         let results = [];
@@ -117,6 +84,37 @@ class CharacterOptionsScreen extends Component {
         }
 
         newState.search.term = term;
+        newState.pagination.totalPages = Math.ceil(newState.search.results.length / newState.pagination.itemsPerPage);
+
+        if (newState.pagination.currentPage > newState.pagination.totalPages) {
+            newState.pagination.currentPage = newState.pagination.totalPages > 0 ? newState.pagination.totalPages : 1;
+            newState.pagination.startOnItem = newState.pagination.itemsPerPage * newState.pagination.currentPage - BACK_BUTTON_START_DIFF;
+        }
+
+        this.setState(newState);
+    }
+
+    _onBackButtonPress() {
+        if (this.state.pagination.currentPage === 1) {
+            return;
+        }
+
+        let newState = {...this.state};
+        newState.pagination.currentPage--;
+        newState.pagination.startOnItem = newState.pagination.itemsPerPage * newState.pagination.currentPage - BACK_BUTTON_START_DIFF;
+
+        this.setState(newState);
+    }
+
+    _onNextButtonPress() {
+        if (this.state.pagination.currentPage === this.state.pagination.totalPages) {
+            return;
+        }
+
+        let newState = {...this.state};
+
+        newState.pagination.startOnItem = newState.pagination.itemsPerPage * newState.pagination.currentPage;
+        newState.pagination.currentPage++;
 
         this.setState(newState);
     }
@@ -145,14 +143,46 @@ class CharacterOptionsScreen extends Component {
         return null;
     }
 
+    _renderBackButton() {
+        if (this.state.pagination.currentPage === 1) {
+            return <View style={{width: 75}} />;
+        }
+
+        return (
+            <Icon
+                type='FontAwesome'
+                name='chevron-circle-left'
+                style={[localStyles.buttonBig, {paddingLeft: 30}]}
+                onPress={() => this._onBackButtonPress()}
+            />
+        );
+    }
+
+    _renderNextButton() {
+        if (this.state.pagination.currentPage === this.state.pagination.totalPages) {
+            return <View style={{width: 75}} />;
+        }
+
+        return (
+            <Icon
+                type='FontAwesome'
+                name='chevron-circle-right'
+                style={[localStyles.buttonBig, {paddingRight: 30}]}
+                onPress={() => this._onNextButtonPress()}
+            />
+        );
+    }
+
 	render() {
+	    let itemCount = 0;
+	    let renderedItemCount = 0;
+
 		return (
-		  <Container style={styles.container}>
-            <Header navigation={this.props.navigation} />
-            <Content style={styles.content}>
+            <View>
                 <Heading
                     text={this.state.optionKey}
-                    onBackButtonPress={() => this.props.navigation.navigate('Builder')}
+                    onBackButtonPress={() => this.props.navigation.navigate('Home')}
+                    onAddButtonPress={() => {}}
                 />
                 <Item>
                     <Icon active name='search' />
@@ -166,8 +196,28 @@ class CharacterOptionsScreen extends Component {
                 {this._renderFilterMessage()}
                 <View style={{paddingBottom: 20}} />
                 {this.state.search.results.map((option, index) => {
+                    itemCount++;
+
+                    if (itemCount < this.state.pagination.startOnItem || renderedItemCount > this.state.pagination.itemsPerPage) {
+                        return null;
+                    } else {
+                        if (renderedItemCount === this.state.pagination.itemsPerPage || itemCount === this.state.search.results.length) {
+                            renderedItemCount++;
+
+                            return (
+                                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 20, paddingTop: 20}}>
+                                    {this._renderBackButton()}
+                                    <Text style={styles.grey}>Page {this.state.pagination.currentPage} of {this.state.pagination.totalPages}</Text>
+                                    {this._renderNextButton()}
+                                </View>
+                            );
+                        }
+                    }
+
+                    renderedItemCount++;
+
                     return (
-                        <Card>
+                        <Card key={common.toCamelCase(this.props.optionKey) + '-' + itemCount}>
                             <CardItem>
                                 <Body>
                                     <Text style={[styles.boldGrey, {fontSize: 20, lineHeight: 22}]}>{option.name} R{option.rank}</Text>
@@ -182,9 +232,15 @@ class CharacterOptionsScreen extends Component {
                                         />
                                         <Icon
                                             type='FontAwesome'
-                                            name='plus-circle'
-                                            style={localStyles.button}
-                                            onPress={() => this._addOption(option)}
+                                            name='trash'
+                                            style={[localStyles.button, {paddingRight: 10}]}
+                                            onPress={() => this._delete(attribute)}
+                                        />
+                                        <Icon
+                                            type='FontAwesome'
+                                            name='edit'
+                                            style={[localStyles.button, {paddingTop: 3}]}
+                                            onPress={() => this.props.navigation.navigate('EditOption', {option: option})}
                                         />
                                     </View>
                                 </Right>
@@ -198,16 +254,7 @@ class CharacterOptionsScreen extends Component {
                     )
                 })}
                 <View style={{paddingBottom: 20}} />
-                <RanksDialog
-                    visible={this.state.showRanksDialog}
-                    optionKey={this.state.optionKey}
-                    item={this.state.selectedOption}
-                    mode={MODE_ADD}
-                    onSave={this.addOptionToCharacter}
-                    onClose={this.closeRanksDialog}
-                />
-            </Content>
-	      </Container>
+            </View>
 		);
 	}
 }
@@ -216,17 +263,9 @@ const localStyles = StyleSheet.create({
 	button: {
         fontSize: 30,
         color: '#f57e20'
+	},
+	buttonBig: {
+        fontSize: 45,
+        color: '#f57e20'
 	}
 });
-
-const mapStateToProps = state => {
-    return {
-        character: state.builder.character
-    };
-}
-
-const mapDispatchToProps = {
-    addOption
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CharacterOptionsScreen);

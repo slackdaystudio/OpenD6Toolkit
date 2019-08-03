@@ -777,7 +777,7 @@ export default function reducer(state = initialState, action) {
                 }
             };
 
-            newState.architect.template = action.payload;
+            newState.architect.template = {...action.payload};
 
             return newState;
         case UPDATE_TEMPLATE_OVERVIEW:
