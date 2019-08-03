@@ -11,6 +11,8 @@ import { character, OPTION_ADVANTAGES, OPTION_COMPLICATIONS } from '../../lib/Ch
 import { common } from '../../lib/Common';
 import { addOption } from '../../../reducer';
 
+const BACK_BUTTON_START_DIFF = 9;
+
 class CharacterOptionsScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
@@ -35,6 +37,12 @@ class CharacterOptionsScreen extends Component {
             search: {
                 term: '',
                 results: options
+            },
+            pagination: {
+                currentPage: 1,
+                itemsPerPage: 10,
+                startOnItem: 1,
+                totalPages: Math.ceil(options.length / 10)
             }
         }
 
@@ -117,6 +125,37 @@ class CharacterOptionsScreen extends Component {
         }
 
         newState.search.term = term;
+        newState.pagination.totalPages = Math.ceil(newState.search.results.length / newState.pagination.itemsPerPage);
+
+        if (newState.pagination.currentPage > newState.pagination.totalPages) {
+            newState.pagination.currentPage = newState.pagination.totalPages > 0 ? newState.pagination.totalPages : 1;
+            newState.pagination.startOnItem = newState.pagination.itemsPerPage * newState.pagination.currentPage - BACK_BUTTON_START_DIFF;
+        }
+
+        this.setState(newState);
+    }
+
+    _onBackButtonPress() {
+        if (this.state.pagination.currentPage === 1) {
+            return;
+        }
+
+        let newState = {...this.state};
+        newState.pagination.currentPage--;
+        newState.pagination.startOnItem = newState.pagination.itemsPerPage * newState.pagination.currentPage - BACK_BUTTON_START_DIFF;
+
+        this.setState(newState);
+    }
+
+    _onNextButtonPress() {
+        if (this.state.pagination.currentPage === this.state.pagination.totalPages) {
+            return;
+        }
+
+        let newState = {...this.state};
+
+        newState.pagination.startOnItem = newState.pagination.itemsPerPage * newState.pagination.currentPage + 1;
+        newState.pagination.currentPage++;
 
         this.setState(newState);
     }
@@ -145,7 +184,40 @@ class CharacterOptionsScreen extends Component {
         return null;
     }
 
+    _renderBackButton() {
+        if (this.state.pagination.currentPage === 1) {
+            return <View style={{width: 75}} />;
+        }
+
+        return (
+            <Icon
+                type='FontAwesome'
+                name='chevron-circle-left'
+                style={[localStyles.buttonBig, {paddingLeft: 30}]}
+                onPress={() => this._onBackButtonPress()}
+            />
+        );
+    }
+
+    _renderNextButton() {
+        if (this.state.pagination.currentPage === this.state.pagination.totalPages) {
+            return <View style={{width: 75}} />;
+        }
+
+        return (
+            <Icon
+                type='FontAwesome'
+                name='chevron-circle-right'
+                style={[localStyles.buttonBig, {paddingRight: 30}]}
+                onPress={() => this._onNextButtonPress()}
+            />
+        );
+    }
+
 	render() {
+	    let itemCount = 0;
+	    let renderedItemCount = 0;
+
 		return (
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
@@ -166,6 +238,26 @@ class CharacterOptionsScreen extends Component {
                 {this._renderFilterMessage()}
                 <View style={{paddingBottom: 20}} />
                 {this.state.search.results.map((option, index) => {
+                    itemCount++;
+
+                    if (itemCount < this.state.pagination.startOnItem || renderedItemCount > this.state.pagination.itemsPerPage) {
+                        return null;
+                    } else {
+                        if (renderedItemCount === this.state.pagination.itemsPerPage || itemCount === (this.state.search.results.length + 1)) {
+                            renderedItemCount++;
+
+                            return (
+                                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 20, paddingTop: 20}}>
+                                    {this._renderBackButton()}
+                                    <Text style={styles.grey}>Page {this.state.pagination.currentPage} of {this.state.pagination.totalPages}</Text>
+                                    {this._renderNextButton()}
+                                </View>
+                            );
+                        }
+                    }
+
+                    renderedItemCount++;
+
                     return (
                         <Card>
                             <CardItem>
@@ -216,7 +308,11 @@ const localStyles = StyleSheet.create({
 	button: {
         fontSize: 30,
         color: '#f57e20'
-	}
+	},
+    buttonBig: {
+         fontSize: 45,
+         color: '#f57e20'
+    }
 });
 
 const mapStateToProps = state => {
