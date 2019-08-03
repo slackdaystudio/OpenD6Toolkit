@@ -275,7 +275,7 @@ class Options extends Component {
                                             type='FontAwesome'
                                             name='edit'
                                             style={[localStyles.button, {paddingTop: 3}]}
-                                            onPress={() => this.props.navigation.navigate('EditOption', {option: option})}
+                                            onPress={() => this.props.navigation.navigate('EditOption', {optionKey: this.state.optionKey, option: option})}
                                         />
                                     </View>
                                 </Right>

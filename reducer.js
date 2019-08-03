@@ -68,6 +68,8 @@ export const DELETE_TEMPLATE_SKILL = 'DELETE_TEMPLATE_SKILL';
 
 export const DELETE_TEMPLATE_OPTION = 'DELETE_TEMPLATE_OPTION';
 
+export const EDIT_TEMPLATE_OPTION = 'EDIT_TEMPLATE_OPTION';
+
 export function updateRoller(dice, pips) {
     return {
         type: UPDATE_ROLLER,
@@ -320,6 +322,17 @@ export function deleteTemplateOption(optionKey, option) {
     return {
         type: DELETE_TEMPLATE_OPTION,
         payload: {
+            optionKey: optionKey,
+            option: option
+        }
+    }
+}
+
+export function editTemplateOption(optionIndex, optionKey, option) {
+    return {
+        type: EDIT_TEMPLATE_OPTION,
+        payload: {
+            optionIndex: optionIndex,
             optionKey: optionKey,
             option: option
         }
@@ -918,6 +931,20 @@ export default function reducer(state = initialState, action) {
                     break;
                 }
             }
+
+            return newState;
+        case EDIT_TEMPLATE_OPTION:
+            newState = {
+                ...state,
+                architect: {
+                    ...state.architect,
+                    template: {
+                        ...state.architect.template
+                    }
+                }
+            };
+
+            newState.architect.template[action.payload.optionKey][action.payload.optionIndex] = action.payload.option;
 
             return newState;
         default:

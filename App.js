@@ -14,6 +14,7 @@ import OpenTemplateScreen from './src/components/screens/OpenTemplateScreen';
 import ArchitectScreen from './src/components/screens/ArchitectScreen';
 import EditAttributeScreen from './src/components/screens/EditAttributeScreen';
 import EditSkillScreen from './src/components/screens/EditSkillScreen';
+import EditOptionScreen from './src/components/screens/EditOptionScreen';
 import BuilderScreen from './src/components/screens/BuilderScreen';
 import SpecializationScreen from './src/components/screens/SpecializationScreen';
 import LoadCharacterScreen from './src/components/screens/LoadCharacterScreen';
@@ -52,6 +53,9 @@ const RootStack = DrawerNavigator(
         },
         EditSkill: {
             screen: EditSkillScreen,
+        },
+        EditOption: {
+            screen: EditOptionScreen,
         },
         Builder: {
             screen: BuilderScreen,

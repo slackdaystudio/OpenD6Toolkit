@@ -31,6 +31,18 @@ class Template {
         return null;
     }
 
+    getOptionIndex(optionKey, option, template) {
+        let key = common.toCamelCase(optionKey);
+
+        for (let i = 0; i < template[key].length; i++) {
+            if (option.id === template[key][i].id) {
+                return i;
+            }
+        }
+
+        return null;
+    }
+
     isAttributeNameUnique(attribute, index, template) {
         for (let i = 0; i < template.attributes.length; i++) {
             if (index === i) {

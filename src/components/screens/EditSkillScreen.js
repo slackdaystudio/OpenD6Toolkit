@@ -6,6 +6,7 @@ import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, 
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
+import ArchitectFooter from '../ArchitectFooter';
 import ConfirmationDialog from '../ConfirmationDialog';
 import styles from '../../Styles';
 import { template } from '../../lib/Template';
@@ -67,6 +68,7 @@ class EditSkillScreen extends Component {
                 </Form>
                 <View style={{paddingBottom: 20}} />
             </Content>
+            <ArchitectFooter navigation={this.props.navigation} template={this.props.template} />
 	      </Container>
 		);
 	}
