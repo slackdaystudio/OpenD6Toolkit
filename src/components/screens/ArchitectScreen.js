@@ -36,6 +36,9 @@ class ArchitectScreen extends Component {
 
         try {
             selectedTab = props.navigation.state.params.selectedTab;
+
+            // Set the tab back to default or else it will be remembered on future visits
+            props.navigation.state.params.selectedTab = TAB_OVERVIEW;
         } catch (error) {
             // swallow this exception
         } finally {
