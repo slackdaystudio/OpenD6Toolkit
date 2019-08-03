@@ -113,7 +113,7 @@ export default class Options extends Component {
 
         let newState = {...this.state};
 
-        newState.pagination.startOnItem = newState.pagination.itemsPerPage * newState.pagination.currentPage;
+        newState.pagination.startOnItem = newState.pagination.itemsPerPage * newState.pagination.currentPage + 1;
         newState.pagination.currentPage++;
 
         this.setState(newState);
@@ -201,7 +201,7 @@ export default class Options extends Component {
                     if (itemCount < this.state.pagination.startOnItem || renderedItemCount > this.state.pagination.itemsPerPage) {
                         return null;
                     } else {
-                        if (renderedItemCount === this.state.pagination.itemsPerPage || itemCount === this.state.search.results.length) {
+                        if (renderedItemCount === this.state.pagination.itemsPerPage || itemCount === (this.state.search.results.length + 1)) {
                             renderedItemCount++;
 
                             return (
