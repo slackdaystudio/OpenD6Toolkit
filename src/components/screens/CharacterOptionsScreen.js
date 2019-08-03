@@ -214,46 +214,17 @@ class CharacterOptionsScreen extends Component {
         );
     }
 
-	render() {
-	    let itemCount = 0;
-	    let renderedItemCount = 0;
+    _renderList() {
+        let itemCount = 0;
+        let renderedItemCount = 0;
 
-		return (
-		  <Container style={styles.container}>
-            <Header navigation={this.props.navigation} />
-            <Content style={styles.content}>
-                <Heading
-                    text={this.state.optionKey}
-                    onBackButtonPress={() => this.props.navigation.navigate('Builder')}
-                />
-                <Item>
-                    <Icon active name='search' />
-                    <Input
-                        style={styles.grey}
-                        maxLength={255}
-                        value={this.state.search.term}
-                        onChangeText={(value) => this._search(value)}
-                    />
-                </Item>
-                {this._renderFilterMessage()}
-                <View style={{paddingBottom: 20}} />
+        return (
+            <View>
                 {this.state.search.results.map((option, index) => {
                     itemCount++;
 
-                    if (itemCount < this.state.pagination.startOnItem || renderedItemCount > this.state.pagination.itemsPerPage) {
+                    if (itemCount < this.state.pagination.startOnItem || renderedItemCount >= this.state.pagination.itemsPerPage) {
                         return null;
-                    } else {
-                        if (renderedItemCount === this.state.pagination.itemsPerPage || itemCount === (this.state.search.results.length + 1)) {
-                            renderedItemCount++;
-
-                            return (
-                                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 20, paddingTop: 20}}>
-                                    {this._renderBackButton()}
-                                    <Text style={styles.grey}>Page {this.state.pagination.currentPage} of {this.state.pagination.totalPages}</Text>
-                                    {this._renderNextButton()}
-                                </View>
-                            );
-                        }
                     }
 
                     renderedItemCount++;
@@ -289,6 +260,39 @@ class CharacterOptionsScreen extends Component {
                         </Card>
                     )
                 })}
+            </View>
+        );
+    }
+
+	render() {
+	    let itemCount = 0;
+	    let renderedItemCount = 0;
+
+		return (
+		  <Container style={styles.container}>
+            <Header navigation={this.props.navigation} />
+            <Content style={styles.content}>
+                <Heading
+                    text={this.state.optionKey}
+                    onBackButtonPress={() => this.props.navigation.navigate('Builder')}
+                />
+                <Item>
+                    <Icon active name='search' />
+                    <Input
+                        style={styles.grey}
+                        maxLength={255}
+                        value={this.state.search.term}
+                        onChangeText={(value) => this._search(value)}
+                    />
+                </Item>
+                {this._renderFilterMessage()}
+                <View style={{paddingBottom: 20}} />
+                {this._renderList()}
+                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 20, paddingTop: 20}}>
+                    {this._renderBackButton()}
+                    <Text style={styles.grey}>Page {this.state.pagination.currentPage} of {this.state.pagination.totalPages}</Text>
+                    {this._renderNextButton()}
+                </View>
                 <View style={{paddingBottom: 20}} />
                 <RanksDialog
                     visible={this.state.showRanksDialog}

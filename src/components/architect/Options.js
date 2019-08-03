@@ -208,86 +208,87 @@ class Options extends Component {
         );
     }
 
+    _renderList() {
+        let itemCount = 0;
+        let renderedItemCount = 0;
+
+        return (
+           <View>
+               <Heading
+                   text={this.state.optionKey}
+                   onBackButtonPress={() => this.props.navigation.navigate('Home')}
+                   onAddButtonPress={() => {}}
+               />
+               <Item>
+                   <Icon active name='search' />
+                   <Input
+                       style={styles.grey}
+                       maxLength={255}
+                       value={this.state.search.term}
+                       onChangeText={(value) => this._search(value)}
+                   />
+               </Item>
+               {this._renderFilterMessage()}
+               <View style={{paddingBottom: 20}} />
+               {this.state.search.results.map((option, index) => {
+                   itemCount++;
+
+                   if (itemCount < this.state.pagination.startOnItem || renderedItemCount >= this.state.pagination.itemsPerPage) {
+                       return null;
+                   }
+
+                   renderedItemCount++;
+
+                   return (
+                       <Card key={common.toCamelCase(this.props.optionKey) + '-' + itemCount}>
+                           <CardItem>
+                               <Body>
+                                   <Text style={[styles.boldGrey, {fontSize: 20, lineHeight: 22}]}>{option.name}, R{option.rank}</Text>
+                               </Body>
+                               <Right>
+                                   <View style={{flex: 1, flexDirection: 'row'}}>
+                                       <Icon
+                                           type='FontAwesome'
+                                           name={this.state.optionChevron[option.name + option.rank]}
+                                           style={[localStyles.button, {paddingRight: 10}]}
+                                           onPress={() => this._toggleDescriptionShow(option.name, option.rank)}
+                                       />
+                                       <Icon
+                                           type='FontAwesome'
+                                           name='trash'
+                                           style={[localStyles.button, {paddingRight: 10}]}
+                                           onPress={() => this._delete(option)}
+                                       />
+                                       <Icon
+                                           type='FontAwesome'
+                                           name='edit'
+                                           style={[localStyles.button, {paddingTop: 3}]}
+                                           onPress={() => this.props.navigation.navigate('EditOption', {optionKey: this.state.optionKey, option: option})}
+                                       />
+                                   </View>
+                               </Right>
+                           </CardItem>
+                           <CardItem>
+                               <Body>
+                                   <Text style={styles.grey}>{this._renderDescription(option)}</Text>
+                               </Body>
+                           </CardItem>
+                       </Card>
+                   )
+               })}
+           </View>
+       );
+    }
+
 	render() {
-	    let itemCount = 0;
-	    let renderedItemCount = 0;
-
-		return (
+        return (
             <View>
-                <Heading
-                    text={this.state.optionKey}
-                    onBackButtonPress={() => this.props.navigation.navigate('Home')}
-                    onAddButtonPress={() => {}}
-                />
-                <Item>
-                    <Icon active name='search' />
-                    <Input
-                        style={styles.grey}
-                        maxLength={255}
-                        value={this.state.search.term}
-                        onChangeText={(value) => this._search(value)}
-                    />
-                </Item>
-                {this._renderFilterMessage()}
-                <View style={{paddingBottom: 20}} />
-                {this.state.search.results.map((option, index) => {
-                    itemCount++;
-
-                    if (itemCount < this.state.pagination.startOnItem || renderedItemCount > this.state.pagination.itemsPerPage) {
-                        return null;
-                    } else {
-                        if (renderedItemCount === this.state.pagination.itemsPerPage || itemCount === (this.state.search.results.length + 1)) {
-                            renderedItemCount++;
-
-                            return (
-                                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 20, paddingTop: 20}}>
-                                    {this._renderBackButton()}
-                                    <Text style={styles.grey}>Page {this.state.pagination.currentPage} of {this.state.pagination.totalPages}</Text>
-                                    {this._renderNextButton()}
-                                </View>
-                            );
-                        }
-                    }
-
-                    renderedItemCount++;
-
-                    return (
-                        <Card key={common.toCamelCase(this.props.optionKey) + '-' + itemCount}>
-                            <CardItem>
-                                <Body>
-                                    <Text style={[styles.boldGrey, {fontSize: 20, lineHeight: 22}]}>{option.name} R{option.rank}</Text>
-                                </Body>
-                                <Right>
-                                    <View style={{flex: 1, flexDirection: 'row'}}>
-                                        <Icon
-                                            type='FontAwesome'
-                                            name={this.state.optionChevron[option.name + option.rank]}
-                                            style={[localStyles.button, {paddingRight: 10}]}
-                                            onPress={() => this._toggleDescriptionShow(option.name, option.rank)}
-                                        />
-                                        <Icon
-                                            type='FontAwesome'
-                                            name='trash'
-                                            style={[localStyles.button, {paddingRight: 10}]}
-                                            onPress={() => this._delete(option)}
-                                        />
-                                        <Icon
-                                            type='FontAwesome'
-                                            name='edit'
-                                            style={[localStyles.button, {paddingTop: 3}]}
-                                            onPress={() => this.props.navigation.navigate('EditOption', {optionKey: this.state.optionKey, option: option})}
-                                        />
-                                    </View>
-                                </Right>
-                            </CardItem>
-                            <CardItem>
-                                <Body>
-                                    <Text style={styles.grey}>{this._renderDescription(option)}</Text>
-                                </Body>
-                            </CardItem>
-                        </Card>
-                    )
-                })}
+                {this._renderList()}
+                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 20, paddingTop: 20}}>
+                    {this._renderBackButton()}
+                    <Text style={styles.grey}>Page {this.state.pagination.currentPage} of {this.state.pagination.totalPages}</Text>
+                    {this._renderNextButton()}
+                </View>
                 <ConfirmationDialog
                     visible={this.state.confirmationDialog.visible}
                     title={this.state.confirmationDialog.title}
