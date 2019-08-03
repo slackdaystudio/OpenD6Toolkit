@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert, Switch } from 'react-native';
+import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert, Switch, Keyboard } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Form, Label, Item, Input, Textarea, Toast, Left, Right } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
@@ -29,9 +29,44 @@ class EditOptionScreen extends Component {
             option: props.navigation.state.params.option,
             optionIndex: template.getOptionIndex(props.navigation.state.params.optionKey, props.navigation.state.params.option.id, props.template),
         };
+
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
+    }
+
+    _keyboardDidHide () {
+        if (!Number.isInteger(this.state.option.rank) || this.state.option.rank < 0) {
+            let newState = {...this.state};
+            newState.option.rank = 1;
+
+            this.setState(newState);
+        }
+    }
+
+    _validateInput(key, value) {
+        let isValid = false;
+
+        if (key === 'rank') {
+            if (value === '') {
+                isValid = true;
+            }
+
+            let intValue = parseInt(value, 10);
+
+            if (value >= 0) {
+                isValid = true;
+            }
+        } else {
+            isValid = true;
+        }
+
+        return isValid;
     }
 
     _updateOptionField(key, value) {
+        if (!this._validateInput(key, value)) {
+            return;
+        }
+
         let newState = {...this.state};
         newState.option[key] = value;
 
@@ -60,15 +95,6 @@ class EditOptionScreen extends Component {
             <Content style={styles.content}>
                 <Heading text={this.state.optionKey} onBackButtonPress={() => this.props.navigation.navigate('Architect', {selectedTab: this._getArchitectSelectedTab()})} />
                 <Form>
-                    <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>ID</Label>
-                        <Input
-                            style={styles.grey}
-                            maxLength={10}
-                            value={this.state.option.id.toString()}
-                            onChangeText={(value) => this._updateOptionField('id', value)}
-                        />
-                    </Item>
                     <Item stackedLabel>
                         <Label style={{fontWeight: 'bold'}}>Rank</Label>
                         <Input

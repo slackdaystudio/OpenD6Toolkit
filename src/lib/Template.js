@@ -74,6 +74,24 @@ class Template {
 
         return true;
     }
+
+    createOption(optionKey, template) {
+        return {
+           "id": this._getNextId(optionKey, template),
+           "name": "",
+           "displayNote": null,
+           "rank": 1,
+           "multipleRanks": false,
+           "totalRanks": 1,
+           "description": ""
+       };
+    }
+
+    _getNextId(optionKey, template) {
+        let lastOption = template[optionKey][template[optionKey].length - 1];
+
+        return lastOption.id % 100 === 0 ? lastOption.id + 100 : 100 * Math.ceil(lastOption.id / 100);
+    }
 }
 
 export let template = new Template();

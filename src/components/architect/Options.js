@@ -154,6 +154,15 @@ class Options extends Component {
         this.setState(newState);
     }
 
+    _onAddButtonPress() {
+        this.props.addTemplateOption(common.toCamelCase(this.state.optionKey));
+
+        this.props.navigation.navigate('EditOption', {
+            optionKey: this.state.optionKey,
+            option: this.state.options[this.state.options.length - 1]
+        });
+    }
+
     _renderDescription(item) {
         let description = item.description;
 
@@ -217,7 +226,7 @@ class Options extends Component {
                <Heading
                    text={this.state.optionKey}
                    onBackButtonPress={() => this.props.navigation.navigate('Home')}
-                   onAddButtonPress={() => {}}
+                   onAddButtonPress={() => this._onAddButtonPress()}
                />
                <Item>
                    <Icon active name='search' />
