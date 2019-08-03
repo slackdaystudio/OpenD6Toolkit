@@ -66,6 +66,8 @@ export const EDIT_TEMPLATE_SKILL = 'EDIT_TEMPLATE_SKILL';
 
 export const DELETE_TEMPLATE_SKILL = 'DELETE_TEMPLATE_SKILL';
 
+export const DELETE_TEMPLATE_OPTION = 'DELETE_TEMPLATE_OPTION';
+
 export function updateRoller(dice, pips) {
     return {
         type: UPDATE_ROLLER,
@@ -310,6 +312,16 @@ export function deleteTemplateSkill(name, skill) {
         payload: {
             name: name,
             skill: skill
+        }
+    }
+}
+
+export function deleteTemplateOption(optionKey, option) {
+    return {
+        type: DELETE_TEMPLATE_OPTION,
+        payload: {
+            optionKey: optionKey,
+            option: option
         }
     }
 }
@@ -884,6 +896,25 @@ export default function reducer(state = initialState, action) {
                         }
                     }
 
+                    break;
+                }
+            }
+
+            return newState;
+        case DELETE_TEMPLATE_OPTION:
+            newState = {
+                ...state,
+                architect: {
+                    ...state.architect,
+                    template: {
+                        ...state.architect.template
+                    }
+                }
+            };
+
+            for (let i = 0; i < newState.architect.template[action.payload.optionKey].length; i++) {
+                if (newState.architect.template[action.payload.optionKey][i].id === action.payload.option.id) {
+                    newState.architect.template[action.payload.optionKey].splice(i, 1);
                     break;
                 }
             }

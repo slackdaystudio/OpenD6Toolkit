@@ -5,14 +5,15 @@ import { Platform, StyleSheet, View, TouchableHighlight, BackHandler, Alert } fr
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Left, Right, Body, Item, Icon, Input, Label, Toast } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
-import RanksDialog, { MODE_ADD } from '../RanksDialog';
+import ConfirmationDialog from '../ConfirmationDialog';
 import styles from '../../Styles';
 import { character, OPTION_ADVANTAGES, OPTION_COMPLICATIONS } from '../../lib/Character';
 import { common } from '../../lib/Common';
+import { addTemplateOption, deleteTemplateOption } from '../../../reducer';
 
 const BACK_BUTTON_START_DIFF = 9;
 
-export default class Options extends Component {
+class Options extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         optionKey: PropTypes.string.isRequired,
@@ -40,8 +41,16 @@ export default class Options extends Component {
                 itemsPerPage: 10,
                 startOnItem: 1,
                 totalPages: Math.ceil(options.length / 10)
+            },
+            confirmationDialog: {
+                visible: false,
+                title: 'Delete Option',
+                info: 'This is permanent, are you certain you want to delete this option?'
             }
-        }
+        };
+
+        this.onClose = this._closeConfirmationDialog.bind(this);
+        this.onOk = this._deleteConfirmed.bind(this);
     }
 
     _initOptionsShow(options) {
@@ -57,6 +66,32 @@ export default class Options extends Component {
             optionsState: optionsState,
             chevronsState: chevronsState
         };
+    }
+
+    _delete(option) {
+        let newState = {...this.state};
+        newState.confirmationDialog.visible = true;
+        newState.toBeDeleted = option;
+
+        this.setState(newState);
+    }
+
+    _deleteConfirmed() {
+        this.props.deleteTemplateOption(common.toCamelCase(this.state.optionKey), this.state.toBeDeleted);
+
+        let newState = {...this.state};
+        newState.toBeDeleted = null;
+
+        this.setState(newState, () => {
+            this._closeConfirmationDialog();
+        });
+    }
+
+    _closeConfirmationDialog() {
+        let newState = {...this.state};
+        newState.confirmationDialog.visible = false;
+
+        this.setState(newState);
     }
 
     _toggleDescriptionShow(name, rank) {
@@ -234,7 +269,7 @@ export default class Options extends Component {
                                             type='FontAwesome'
                                             name='trash'
                                             style={[localStyles.button, {paddingRight: 10}]}
-                                            onPress={() => this._delete(attribute)}
+                                            onPress={() => this._delete(option)}
                                         />
                                         <Icon
                                             type='FontAwesome'
@@ -253,6 +288,13 @@ export default class Options extends Component {
                         </Card>
                     )
                 })}
+                <ConfirmationDialog
+                    visible={this.state.confirmationDialog.visible}
+                    title={this.state.confirmationDialog.title}
+                    info={this.state.confirmationDialog.info}
+                    onOk={this.onOk}
+                    onClose={this.onClose}
+                />
                 <View style={{paddingBottom: 20}} />
             </View>
 		);
@@ -269,3 +311,14 @@ const localStyles = StyleSheet.create({
         color: '#f57e20'
 	}
 });
+
+const mapStateToProps = state => {
+    return {};
+}
+
+const mapDispatchToProps = {
+    addTemplateOption,
+    deleteTemplateOption
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Options);
