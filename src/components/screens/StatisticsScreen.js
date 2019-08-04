@@ -1,5 +1,6 @@
 import React, { Component }  from 'react';
-import { StyleSheet, AsyncStorage, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { Container, Content, Text, List, ListItem, Left, Right, Spinner, Tabs, Tab, ScrollableTab } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';

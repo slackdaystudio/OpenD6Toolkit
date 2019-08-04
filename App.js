@@ -1,7 +1,8 @@
 import React, { Component }  from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider, connect } from 'react-redux';
-import { AsyncStorage, StyleSheet, Text, View, Button, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Button, StatusBar } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { DrawerNavigator } from 'react-navigation';
 import { Root } from 'native-base';
 import SplashScreen from 'react-native-splash-screen'

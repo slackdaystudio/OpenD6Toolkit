@@ -1,4 +1,4 @@
-import { Platform, PermissionsAndroid, AsyncStorage, Alert } from 'react-native';
+import { Platform, PermissionsAndroid, Alert } from 'react-native';
 import { Toast } from 'native-base';
 import DocumentPicker from 'react-native-document-picker';
 import RNFetchBlob from 'rn-fetch-blob';
