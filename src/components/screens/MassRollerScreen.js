@@ -65,12 +65,17 @@ class DieRollerScreen extends Component {
    		this.backHandler.remove();
    	}
 
-	_roll() {
+	async _roll() {
+	    let result;
         let newState = {...this.state};
         newState.result = [];
 
         for (let i = 0; i < this.props.rolls; i++) {
-            newState.result.push(dieRoller.roll(this.props.dice));
+            result = dieRoller.roll(this.props.dice);
+
+            await statistics.add(result);
+
+            newState.result.push(result);
         }
 
         this.setState(newState);
