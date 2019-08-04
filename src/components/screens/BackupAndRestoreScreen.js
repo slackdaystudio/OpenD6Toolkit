@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert } from 'react-native';
+import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
@@ -31,6 +31,18 @@ class BackupAndRestoreScreen extends Component {
         this.onBackup = this._onBackup.bind(this);
         this.onRestore = this._onRestore.bind(this);
         this.closeInfoDialog = this._closeInfoDialog.bind(this);
+    }
+
+    componentDidMount() {
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            this.props.navigation.navigate('Home');
+
+            return true;
+        });
+    }
+
+    componentWillUnmount() {
+        this.backHandler.remove();
     }
 
     async _onBackup(location) {
@@ -91,7 +103,7 @@ class BackupAndRestoreScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Heading text='Backup' />
+                <Heading text='Backup' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                 <Text style={[styles.grey, {alignSelf: 'center'}]}>Backup all your characters and templates.</Text>
                 <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
                     <LogoButton label='Backup' onPress={() => this.onBackup()} />
