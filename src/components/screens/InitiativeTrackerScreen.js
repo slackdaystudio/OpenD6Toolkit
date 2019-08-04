@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { StyleSheet, Dimensions, Platform, Alert } from 'react-native';
+import { BackHandler, StyleSheet, Dimensions, Platform, Alert } from 'react-native';
 import { Container, View, Content, Text, Icon, Fab, Footer, FooterTab, Button } from 'native-base';
 import SortableList from 'react-native-sortable-list';
 import Header from '../Header';
@@ -43,6 +43,18 @@ class InitiativeTrackerScreen extends Component {
         this.close = this._close.bind(this);
         this.save = this._save.bind(this);
     }
+
+    componentDidMount() {
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            this.props.navigation.navigate('Home');
+
+            return true;
+        });
+    }
+
+ 	componentWillUnmount() {
+   		this.backHandler.remove();
+   	}
 
     _open() {
         let newState = {...this.state};
@@ -107,6 +119,12 @@ class InitiativeTrackerScreen extends Component {
         this.setState(newState);
     }
 
+    _sort() {
+        if (this.props.initiativeEntries != null && this.props.initiativeEntries != {}) {
+            this.props.sortInitiative();
+        }
+    }
+
     _renderBody() {
         if (this.props.initiativeEntries === null) {
             return (
@@ -140,7 +158,7 @@ class InitiativeTrackerScreen extends Component {
         return (
 		    <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
-                <Heading text='Initiative Tracker' onAddButtonPress={() => this.open()}/>
+                <Heading text='Initiative Tracker' onBackButtonPress={() => this.props.navigation.navigate('Home')} onAddButtonPress={() => this.open()}/>
                 {this._renderBody()}
                 <View style={{paddingBottom: 20}} />
                 <InitiativeDialog
@@ -154,7 +172,7 @@ class InitiativeTrackerScreen extends Component {
                 />
                 <Footer>
                     <FooterTab style={{justifyContent: 'center', backgroundColor: '#f57e20'}}>
-                        <Button vertical onPress={() => this.props.sortInitiative()}>
+                        <Button vertical onPress={() => this._sort()}>
                             <Icon type='FontAwesome' name='sort-down' style={{color: '#FFF'}} />
                             <Text uppercase={false} style={{color: '#FFF'}}>Sort</Text>
                         </Button>
