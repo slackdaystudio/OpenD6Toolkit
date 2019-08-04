@@ -10,7 +10,8 @@ import { file } from '../lib/File';
 class Sidebar extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-        character: PropTypes.object
+        character: PropTypes.object,
+        template: PropTypes.object
     }
 
     _onBuilderPress() {
@@ -67,17 +68,18 @@ class Sidebar extends Component {
 const localStyles = StyleSheet.create({
 	container: {
 		backgroundColor: '#f57e20',
-        	...ifIphoneX({
-            		paddingTop: 50
-        	}, {
-            		paddingTop: 20
-        	})
+        ...ifIphoneX({
+            paddingTop: 50
+        }, {
+            paddingTop: 20
+        })
 	}
 });
 
 const mapStateToProps = state => {
     return {
-        character: state.builder.character
+        character: state.builder.character,
+        template: state.architect.template
     };
 }
 

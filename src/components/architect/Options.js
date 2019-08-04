@@ -9,7 +9,7 @@ import ConfirmationDialog from '../ConfirmationDialog';
 import styles from '../../Styles';
 import { character, OPTION_ADVANTAGES, OPTION_COMPLICATIONS } from '../../lib/Character';
 import { common } from '../../lib/Common';
-import { addTemplateOption, deleteTemplateOption } from '../../../reducer';
+import { addTemplateOption, deleteTemplateOption } from '../../reducers/architect';
 
 const BACK_BUTTON_START_DIFF = 9;
 

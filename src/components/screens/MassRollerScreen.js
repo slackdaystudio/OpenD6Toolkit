@@ -17,7 +17,8 @@ import {
     LEGEND_SUCCESS_THRESHOLD
 } from '../../lib/DieRoller';
 import { statistics } from '../../lib/Statistics';
-import { updateMassRoller, setSetting } from '../../../reducer';
+import { updateMassRoller } from '../../reducers/massRoller';
+import { setSetting } from '../../reducers/settings';
 import styles from '../../Styles';
 
 class DieRollerScreen extends Component {

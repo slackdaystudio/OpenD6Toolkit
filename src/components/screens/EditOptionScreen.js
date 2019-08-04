@@ -11,7 +11,7 @@ import { TAB_ADVANTAGES, TAB_SPECIAL_ABILITIES, TAB_COMPLICATIONS } from './Arch
 import styles from '../../Styles';
 import { template } from '../../lib/Template';
 import { common } from '../../lib/Common';
-import { editTemplateOption } from '../../../reducer';
+import { editTemplateOption } from '../../reducers/architect';
 
 class EditOptionScreen extends Component {
     static propTypes = {

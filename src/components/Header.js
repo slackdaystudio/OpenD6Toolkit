@@ -22,7 +22,7 @@ export default class MyHeader extends Component {
                     </View>
                   </Left>
                   <Right>
-                    <Button transparent onPress={() => this.props.navigation.navigate("DrawerOpen")}>
+                    <Button transparent onPress={() => this.props.navigation.openDrawer()}>
                       <Icon name='menu' style={{color: '#ffffff', paddingBottom: Platform.OS === 'ios' ? 50 : 0}} />
                     </Button>
                   </Right>

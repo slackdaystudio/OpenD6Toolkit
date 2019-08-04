@@ -18,7 +18,6 @@ import { character, OPTION_ADVANTAGES, OPTION_COMPLICATIONS, OPTION_SPECIAL_ABIL
 import { file } from '../../lib/File';
 import { common } from '../../lib/Common';
 import {
-    updateRoller,
     updateCharacterDieCode,
     updateAppearance,
     updateOption,
@@ -28,7 +27,8 @@ import {
     updateBodyPoints,
     updateDefenseSystem,
     updateStaticDefense
-} from '../../../reducer';
+} from '../../reducers/builder';
+import { updateRoller } from '../../reducers/dieRoller';
 
 class BuilderScreen extends Component {
     static propTypes = {

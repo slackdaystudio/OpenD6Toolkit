@@ -8,7 +8,7 @@ import Heading from '../Heading';
 import LogoButton from '../LogoButton';
 import styles from '../../Styles';
 import { file } from '../../lib/File';
-import { setArchitectTemplate } from '../../../reducer';
+import { setArchitectTemplate } from '../../reducers/architect';
 
 class OpenTemplateScreen extends Component {
     static propTypes = {

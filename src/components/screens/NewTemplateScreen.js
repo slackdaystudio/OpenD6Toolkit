@@ -9,7 +9,7 @@ import LogoButton from '../LogoButton';
 import styles from '../../Styles';
 import { file } from '../../lib/File';
 import { character, TEMPLATE_FANTASY } from '../../lib/Character';
-import { setArchitectTemplate } from '../../../reducer';
+import { setArchitectTemplate } from '../../reducers/architect';
 
 class NewTemplateScreen extends Component {
     static propTypes = {
@@ -22,8 +22,7 @@ class NewTemplateScreen extends Component {
 
         this.state = {
             selected: TEMPLATE_FANTASY,
-            templates: [],
-            showSpinner: false
+            templates: []
         };
     }
 
@@ -49,7 +48,6 @@ class NewTemplateScreen extends Component {
 
     _selectTemplate(template) {
         let newState = {...this.state};
-        newState.showSpinner = true;
         newState.selected = template;
 
         this.setState(newState, () => {
@@ -60,7 +58,7 @@ class NewTemplateScreen extends Component {
     }
 
 	render() {
-	    if (this.state.showSpinner || this.state.templates === undefined || this.state.templates.length === 0) {
+	    if (this.state.templates.length === 0) {
 	        return (
               <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
@@ -101,9 +99,10 @@ class NewTemplateScreen extends Component {
 }
 
 const mapStateToProps = state => {
-    return {
-        template: state.architect.template
-    };
+    return {}
+//    return {
+//        template: state.architect.template
+//    };
 }
 
 const mapDispatchToProps = {

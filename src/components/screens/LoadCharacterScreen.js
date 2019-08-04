@@ -8,7 +8,7 @@ import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
 import styles from '../../Styles';
 import { file } from '../../lib/File';
-import { loadCharacter } from '../../../reducer';
+import { loadCharacter } from '../../reducers/builder';
 
 class LoadCharacterScreen extends Component {
     static propTypes = {

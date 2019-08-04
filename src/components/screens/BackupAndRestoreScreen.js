@@ -9,7 +9,7 @@ import LogoButton from '../LogoButton';
 import InfoDialog from '../InfoDialog';
 import styles from '../../Styles';
 import { file } from '../../lib/File';
-import { clearLoadedCharacter } from '../../../reducer';
+import { clearLoadedCharacter } from '../../reducers/builder';
 
 class BackupAndRestoreScreen extends Component {
     static propTypes = {

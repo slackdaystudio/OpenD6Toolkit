@@ -11,7 +11,7 @@ import ConfirmationDialog from '../ConfirmationDialog';
 import { TAB_ATTRIBUTES } from './ArchitectScreen';
 import styles from '../../Styles';
 import { template } from '../../lib/Template';
-import { editTemplateAttribute, addTemplateSkill, deleteTemplateSkill } from '../../../reducer';
+import { editTemplateAttribute, addTemplateSkill, deleteTemplateSkill } from '../../reducers/architect';
 
 class EditAttributeScreen extends Component {
     static propTypes = {

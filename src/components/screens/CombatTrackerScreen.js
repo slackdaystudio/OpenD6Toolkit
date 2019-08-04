@@ -9,11 +9,11 @@ import Heading from '../Heading';
 import InitiativeRow from '../InitiativeRow';
 import InitiativeDialog from '../InitiativeDialog';
 import styles from '../../Styles';
-import { editInitiative, editInitiativeOrder, removeInitiative, sortInitiative } from '../../../reducer';
+import { editInitiative, editInitiativeOrder, removeInitiative, sortInitiative } from '../../reducers/combat';
 
 const window = Dimensions.get('window');
 
-class InitiativeTrackerScreen extends Component {
+class CombatTrackerScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         initiativeEntries: PropTypes.object,
@@ -213,7 +213,7 @@ const localStyles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        initiativeEntries: state.initiativeEntries
+        initiativeEntries: state.combat.initiativeEntries
     };
 }
 
@@ -224,4 +224,4 @@ const mapDispatchToProps = {
     sortInitiative
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(InitiativeTrackerScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(CombatTrackerScreen);

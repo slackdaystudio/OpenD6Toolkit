@@ -10,7 +10,7 @@ import ArchitectFooter from '../ArchitectFooter';
 import ConfirmationDialog from '../ConfirmationDialog';
 import styles from '../../Styles';
 import { template } from '../../lib/Template';
-import { editTemplateSkill } from '../../../reducer';
+import { editTemplateSkill } from '../../reducers/architect';
 
 class EditSkillScreen extends Component {
     static propTypes = {

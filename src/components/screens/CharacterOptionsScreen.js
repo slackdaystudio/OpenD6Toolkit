@@ -9,7 +9,7 @@ import RanksDialog, { MODE_ADD } from '../RanksDialog';
 import styles from '../../Styles';
 import { character, OPTION_ADVANTAGES, OPTION_COMPLICATIONS } from '../../lib/Character';
 import { common } from '../../lib/Common';
-import { addOption } from '../../../reducer';
+import { addOption } from '../../reducers/builder';
 
 const BACK_BUTTON_START_DIFF = 9;
 

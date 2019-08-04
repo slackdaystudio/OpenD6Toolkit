@@ -8,7 +8,7 @@ import styles from '../../Styles';
 import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
 import { character } from '../../lib/Character';
-import { updateTemplateOverview } from '../../../reducer';
+import { updateTemplateOverview } from '../../reducers/architect';
 
 class Overview extends Component {
     static propTypes = {
@@ -16,14 +16,6 @@ class Overview extends Component {
         template: PropTypes.object.isRequired,
         updateTemplateOverview: PropTypes.func.isRequired,
         isTemplateNameUnique: PropTypes.func.isRequired
-    }
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            template: props.template
-        };
     }
 
     _updateTemplateOverview(key, value) {
@@ -42,10 +34,7 @@ class Overview extends Component {
         }
 
         if (errorMessage == null) {
-            let newState = {...this.state};
-            newState.template[key] = value;
-
-            this.setState(newState);
+            this.props.updateTemplateOverview(key, value);
         } else {
             Toast.show({
                 text: errorMessage,
@@ -68,7 +57,7 @@ class Overview extends Component {
                         <Input
                             style={styles.grey}
                             maxLength={64}
-                            value={this.state.template.name}
+                            value={this.props.template.name}
                             onChangeText={(value) => this._updateTemplateOverview('name', value)}
                         />
                     </Item>
@@ -77,7 +66,7 @@ class Overview extends Component {
                         <Input
                             style={styles.grey}
                             maxLength={64}
-                            value={this.state.template.attributeMin.toString()}
+                            value={this.props.template.attributeMin.toString()}
                             onChangeText={(value) => this._updateTemplateOverview('attributeMin', value)}
                         />
                     </Item>
@@ -86,7 +75,7 @@ class Overview extends Component {
                         <Input
                             style={styles.grey}
                             maxLength={64}
-                            value={this.state.template.attributeMax.toString()}
+                            value={this.props.template.attributeMax.toString()}
                             onChangeText={(value) => this._updateTemplateOverview('attributeMax', value)}
                         />
                     </Item>
@@ -95,7 +84,7 @@ class Overview extends Component {
                         <Input
                             style={styles.grey}
                             maxLength={64}
-                            value={this.state.template.move.toString()}
+                            value={this.props.template.move.toString()}
                             onChangeText={(value) => this._updateTemplateOverview('move', value)}
                         />
                     </Item>
@@ -104,7 +93,7 @@ class Overview extends Component {
                         <Input
                             style={styles.grey}
                             maxLength={64}
-                            value={this.state.template.characterPoints.toString()}
+                            value={this.props.template.characterPoints.toString()}
                             onChangeText={(value) => this._updateTemplateOverview('characterPoints', value)}
                         />
                     </Item>
@@ -113,7 +102,7 @@ class Overview extends Component {
                         <Input
                             style={styles.grey}
                             maxLength={64}
-                            value={this.state.template.fatePoints.toString()}
+                            value={this.props.template.fatePoints.toString()}
                             onChangeText={(value) => this._updateTemplateOverview('fatePoints', value)}
                         />
                     </Item>

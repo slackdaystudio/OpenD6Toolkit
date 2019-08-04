@@ -9,7 +9,7 @@ import Heading from '../Heading';
 import LogoButton from '../LogoButton';
 import styles from '../../Styles';
 import { character } from '../../lib/Character';
-import { editSpecialization, deleteSpecialization } from '../../../reducer';
+import { editSpecialization, deleteSpecialization } from '../../reducers/builder';
 
 class SpecializationScreen extends Component {
     static propTypes = {

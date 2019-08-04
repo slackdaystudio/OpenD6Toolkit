@@ -17,7 +17,8 @@ import {
     LEGEND_SUCCESS_THRESHOLD
 } from '../../lib/DieRoller';
 import { statistics } from '../../lib/Statistics';
-import { updateRoller, setSetting } from '../../../reducer';
+import { updateRoller } from '../../reducers/dieRoller';
+import { setSetting } from '../../reducers/settings';
 import styles from '../../Styles';
 
 class DieRollerScreen extends Component {
@@ -247,8 +248,8 @@ const localStyles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        dice: state.roller.dice,
-        pips: state.roller.pips,
+        dice: state.dieRoller.dice,
+        pips: state.dieRoller.pips,
         isLegend: state.settings.isLegend
     };
 }

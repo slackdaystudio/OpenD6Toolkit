@@ -8,7 +8,7 @@ import styles from '../../Styles';
 import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
 import { character } from '../../lib/Character';
-import { addTemplateAttribute, deleteTemplateAttribute } from '../../../reducer';
+import { addTemplateAttribute, deleteTemplateAttribute } from '../../reducers/architect';
 
 class AttributesAndSkills extends Component {
     static propTypes = {

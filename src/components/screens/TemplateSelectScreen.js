@@ -8,12 +8,11 @@ import Heading from '../Heading';
 import styles from '../../Styles';
 import { character, TEMPLATE_FANTASY } from '../../lib/Character';
 import { file } from '../../lib/File';
-import { setTemplate } from '../../../reducer';
+import { setTemplate } from '../../reducers/builder';
 
 class TemplateSelectScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-        character: PropTypes.object,
         setTemplate: PropTypes.func.isRequired
     }
 
@@ -22,15 +21,14 @@ class TemplateSelectScreen extends Component {
 
         this.state = {
             selected: TEMPLATE_FANTASY,
-            templates: [],
-            showSpinner: false
+            templates: []
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         let newState = {...this.state};
 
-        character.getTemplates().then((templates) => {
+        await character.getTemplates().then((templates) => {
             newState.templates = templates;
 
             this.setState(newState);
@@ -49,7 +47,6 @@ class TemplateSelectScreen extends Component {
 
     _next(template) {
         let newState = {...this.state};
-        newState.showSpinner = true;
         newState.selected = template;
 
         this.setState(newState, () => {
@@ -60,7 +57,7 @@ class TemplateSelectScreen extends Component {
     }
 
 	render() {
-	    if (this.state.showSpinner || this.state.templates === undefined || this.state.templates.length === 0) {
+	    if (this.state.templates.length === 0) {
 	        return (
               <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
@@ -101,9 +98,7 @@ class TemplateSelectScreen extends Component {
 }
 
 const mapStateToProps = state => {
-    return {
-        character: state.builder.character
-    };
+    return {};
 }
 
 const mapDispatchToProps = {

@@ -70,7 +70,7 @@ class HomeScreen extends Component {
                     <LogoButton label='Mass Roller' onPress={() => this.onPress('MassRoller')} />
                 </View>
                 <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
-                    <LogoButton label='Initiative' onPress={() => this.onPress('InitiativeTracker')} />
+                    <LogoButton label='Warlord' onPress={() => this.onPress('CombatTracker')} />
                 </View>
                 <View style={{paddingBottom: 20}} />
             </Content>
