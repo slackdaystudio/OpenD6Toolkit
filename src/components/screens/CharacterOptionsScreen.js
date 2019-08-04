@@ -233,7 +233,7 @@ class CharacterOptionsScreen extends Component {
                         <Card>
                             <CardItem>
                                 <Body>
-                                    <Text style={[styles.boldGrey, {fontSize: 20, lineHeight: 22}]}>{option.name} R{option.rank}</Text>
+                                    <Text style={[styles.boldGrey, {fontSize: 20, lineHeight: 22}]}>{option.name} (R{option.rank})</Text>
                                 </Body>
                                 <Right>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
