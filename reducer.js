@@ -65,6 +65,8 @@ export const DELETE_TEMPLATE_ATTRIBUTE = 'DELETE_TEMPLATE_ATTRIBUTE';
 
 export const EDIT_TEMPLATE_SKILL = 'EDIT_TEMPLATE_SKILL';
 
+export const ADD_TEMPLATE_SKILL = 'ADD_TEMPLATE_SKILL';
+
 export const DELETE_TEMPLATE_SKILL = 'DELETE_TEMPLATE_SKILL';
 
 export const DELETE_TEMPLATE_OPTION = 'DELETE_TEMPLATE_OPTION';
@@ -308,6 +310,13 @@ export function editTemplateSkill(attribute, skill, index) {
             skill: skill,
             index: index
         }
+    }
+}
+
+export function addTemplateSkill(attributeIndex) {
+    return {
+        type: ADD_TEMPLATE_SKILL,
+        payload: attributeIndex
     }
 }
 
@@ -854,11 +863,7 @@ export default function reducer(state = initialState, action) {
                 }
             };
 
-            let newIndex = newState.architect.template.attributes.length - 1;
-
-            newState.architect.template.attributes[newIndex].name = '';
-            newState.architect.template.attributes[newIndex].description = '';
-            newState.architect.template.attributes[newIndex].skills = [];
+            newState.architect.template.attributes.push(character.createAttribute());
 
             return newState;
         case DELETE_TEMPLATE_ATTRIBUTE:
@@ -897,6 +902,20 @@ export default function reducer(state = initialState, action) {
                     break;
                 }
             }
+
+            return newState;
+        case ADD_TEMPLATE_SKILL:
+            newState = {
+                ...state,
+                architect: {
+                    ...state.architect,
+                    template: {
+                        ...state.architect.template
+                    }
+                }
+            };
+
+            newState.architect.template.attributes[action.payload].skills.push(character.createSkill());
 
             return newState;
         case DELETE_TEMPLATE_SKILL:

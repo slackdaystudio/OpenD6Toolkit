@@ -11,12 +11,13 @@ import ConfirmationDialog from '../ConfirmationDialog';
 import { TAB_ATTRIBUTES } from './ArchitectScreen';
 import styles from '../../Styles';
 import { template } from '../../lib/Template';
-import { editTemplateAttribute, deleteTemplateSkill } from '../../../reducer';
+import { editTemplateAttribute, addTemplateSkill, deleteTemplateSkill } from '../../../reducer';
 
 class EditAttributeScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         editTemplateAttribute: PropTypes.func.isRequired,
+        addTemplateAttribute: PropTypes.func.isRequired,
         deleteTemplateSkill: PropTypes.func.isRequired,
         template: PropTypes.object
     }
@@ -71,6 +72,15 @@ class EditAttributeScreen extends Component {
 
         this.setState(newState, () => {
             this.props.editTemplateAttribute(this.state.attribute, this.state.attributeIndex);
+        });
+    }
+
+    _addSkill() {
+        this.props.addTemplateSkill(this.state.attributeIndex);
+
+        this.props.navigation.navigate('EditSkill', {
+            attribute: this.state.attribute,
+            skill: this.state.attribute.skills[this.state.attribute.skills.length - 1]
         });
     }
 
@@ -155,7 +165,7 @@ class EditAttributeScreen extends Component {
                     </Item>
                 </Form>
                 <View style={{paddingBottom: 20}} />
-                <Heading text='Skills' onAddButtonPress={() => {}} />
+                <Heading text='Skills' onAddButtonPress={() => this._addSkill()} />
                 {this._renderSkills()}
                 <View style={{paddingBottom: 20}} />
                 <ConfirmationDialog
@@ -187,6 +197,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     editTemplateAttribute,
+    addTemplateSkill,
     deleteTemplateSkill
 }
 

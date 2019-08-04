@@ -251,6 +251,21 @@ class Character {
         });
     }
 
+    createAttribute() {
+        return {
+            name: '',
+            description: '',
+            skills: []
+        };
+    }
+
+    createSkill() {
+        return {
+            name: '',
+            description: ''
+        };
+    }
+
     _assembleBuiltInTemplate(template) {
         template.advantages = BASE_ADVANTAGES.items;
         template.complications = BASE_COMPLICATIONS.items;
