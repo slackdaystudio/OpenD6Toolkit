@@ -15,14 +15,18 @@ class Sidebar extends Component {
 
     _onBuilderPress() {
         if (this.props.character == null || this.props.character.template == null) {
-            this.props.navigation.navigate('TemplateSelect');
+            this.props.navigation.navigate('TemplateSelect', {from: 'Home'});
         } else {
-            this.props.navigation.navigate('Builder');
+            this.props.navigation.navigate('Builder', {from: 'Home'});
         }
     }
 
-    _onTemplateUploadPress() {
-        file.uploadTemplate(() => {}, () => {});
+    _onArchitectPress() {
+        if (this.props.template == null) {
+            this.props.navigation.navigate('NewTemplate', {from: 'Home'});
+        } else {
+            this.props.navigation.navigate('Architect', {from: 'Home'});
+        }
     }
 
     render() {
@@ -35,29 +39,21 @@ class Sidebar extends Component {
                                 <Image source={require('../../public/d6_logo_White_60x60.png')} />
                             </View>
                         </ListItem>
-                        <ListItem onPress={() => this.props.navigation.navigate('DieRoller')}>
+                        <ListItem onPress={() => this.props.navigation.navigate('DieRoller', {from: 'Home'})}>
                             <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Roller</Text>
                         </ListItem>
-                        <ListItem itemDivider style={{backgroundColor: '#f57e20'}} />
                         <ListItem onPress={() => this._onBuilderPress()}>
                             <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Builder</Text>
                         </ListItem>
-                        <ListItem itemDivider style={{backgroundColor: '#f57e20'}} />
-                        <ListItem onPress={() => this._onTemplateUploadPress()}>
-                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Upload Template</Text>
+                        <ListItem onPress={() => this._onArchitectPress()}>
+                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Architect</Text>
                         </ListItem>
-                        <ListItem onPress={() => this.props.navigation.navigate('TemplateDelete')}>
-                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Delete Template</Text>
-                        </ListItem>
-                        <ListItem itemDivider style={{backgroundColor: '#f57e20'}} />
                         <ListItem onPress={() => this.props.navigation.navigate('BackupAndRestore')}>
                             <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Backup &amp; Restore</Text>
                         </ListItem>
-                        <ListItem itemDivider style={{backgroundColor: '#f57e20'}} />
                         <ListItem onPress={() => this.props.navigation.navigate('Statistics')}>
                             <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Statistics</Text>
                         </ListItem>
-                        <ListItem itemDivider style={{backgroundColor: '#f57e20'}} />
                         <ListItem onPress={() => this.props.navigation.navigate('Ogl')}>
                             <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Open Gaming License</Text>
                         </ListItem>
