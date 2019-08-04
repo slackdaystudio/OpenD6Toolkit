@@ -68,7 +68,7 @@ class BackupAndRestoreScreen extends Component {
                     info: `The backup "${result.backupName}" has been successfully restored`
                 }
             });
-        } else {
+        } else if (!result.cancelled) {
             this.setState({
                 infoDialog: {
                     visible: true,

@@ -262,7 +262,8 @@ class File {
         let result = {
             loadSuccess: false,
             backupName: null,
-            error: null
+            error: null,
+            cancelled: false
         };
         let pickerResults = null;
 
@@ -295,8 +296,10 @@ class File {
         } catch (error) {
             const isCancel = await DocumentPicker.isCancel(error);
 
-            if (!isCancel) {
-               result.error = error.message;
+            if (isCancel) {
+                result.cancelled = true;
+            } else {
+                result.error = error.message;
             }
         }
 
