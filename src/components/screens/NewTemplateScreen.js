@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image } from 'react-native';
+import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, List, ListItem, Left, Right } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
@@ -35,6 +35,16 @@ class NewTemplateScreen extends Component {
 
             this.setState(newState);
         });
+
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            this.props.navigation.navigate(this.props.navigation.state.params.from);
+
+            return true;
+        });
+    }
+
+    componentWillUnmount() {
+        this.backHandler.remove();
     }
 
     _selectTemplate(template) {
@@ -66,7 +76,7 @@ class NewTemplateScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Heading text='New Template' />
+                <Heading text='New Template' onBackButtonPress={() => this.props.navigation.navigate(this.props.navigation.state.params.from)} />
                 <Text style={[styles.grey, {alignSelf: 'center'}]}>Select a template to base your new template off of.</Text>
                 <List>
                     {this.state.templates.map((template, index) => {

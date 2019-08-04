@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert } from 'react-native';
+import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Tab, Tabs, ScrollableTab, Footer, FooterTab } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
@@ -55,7 +55,17 @@ class ArchitectScreen extends Component {
             this.state.selectedTab = TAB_COMPLICATIONS;
         }
 
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            this.props.navigation.navigate('Home');
+
+            return true;
+        });
+
         setTimeout(this.tabs.goToPage.bind(this.tabs, this.state.selectedTab));
+    }
+
+    componentWillUnmount() {
+        this.backHandler.remove();
     }
 
 	render() {

@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert, Switch } from 'react-native';
+import { BackHandler,Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert, Switch } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Form, Label, Item, Input, Textarea, Toast, Left, Right } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
@@ -27,6 +27,18 @@ class EditSkillScreen extends Component {
             skill: props.navigation.state.params.skill,
             skillIndex: template.getSkillIndex(props.navigation.state.params.attribute, props.navigation.state.params.skill)
         };
+    }
+
+    componentDidMount() {
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            this.props.navigation.navigate('EditAttribute', {attribute: this.state.attribute});
+
+            return true;
+        });
+    }
+
+    componentWillUnmount() {
+        this.backHandler.remove();
     }
 
     _updateSkillField(key, value) {

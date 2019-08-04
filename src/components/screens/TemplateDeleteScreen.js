@@ -1,6 +1,6 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
-import { Platform, StyleSheet, View, Alert } from 'react-native';
+import { BackHandler, Platform, StyleSheet, View, Alert } from 'react-native';
 import { Container, Content, Button, Text, List, ListItem, Body, Icon, Spinner } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
@@ -34,6 +34,16 @@ export default class TemplateDeleteScreen extends Component {
 
     componentDidMount() {
         this._updateFileList();
+
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            this.props.navigation.navigate('Architect');
+
+            return true;
+        });
+    }
+
+    componentWillUnmount() {
+        this.backHandler.remove();
     }
 
     _delete(template) {

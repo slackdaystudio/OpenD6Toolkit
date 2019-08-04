@@ -14,7 +14,7 @@ export default class ArchitectFooter extends Component {
 		return (
             <Footer>
                 <FooterTab style={{justifyContent: 'center', backgroundColor: '#f57e20'}}>
-                    <Button vertical onPress={() => this.props.navigation.navigate('NewTemplate')}>
+                    <Button vertical onPress={() => this.props.navigation.navigate('NewTemplate', {from: 'Architect'})}>
                         <Icon type='FontAwesome' name='file' style={{color: '#FFF'}} />
                         <Text uppercase={false} style={{color: '#FFF'}}>New</Text>
                     </Button>

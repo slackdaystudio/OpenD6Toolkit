@@ -28,15 +28,15 @@ class HomeScreen extends Component {
         if (this.props.character == null || this.props.character.template == null) {
             this.props.navigation.navigate('TemplateSelect', {from: 'Home'});
         } else {
-            this.props.navigation.navigate('Builder');
+            this.props.navigation.navigate('Builder', {from: 'Home'});
         }
     }
 
     _onArchitectPress() {
         if (this.props.template == null) {
-            this.props.navigation.navigate('NewTemplate');
+            this.props.navigation.navigate('NewTemplate', {from: 'Home'});
         } else {
-            this.props.navigation.navigate('Architect');
+            this.props.navigation.navigate('Architect', {from: 'Home'});
         }
     }
 
