@@ -1,6 +1,6 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types'
-import { Platform, StyleSheet, ScrollView, View, TouchableHighlight } from 'react-native';
+import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
@@ -11,12 +11,24 @@ export default class OglScreen extends Component {
         navigation: PropTypes.object.isRequired
     }
 
+    componentDidMount() {
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            this.props.navigation.navigate('Home');
+
+            return true;
+        });
+    }
+
+    componentWillUnmount() {
+        this.backHandler.remove();
+    }
+
 	render() {
 		return (
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Heading text="Open Gaming License" />
+                <Heading text="Open Gaming License" onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                 <View style={[styles.contentPadded, {paddingTop: 20}]}>
                     <Text style={styles.grey}>
                         OPEN GAME LICENSE Version 1.0a
