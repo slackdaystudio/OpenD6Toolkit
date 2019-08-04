@@ -1,5 +1,5 @@
 import React, { Component }  from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { BackHandler, StyleSheet, View, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Container, Content, Text, List, ListItem, Left, Right, Spinner, Tabs, Tab, ScrollableTab } from 'native-base';
 import Header from '../Header';
@@ -29,6 +29,16 @@ export default class StatisticsScreen extends Component {
 
     componentDidMount() {
         this._loadStats();
+
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            this.props.navigation.navigate('Home');
+
+            return true;
+        });
+    }
+
+    componentWillUnmount() {
+        this.backHandler.remove();
     }
 
     _loadStats(callback) {
@@ -100,7 +110,7 @@ export default class StatisticsScreen extends Component {
 		  <Container style={styles.container}>
 			<Header navigation={this.props.navigation} />
 	        <Content style={styles.content}>
-	            <Heading text='General Statistics' />
+	            <Heading text='General Statistics' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                 {this._renderDieDistributionChart()}
                 <List>
                     <ListItem>
