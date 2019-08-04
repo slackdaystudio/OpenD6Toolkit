@@ -51,11 +51,15 @@ class CharacterOptionsScreen extends Component {
     }
 
     componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', () => {
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
             this.props.navigation.navigate('Builder');
 
             return true;
         });
+    }
+
+    componentWillUnmount() {
+        this.backHandler.remove();
     }
 
     _initOptionsShow(options) {

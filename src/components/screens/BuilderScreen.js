@@ -272,7 +272,7 @@ class BuilderScreen extends Component {
                 </Content>
                 <Footer>
                     <FooterTab style={{justifyContent: 'center', backgroundColor: '#f57e20'}}>
-                        <Button vertical onPress={() => this.props.navigation.navigate('TemplateSelect')}>
+                        <Button vertical onPress={() => this.props.navigation.navigate('TemplateSelect', {from: 'Builder'})}>
                             <Icon type='FontAwesome' name='file' style={{color: '#FFF'}} />
                             <Text uppercase={false} style={{color: '#FFF'}}>New</Text>
                         </Button>

@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Switch } from 'react-native';
+import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Switch } from 'react-native';
 import { Container, Content, Button, Text, Picker, Item} from 'native-base';
 import RNShake from 'react-native-shake';
 import * as Animatable from 'react-native-animatable';
@@ -44,14 +44,21 @@ class DieRollerScreen extends Component {
         this.updatePips = this._updatePips.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         RNShake.addEventListener('ShakeEvent', () => {
             this.roll();
+        });
+
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            this.props.navigation.navigate(this.props.navigation.state.params.from);
+
+            return true;
         });
     }
 
  	componentWillUnmount() {
    		RNShake.removeEventListener('ShakeEvent');
+   		this.backHandler.remove();
    	}
 
     handleViewRef = ref => this.view = ref;
@@ -196,7 +203,7 @@ class DieRollerScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Heading text='Roller' />
+                <Heading text='Roller' onBackButtonPress={() => this.props.navigation.navigate(this.props.navigation.state.params.from)} />
                 <View style={styles.contentPadded}>
                     {this._renderResult()}
                     <View>

@@ -42,11 +42,15 @@ class SpecializationScreen extends Component {
     }
 
     componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', () => {
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
             this.props.navigation.navigate('Builder');
 
             return true;
         });
+    }
+
+    componentWillUnmount() {
+        this.backHandler.remove();
     }
 
     _initSpecialization() {

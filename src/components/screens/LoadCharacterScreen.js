@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert } from 'react-native';
+import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, List, ListItem } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
@@ -34,7 +34,17 @@ class LoadCharacterScreen extends Component {
     }
 
     componentDidMount() {
-        this._updateFileList()
+        this._updateFileList();
+
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            this.props.navigation.navigate('Builder');
+
+            return true;
+        });
+    }
+
+    componentWillUnmount() {
+        this.backHandler.remove();
     }
 
     _deleteConfirmed() {
@@ -78,7 +88,7 @@ class LoadCharacterScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Heading text='Characters' />
+                <Heading text='Characters' onBackButtonPress={() => this.props.navigation.navigate('Builder')} />
                 <List>
                     {this.state.files.map((file, index) => {
                         return (

@@ -122,7 +122,7 @@ export default class AttributesAndSkills extends Component {
         if (totalDieCode.dice > 0) {
             this.props.updateRoller(totalDieCode.dice, totalDieCode.pips);
 
-            this.props.navigation.navigate('DieRoller');
+            this.props.navigation.navigate('DieRoller', {from: 'Builder'});
         }
     }
 
@@ -138,7 +138,7 @@ export default class AttributesAndSkills extends Component {
 
         if (totalDieCode.dice >= 1) {
             this.props.updateRoller(totalDieCode.dice, totalDieCode.pips);
-            this.props.navigation.navigate('DieRoller');
+            this.props.navigation.navigate('DieRoller', {from: 'Builder'});
         }
     }
 

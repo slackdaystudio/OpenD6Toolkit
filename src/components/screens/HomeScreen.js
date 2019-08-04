@@ -26,7 +26,7 @@ class HomeScreen extends Component {
 
     _onBuilderPress() {
         if (this.props.character == null || this.props.character.template == null) {
-            this.props.navigation.navigate('TemplateSelect');
+            this.props.navigation.navigate('TemplateSelect', {from: 'Home'});
         } else {
             this.props.navigation.navigate('Builder');
         }
@@ -41,7 +41,7 @@ class HomeScreen extends Component {
     }
 
     _onPress(location) {
-        this.props.navigation.navigate(location);
+        this.props.navigation.navigate(location, {from: 'Home'});
     }
 
 	render() {
