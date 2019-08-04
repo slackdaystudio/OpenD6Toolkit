@@ -140,6 +140,10 @@ class Character {
 
         for (let itemName of itemNames) {
             for (let item of character[itemName].items) {
+                if (item.excludeFromBuildCosts) {
+                    continue;
+                }
+
                 if (item.multipleRanks) {
                     totalPoints += item.totalRanks * item.rank;
                 } else {

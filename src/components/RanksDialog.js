@@ -1,6 +1,6 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types'
-import { StyleSheet, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, TouchableHighlight, Switch } from 'react-native';
 import { Container, Content, Button, Text, Item, Input, Picker, Form, Label, Icon } from 'native-base';
 import Modal from "react-native-modal";
 import ErrorMessage from './ErrorMessage';
@@ -29,6 +29,7 @@ export default class RanksDialog extends Component {
         this.state = {
             totalRanks: 1,
             displayNote: '',
+            excludeFromBuildCosts: false,
             errorMessage: null
         }
 
@@ -39,13 +40,18 @@ export default class RanksDialog extends Component {
         if (this.props.item !== null && prevProps.item !== this.props.item) {
             this.setState({
                 totalRanks: this.props.item.totalRanks,
-                displayNote: this.props.item.displayNote
+                displayNote: this.props.item.displayNote,
+                excludeFromBuildCosts: this.props.item.excludeFromBuildCosts
             });
         }
     }
 
     _updateDisplayNote(value) {
         this.setState({displayNote: value});
+    }
+
+    _toggleExcludeFromBuildCosts() {
+        this.setState({excludeFromBuildCosts: !this.state.excludeFromBuildCosts});
     }
 
     _incrementRanks() {
@@ -71,6 +77,7 @@ export default class RanksDialog extends Component {
         let newItem = {...this.props.item}
         newItem.totalRanks = this.state.totalRanks;
         newItem.displayNote = this.state.displayNote;
+        newItem.excludeFromBuildCosts = this.state.excludeFromBuildCosts;
 
         this.props.onSave(this.props.optionKey, newItem);
         this.props.onClose();
@@ -87,9 +94,9 @@ export default class RanksDialog extends Component {
                     <View style={localStyles.row}>
                         <Icon
                             type='FontAwesome'
-                            name='plus-square'
-                            style={[styles.grey, {fontSize: 30, color: '#f57e20', alignItems: 'flex-end'}]}
-                            onPress={() => this._incrementRanks()}
+                            name='minus-square'
+                            style={[styles.grey, {fontSize: 30, color: '#f57e20', alignItems: 'flex-start'}]}
+                            onPress={() => this._decrementRanks()}
                         />
                     </View>
                     <View style={localStyles.row}>
@@ -98,9 +105,9 @@ export default class RanksDialog extends Component {
                     <View style={localStyles.row}>
                         <Icon
                             type='FontAwesome'
-                            name='minus-square'
-                            style={[styles.grey, {fontSize: 30, color: '#f57e20', alignItems: 'flex-start'}]}
-                            onPress={() => this._decrementRanks()}
+                            name='plus-square'
+                            style={[styles.grey, {fontSize: 30, color: '#f57e20', alignItems: 'flex-end'}]}
+                            onPress={() => this._incrementRanks()}
                         />
                     </View>
                 </View>
@@ -152,6 +159,15 @@ export default class RanksDialog extends Component {
                             />
                         </Item>
                         {this._renderFormControls()}
+                        <Item style={{flex: 1, justifyContent: 'space-between'}}>
+                            <Label>Exclude from build costs?</Label>
+                            <Switch
+                                value={this.state.excludeFromBuildCosts}
+                                onValueChange={() => this._toggleExcludeFromBuildCosts()}
+                                thumbColor='#f57e20'
+                                trackColor={{true: '#fde5d2', false: '#4f4e4e'}}
+                            />
+                        </Item>
                         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
                             {this._renderSaveButton()}
                             {this._renderDeleteButton()}

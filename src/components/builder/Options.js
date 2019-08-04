@@ -109,6 +109,7 @@ export default class Options extends Component {
                                 <TouchableHighlight underlayColor='#ffffff' onPress={() => this._showOptionInfo(item)}>
                                     <View style={{paddingTop: 10, paddingBottom: 10}}>
                                         <Text style={[styles.grey, styles.big]}>
+                                            {item.excludeFromBuildCosts ? '*' : ''}
                                             {item.name + (item.displayNote === null ? '' : ': ' + item.displayNote)}
                                         </Text>
                                     </View>
