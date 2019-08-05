@@ -18,7 +18,6 @@ import {
 } from '../../lib/DieRoller';
 import { statistics } from '../../lib/Statistics';
 import { updateRoller } from '../../reducers/dieRoller';
-import { setSetting } from '../../reducers/settings';
 import styles from '../../Styles';
 
 class DieRollerScreen extends Component {
@@ -27,8 +26,7 @@ class DieRollerScreen extends Component {
         dice: PropTypes.number.isRequired,
         pips: PropTypes.number.isRequired,
         isLegend: PropTypes.bool.isRequired,
-        updateRoller: PropTypes.func.isRequired,
-        setSetting: PropTypes.func.isRequired
+        updateRoller: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -219,17 +217,6 @@ class DieRollerScreen extends Component {
                         />
                     </View>
                     {this._renderPipsPicker()}
-                    <View style={styles.titleContainer}>
-                        <Text style={styles.grey}>Use D6 Legend rules?</Text>
-                        <View style={{paddingRight: 10}}>
-                            <Switch
-                                value={this.props.isLegend}
-                                onValueChange={() => this.props.setSetting('isLegend', !this.props.isLegend)}
-                                thumbColor='#f57e20'
-                                trackColor={{true: '#fde5d2', false: '#4f4e4e'}}
-                            />
-                        </View>
-                    </View>
                     <LogoButton label={this._renderRollButtonLabel()} onPress={() => this.roll()} />
                 </View>
                 <View style={{paddingBottom: 20}} />
@@ -255,8 +242,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    updateRoller,
-    setSetting
+    updateRoller
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DieRollerScreen);

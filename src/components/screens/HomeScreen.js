@@ -1,17 +1,20 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image } from 'react-native';
+import { Alert, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
 import styles from '../../Styles';
 import { file } from '../../lib/File';
+import { settings as appSettings } from '../../lib/Settings';
+import { setSettings } from '../../reducers/settings'
 
 class HomeScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
+        setSettings: PropTypes.func.isRequired,
         character: PropTypes.object,
         template: PropTypes.object
     }
@@ -22,6 +25,13 @@ class HomeScreen extends Component {
         this.onBuilderPress = this._onBuilderPress.bind(this);
         this.onArchitectPress = this._onArchitectPress.bind(this);
         this.onPress = this._onPress.bind(this);
+    }
+
+    componentDidMount() {
+        appSettings.getSettings().then((settings) => {
+            this.props.setSettings(settings);
+//            Alert.alert('set settings to ' + JSON.stringify(settings));
+        });
     }
 
     _onBuilderPress() {
@@ -70,7 +80,7 @@ class HomeScreen extends Component {
                     <LogoButton label='Mass Roller' onPress={() => this.onPress('MassRoller')} />
                 </View>
                 <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
-                    <LogoButton label='Warlord' onPress={() => this.onPress('CombatTracker')} />
+                    <LogoButton label='Orchestrator' onPress={() => this.onPress('CombatTracker')} />
                 </View>
                 <View style={{paddingBottom: 20}} />
             </Content>
@@ -86,6 +96,8 @@ const mapStateToProps = state => {
     };
 }
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+    setSettings
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

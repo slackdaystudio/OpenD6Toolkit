@@ -52,6 +52,9 @@ class Sidebar extends Component {
                         <ListItem onPress={() => this.props.navigation.navigate('BackupAndRestore')}>
                             <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Backup &amp; Restore</Text>
                         </ListItem>
+                        <ListItem onPress={() => this.props.navigation.navigate('Settings')}>
+                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Settings</Text>
+                        </ListItem>
                         <ListItem onPress={() => this.props.navigation.navigate('Statistics')}>
                             <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Statistics</Text>
                         </ListItem>

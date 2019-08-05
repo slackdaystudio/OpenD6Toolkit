@@ -17,6 +17,7 @@ import CharacterOptionsScreen from './src/components/screens/CharacterOptionsScr
 import MassRollerScreen from './src/components/screens/MassRollerScreen';
 import CombatTrackerScreen from './src/components/screens/CombatTrackerScreen';
 import BackupAndRestoreScreen from './src/components/screens/BackupAndRestoreScreen';
+import SettingsScreen from './src/components/screens/SettingsScreen';
 import StatisticsScreen from './src/components/screens/StatisticsScreen';
 import OglScreen from './src/components/screens/OglScreen';
 import Sidebar from './src/components/Sidebar';
@@ -39,12 +40,12 @@ const AppNavigator = createDrawerNavigator({
     MassRoller: MassRollerScreen,
     CombatTracker: CombatTrackerScreen,
     BackupAndRestore: BackupAndRestoreScreen,
+    Settings: SettingsScreen,
     Statistics: StatisticsScreen,
     Ogl: OglScreen,
 }, {
     initialRouteName: 'Home',
     drawerPosition: 'right',
-    gesturesEnabled: true,
     contentComponent: Sidebar
 });
 
