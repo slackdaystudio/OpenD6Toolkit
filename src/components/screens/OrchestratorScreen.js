@@ -16,9 +16,9 @@ const window = Dimensions.get('window');
 class OrchestratorScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-        actors: PropTypes.object.isRequired,
         removeActor: PropTypes.func.isRequired,
-        sortActor: PropTypes.func.isRequired
+        sortActor: PropTypes.func.isRequired,
+        actors: PropTypes.object
     }
 
     constructor(props) {

@@ -18,14 +18,7 @@ class EditActorScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            uuid: null,
-            label: null,
-            roll: 0,
-            useBodyPoints: false,
-            maxBodyPoints: 0,
-            currentBodyPoints: 0
-        };
+        this.state = EditActorScreen.initState();
     }
 
     componentDidMount() {
@@ -41,11 +34,28 @@ class EditActorScreen extends Component {
    	}
 
     static getDerivedStateFromProps(props, state) {
-        if (props.navigation.state.params.actor !== null && props.navigation.state.params.actor.uuid !== state.uuid) {
+        if (props.navigation.state.params.actor === null) {
+            props.navigation.state.params.actor = EditActorScreen.initState();
+
             return props.navigation.state.params.actor;
+        } else if (props.navigation.state.params.actor.uuid !== state.uuid) {
+            let actor = {...props.navigation.state.params.actor};
+
+            return actor;
         }
 
         return state;
+    }
+
+    static initState() {
+        return {
+           uuid: null,
+           label: null,
+           roll: 0,
+           useBodyPoints: false,
+           maxBodyPoints: 0,
+           currentBodyPoints: 0
+       };
     }
 
     _updateActor(key, value) {
