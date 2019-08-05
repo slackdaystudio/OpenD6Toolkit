@@ -278,7 +278,7 @@ export default class AttributesAndSkills extends Component {
                                                 <Icon
                                                     type='FontAwesome'
                                                     name='edit'
-                                                    style={[styles.grey, {fontSize: 30, color: '#f57e20', width: 30}]}
+                                                    style={[styles.grey, {fontSize: 30, color: '#f57e20', paddingTop: 3, width: 30}]}
                                                     onPress={() => this._editDieCode(skill.name, skillDieCode)}
                                                 />
                                             </View>
@@ -357,7 +357,7 @@ export default class AttributesAndSkills extends Component {
                                         <Icon
                                             type='FontAwesome'
                                             name='edit'
-                                            style={[styles.grey, {fontSize: 30, color: '#f57e20', width: 30}]}
+                                            style={[styles.grey, {fontSize: 30, color: '#f57e20', paddingTop: 3, width: 30}]}
                                             onPress={() => this._editDieCode(attribute.name, dieCode)}
                                         />
                                     </View>
