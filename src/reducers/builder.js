@@ -419,7 +419,7 @@ export default function builder(state = builderState, action) {
                 }
             };
 
-            newState.character = JSON.parse(action.payload);
+            newState.character = typeof action.payload === 'string' ? JSON.parse(action.payload) : action.payload;
 
             return newState;
         case CLEAR_LOADED_CHARACTER:

@@ -26,7 +26,7 @@ export default class ArchitectFooter extends Component {
                         <Icon type='FontAwesome' name='folder-open' style={{color: '#FFF'}}/>
                         <Text uppercase={false} style={{color: '#FFF'}}>Open</Text>
                     </Button>
-                    <Button vertical onPress={() => file.uploadTemplate(() => {}, () => {})}>
+                    <Button vertical onPress={() => file.importTemplate(() => {}, () => {})}>
                         <Icon type='FontAwesome' name='download' style={{color: '#FFF'}}/>
                         <Text uppercase={false} style={{color: '#FFF'}}>Import</Text>
                     </Button>

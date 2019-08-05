@@ -26,7 +26,8 @@ import {
     updateWounds,
     updateBodyPoints,
     updateDefenseSystem,
-    updateStaticDefense
+    updateStaticDefense,
+    loadCharacter
 } from '../../reducers/builder';
 import { updateRoller } from '../../reducers/dieRoller';
 
@@ -43,7 +44,8 @@ class BuilderScreen extends Component {
         updateWounds: PropTypes.func.isRequired,
         updateBodyPoints: PropTypes.func.isRequired,
         updateDefenseSystem: PropTypes.func.isRequired,
-        updateStaticDefense: PropTypes.func.isRequired
+        updateStaticDefense: PropTypes.func.isRequired,
+        loadCharacter: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -108,6 +110,12 @@ class BuilderScreen extends Component {
         }
 
         this.props.updateAppearance(key, points);
+    }
+
+    _import() {
+        file.importCharacter(() => {}, () => {}).then((character) => {
+            this.props.loadCharacter(character);
+        });
     }
 
 	render() {
@@ -284,6 +292,10 @@ class BuilderScreen extends Component {
                             <Icon type='FontAwesome' name='folder-open' style={{color: '#FFF'}}/>
                             <Text uppercase={false} style={{color: '#FFF'}}>Open</Text>
                         </Button>
+                        <Button vertical onPress={() => this._import()}>
+                            <Icon type='FontAwesome' name='download' style={{color: '#FFF'}}/>
+                            <Text uppercase={false} style={{color: '#FFF'}}>Import</Text>
+                        </Button>
                     </FooterTab>
                 </Footer>
 	        </Container>
@@ -317,7 +329,8 @@ const mapDispatchToProps = {
     updateWounds,
     updateBodyPoints,
     updateDefenseSystem,
-    updateStaticDefense
+    updateStaticDefense,
+    loadCharacter
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuilderScreen);

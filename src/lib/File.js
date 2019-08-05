@@ -22,7 +22,7 @@ const DEFAULT_TEMPLATE_DIR = DEFAULT_ROOT_DIR + '/templates/';
 const BUILT_IN_TEMPLATE_NAMES = [TEMPLATE_FANTASY_NAME, TEMPLATE_ADVENTURE_NAME, TEMPLATE_SPACE_NAME];
 
 class File {
-    async uploadTemplate(startLoad, endLoad) {
+    async importTemplate(startLoad, endLoad) {
         try {
             const result = await DocumentPicker.pick({
                 type: [DocumentPicker.types.allFiles],
@@ -151,7 +151,48 @@ class File {
         }
     }
 
-    async loadCharacter(characterName, startLoad, endLoad) {
+    async importCharacter(startLoad, endLoad) {
+        try {
+            let character = null;
+
+            const result = await DocumentPicker.pick({
+                type: [DocumentPicker.types.allFiles],
+            });
+
+            if (result === null) {
+                return;
+            }
+
+            if (result.name.toLowerCase().endsWith('.json')) {
+                let rawCharacter = await this._readFile(result.uri);
+                character = JSON.parse(rawCharacter);
+
+                await this.saveCharacter(character, true);
+                await this.loadCharacter(character.name + '.json', startLoad, endLoad, true);
+
+                return character;
+            } else {
+                Toast.show({
+                    text: 'Unsupported file type: ' + result.type,
+                    position: 'bottom',
+                    buttonText: 'OK',
+                    textStyle: {color: '#fde5d2'},
+                    buttonTextStyle: { color: '#f57e20' },
+                    duration: 3000
+                });
+
+                return;
+            }
+        } catch (error) {
+            const isCancel = await DocumentPicker.isCancel(error);
+
+            if (!isCancel) {
+                Alert.alert(error.message);
+            }
+        }
+    }
+
+    async loadCharacter(characterName, startLoad, endLoad, isImport=false) {
         let character = null;
 
         try {
@@ -161,7 +202,7 @@ class File {
             character = await this._readFile(path);
 
             Toast.show({
-                text: 'Character successfully loaded',
+                text: 'Character successfully ' + (isImport ? ' imported' : 'loaded'),
                 position: 'bottom',
                 buttonText: 'OK',
                 textStyle: {color: '#fde5d2'},
@@ -182,19 +223,21 @@ class File {
         }
     }
 
-    async saveCharacter(character) {
+    async saveCharacter(character, silent=false) {
         let characterPath = await this._getCharacterPath(character.name);
 
         await RNFetchBlob.fs.writeFile(characterPath, JSON.stringify(character), 'utf8');
 
-        Toast.show({
-            text: 'Character saved',
-            position: 'bottom',
-            buttonText: 'OK',
-            textStyle: {color: '#fde5d2'},
-            buttonTextStyle: { color: '#f57e20' },
-            duration: 3000
-        });
+        if (!silent) {
+            Toast.show({
+                text: 'Character saved',
+                position: 'bottom',
+                buttonText: 'OK',
+                textStyle: {color: '#fde5d2'},
+                buttonTextStyle: { color: '#f57e20' },
+                duration: 3000
+            });
+        }
     }
 
     async getCharacters() {
@@ -443,7 +486,7 @@ class File {
 
     async _saveTemplate(uri, startLoad, endLoad) {
         try {
-	    startLoad();
+            startLoad();
 
             let data = await this._readFile(uri);
             let template = JSON.parse(data);
@@ -468,6 +511,12 @@ class File {
 
     async _readFile(uri) {
         let filePath = uri.startsWith('file://') ? uri.substring(7) : uri;
+
+        if (/raw\:/i.test(decodeURIComponent(uri))) {
+            let parts = decodeURIComponent(uri).split('raw:');
+
+            filePath = parts[1];
+        }
 
         if (Platform.OS === 'ios' && !common.isIPad() && /OpenD6Toolkit\-Inbox/.test(filePath) === false) {
             let arr = uri.split('/');
