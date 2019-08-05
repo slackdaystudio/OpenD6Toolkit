@@ -60,7 +60,45 @@ class EditActorScreen extends Component {
 
     _updateActor(key, value) {
         let newState = {...this.state};
+
+        if (key === 'maxBodyPoints' || key === 'currentBodyPoints') {
+            if (value === '' || value === '-') {
+                value = value;
+            } else {
+                value = parseInt(value, 10) || 1;
+
+                if (value > 999) {
+                    value = 999;
+                } else if (value < -999) {
+                    value = -999;
+                } else if (key === 'currentBodyPoints' && value > newState.maxBodyPoints) {
+                    value = newState.maxBodyPoints;
+                }
+            }
+        }
+
         newState[key] = value;
+
+        this.setState(newState);
+    }
+
+    _focusNumericInput(key) {
+        let newState = {...this.state};
+
+        if (newState[key] === 0) {
+            newState[key] = '';
+        }
+
+        this.setState(newState);
+    }
+
+    _blurNumericInput(key) {
+        let newState = {...this.state};
+        let value = newState[key];
+
+        if (value === null || value === undefined || value === '' || value === '-') {
+            newState[key] = 0;
+        }
 
         this.setState(newState);
     }
@@ -79,18 +117,24 @@ class EditActorScreen extends Component {
                         <Label style={{fontWeight: 'bold'}}>Maximum Body Points</Label>
                         <Input
                             style={styles.grey}
-                            maxLength={64}
-                            value={this.state.maxBodyPoints}
+                            keyboardType='numeric'
+                            maxLength={3}
+                            value={this.state.maxBodyPoints.toString()}
                             onChangeText={(value) => this._updateActor('maxBodyPoints', value)}
+                            onFocus={(value) => this._focusNumericInput('maxBodyPoints')}
+                            onBlur={(value) => this._blurNumericInput('maxBodyPoints')}
                         />
                     </Item>
                     <Item stackedLabel>
                         <Label style={{fontWeight: 'bold'}}>Current Body Points</Label>
                         <Input
                             style={styles.grey}
-                            maxLength={64}
-                            value={this.state.currentBodyPoints}
+                            keyboardType='numeric'
+                            maxLength={3}
+                            value={this.state.currentBodyPoints.toString()}
                             onChangeText={(value) => this._updateActor('currentBodyPoints', value)}
+                            onFocus={(value) => this._focusNumericInput('currentBodyPoints')}
+                            onBlur={(value) => this._blurNumericInput('currentBodyPoints')}
                         />
                     </Item>
                 </View>
@@ -120,9 +164,12 @@ class EditActorScreen extends Component {
                         <Label style={{fontWeight: 'bold'}}>Roll</Label>
                         <Input
                             style={styles.grey}
-                            maxLength={64}
+                            keyboardType='numeric'
+                            maxLength={3}
                             value={this.state.roll.toString()}
                             onChangeText={(value) => this._updateActor('roll', value)}
+                            onFocus={(value) => this._focusNumericInput('roll')}
+                            onBlur={(value) => this._blurNumericInput('roll')}
                         />
                     </Item>
                     <Item>
