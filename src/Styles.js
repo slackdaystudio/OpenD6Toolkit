@@ -36,7 +36,7 @@ export default StyleSheet.create({
 	},
 	button: {
 		backgroundColor: '#f57e20',
-		minWidth: 160,
+		minWidth: 180,
 		height: 45,
 		alignSelf: 'center',
 		flexDirection: 'row'

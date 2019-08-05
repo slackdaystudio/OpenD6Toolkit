@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert, BackHandler } from 'react-native';
-import { Container, Content, Button, Text, Picker, Item, Label, Input, List, ListItem, Left, Right, Body, Icon, Tab, Tabs, Textarea, Footer, FooterTab } from 'native-base';
+import { Container, Content, Button, Text, Picker, Item, Label, Input, List, ListItem, Left, Right, Body, Icon, Tab, Tabs, Textarea, Footer, FooterTab, ScrollableTab } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
@@ -124,7 +124,7 @@ class BuilderScreen extends Component {
 		    <Container style={styles.container}>
                 <Header navigation={this.props.navigation} hasTabs={true} />
                 <Content style={styles.content}>
-                    <Tabs locked={true} tabBarUnderlineStyle={{backgroundColor: '#FFF'}}>
+                    <Tabs locked={true} tabBarUnderlineStyle={{backgroundColor: '#FFF'}} renderTabBar={()=> <ScrollableTab />}>
                         <Tab heading='Character' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
                             <Heading text='Name &amp; Species' />
                             <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
