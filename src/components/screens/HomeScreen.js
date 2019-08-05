@@ -30,7 +30,6 @@ class HomeScreen extends Component {
     componentDidMount() {
         appSettings.getSettings().then((settings) => {
             this.props.setSettings(settings);
-//            Alert.alert('set settings to ' + JSON.stringify(settings));
         });
     }
 
@@ -80,7 +79,7 @@ class HomeScreen extends Component {
                     <LogoButton label='Mass Roller' onPress={() => this.onPress('MassRoller')} />
                 </View>
                 <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
-                    <LogoButton label='Orchestrator' onPress={() => this.onPress('CombatTracker')} />
+                    <LogoButton label='Orchestrator' onPress={() => this.onPress('Orchestrator')} />
                 </View>
                 <View style={{paddingBottom: 20}} />
             </Content>

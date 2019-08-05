@@ -15,7 +15,8 @@ import SpecializationScreen from './src/components/screens/SpecializationScreen'
 import LoadCharacterScreen from './src/components/screens/LoadCharacterScreen';
 import CharacterOptionsScreen from './src/components/screens/CharacterOptionsScreen';
 import MassRollerScreen from './src/components/screens/MassRollerScreen';
-import CombatTrackerScreen from './src/components/screens/CombatTrackerScreen';
+import OrchestratorScreen from './src/components/screens/OrchestratorScreen';
+import EditActorScreen from './src/components/screens/EditActorScreen';
 import BackupAndRestoreScreen from './src/components/screens/BackupAndRestoreScreen';
 import SettingsScreen from './src/components/screens/SettingsScreen';
 import StatisticsScreen from './src/components/screens/StatisticsScreen';
@@ -38,7 +39,8 @@ const AppNavigator = createDrawerNavigator({
     Options: CharacterOptionsScreen,
     TemplateDelete: TemplateDeleteScreen,
     MassRoller: MassRollerScreen,
-    CombatTracker: CombatTrackerScreen,
+    Orchestrator: OrchestratorScreen,
+    EditActor: EditActorScreen,
     BackupAndRestore: BackupAndRestoreScreen,
     Settings: SettingsScreen,
     Statistics: StatisticsScreen,
