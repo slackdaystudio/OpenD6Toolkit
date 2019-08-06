@@ -1,48 +1,75 @@
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { common } from './Common';
+
+const SETTINGS_KEY = 'settings';
 
 class Settings {
     async init() {
-        let settings = {
-            isLegend: false,
-            useBodyPoints: false,
-            useStaticDefenses: false
+        const settings = {
+            isLegend: false
         };
 
-        await AsyncStorage.setItem('settings', JSON.stringify(settings));
+        try {
+            await AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+        } catch (error) {
+            common.toast(error.message);
+        }
 
         return settings;
     }
 
     async getSettings() {
-        let settings = await AsyncStorage.getItem('settings');
+        let settings = undefined;
+
+        try {
+            settings = await AsyncStorage.getItem(SETTINGS_KEY);
+        } catch (error) {
+            common.toast(error.message);
+        }
 
         return JSON.parse(settings);
     }
 
     async getSetting(setting) {
-        let settings = await this.getSettings();
+        let settings = undefined;
 
-        if (settings.hasOwnProperty(setting)) {
-            return settings[setting];
+        try {
+            settings = await this.getSettings();
+
+            if (settings.hasOwnProperty(setting)) {
+                return settings[setting];
+            }
+        } catch (error) {
+            common.toast(error.message);
         }
 
-        return undefined;
+        return settings;
     }
 
     async updateSettings(settings) {
-        await AsyncStorage.setItem('settings', JSON.stringify(settings));
+        try {
+            await AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+        } catch (error) {
+            common.toast(error.message);
+        }
 
         return settings;
     }
 
     async updateSetting(setting, value) {
-        let settings = await this.getSettings();
+        let settings = undefined;
 
-        if (settings.hasOwnProperty(setting)) {
-            settings[setting] = value;
+        try {
+            settings = await this.getSettings();
 
-            settings = await this.updateSettings(settings);
+            if (settings.hasOwnProperty(setting)) {
+                settings[setting] = value;
+
+                settings = await this.updateSettings(settings);
+            }
+        } catch (error) {
+            common.toast(error.message);
         }
 
         return settings;

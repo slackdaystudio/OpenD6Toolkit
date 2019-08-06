@@ -1,4 +1,5 @@
-import { Dimensions, Platform } from 'react-native';
+import { Dimensions, Platform, Alert } from 'react-native';
+import { Toast } from 'native-base';
 
 class Common {
     isIPad() {
@@ -41,6 +42,17 @@ class Common {
         return text.replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => {
             return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
         }).replace(/\s+/g, '');
+    }
+
+    toast(message) {
+        Toast.show({
+            text: message,
+            position: 'bottom',
+            buttonText: 'OK',
+            textStyle: {color: '#fde5d2'},
+            buttonTextStyle: { color: '#f57e20' },
+            duration: 3000
+        });
     }
 }
 

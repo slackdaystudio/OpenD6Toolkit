@@ -51,6 +51,8 @@ export default function settings(state = settingsState, action) {
             newState = {...state};
             newState = action.payload;
 
+            appSettings.updateSettings(newState).then(() => {console.log('Set settings')});
+
             return newState;
         case SET_SETTING:
             newState = {...state};

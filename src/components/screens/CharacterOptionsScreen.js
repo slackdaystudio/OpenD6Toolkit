@@ -95,14 +95,7 @@ class CharacterOptionsScreen extends Component {
     _addOptionToCharacter(optionKey, item) {
         this.props.addOption(optionKey, item);
 
-        Toast.show({
-            text: item.name + ', R' + (item.multipleRanks ? item.totalRanks * item.rank : item.rank) + ' has been added',
-            position: 'bottom',
-            buttonText: 'OK',
-            textStyle: {color: '#fde5d2'},
-            buttonTextStyle: { color: '#f57e20' },
-            duration: 3000
-        });
+        common.toast(item.name + ', R' + (item.multipleRanks ? item.totalRanks * item.rank : item.rank) + ' has been added');
     }
 
     _closeRanksDialog() {

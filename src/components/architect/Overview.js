@@ -8,6 +8,7 @@ import styles from '../../Styles';
 import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
 import { character } from '../../lib/Character';
+import { common } from '../../lib/Common';
 import { updateTemplateOverview } from '../../reducers/architect';
 
 class Overview extends Component {
@@ -36,14 +37,7 @@ class Overview extends Component {
         if (errorMessage == null) {
             this.props.updateTemplateOverview(key, value);
         } else {
-            Toast.show({
-                text: errorMessage,
-                position: 'bottom',
-                buttonText: 'OK',
-                textStyle: {color: '#fde5d2'},
-                buttonTextStyle: { color: '#f57e20' },
-                duration: 3000
-            });
+            common.toast(error.message);
         }
     }
 

@@ -2,19 +2,22 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Alert, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image } from 'react-native';
-import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon } from 'native-base';
+import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Toast } from 'native-base';
+import AsyncStorage from '@react-native-community/async-storage';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
 import styles from '../../Styles';
 import { file } from '../../lib/File';
 import { settings as appSettings } from '../../lib/Settings';
+import { common } from '../../lib/Common';
 import { setSettings } from '../../reducers/settings'
 
 class HomeScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         setSettings: PropTypes.func.isRequired,
+        all: PropTypes.object.isRequired,
         character: PropTypes.object,
         template: PropTypes.object
     }
@@ -28,9 +31,17 @@ class HomeScreen extends Component {
     }
 
     componentDidMount() {
-        appSettings.getSettings().then((settings) => {
-            this.props.setSettings(settings);
-        });
+        try {
+            appSettings.getSettings().then((settings) => {
+                if (settings === null) {
+                    appSettings.init().then((s) => this.props.setSettings(s));
+                } else {
+                    this.props.setSettings(settings);
+                }
+            });
+        } catch (error) {
+            common.toast(error.message);
+        }
     }
 
     _onBuilderPress() {
@@ -82,6 +93,7 @@ class HomeScreen extends Component {
                     <LogoButton label='Orchestrator' onPress={() => this.onPress('Orchestrator')} />
                 </View>
                 <View style={{paddingBottom: 20}} />
+                <Text>{JSON.stringify(this.props.all)}</Text>
             </Content>
 	      </Container>
 		);
@@ -91,7 +103,9 @@ class HomeScreen extends Component {
 const mapStateToProps = state => {
     return {
         character: state.builder.character,
-        template: state.architect.template
+        template: state.architect.template,
+        settings: state.settings,
+        all: state
     };
 }
 

@@ -35,14 +35,7 @@ class File {
             if (result.name.toLowerCase().endsWith('.json')) {
                 this._saveTemplate(result.uri, startLoad, endLoad);
             } else {
-                Toast.show({
-                    text: 'Unsupported file type: ' + result.type,
-                    position: 'bottom',
-                    buttonText: 'OK',
-                    textStyle: {color: '#fde5d2'},
-                    buttonTextStyle: { color: '#f57e20' },
-                    duration: 3000
-                });
+                common.toast('Unsupported file type: ' + result.type);
 
                 return;
             }
@@ -72,14 +65,7 @@ class File {
 
             return templates;
         } catch (error) {
-            Toast.show({
-                text: error.message,
-                position: 'bottom',
-                buttonText: 'OK',
-                textStyle: {color: '#fde5d2'},
-                buttonTextStyle: { color: '#f57e20' },
-                duration: 3000
-            });
+            common.toast(error.message);
         }
     }
 
@@ -100,14 +86,7 @@ class File {
         } catch (error) {
             message = error.message;
         } finally {
-            Toast.show({
-                text: message,
-                position: 'bottom',
-                buttonText: 'OK',
-                textStyle: {color: '#fde5d2'},
-                buttonTextStyle: { color: '#f57e20' },
-                duration: 3000
-            });
+            common.toast(message);
         }
     }
 
@@ -138,14 +117,7 @@ class File {
         try {
             await RNFetchBlob.fs.unlink(path);
 
-            Toast.show({
-                text: 'Template deleted',
-                position: 'bottom',
-                buttonText: 'OK',
-                textStyle: {color: '#fde5d2'},
-                buttonTextStyle: { color: '#f57e20' },
-                duration: 3000
-            });
+            common.toast('Template deleted');
         } catch (error) {
             Alert.alert(error.message);
         }
@@ -172,14 +144,7 @@ class File {
 
                 return character;
             } else {
-                Toast.show({
-                    text: 'Unsupported file type: ' + result.type,
-                    position: 'bottom',
-                    buttonText: 'OK',
-                    textStyle: {color: '#fde5d2'},
-                    buttonTextStyle: { color: '#f57e20' },
-                    duration: 3000
-                });
+                common.toast('Unsupported file type: ' + result.type);
 
                 return;
             }
@@ -201,23 +166,9 @@ class File {
             let path = await this._getCharacterPath(characterName, false);
             character = await this._readFile(path);
 
-            Toast.show({
-                text: 'Character successfully ' + (isImport ? ' imported' : 'loaded'),
-                position: 'bottom',
-                buttonText: 'OK',
-                textStyle: {color: '#fde5d2'},
-                buttonTextStyle: { color: '#f57e20' },
-                duration: 3000
-            });
+            common.toast('Character successfully ' + (isImport ? ' imported' : 'loaded'));
         } catch (error) {
-            Toast.show({
-                text: error.message,
-                position: 'bottom',
-                buttonText: 'OK',
-                textStyle: {color: '#fde5d2'},
-                buttonTextStyle: { color: '#f57e20' },
-                duration: 3000
-            });
+            common.toast(error.message)
         } finally {
             endLoad(character);
         }
@@ -229,14 +180,7 @@ class File {
         await RNFetchBlob.fs.writeFile(characterPath, JSON.stringify(character), 'utf8');
 
         if (!silent) {
-            Toast.show({
-                text: 'Character saved',
-                position: 'bottom',
-                buttonText: 'OK',
-                textStyle: {color: '#fde5d2'},
-                buttonTextStyle: { color: '#f57e20' },
-                duration: 3000
-            });
+            common.toast('Character saved');
         }
     }
 
@@ -253,14 +197,7 @@ class File {
         try {
             await RNFetchBlob.fs.unlink(path);
 
-            Toast.show({
-                text: 'Character deleted',
-                position: 'bottom',
-                buttonText: 'OK',
-                textStyle: {color: '#fde5d2'},
-                buttonTextStyle: { color: '#f57e20' },
-                duration: 3000
-            });
+            common.toast('Character deleted')
         } catch (error) {
             Alert.alert(error.message);
         }
@@ -494,14 +431,7 @@ class File {
 
             await RNFetchBlob.fs.writeFile(path, data, 'utf8');
 
-            Toast.show({
-                text: 'Template saved',
-                position: 'bottom',
-                buttonText: 'OK',
-                textStyle: {color: '#fde5d2'},
-                buttonTextStyle: { color: '#f57e20' },
-                duration: 3000
-            });
+            common.toast('Template saved');
         } catch (error) {
             Alert.alert(error.message);
         } finally {
