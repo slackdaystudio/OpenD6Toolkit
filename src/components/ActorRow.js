@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Alert, StyleSheet, Dimensions, Animated, Easing, Image, View, Platform } from 'react-native';
-import { Text, CardItem, Card, Left, Right, Body, Input, Icon, Form, Item, Label, CheckBox } from 'native-base';
+import { Text, CardItem, Card, Left, Right, Body, Input, Icon, Form, Item, Label, CheckBox, Picker } from 'native-base';
 import styles from '../Styles';
 
 const window = Dimensions.get('window');
@@ -17,6 +17,7 @@ export default class Row extends Component {
         navigation: PropTypes.object.isRequired,
         active: PropTypes.bool.isRequired,
         data: PropTypes.object.isRequired,
+        combatants: PropTypes.object.isRequired,
         onRemove: PropTypes.func.isRequired,
         onUpdate: PropTypes.func.isRequired
     }
@@ -102,8 +103,8 @@ export default class Row extends Component {
         if (this.props.data.useBodyPoints) {
             return (
                 <View style={[styles.rowStart, {justifyContent: 'space-between'}]}>
-                    <Item stackedLabel style={{width: 60, alignSelf: 'flex-start'}}>
-                        <Label style={{fontWeight: 'bold'}}>Max</Label>
+                    <Item style={{width: 150, alignSelf: 'flex-start'}}>
+                        <Label style={{fontWeight: 'bold'}}>Maximum:</Label>
                         <Input
                             style={styles.grey}
                             keyboardType='numeric'
@@ -114,8 +115,8 @@ export default class Row extends Component {
                             onBlur={(value) => this._blurBodyPoints('maxBodyPoints')}
                         />
                     </Item>
-                    <Item stackedLabel style={{width: 60, alignSelf: 'flex-end'}}>
-                        <Label style={{fontWeight: 'bold'}}>Current</Label>
+                    <Item style={{width: 150, alignSelf: 'flex-end'}}>
+                        <Label style={{fontWeight: 'bold'}}>Current:</Label>
                         <Input
                             style={styles.grey}
                             keyboardType='numeric'
@@ -184,6 +185,36 @@ export default class Row extends Component {
         );
     }
 
+    _renderEngaging() {
+        let selectableCombatants = Object.keys(this.props.combatants).filter((key) => {
+            if (this.props.combatants[key].uuid !== this.props.data.uuid) {
+                return true;
+            }
+        });
+
+        return (
+            <View style={styles.rowStart}>
+                <Text style={[styles.boldGrey, {alignSelf: 'center'}]}>Engaging:</Text>
+                <Picker
+                    inlinelabel
+                    label='Engaging'
+                    style={styles.picker}
+                    textStyle={styles.grey}
+                    placeholderIconColor="#FFFFFF"
+                    iosHeader="Select one"
+                    mode="dropdown"
+                    selectedValue={this.props.data.engaging}
+                    onValueChange={(value) => this.props.onUpdate(this.props.data.uuid, 'engaging', value)}
+                >
+                    <Item label='Unengaged' value='Unengaged' />
+                    {selectableCombatants.map((key, index) => {
+                        return <Item label={this.props.combatants[key].label} value={this.props.combatants[key].uuid} />
+                    })}
+                </Picker>
+            </View>
+        );
+    }
+
     render() {
         return (
             <Animated.View style={[localStyles.row, this._style]}>
@@ -215,6 +246,7 @@ export default class Row extends Component {
                         <Body>
                             <Text style={[styles.boldGrey, {fontSize: 18, alignSelf: 'center', paddingBottom: 5}]}>Health</Text>
                             {this._renderHealth()}
+                            {this._renderEngaging()}
                         </Body>
                     </CardItem>
                 </Card>

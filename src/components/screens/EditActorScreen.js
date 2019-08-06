@@ -52,6 +52,7 @@ class EditActorScreen extends Component {
            uuid: null,
            label: null,
            roll: 0,
+           engaging: 'Unengaged',
            useBodyPoints: false,
            maxBodyPoints: 0,
            currentBodyPoints: 0,

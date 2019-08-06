@@ -118,6 +118,7 @@ class OrchestratorScreen extends Component {
                 navigation={this.props.navigation}
                 data={data}
                 active={active}
+                combatants={this.props.actors}
                 onRemove={this.remove}
                 onUpdate={this.props.updateActorField}
             />
