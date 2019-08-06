@@ -9,30 +9,32 @@ export default class LogoButton extends Component {
         label: PropTypes.string.isRequired,
         onPress: PropTypes.func.isRequired,
         showLogo: PropTypes.bool,
-        maxWidth: PropTypes.number
+        maxWidth: PropTypes.number,
+        minWidth: PropTypes.number
     }
 
     _renderLogo() {
         if (this.props.showLogo) {
             return (
-                <View style={{flex: 1}}>
+                <View style={{flex: 1, alignSelf: 'flex-start'}}>
                     <Image source={require('../../public/d6_logo_White_30x30.png')}/>
                 </View>
             )
         }
 
-        return <View style={{flex: 1}} />;
+        return <View style={{flex: 1, alignSelf: 'flex-start'}} />;
     }
 
 	render() {
 		return (
             <View style={styles.buttonContainer}>
                 <Button
-                    style={[styles.button, {maxWidth: this.props.maxWidth}]}
+                    style={[styles.button, {minWidth: this.props.minWidth}]}
                     onPress={() => this.props.onPress()}
                 >
                     {this._renderLogo()}
                     <Text uppercase={false} style={styles.buttonText}>{this.props.label}</Text>
+                    <View style={{flex: 1, alignSelf: 'flex-end'}}/>
                 </Button>
             </View>
 		);
@@ -41,5 +43,5 @@ export default class LogoButton extends Component {
 
 LogoButton.defaultProps = {
     showLogo: true,
-    maxWidth: 170
+    minWidth: 180
 };

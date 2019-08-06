@@ -54,7 +54,13 @@ class EditActorScreen extends Component {
            roll: 0,
            useBodyPoints: false,
            maxBodyPoints: 0,
-           currentBodyPoints: 0
+           currentBodyPoints: 0,
+           stunned: false,
+           wounded: false,
+           severelyWounded: false,
+           incapacitated: false,
+           mortallyWounded: false,
+           dead: false
        };
     }
 

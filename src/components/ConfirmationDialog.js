@@ -56,8 +56,8 @@ export default class ConfirmationDialog extends Component {
                             <Text style={styles.grey}>{this.props.info}</Text>
                         </ScrollView>
                         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
-                            <LogoButton label='OK' onPress={() => this.props.onOk()} maxWidth={130} />
-                            <LogoButton label='Cancel' onPress={() => this.props.onClose()} maxWidth={130} />
+                            <LogoButton label='OK' onPress={() => this.props.onOk()} minWidth={130} />
+                            <LogoButton label='Cancel' onPress={() => this.props.onClose()} minWidth={130} />
                         </View>
                     </View>
                 </View>

@@ -9,7 +9,7 @@ import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
 import ActorRow from '../ActorRow';
 import styles from '../../Styles';
-import { editActorOrder, removeActor, sortActor } from '../../reducers/orchestrator';
+import { editActorOrder, removeActor, sortActor, updateActorField } from '../../reducers/orchestrator';
 
 const window = Dimensions.get('window');
 
@@ -18,6 +18,7 @@ class OrchestratorScreen extends Component {
         navigation: PropTypes.object.isRequired,
         removeActor: PropTypes.func.isRequired,
         sortActor: PropTypes.func.isRequired,
+        updateActorField: PropTypes.func.isRequired,
         actors: PropTypes.object
     }
 
@@ -112,7 +113,15 @@ class OrchestratorScreen extends Component {
     }
 
     _renderRow = ({data, active}) => {
-        return <ActorRow navigation={this.props.navigation} data={data} active={active} onRemove={this.remove}/>
+        return (
+            <ActorRow
+                navigation={this.props.navigation}
+                data={data}
+                active={active}
+                onRemove={this.remove}
+                onUpdate={this.props.updateActorField}
+            />
+        );
     }
 
     render() {
@@ -183,7 +192,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     editActorOrder,
     removeActor,
-    sortActor
+    sortActor,
+    updateActorField
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrchestratorScreen);

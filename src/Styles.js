@@ -41,12 +41,6 @@ export default StyleSheet.create({
 		alignSelf: 'center',
 		flexDirection: 'row'
 	},
-	modalButton: {
-		backgroundColor: '#f57e20',
-		minWidth: 90,
-		justifyContent: 'center',
-		alignSelf: 'center'
-	},
 	buttonBig: {
 		backgroundColor: '#f57e20',
 		minWidth: 300,
@@ -54,11 +48,12 @@ export default StyleSheet.create({
 		alignSelf: 'center'
 	},
 	buttonText: {
-	    	color: '#FFF',
-	    	fontSize: 18,
-	    	lineHeight: 35,
-	    	textAlign: 'center',
-	    	flex: 4
+	    color: '#FFF',
+        fontSize: 18,
+        lineHeight: 35,
+        textAlign: 'center',
+        alignSelf: 'center',
+        flex: 10
 	},
 	picker: {
 		color: '#4f4e4e'

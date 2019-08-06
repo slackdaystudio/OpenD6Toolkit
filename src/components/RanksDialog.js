@@ -119,7 +119,7 @@ export default class RanksDialog extends Component {
 
     _renderSaveButton() {
         if (this.props.item !== null) {
-            return <LogoButton label='Save' onPress={() => this._save()} maxWidth={130} />
+            return <LogoButton label='Save' onPress={() => this._save()} minWidth={130} />
         }
 
         return null;
@@ -133,7 +133,7 @@ export default class RanksDialog extends Component {
             action = this.props.onClose;
         }
 
-        return <LogoButton label={label} onPress={() => action()} maxWidth={130} />
+        return <LogoButton label={label} onPress={() => action()} minWidth={130} />
     }
 
 	render() {

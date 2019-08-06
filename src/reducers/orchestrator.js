@@ -7,6 +7,8 @@ import uuid from 'react-native-uuid';
 
 export const EDIT_ACTOR = 'EDIT_ACTOR';
 
+export const UPDATE_ACTOR_FIELD = 'UPDATE_ACTOR_FIELD';
+
 export const EDIT_ACTOR_ORDER = 'EDIT_ACTOR_ORDER';
 
 export const REMOVE_ACTOR = 'REMOVE_ACTOR';
@@ -21,6 +23,17 @@ export function editActor(actor) {
     return {
         type: EDIT_ACTOR,
         payload: actor
+    }
+}
+
+export function updateActorField(uuid, key, value) {
+    return {
+        type: UPDATE_ACTOR_FIELD,
+        payload: {
+            uuid: uuid,
+            key: key,
+            value: value
+        }
     }
 }
 
@@ -74,7 +87,13 @@ export default function orchestration(state = orchestrationState, action) {
                     roll: parseInt(action.payload.roll, 10),
                     useBodyPoints: action.payload.useBodyPoints,
                     maxBodyPoints: action.payload.maxBodyPoints,
-                    currentBodyPoints: action.payload.currentBodyPoints
+                    currentBodyPoints: action.payload.currentBodyPoints,
+                    stunned: action.payload.stunned,
+                    wounded: action.payload.wounded,
+                    severelyWounded: action.payload.severelyWounded,
+                    incapacitated: action.payload.incapacitated,
+                    mortallyWounded: action.payload.mortallyWounded,
+                    dead: action.payload.dead
                 };
             } else {
                 for (let i = 0; i < Object.keys(newState.actors).length; i++) {
@@ -84,8 +103,30 @@ export default function orchestration(state = orchestrationState, action) {
                         newState.actors[i].useBodyPoints = action.payload.useBodyPoints;
                         newState.actors[i].maxBodyPoints = action.payload.maxBodyPoints;
                         newState.actors[i].currentBodyPoints = action.payload.currentBodyPoints;
+                        newState.actors[i].stunned = action.payload.stunned;
+                        newState.actors[i].wounded = action.payload.wounded;
+                        newState.actors[i].severelyWounded = action.payload.severelyWounded;
+                        newState.actors[i].incapacitated = action.payload.incapacitated;
+                        newState.actors[i].mortallyWounded = action.payload.mortallyWounded;
+                        newState.actors[i].dead = action.payload.dead;
                         break;
                     }
+                }
+            }
+
+            return newState;
+        case UPDATE_ACTOR_FIELD:
+            newState = {
+                ...state,
+                actors: {
+                    ...state.actors
+                }
+            };
+
+            for (let i = 0; i < Object.keys(newState.actors).length; i++) {
+                if (action.payload.uuid === newState.actors[i].uuid) {
+                    newState.actors[i][action.payload.key] = action.payload.value;
+                    break;
                 }
             }
 
