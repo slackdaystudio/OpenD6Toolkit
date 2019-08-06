@@ -1,5 +1,6 @@
 import { Alert } from 'react-native';
 import { template } from '../lib/Template';
+import { character } from '../lib/Character';
 
 //////////////////////////////
 // ACTIONS                  //

@@ -22,8 +22,6 @@ class AttributesAndSkills extends Component {
         super(props);
 
         this.state = {
-            attributes: props.template.attributes,
-            attributeShow: this._initAttributeShow(props),
             toBeDeleted: null,
             confirmationDialog: {
                 visible: false,
@@ -35,16 +33,6 @@ class AttributesAndSkills extends Component {
 
         this.onClose = this._closeConfirmationDialog.bind(this);
         this.onOk = this._deleteConfirmed.bind(this);
-    }
-
-    _initAttributeShow(props) {
-        let attributeShow = {}
-
-        props.template.attributes.map((attribute, index) => {
-            attributeShow[attribute.name] = false;
-        });
-
-        return attributeShow;
     }
 
     _delete(attribute) {
@@ -79,13 +67,6 @@ class AttributesAndSkills extends Component {
         let index = this.props.template.attributes.length - 1;
 
         this.props.navigation.navigate('EditAttribute', {attribute: this.props.template.attributes[index]});
-    }
-
-    _toggleAttributeShow(attribute) {
-        let newState = {...this.state};
-        newState.attributeShow[attribute] = !newState.attributeShow[attribute];
-
-        this.setState(newState);
     }
 
     _renderSkills(attribute) {

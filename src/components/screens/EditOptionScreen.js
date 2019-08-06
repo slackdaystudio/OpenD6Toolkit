@@ -24,11 +24,7 @@ class EditOptionScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            optionKey: props.navigation.state.params.optionKey,
-            option: props.navigation.state.params.option,
-            optionIndex: template.getOptionIndex(props.navigation.state.params.optionKey, props.navigation.state.params.option.id, props.template),
-        };
+        this.state = EditOptionScreen.initState(props.navigation.state.params.option, props.navigation.state.params.optionKey, props.template);
 
         this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
     }
@@ -43,6 +39,22 @@ class EditOptionScreen extends Component {
 
     componentWillUnmount() {
         this.backHandler.remove();
+    }
+
+    static initState(option, optionKey, gameTemplate) {
+        return {
+           optionKey: optionKey,
+           option: option,
+           optionIndex: template.getOptionIndex(optionKey, option.id, gameTemplate),
+       };
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.navigation.state.params.option !== state.option) {
+            return EditOptionScreen.initState(props.navigation.state.params.option, props.navigation.state.params.optionKey, props.template);
+        }
+
+        return state;
     }
 
     _keyboardDidHide () {
@@ -110,8 +122,9 @@ class EditOptionScreen extends Component {
                     <Item stackedLabel>
                         <Label style={{fontWeight: 'bold'}}>Rank</Label>
                         <Input
+                            keyboardType='numeric'
                             style={styles.grey}
-                            maxLength={10}
+                            maxLength={3}
                             value={this.state.option.rank.toString()}
                             onChangeText={(value) => this._updateOptionField('rank', value)}
                         />

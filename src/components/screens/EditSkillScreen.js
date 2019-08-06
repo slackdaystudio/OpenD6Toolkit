@@ -22,11 +22,7 @@ class EditSkillScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            attribute: props.navigation.state.params.attribute,
-            skill: props.navigation.state.params.skill,
-            skillIndex: template.getSkillIndex(props.navigation.state.params.attribute, props.navigation.state.params.skill)
-        };
+        this.state = EditSkillScreen.initState(props.navigation.state.params.attribute, props.navigation.state.params.skill);
     }
 
     componentDidMount() {
@@ -39,6 +35,22 @@ class EditSkillScreen extends Component {
 
     componentWillUnmount() {
         this.backHandler.remove();
+    }
+
+    static initState(attribute, skill) {
+        return {
+           attribute: attribute,
+           skill: skill,
+           skillIndex: template.getSkillIndex(attribute, skill)
+       };
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.navigation.state.params.skill !== state.skill) {
+            return EditSkillScreen.initState(props.navigation.state.params.attribute, props.navigation.state.params.skill);
+        }
+
+        return state;
     }
 
     _updateSkillField(key, value) {

@@ -11,6 +11,7 @@ import ConfirmationDialog from '../ConfirmationDialog';
 import { TAB_ATTRIBUTES } from './ArchitectScreen';
 import styles from '../../Styles';
 import { template } from '../../lib/Template';
+import { character } from '../../lib/Character';
 import { editTemplateAttribute, addTemplateSkill, deleteTemplateSkill } from '../../reducers/architect';
 
 class EditAttributeScreen extends Component {
@@ -25,16 +26,7 @@ class EditAttributeScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            attribute: props.navigation.state.params.attribute,
-            attributeIndex: template.getAttributeIndex(props.navigation.state.params.attribute.name, props.template),
-            toBeDeleted: null,
-            confirmationDialog: {
-                visible: false,
-                title: 'Delete Skill',
-                info: 'This is permanent, are you certain you want to delete this skill?'
-            }
-        };
+        this.state = EditAttributeScreen.initState(props.navigation.state.params.attribute, props.template);
 
         this.onClose = this._closeConfirmationDialog.bind(this);
         this.onOk = this._deleteConfirmed.bind(this);
@@ -50,6 +42,27 @@ class EditAttributeScreen extends Component {
 
     componentWillUnmount() {
         this.backHandler.remove();
+    }
+
+    static initState(attribute, gameTemplate) {
+        return {
+            attribute: attribute,
+            attributeIndex: template.getAttributeIndex(attribute.name, gameTemplate),
+            toBeDeleted: null,
+            confirmationDialog: {
+                visible: false,
+                title: 'Delete Skill',
+                info: 'This is permanent, are you certain you want to delete this skill?'
+            }
+        };
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.navigation.state.params.attribute !== state.attribute) {
+            return EditAttributeScreen.initState(props.navigation.state.params.attribute, props.template);
+        }
+
+        return state;
     }
 
     _delete(skill) {
