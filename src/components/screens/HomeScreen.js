@@ -17,7 +17,6 @@ class HomeScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         setSettings: PropTypes.func.isRequired,
-        all: PropTypes.object.isRequired,
         character: PropTypes.object,
         template: PropTypes.object
     }
@@ -103,8 +102,7 @@ const mapStateToProps = state => {
     return {
         character: state.builder.character,
         template: state.architect.template,
-        settings: state.settings,
-        all: state
+        settings: state.settings
     };
 }
 
