@@ -93,7 +93,6 @@ class HomeScreen extends Component {
                     <LogoButton label='Orchestrator' onPress={() => this.onPress('Orchestrator')} />
                 </View>
                 <View style={{paddingBottom: 20}} />
-                <Text>{JSON.stringify(this.props.all)}</Text>
             </Content>
 	      </Container>
 		);
