@@ -73,7 +73,7 @@ class ArchitectScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} hasTabs={true} />
             <Content style={styles.content}>
-                <Tabs ref={(t) => { this.tabs = t; return;}} locked={true} tabBarUnderlineStyle={{backgroundColor: '#FFF'}} renderTabBar={()=> <ScrollableTab />}>
+                <Tabs ref={(t) => { this.tabs = t; return;}} locked={true} tabBarUnderlineStyle={{backgroundColor: '#FFF'}} renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#f57e20'}} />}>
                     <Tab heading='Overview' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
                         <Overview navigation={this.props.navigation} template={this.props.template} />
                     </Tab>

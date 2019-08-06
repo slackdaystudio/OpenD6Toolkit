@@ -132,9 +132,9 @@ class BuilderScreen extends Component {
 		    <Container style={styles.container}>
                 <Header navigation={this.props.navigation} hasTabs={true} />
                 <Content style={styles.content}>
-                    <Tabs locked={true} tabBarUnderlineStyle={{backgroundColor: '#FFF'}} renderTabBar={()=> <ScrollableTab />}>
+                    <Tabs locked={true} tabBarUnderlineStyle={{backgroundColor: '#FFF'}} renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#f57e20'}} />}>
                         <Tab heading='Character' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
-                            <Heading text='Name &amp; Species' />
+                            <Heading text='Name &amp; Species' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                             <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
                             <Heading text='Points' />
                             <View style={styles.titleContainer}>
@@ -230,7 +230,7 @@ class BuilderScreen extends Component {
                             />
                         </Tab>
                         <Tab heading='Equipment' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
-                            <Heading text='Equipment' />
+                            <Heading text='Equipment' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                             <Textarea
                                 rowSpan={10}
                                 bordered
@@ -248,7 +248,7 @@ class BuilderScreen extends Component {
                             />
                         </Tab>
                         <Tab heading='Background' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
-                            <Heading text='Background' />
+                            <Heading text='Background' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                             <Textarea
                                 rowSpan={10}
                                 bordered
@@ -267,7 +267,7 @@ class BuilderScreen extends Component {
                             />
                         </Tab>
                         <Tab heading='Notes' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
-                            <Heading text='Notes' />
+                            <Heading text='Notes' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                             <Textarea
                                 rowSpan={15}
                                 bordered
