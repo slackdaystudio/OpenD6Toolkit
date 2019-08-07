@@ -51,6 +51,10 @@ class DieRollerScreen extends Component {
             this.roll();
         });
 
+        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+            this.setState({result: []});
+        });
+
         this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
             this.props.navigation.navigate('Home');
 
@@ -60,8 +64,8 @@ class DieRollerScreen extends Component {
 
  	componentWillUnmount() {
    		RNShake.removeEventListener('ShakeEvent');
-
    		this.backHandler.remove();
+   		this.focusListener.remove();
    	}
 
 	async _roll() {
