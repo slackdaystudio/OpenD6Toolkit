@@ -9,6 +9,7 @@ import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
 import ActorRow from '../ActorRow';
 import styles from '../../Styles';
+import { common } from '../../lib/Common';
 import { editActorOrder, removeActor, sortActor, updateActorField } from '../../reducers/orchestrator';
 
 const window = Dimensions.get('window');
@@ -84,16 +85,16 @@ class OrchestratorScreen extends Component {
     }
 
     _sort() {
-        if (this.props.actors != null && this.props.actors != {}) {
+        if (!common.isEmptyObject(this.props.actors)) {
             this.props.sortActor();
         }
     }
 
     _renderBody() {
-        if (this.props.actors === null) {
+        if (common.isEmptyObject(this.props.actors)) {
             return (
                 <View style={localStyles.container}>
-                    <Text style={[styles.grey, {alignSelf: 'center'}]}>Add a character entry to get started.</Text>
+                    <Text style={[styles.grey]}>Add a character entry to get started.</Text>
                 </View>
             );
         }
