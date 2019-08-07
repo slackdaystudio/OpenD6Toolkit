@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Alert, StyleSheet, Dimensions, Animated, Easing, Image, View, Platform } from 'react-native';
 import { Text, CardItem, Card, Left, Right, Body, Input, Icon, Form, Item, Label, CheckBox, Picker } from 'native-base';
+import CalculatorInput from './CalculatorInput';
 import styles from '../Styles';
 
 const window = Dimensions.get('window');
@@ -55,6 +56,8 @@ export default class Row extends Component {
                 },
             })
         };
+
+        this.updateBodyPoints = this._updateBodyPoints.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -103,30 +106,33 @@ export default class Row extends Component {
         if (this.props.data.useBodyPoints) {
             return (
                 <View style={[styles.rowStart, {justifyContent: 'space-between'}]}>
-                    <Item style={{width: 150, alignSelf: 'flex-start'}}>
-                        <Label style={{fontWeight: 'bold'}}>Maximum:</Label>
-                        <Input
-                            style={styles.grey}
-                            keyboardType='numeric'
-                            maxLength={3}
-                            value={this.props.data.maxBodyPoints.toString()}
-                            onChangeText={(value) => this._updateBodyPoints('maxBodyPoints', value)}
-                            onFocus={(value) => this._focusBodyPoints('maxBodyPoints')}
-                            onBlur={(value) => this._blurBodyPoints('maxBodyPoints')}
-                        />
-                    </Item>
-                    <Item style={{width: 150, alignSelf: 'flex-end'}}>
-                        <Label style={{fontWeight: 'bold'}}>Current:</Label>
-                        <Input
-                            style={styles.grey}
-                            keyboardType='numeric'
-                            maxLength={3}
-                            value={this.props.data.currentBodyPoints.toString()}
-                            onChangeText={(value) => this._updateBodyPoints('currentBodyPoints', value)}
-                            onFocus={(value) => this._focusBodyPoints('currentBodyPoints')}
-                            onBlur={(value) => this._blurBodyPoints('currentBodyPoints')}
-                        />
-                    </Item>
+                    <View>
+                        <View>
+                            <Item style={{width: 150, alignSelf: 'flex-start'}}>
+                                <Label style={{fontWeight: 'bold'}}>Maximum:</Label>
+                                <Input
+                                    style={styles.grey}
+                                    keyboardType='numeric'
+                                    maxLength={3}
+                                    value={this.props.data.maxBodyPoints.toString()}
+                                    onChangeText={(value) => this._updateBodyPoints('maxBodyPoints', value)}
+                                    onFocus={(value) => this._focusBodyPoints('maxBodyPoints')}
+                                    onBlur={(value) => this._blurBodyPoints('maxBodyPoints')}
+                                />
+                            </Item>
+                        </View>
+                    </View>
+                    <CalculatorInput
+                        label='Current:'
+                        itemKey='currentBodyPoints'
+                        value={this.props.data.currentBodyPoints}
+                        onAccept={this.updateBodyPoints}
+                        width={120}
+                        stackedLabel={false}
+                        boldLabel={true}
+                        alignment='flex-end'
+                        iconPaddingTop={0}
+                    />
                 </View>
             );
         }

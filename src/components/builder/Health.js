@@ -70,8 +70,9 @@ export default class Health extends Component {
 
     _renderBodyPoints() {
         return (
-            <View style={styles.titleContainer}>
+            <View style={[styles.rowStart, {justifyContent: 'space-between'}]}>
                 <View style={{paddingLeft: 30}}>
+                    <View>
                     <Item stackedLabel style={{width: 75}}>
                         <Label>Max</Label>
                         <Input
@@ -82,6 +83,7 @@ export default class Health extends Component {
                             onChangeText={(value) => this._updateBodyPoints('max', value)}
                         />
                     </Item>
+                    </View>
                 </View>
                 <View style={{paddingRight: 30}}>
                     <CalculatorInput
@@ -89,6 +91,7 @@ export default class Health extends Component {
                         itemKey='current'
                         value={this.props.character.health.bodyPoints.current}
                         onAccept={this.updateBodyPoints}
+                        alignment='flex-end'
                     />
                 </View>
             </View>
