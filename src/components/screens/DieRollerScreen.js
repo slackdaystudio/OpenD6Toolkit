@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Switch } from 'react-native';
 import { Container, Content, Button, Text, Picker, Item} from 'native-base';
+import { withNavigationFocus } from 'react-navigation';
 import RNShake from 'react-native-shake';
 import * as Animatable from 'react-native-animatable';
 import Header from '../Header';
@@ -48,6 +49,10 @@ class DieRollerScreen extends Component {
             this.roll();
         });
 
+        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+            this.setState({result: null});
+        });
+
         this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
             this.props.navigation.navigate(this.props.navigation.state.params.from);
 
@@ -58,6 +63,7 @@ class DieRollerScreen extends Component {
  	componentWillUnmount() {
    		RNShake.removeEventListener('ShakeEvent');
    		this.backHandler.remove();
+   		this.focusListener.remove();
    	}
 
     handleViewRef = ref => this.view = ref;
@@ -245,4 +251,4 @@ const mapDispatchToProps = {
     updateRoller
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DieRollerScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigationFocus(DieRollerScreen));

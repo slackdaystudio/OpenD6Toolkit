@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, List, ListItem, Left, Right } from 'native-base';
+import { withNavigationFocus } from 'react-navigation';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
@@ -27,12 +28,15 @@ class OpenTemplateScreen extends Component {
     }
 
     componentDidMount() {
-        let newState = {...this.state};
-
-        file.getCustomTemplates().then((templates) => {
-            newState.templates = templates;
-
-            this.setState(newState);
+        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+            this.setState({showSpinner: true}, () => {
+                file.getCustomTemplates().then((templates) => {
+                    this.setState({
+                        templates: templates,
+                        showSpinner: false
+                    });
+                });
+            });
         });
 
         this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -44,6 +48,7 @@ class OpenTemplateScreen extends Component {
 
     componentWillUnmount() {
         this.backHandler.remove();
+        this.focusListener.remove();
     }
 
     _selectTemplate(template) {
@@ -108,4 +113,4 @@ const mapDispatchToProps = {
     setArchitectTemplate
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OpenTemplateScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigationFocus(OpenTemplateScreen));

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, List, ListItem } from 'native-base';
+import { withNavigationFocus } from 'react-navigation';
 import Header from '../Header';
 import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
@@ -20,7 +21,8 @@ class LoadCharacterScreen extends Component {
         super(props);
 
         this.state = {
-            files: [],
+            files: null,
+            showSpinner: false,
             confirmationDialog: {
                 visible: false,
                 title: 'Delete Character',
@@ -34,7 +36,9 @@ class LoadCharacterScreen extends Component {
     }
 
     componentDidMount() {
-        this._updateFileList();
+        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+            this._updateFileList();
+        });
 
         this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
             this.props.navigation.navigate('Builder');
@@ -45,6 +49,7 @@ class LoadCharacterScreen extends Component {
 
     componentWillUnmount() {
         this.backHandler.remove();
+        this.focusListener.remove();
     }
 
     _deleteConfirmed() {
@@ -77,13 +82,27 @@ class LoadCharacterScreen extends Component {
         this.setState(newState);
     }
 
-    async _updateFileList() {
-        let files = await file.getCharacters();
-
-        this.setState({files: files});
+    _updateFileList() {
+        this.setState({showSpinner: true}, () => {
+            file.getCharacters().then((files) => {
+                this.setState({files: files, showSpinner: false});
+            });
+        });
     }
 
 	render() {
+	    if (this.state.showSpinner || this.state.files === null) {
+	        return (
+              <Container style={styles.container}>
+                <Header navigation={this.props.navigation} />
+                <Content style={styles.content}>
+                    <Heading text="Characters" />
+                    <Spinner />
+                </Content>
+              </Container>
+	        );
+	    }
+
 		return (
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
@@ -129,4 +148,4 @@ const mapDispatchToProps = {
     loadCharacter
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoadCharacterScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigationFocus(LoadCharacterScreen));

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, List, ListItem, Left, Right } from 'native-base';
+import { withNavigationFocus } from 'react-navigation';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
@@ -22,17 +23,18 @@ class NewTemplateScreen extends Component {
 
         this.state = {
             selected: TEMPLATE_FANTASY,
-            templates: []
+            templates: null,
+            showSpinner: false
         };
     }
 
     componentDidMount() {
-        let newState = {...this.state};
-
-        character.getTemplates().then((templates) => {
-            newState.templates = templates;
-
-            this.setState(newState);
+        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+            this.setState({showSpinner: true}, () => {
+                character.getTemplates().then((templates) => {
+                    this.setState({templates: templates, showSpinner: false});
+                });
+            });
         });
 
         this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -44,6 +46,7 @@ class NewTemplateScreen extends Component {
 
     componentWillUnmount() {
         this.backHandler.remove();
+        this.focusListener.remove();
     }
 
     _selectTemplate(template) {
@@ -58,7 +61,7 @@ class NewTemplateScreen extends Component {
     }
 
 	render() {
-	    if (this.state.templates.length === 0) {
+	    if (this.state.showSpinner || this.state.templates === null) {
 	        return (
               <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
@@ -100,13 +103,10 @@ class NewTemplateScreen extends Component {
 
 const mapStateToProps = state => {
     return {}
-//    return {
-//        template: state.architect.template
-//    };
 }
 
 const mapDispatchToProps = {
     setArchitectTemplate
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewTemplateScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigationFocus(NewTemplateScreen));

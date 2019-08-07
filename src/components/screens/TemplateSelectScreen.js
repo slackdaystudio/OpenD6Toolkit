@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BackHandler, Platform, StyleSheet, View, Alert } from 'react-native';
 import { Container, Content, Button, Text, List, ListItem, Left, Right, Icon, Spinner } from 'native-base';
+import { withNavigationFocus } from 'react-navigation';
 import Header from '../Header';
 import Heading from '../Heading';
 import styles from '../../Styles';
@@ -21,17 +22,19 @@ class TemplateSelectScreen extends Component {
 
         this.state = {
             selected: TEMPLATE_FANTASY,
-            templates: []
+            templates: null,
+            showSpinner: false
         };
     }
 
-    async componentDidMount() {
-        let newState = {...this.state};
-
-        await character.getTemplates().then((templates) => {
-            newState.templates = templates;
-
-            this.setState(newState);
+    componentDidMount() {
+        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+            let newState = {...this.state};
+            this.setState({showSpinner: true}, () => {
+                character.getTemplates().then((templates) => {
+                    this.setState({templates:templates, showSpinner: false});
+                });
+            });
         });
 
         this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -43,6 +46,7 @@ class TemplateSelectScreen extends Component {
 
     componentWillUnmount() {
         this.backHandler.remove();
+        this.focusListener.remove();
     }
 
     _next(template) {
@@ -57,7 +61,7 @@ class TemplateSelectScreen extends Component {
     }
 
 	render() {
-	    if (this.state.templates.length === 0) {
+	    if (this.state.showSpinner || this.state.templates === null) {
 	        return (
               <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
@@ -105,4 +109,4 @@ const mapDispatchToProps = {
     setTemplate
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TemplateSelectScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigationFocus(TemplateSelectScreen));
