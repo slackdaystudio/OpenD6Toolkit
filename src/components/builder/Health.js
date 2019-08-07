@@ -1,9 +1,19 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
-import { Platform, StyleSheet, View, Switch } from 'react-native';
-import { Container, Content, Button, Text, ListItem, CheckBox, Body, Item, Form, Label, Input } from 'native-base';
+import { Alert, Platform, StyleSheet, View, Switch } from 'react-native';
+import { Container, Content, Button, Text, ListItem, CheckBox, Body, Item, Form, Label, Input, Icon } from 'native-base';
 import styles from '../../Styles';
 import Heading from '../Heading';
+import CalculatorInput from '../CalculatorInput';
+
+export const DEATH_SPIRAL = [
+    {level: 'stunned', label: 'Stunned', shortLabel: 'S'},
+    {level: 'wounded', label: 'Wounded', shortLabel: 'W'},
+    {level: 'severelyWounded', label: 'Severely Wounded', shortLabel: 'SW'},
+    {level: 'incapacitated', label: 'Incapacitated', shortLabel: 'I'},
+    {level: 'mortallyWounded', label: 'Mortally Wounded', shortLabel: 'MW'},
+    {level: 'dead', label: 'Dead', shortLabel: 'D'}
+];
 
 export default class Health extends Component {
     static propTypes = {
@@ -13,13 +23,19 @@ export default class Health extends Component {
         updateBodyPoints: PropTypes.func.isRequired
     }
 
+    constructor(props) {
+        super(props);
+
+        this.updateBodyPoints = this._updateBodyPoints.bind(this);
+    }
+
     _updateBodyPoints(key, value) {
         let bodyPoints = '';
 
         if (value === '' || value === '-') {
             bodyPoints = value;
         } else {
-            bodyPoints = parseInt(value, 10) || 1;
+            bodyPoints = parseInt(value, 10) || 0;
 
             if (bodyPoints > 999) {
                 bodyPoints = 999;
@@ -34,66 +50,20 @@ export default class Health extends Component {
     _renderWounds() {
         return (
             <View>
-                <ListItem>
-                    <CheckBox
-                        color='#f57e20'
-                        checked={this.props.character.health.wounds.stunned}
-                        onPress={() => this.props.updateWounds('stunned')}
-                    />
-                    <Body>
-                        <Text style={styles.grey}>Stunned</Text>
-                    </Body>
-                </ListItem>
-                <ListItem>
-                    <CheckBox
-                        color='#f57e20'
-                        checked={this.props.character.health.wounds.wounded}
-                        onPress={() => this.props.updateWounds('wounded')}
-                    />
-                    <Body>
-                        <Text style={styles.grey}>Wounded</Text>
-                    </Body>
-                </ListItem>
-                <ListItem>
-                    <CheckBox
-                        color='#f57e20'
-                        checked={this.props.character.health.wounds.severelyWounded}
-                        onPress={() => this.props.updateWounds('severelyWounded')}
-                    />
-                    <Body>
-                        <Text style={styles.grey}>Severely Wounded</Text>
-                    </Body>
-                </ListItem>
-                <ListItem>
-                    <CheckBox
-                        color='#f57e20'
-                        checked={this.props.character.health.wounds.incapacitated}
-                        onPress={() => this.props.updateWounds('incapacitated')}
-                    />
-                    <Body>
-                        <Text style={styles.grey}>Incapacitated</Text>
-                    </Body>
-                </ListItem>
-                <ListItem>
-                    <CheckBox
-                        color='#f57e20'
-                        checked={this.props.character.health.wounds.mortallyWounded}
-                        onPress={() => this.props.updateWounds('mortallyWounded')}
-                    />
-                    <Body>
-                        <Text style={styles.grey}>Mortally Wounded</Text>
-                    </Body>
-                </ListItem>
-                <ListItem>
-                    <CheckBox
-                        color='#f57e20'
-                        checked={this.props.character.health.wounds.dead}
-                        onPress={() => this.props.updateWounds('dead')}
-                    />
-                    <Body>
-                        <Text style={styles.grey}>Dead</Text>
-                    </Body>
-                </ListItem>
+                {DEATH_SPIRAL.map((step, index) => {
+                    return (
+                        <ListItem>
+                            <CheckBox
+                                color='#f57e20'
+                                checked={this.props.character.health.wounds[step.level]}
+                                onPress={() => this.props.updateWounds(step.level)}
+                            />
+                            <Body>
+                                <Text style={styles.grey}>{step.label}</Text>
+                            </Body>
+                        </ListItem>
+                    );
+                })}
             </View>
         );
     }
@@ -102,7 +72,7 @@ export default class Health extends Component {
         return (
             <View style={styles.titleContainer}>
                 <View style={{paddingLeft: 30}}>
-                    <Item stackedLabel style={{width: 150}}>
+                    <Item stackedLabel style={{width: 75}}>
                         <Label>Max</Label>
                         <Input
                             style={styles.grey}
@@ -114,16 +84,12 @@ export default class Health extends Component {
                     </Item>
                 </View>
                 <View style={{paddingRight: 30}}>
-                    <Item stackedLabel style={{width: 150}}>
-                        <Label>Current</Label>
-                        <Input
-                            style={styles.grey}
-                            keyboardType='numeric'
-                            maxLength={4}
-                            value={this.props.character.health.bodyPoints.current.toString()}
-                            onChangeText={(value) => this._updateBodyPoints('current', value)}
-                        />
-                    </Item>
+                    <CalculatorInput
+                        label='Current'
+                        itemKey='current'
+                        value={this.props.character.health.bodyPoints.current}
+                        onAccept={this.updateBodyPoints}
+                    />
                 </View>
             </View>
         );
