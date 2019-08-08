@@ -114,7 +114,9 @@ class BuilderScreen extends Component {
 
     _import() {
         file.importCharacter(() => {}, () => {}).then((character) => {
-            this.props.loadCharacter(character);
+            if (character !== undefined && character !== null) {
+                this.props.loadCharacter(character);
+            }
         });
     }
 

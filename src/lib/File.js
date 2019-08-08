@@ -152,7 +152,7 @@ class File {
             const isCancel = await DocumentPicker.isCancel(error);
 
             if (!isCancel) {
-                Alert.alert(error.message);
+                common.toast(error.message);
             }
         }
     }
@@ -318,7 +318,7 @@ class File {
         }
 
         let fileName = uri.startsWith('file://') ? uri.substring(7) : uri;
-	
+
         if (/raw\:/i.test(decodeURIComponent(uri))) {
             let parts = decodeURIComponent(uri).split('raw:');
 
