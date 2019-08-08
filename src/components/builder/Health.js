@@ -52,7 +52,7 @@ export default class Health extends Component {
             <View>
                 {DEATH_SPIRAL.map((step, index) => {
                     return (
-                        <ListItem>
+                        <ListItem key={'death-spiral-' + index}>
                             <CheckBox
                                 color='#f57e20'
                                 checked={this.props.character.health.wounds[step.level]}
