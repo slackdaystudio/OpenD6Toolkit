@@ -162,11 +162,7 @@ const localStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    ...Platform.select({
-      ios: {
-        paddingTop: 20,
-      },
-    }),
+    paddingTop: (Platform.OS === 'ios' ? 20 : 0)
   },
   list: {
     flex: 1,
@@ -174,14 +170,7 @@ const localStyles = StyleSheet.create({
   contentContainer: {
     width: window.width,
     height: window.height,
-    ...Platform.select({
-      ios: {
-        paddingHorizontal: 30,
-      },
-      android: {
-        paddingHorizontal: 0,
-      }
-    })
+    paddingHorizontal: (Platform.OS === 'ios' ? 30 : 0)
   },
 });
 

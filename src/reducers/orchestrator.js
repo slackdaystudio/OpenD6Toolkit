@@ -85,6 +85,7 @@ export default function orchestration(state = orchestrationState, action) {
                     uuid: uuid.v4(),
                     label: action.payload.label,
                     roll: parseInt(action.payload.roll, 10),
+                    engaging: 'Unengaged',
                     useBodyPoints: action.payload.useBodyPoints,
                     maxBodyPoints: action.payload.maxBodyPoints,
                     currentBodyPoints: action.payload.currentBodyPoints,
@@ -100,6 +101,7 @@ export default function orchestration(state = orchestrationState, action) {
                     if (newState.actors[i].uuid === action.payload.uuid) {
                         newState.actors[i].label = action.payload.label;
                         newState.actors[i].roll = action.payload.roll;
+                        newState.actors[i].engaging = action.payload.engaging;
                         newState.actors[i].useBodyPoints = action.payload.useBodyPoints;
                         newState.actors[i].maxBodyPoints = action.payload.maxBodyPoints;
                         newState.actors[i].currentBodyPoints = action.payload.currentBodyPoints;
@@ -125,6 +127,9 @@ export default function orchestration(state = orchestrationState, action) {
 
             for (let i = 0; i < Object.keys(newState.actors).length; i++) {
                 if (action.payload.uuid === newState.actors[i].uuid) {
+                    // if (action.payload.key === 'engaging') {
+                    //   Alert.alert(newState.actors[i][action.payload.key] + ' - ' + action.payload.value);
+                    // }
                     newState.actors[i][action.payload.key] = action.payload.value;
                     break;
                 }

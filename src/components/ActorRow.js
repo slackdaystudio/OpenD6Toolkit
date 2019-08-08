@@ -191,31 +191,39 @@ export default class Row extends Component {
         );
     }
 
-    _renderEngaging() {
-        let selectableCombatants = Object.keys(this.props.combatants).filter((key) => {
-            if (this.props.combatants[key].uuid !== this.props.data.uuid) {
-                return true;
-            }
-        });
+    _renderEngagingOptions() {
+      let selectableCombatants = Object.keys(this.props.combatants).filter((key) => {
+          if (this.props.combatants[key].uuid !== this.props.data.uuid) {
+              return true;
+          }
+      });
+      let options = selectableCombatants.map((key, index) => {
+          return <Item label={this.props.combatants[key].label} key={this.props.combatants[key].uuid} value={this.props.combatants[key].uuid} />;
+      });
 
+      if (Platform.OS === 'android') {
+        options.unshift(<Item label='Unengaged' value='Unengaged' />);
+      }
+
+      return options;
+    }
+
+    _renderEngaging() {
         return (
             <View style={styles.rowStart}>
                 <Text style={[styles.boldGrey, {alignSelf: 'center'}]}>Engaging:</Text>
                 <Picker
+                    placeholder="Unengaged"
                     inlinelabel
                     label='Engaging'
                     style={styles.picker}
                     textStyle={styles.grey}
                     placeholderIconColor="#FFFFFF"
-                    iosHeader="Select one"
                     mode="dropdown"
                     selectedValue={this.props.data.engaging}
                     onValueChange={(value) => this.props.onUpdate(this.props.data.uuid, 'engaging', value)}
                 >
-                    <Item label='Unengaged' value='Unengaged' />
-                    {selectableCombatants.map((key, index) => {
-                        return <Item label={this.props.combatants[key].label} value={this.props.combatants[key].uuid} />
-                    })}
+                    {this._renderEngagingOptions()}
                 </Picker>
             </View>
         );
