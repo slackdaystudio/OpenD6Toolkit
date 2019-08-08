@@ -121,6 +121,16 @@ class BuilderScreen extends Component {
     }
 
 	render() {
+      if (this.props.character === null || this.props.character === undefined) {
+          return (
+              <Container style={styles.container}>
+                  <Header navigation={this.props.navigation} hasTabs={true} />
+                  <Content style={styles.content}>
+                      <Heading text='Character' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
+                  </Content>
+              </Container>
+          );
+      }
 	    // These properties were added in after the first production release so there needs to be an undefined check
 	    let characterPoints = this.props.character.characterPoints == undefined ? 5 : this.props.character.characterPoints;
 	    let fatePoints = this.props.character.fatePoints == undefined ? 2 : this.props.character.fatePoints;
