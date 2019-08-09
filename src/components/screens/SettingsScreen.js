@@ -82,6 +82,15 @@ class SettingsScreen extends Component {
                             trackColor={{true: '#fde5d2', false: '#4f4e4e'}}
                         />
                     </Item>
+                    <Item style={{flex: 1, justifyContent: 'space-between'}}>
+                        <Label>Use Attribute Maxima?</Label>
+                        <Switch
+                            value={this.props.settings.useMaxima}
+                            onValueChange={() => this.props.setSetting('useMaxima', !this.props.settings.useMaxima)}
+                            thumbColor='#f57e20'
+                            trackColor={{true: '#fde5d2', false: '#4f4e4e'}}
+                        />
+                    </Item>
                 </Form>
                 <View style={{paddingBottom: 20}} />
                 <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>

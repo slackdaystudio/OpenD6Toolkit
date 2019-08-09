@@ -13,6 +13,7 @@ export default class AttributesAndSkills extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         character: PropTypes.object.isRequired,
+        settings: PropTypes.object.isRequired,
         updateCharacterDieCode: PropTypes.func.isRequired,
         updateRoller: PropTypes.func.isRequired,
         updateMove: PropTypes.func.isRequired
@@ -215,6 +216,7 @@ export default class AttributesAndSkills extends Component {
 
         this.setState(newState, () => {
             let attributeMin = this.props.character.template.attributeMin;
+            let attributeMax = this.props.character.template.attributeMax;
             let isSkill = character.isSkill(this.props.character, this.state.dieCode.identifier);
             let isExtranormal = character.isExtranormal(this.props.character, this.state.dieCode.identifier);
             let totalDieCode = character.getTotalDieCode(this.state.dieCode);
@@ -225,6 +227,8 @@ export default class AttributesAndSkills extends Component {
                 newState.dieCode.errorMessage = 'Extranormal attributes may not go below 0';
             } else if (!isSkill && !isExtranormal && totalDieCode.dice < attributeMin) {
                 newState.dieCode.errorMessage = 'Attributes may not go below ' + attributeMin;
+            } else if (!isSkill && !isExtranormal && totalDieCode.dice > attributeMax && this.props.settings.useMaxima) {
+                newState.dieCode.errorMessage = 'Attributes may not go above ' + attributeMax;
             }
 
             if (newState.dieCode.errorMessage !== null) {

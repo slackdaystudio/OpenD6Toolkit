@@ -18,7 +18,8 @@ class HomeScreen extends Component {
         navigation: PropTypes.object.isRequired,
         setSettings: PropTypes.func.isRequired,
         character: PropTypes.object,
-        template: PropTypes.object
+        template: PropTypes.object,
+        settings: PropTypes.object
     }
 
     constructor(props) {
@@ -32,11 +33,7 @@ class HomeScreen extends Component {
     componentDidMount() {
         try {
             appSettings.getSettings().then((settings) => {
-                if (settings === null) {
-                    appSettings.init().then((s) => this.props.setSettings(s));
-                } else {
-                    this.props.setSettings(settings);
-                }
+                this.props.setSettings(settings);
             });
         } catch (error) {
             common.toast(error.message);

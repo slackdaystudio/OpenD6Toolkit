@@ -35,6 +35,7 @@ class BuilderScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         character: PropTypes.object.isRequired,
+        settings: PropTypes.object.isRequired,
         updateRoller: PropTypes.func.isRequired,
         updateCharacterDieCode: PropTypes.func.isRequired,
         updateAppearance: PropTypes.func.isRequired,
@@ -189,6 +190,7 @@ class BuilderScreen extends Component {
                             <AttributesAndSkills
                                 navigation={this.props.navigation}
                                 character={this.props.character}
+                                settings={this.props.settings}
                                 updateCharacterDieCode={this.props.updateCharacterDieCode}
                                 updateRoller={this.props.updateRoller}
                                 updateMove={this.props.updateAppearance}
@@ -327,7 +329,8 @@ const localStyles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        character: state.builder.character
+        character: state.builder.character,
+        settings: state.settings
     };
 }
 

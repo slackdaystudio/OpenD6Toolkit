@@ -7,12 +7,13 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { Root } from 'native-base';
 import SplashScreen from 'react-native-splash-screen'
 import AppNavigator from './AppNavigator';
+import thunk from 'redux-thunk';
 import { statistics } from './src/lib/Statistics';
 import { settings as appSettings } from './src/lib/Settings';
 import { common } from './src/lib/Common';
 import reducer from './src/reducers/index';
 
-const store = createStore(reducer, applyMiddleware());
+const store = createStore(reducer, applyMiddleware(thunk));
 
 export default class App extends Component<Props> {
     componentDidMount() {
