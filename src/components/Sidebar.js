@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StyleSheet, Image, StatusBar, View } from "react-native";
 import { Container, Content, Text, List, ListItem } from "native-base";
+import { ScaledSheet } from 'react-native-size-matters';
+import { scale } from 'react-native-size-matters';
 import { ifIphoneX } from 'react-native-iphone-x-helper';
 import styles from '../Styles';
 import { file } from '../lib/File';
@@ -36,30 +38,30 @@ class Sidebar extends Component {
                 <Content>
                     <List>
         	            <ListItem onPress={() => this.props.navigation.navigate('Home')}>
-                            <View>
-                                <Image source={require('../../public/d6_logo_White_60x60.png')} />
+                            <View style={localStyles.logoContainer}>
+                                <Image style={localStyles.logo} source={require('../../public/d6_logo_White_512x512.png')} />
                             </View>
                         </ListItem>
                         <ListItem onPress={() => this.props.navigation.navigate('DieRoller', {from: 'Home'})}>
-                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Roller</Text>
+                            <Text style={localStyles.itemText}>Roller</Text>
                         </ListItem>
                         <ListItem onPress={() => this._onBuilderPress()}>
-                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Builder</Text>
+                            <Text style={localStyles.itemText}>Builder</Text>
                         </ListItem>
                         <ListItem onPress={() => this._onArchitectPress()}>
-                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Architect</Text>
+                            <Text style={localStyles.itemText}>Architect</Text>
                         </ListItem>
                         <ListItem onPress={() => this.props.navigation.navigate('BackupAndRestore')}>
-                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Backup &amp; Restore</Text>
+                            <Text style={localStyles.itemText}>Backup &amp; Restore</Text>
                         </ListItem>
                         <ListItem onPress={() => this.props.navigation.navigate('Settings')}>
-                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Settings</Text>
+                            <Text style={localStyles.itemText}>Settings</Text>
                         </ListItem>
                         <ListItem onPress={() => this.props.navigation.navigate('Statistics')}>
-                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Statistics</Text>
+                            <Text style={localStyles.itemText}>Statistics</Text>
                         </ListItem>
                         <ListItem onPress={() => this.props.navigation.navigate('Ogl')}>
-                            <Text style={{fontWeight: 'bold',color: '#ffffff'}}>Open Gaming License</Text>
+                            <Text style={localStyles.itemText}>Open Gaming License</Text>
                         </ListItem>
                     </List>
                 </Content>
@@ -68,15 +70,28 @@ class Sidebar extends Component {
     }
 }
 
-const localStyles = StyleSheet.create({
+const localStyles = ScaledSheet.create({
 	container: {
 		backgroundColor: '#f57e20',
         ...ifIphoneX({
             paddingTop: 50
         }, {
-            paddingTop: 20
+            paddingTop: '5@vs'
         })
-	}
+	},
+    logoContainer: {
+        flex: 1,
+        alignSelf: 'center'
+    },
+    logo: {
+        height: '50@vs',
+        width: '50@vs'
+    },
+    itemText: {
+        fontSize: '13@s',
+        fontWeight: 'bold',
+        color: '#ffffff'
+    }
 });
 
 const mapStateToProps = state => {

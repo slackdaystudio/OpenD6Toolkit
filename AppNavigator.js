@@ -1,5 +1,6 @@
 import React, { Component }  from 'react';
 import { createAppContainer, createDrawerNavigator } from 'react-navigation';
+import { scale } from 'react-native-size-matters';
 import HomeScreen from './src/components/screens/HomeScreen';
 import DieRollerScreen from './src/components/screens/DieRollerScreen';
 import TemplateSelectScreen from './src/components/screens/TemplateSelectScreen';
@@ -48,7 +49,8 @@ const AppNavigator = createDrawerNavigator({
 }, {
     initialRouteName: 'Home',
     drawerPosition: 'right',
-    contentComponent: Sidebar
+    contentComponent: Sidebar,
+    drawerWidth: scale(220)
 });
 
 export default createAppContainer(AppNavigator);
