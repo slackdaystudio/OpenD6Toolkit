@@ -59,7 +59,7 @@ export default ScaledSheet.create({
         flex: 10
 	},
 	picker: {
-	    height: '20@vs',
+	    height: '30@vs',
 		color: '#4f4e4e'
 	},
 	grey: {

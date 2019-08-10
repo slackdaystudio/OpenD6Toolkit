@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Switch } from 'react-native';
 import { Container, Content, Button, Text, Picker, Item} from 'native-base';
-import { ScaledSheet } from 'react-native-size-matters';
+import { ScaledSheet, scale } from 'react-native-size-matters';
 import { withNavigationFocus } from 'react-navigation';
 import RNShake from 'react-native-shake';
 import * as Animatable from 'react-native-animatable';
@@ -190,7 +190,7 @@ class DieRollerScreen extends Component {
                     inlinelabel
                     label='Pips'
                     style={styles.picker}
-                    textStyle={{fontSize: 40}}
+                    textStyle={{fontSize: scale(12)}}
                     iosHeader="Select one"
                     mode="dropdown"
                     selectedValue={this.props.pips}

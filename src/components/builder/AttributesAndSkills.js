@@ -329,7 +329,7 @@ export default class AttributesAndSkills extends Component {
                 </Left>
                 <Right>
                     <Input
-                        style={[styles.grey, {lineHeight: verticalScale(35), paddingBottom: verticalScale(10)}]}
+                        style={[styles.grey, {lineHeight: verticalScale(35)}]}
                         keyboardType='numeric'
                         maxLength={4}
                         value={move.toString()}
