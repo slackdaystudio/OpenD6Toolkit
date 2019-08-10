@@ -1,9 +1,12 @@
 import { Platform, StyleSheet } from 'react-native';
 import { ifIphoneX } from 'react-native-iphone-x-helper'
+import { ScaledSheet } from 'react-native-size-matters';
 
-export default StyleSheet.create({
+export default ScaledSheet.create({
 	container: {
 		backgroundColor: '#ffffff',
+		height: '100%',
+		width: '100%',
 		...ifIphoneX({
             paddingTop: 50
         }, {
@@ -18,11 +21,11 @@ export default StyleSheet.create({
 		paddingHorizontal: 5
 	},
 	heading: {
-		fontSize: 26,
+		fontSize: '25@s',
 		fontFamily: 'Tempus Sans ITC',
 		color: '#4f4e4e',
-		paddingTop: 10,
-		paddingBottom: 10,
+		paddingTop: '3@s',
+		paddingBottom: '3@s',
 		alignSelf: 'center'
 	},
 	subHeading: {
@@ -32,12 +35,12 @@ export default StyleSheet.create({
 		color: '#4f4e4e'
 	},
 	buttonContainer: {
-		paddingVertical: 5
+		paddingVertical: '10@vs'
 	},
 	button: {
 		backgroundColor: '#f57e20',
-		minWidth: 180,
-		height: 45,
+		minWidth: '160@s',
+		height: '45@vs',
 		alignSelf: 'center',
 		flexDirection: 'row'
 	},
@@ -49,8 +52,8 @@ export default StyleSheet.create({
 	},
 	buttonText: {
 	    color: '#FFF',
-        fontSize: 18,
-        lineHeight: 35,
+        fontSize: '15@s',
+        lineHeight: '25@vs',
         textAlign: 'center',
         alignSelf: 'center',
         flex: 10
@@ -59,9 +62,11 @@ export default StyleSheet.create({
 		color: '#4f4e4e'
 	},
 	grey: {
+		fontSize: '14@s',
 		color: '#4f4e4e',
 	},
 	boldGrey: {
+		fontSize: '14@s',
 		color: '#4f4e4e',
 		fontWeight: 'bold'
 	},

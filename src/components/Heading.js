@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types'
 import { Platform, StyleSheet, View, Image, TouchableHighlight } from 'react-native';
 import { Button, Text, Header, Left, Right, Icon } from 'native-base';
+import { scale, verticalScale } from 'react-native-size-matters';
 import styles from '../Styles';
 
 export default class Heading extends Component {
@@ -18,7 +19,7 @@ export default class Heading extends Component {
                     <Icon
                         type='FontAwesome'
                         name='plus-circle'
-                        style={[styles.grey, {fontSize: 30, color: '#f57e20'}]}
+                        style={[styles.grey, {fontSize: scale(27), color: '#f57e20'}]}
                         onPress={() => this.props.onAddButtonPress()}
                     />
                 </View>
@@ -35,7 +36,7 @@ export default class Heading extends Component {
                     <Icon
                         type='FontAwesome'
                         name='arrow-circle-left'
-                        style={[styles.grey, {fontSize: 30, color: '#f57e20'}]}
+                        style={[styles.grey, {fontSize: scale(27), color: '#f57e20'}]}
                         onPress={() => this.props.onBackButtonPress()}
                     />
                 </View>
@@ -48,7 +49,7 @@ export default class Heading extends Component {
 	render() {
 	    if (typeof this.props.onAddButtonPress === 'function' || typeof this.props.onBackButtonPress === 'function') {
 	        return (
-                <View style={[styles.rowStart, {backgroundColor: '#fde5d2', maxHeight: 53}]}>
+                <View style={[styles.rowStart, {backgroundColor: '#fde5d2', maxHeight: verticalScale(50)}]}>
                     {this._renderBackButton()}
                     <View style={{flex: 4, justifyContent: 'center', alignItems: 'center'}}>
                         <Text style={styles.heading}>{this.props.text}</Text>
@@ -59,7 +60,7 @@ export default class Heading extends Component {
 	    }
 
 		return (
-            <View style={{flex: 1, backgroundColor: '#fde5d2', maxHeight: 53}}>
+            <View style={{flex: 1, backgroundColor: '#fde5d2', maxHeight: verticalScale(50)}}>
                 <Text style={styles.heading}>{this.props.text}</Text>
             </View>
 		);

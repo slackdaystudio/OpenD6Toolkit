@@ -2,6 +2,8 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { View, Image } from 'react-native';
 import { Button, Text } from 'native-base';
+import { ScaledSheet } from 'react-native-size-matters';
+import { scale } from 'react-native-size-matters';
 import styles from '../Styles';
 
 export default class LogoButton extends Component {
@@ -16,8 +18,8 @@ export default class LogoButton extends Component {
     _renderLogo() {
         if (this.props.showLogo) {
             return (
-                <View style={{flex: 1, alignSelf: 'flex-start'}}>
-                    <Image source={require('../../public/d6_logo_White_30x30.png')}/>
+                <View style={localStyles.logoContainer}>
+                    <Image style={localStyles.logo} source={require('../../public/d6_logo_White_512x512.png')}/>
                 </View>
             )
         }
@@ -29,7 +31,7 @@ export default class LogoButton extends Component {
 		return (
             <View style={styles.buttonContainer}>
                 <Button
-                    style={[styles.button, {minWidth: this.props.minWidth}]}
+                    style={[styles.button, {minWidth: scale(this.props.minWidth)}]}
                     onPress={() => this.props.onPress()}
                 >
                     {this._renderLogo()}
@@ -43,5 +45,16 @@ export default class LogoButton extends Component {
 
 LogoButton.defaultProps = {
     showLogo: true,
-    minWidth: 180
+    minWidth: 160
 };
+
+const localStyles = ScaledSheet.create({
+    logoContainer: {
+        flex: 1,
+        alignSelf: 'center'
+    },
+    logo: {
+        height: '25@vs',
+        width: '25@vs'
+    }
+});
