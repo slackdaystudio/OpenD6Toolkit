@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { Platform, StyleSheet, View } from 'react-native';
 import { Container, Content, Button, Text, Form, Item, Label, Input } from 'native-base';
+import { scale, verticalScale } from 'react-native-size-matters';
 import styles from '../../Styles';
 
 export default class Appearance extends Component {
@@ -15,18 +16,18 @@ export default class Appearance extends Component {
             <View>
                 <Form>
                     <Item stackedLabel>
-                        <Label>Name</Label>
+                        <Label style={{fontSize: scale(10)}}>Name</Label>
                         <Input
-                            style={styles.grey}
-                            maxLength={30}
+                            style={[styles.grey, {height: verticalScale(42)}]}
+                            maxLength={64}
                             value={this.props.character.name}
                             onChangeText={(value) => this.props.updateAppearance('name', value)}
                         />
                     </Item>
                     <Item stackedLabel>
-                        <Label>Species</Label>
+                        <Label style={{fontSize: scale(10)}}>Species</Label>
                         <Input
-                            style={styles.grey}
+                            style={[styles.grey, {height: verticalScale(42)}]}
                             maxLength={30}
                             value={this.props.character.species}
                             onChangeText={(value) => this.props.updateAppearance('species', value)}

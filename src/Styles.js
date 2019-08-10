@@ -100,8 +100,8 @@ export default ScaledSheet.create({
         paddingTop: 10
     },
     big: {
-	    fontSize: 18,
-	    lineHeight: 40
+	    fontSize: '16@s',
+	    lineHeight: '25@vs'
 	},
 	modal: {
         borderRadius: 4,

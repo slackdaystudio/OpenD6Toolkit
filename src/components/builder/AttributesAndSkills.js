@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import { Container, Content, Text, List, ListItem, Left, Right, Body, Button, Icon, Input } from 'native-base';
+import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import styles from '../../Styles';
 import Heading from '../Heading';
@@ -269,25 +270,25 @@ export default class AttributesAndSkills extends Component {
                         return (
                             <List key={'skill-' + index} style={{paddingLeft: 0}}>
                                 <ListItem>
-                                    <Body style={{width: 30}}>
-                                        <SwipeRow leftOpenValue={75} disableLeftSwipe={true}>
+                                    <Body>
+                                        <SwipeRow leftOpenValue={scale(65)} disableLeftSwipe={true}>
                                             <View style={localStyles.standaloneRowBack}>
                                                 <Icon
                                                     type='FontAwesome'
                                                     name='info-circle'
-                                                    style={[styles.grey, {fontSize: 30, color: '#f57e20', width: 30}]}
+                                                    style={[styles.grey, {fontSize: scale(25), color: '#f57e20', width: scale(25)}]}
                                                     onPress={() => this._showAttributeInfo(skill.name)}
                                                 />
                                                 <View style={{paddingRight: 5}} />
                                                 <Icon
                                                     type='FontAwesome'
                                                     name='edit'
-                                                    style={[styles.grey, {fontSize: 30, color: '#f57e20', paddingTop: 3, width: 30}]}
+                                                    style={[styles.grey, {fontSize: scale(25), color: '#f57e20', paddingTop: scale(3), width: scale(25)}]}
                                                     onPress={() => this._editDieCode(skill.name, skillDieCode)}
                                                 />
                                             </View>
-                                            <View style={[localStyles.standaloneRowFront, {paddingRight: 100, paddingTop: 10, paddingBottom: 10}]}>
-                                                <Text style={[styles.grey, {lineHeight: 30}]}>{skill.name}</Text>
+                                            <View style={localStyles.standaloneRowFront}>
+                                                <Text style={[styles.grey, {lineHeight: verticalScale(18)}]}>{skill.name}</Text>
                                             </View>
                                         </SwipeRow>
                                     </Body>
@@ -328,7 +329,7 @@ export default class AttributesAndSkills extends Component {
                 </Left>
                 <Right>
                     <Input
-                        style={styles.grey}
+                        style={[styles.grey, {lineHeight: verticalScale(30), paddingBottom: 0}]}
                         keyboardType='numeric'
                         maxLength={4}
                         value={move.toString()}
@@ -349,28 +350,28 @@ export default class AttributesAndSkills extends Component {
                     <View key={'atr-' + index}>
                         <ListItem noIndent>
                             <Left>
-                                <SwipeRow leftOpenValue={75} disableLeftSwipe={true}>
+                                <SwipeRow leftOpenValue={scale(65)} disableLeftSwipe={true}>
                                     <View style={localStyles.standaloneRowBack}>
                                         <Icon
                                             type='FontAwesome'
                                             name='info-circle'
-                                            style={[styles.grey, {fontSize: 30, color: '#f57e20', width: 30}]}
+                                            style={[styles.grey, {fontSize: scale(25), color: '#f57e20', width: scale(25)}]}
                                             onPress={() => this._showAttributeInfo(attribute.name)}
                                         />
-                                        <View style={{paddingRight: 5}} />
+                                        <View style={{paddingRight: scale(5)}} />
                                         <Icon
                                             type='FontAwesome'
                                             name='edit'
-                                            style={[styles.grey, {fontSize: 30, color: '#f57e20', paddingTop: 3, width: 30}]}
+                                            style={[styles.grey, {fontSize: scale(25), color: '#f57e20', paddingTop: scale(3), width: scale(25)}]}
                                             onPress={() => this._editDieCode(attribute.name, dieCode)}
                                         />
                                     </View>
-                                    <View style={[localStyles.standaloneRowFront, {paddingRight: 150, paddingTop: 10, paddingBottom: 10}]}>
+                                    <View style={localStyles.standaloneRowFront}>
                                         <TouchableHighlight
                                             underlayColor='#ffffff'
                                             onPress={() => this._toggleAttributeShow(attribute.name)}
                                         >
-                                            <Text style={[styles.grey, styles.big]}>
+                                            <Text style={[styles.grey, styles.big, {width: scale(200)}]}>
                                                 {attribute.name}
                                             </Text>
                                         </TouchableHighlight>
@@ -430,17 +431,18 @@ export default class AttributesAndSkills extends Component {
 	}
 }
 
-const localStyles = StyleSheet.create({
+const localStyles = ScaledSheet.create({
 	standaloneRowFront: {
 		alignItems: 'flex-start',
 		backgroundColor: '#FFF',
 		justifyContent: 'center',
-		height: 70,
+		height: '30@vs',
 	},
 	standaloneRowBack: {
 		alignItems: 'center',
 		backgroundColor: '#FFF',
 		flex: 1,
-		flexDirection: 'row'
+		flexDirection: 'row',
+		width: 500
 	}
 });

@@ -2,7 +2,8 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert, BackHandler } from 'react-native';
-import { Container, Content, Button, Text, Picker, Item, Label, Input, List, ListItem, Left, Right, Body, Icon, Tab, Tabs, Textarea, Footer, FooterTab, ScrollableTab } from 'native-base';
+import { TabHeading, Container, Content, Button, Text, Picker, Item, Label, Input, List, ListItem, Left, Right, Body, Icon, Tab, Tabs, Textarea, Footer, FooterTab, ScrollableTab } from 'native-base';
+import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
@@ -121,6 +122,16 @@ class BuilderScreen extends Component {
         });
     }
 
+    _renderTabHeading(headingText) {
+        return (
+            <TabHeading style={localStyles.tabHeading}>
+                <Text style={localStyles.tabStyle}>
+                    {headingText}
+                </Text>
+            </TabHeading>
+        );
+    }
+
 	render() {
       if (this.props.character === null || this.props.character === undefined) {
           return (
@@ -145,17 +156,17 @@ class BuilderScreen extends Component {
 		    <Container style={styles.container}>
                 <Header navigation={this.props.navigation} hasTabs={true} />
                 <Content style={styles.content}>
-                    <Tabs locked={true} tabBarUnderlineStyle={{backgroundColor: '#FFF'}} renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#f57e20'}} />}>
-                        <Tab heading='Character' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
+                    <Tabs locked={true} tabBarUnderlineStyle={{backgroundColor: '#FFF'}} renderTabBar={()=> <ScrollableTab style={localStyles.scrollableTab} />}>
+                        <Tab heading={this._renderTabHeading('Character')} tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={localStyles.activeTextStyle}>
                             <Heading text='Name &amp; Species' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                             <Appearance character={this.props.character} updateAppearance={this.props.updateAppearance} />
                             <Heading text='Points' />
                             <View style={styles.titleContainer}>
-                                <View style={{paddingLeft: 30}}>
-                                    <Item stackedLabel style={{width: 150}}>
-                                        <Label>Character Points</Label>
+                                <View style={{paddingLeft: scale(20)}}>
+                                    <Item stackedLabel style={{width: scale(100)}}>
+                                        <Label style={{fontSize: scale(10)}}>Character Points</Label>
                                         <Input
-                                            style={styles.grey}
+                                            style={[styles.grey, {height: verticalScale(42)}]}
                                             keyboardType='numeric'
                                             maxLength={4}
                                             value={characterPoints.toString()}
@@ -163,11 +174,11 @@ class BuilderScreen extends Component {
                                         />
                                     </Item>
                                 </View>
-                                <View style={{paddingRight: 30}}>
-                                    <Item stackedLabel style={{width: 150}}>
-                                        <Label>Fate Points</Label>
+                                <View style={{paddingRight: scale(20)}}>
+                                    <Item stackedLabel style={{width: scale(100)}}>
+                                        <Label style={{fontSize: scale(10)}}>Fate Points</Label>
                                         <Input
-                                            style={styles.grey}
+                                            style={[styles.grey, {height: verticalScale(42)}]}
                                             keyboardType='numeric'
                                             maxLength={4}
                                             value={fatePoints.toString()}
@@ -243,7 +254,7 @@ class BuilderScreen extends Component {
                                 onClose={this.closeInfoDialog}
                             />
                         </Tab>
-                        <Tab heading='Equipment' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
+                        <Tab heading={this._renderTabHeading('Equipment')} tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={localStyles.activeTextStyle}>
                             <Heading text='Equipment' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                             <Textarea
                                 rowSpan={10}
@@ -261,7 +272,7 @@ class BuilderScreen extends Component {
                                 onChangeText={(value) => this.props.updateAppearance('currency', value)}
                             />
                         </Tab>
-                        <Tab heading='Background' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
+                        <Tab heading={this._renderTabHeading('Background')} tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={localStyles.activeTextStyle}>
                             <Heading text='Background' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                             <Textarea
                                 rowSpan={10}
@@ -280,7 +291,7 @@ class BuilderScreen extends Component {
                                 onChangeText={(value) => this.props.updateAppearance('appearance', value)}
                             />
                         </Tab>
-                        <Tab heading='Notes' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
+                        <Tab heading={this._renderTabHeading('Notes')} tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={localStyles.activeTextStyle}>
                             <Heading text='Notes' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                             <Textarea
                                 rowSpan={15}
@@ -317,13 +328,25 @@ class BuilderScreen extends Component {
 	}
 }
 
-const localStyles = StyleSheet.create({
+const localStyles = ScaledSheet.create({
 	tabHeading: {
 		backgroundColor: '#f57e20'
 	},
 	activeTabStyle: {
 		backgroundColor: '#f57e20',
 		color: '#FFF'
+	},
+	activeTextStyle: {
+	    color: '#FFF'
+	},
+	tabStyle: {
+	    fontSize: '14@s'
+	},
+	tabHeading: {
+	    backgroundColor: '#f57e20'
+	},
+	scrollableTab: {
+	    backgroundColor: '#f57e20'
 	}
 });
 
