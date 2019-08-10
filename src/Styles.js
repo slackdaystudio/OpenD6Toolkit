@@ -8,10 +8,10 @@ export default ScaledSheet.create({
 		height: '100%',
 		width: '100%',
 		...ifIphoneX({
-            paddingTop: 50
-        }, {
-            paddingTop: (Platform.OS === 'ios' ? 20 : 0)
-        })
+	        paddingTop: 50
+	    }, {
+	        paddingTop: (Platform.OS === 'ios' ? 20 : 0)
+	    })
 	},
 	content: {
 		paddingTop: 0,
@@ -59,12 +59,12 @@ export default ScaledSheet.create({
         flex: 10
 	},
 	picker: {
-	    height: '30@vs',
-		color: '#4f4e4e'
+	    height: '35@vs'
 	},
 	grey: {
 		fontSize: '14@s',
 		color: '#4f4e4e',
+		justifyContent: 'flex-start'
 	},
 	boldGrey: {
 		fontSize: '14@s',
@@ -87,11 +87,11 @@ export default ScaledSheet.create({
     rowStart: {
         flex: 1,
         alignSelf: 'stretch',
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     row: {
         flex: 1,
-        alignSelf: 'stretch',
+        alignSelf: 'flex-start',
     },
     titleContainer: {
         flexDirection: 'row',

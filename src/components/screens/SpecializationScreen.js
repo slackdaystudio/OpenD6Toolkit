@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StyleSheet, View, TouchableHighlight, BackHandler, Alert } from 'react-native';
 import { Container, Content, Button, Text, Item, Input, Picker, Form, Label } from 'native-base';
+import { scale, verticalScale } from 'react-native-size-matters';
 import Header from '../Header';
 import ErrorMessage from '../ErrorMessage';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
+import Slider from '../DieSlider';
 import styles from '../../Styles';
 import { character } from '../../lib/Character';
 import { editSpecialization, deleteSpecialization } from '../../reducers/builder';
@@ -22,23 +24,9 @@ class SpecializationScreen extends Component {
     constructor(props) {
         super(props);
 
-        let specialization = this._initSpecialization();
-        let selectedAttribute = props.character.attributes[0];
+        this.state = this._initState(props.navigation.state.params.specialization,  props.character);
 
-        if (props.navigation.state.params !== undefined && props.navigation.state.params.hasOwnProperty('specialization')) {
-            specialization = props.navigation.state.params.specialization;
-            selectedAttribute = character.getAttributeBySkill(specialization.skillName, this.props.character.attributes);
-
-            delete props.navigation.state.params.specialization;
-        }
-
-        specialization.skillName = selectedAttribute.skills[0].name;
-
-        this.state = {
-            specialization: specialization,
-            selectedAttribute: selectedAttribute,
-            errorMessage: null
-        }
+        this.updateDice = this._updateDice.bind(this);
     }
 
     componentDidMount() {
@@ -47,20 +35,39 @@ class SpecializationScreen extends Component {
 
             return true;
         });
+
+        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+            this.setState(this._initState(this.props.navigation.state.params.specialization,  this.props.character));
+        });
     }
 
     componentWillUnmount() {
         this.backHandler.remove();
+        this.focusListener.remove();
     }
 
-    _initSpecialization() {
-        return {
+    _initState(spec, char) {
+        let specialization = {
             uuid: null,
             name: '',
             skillName: null,
             dice: 1,
             pips: 0
-       };
+        };
+        let selectedAttribute = char.attributes[0];
+
+        if (spec === null) {
+            specialization.skillName = selectedAttribute.skills[0].name;
+        } else {
+            specialization = spec;
+            selectedAttribute = character.getAttributeBySkill(specialization.skillName || selectedAttribute.skills[0].name, char.attributes);
+        }
+
+        return {
+            specialization: specialization,
+            selectedAttribute: selectedAttribute,
+            errorMessage: null
+        };
     }
 
     _updateAttribute(name) {
@@ -69,6 +76,7 @@ class SpecializationScreen extends Component {
         for (let attribute of this.props.character.attributes) {
             if (attribute.name === name) {
                 newState.selectedAttribute = attribute;
+                newState.specialization.skillName = attribute.skills[0].name
                 break;
             }
         }
@@ -149,41 +157,47 @@ class SpecializationScreen extends Component {
 
     _renderAttributePicker() {
         return (
-            <Picker
-                stackedLabel
-                label='Attribute'
-                style={styles.picker}
-                textStyle={styles.grey}
-                placeholderIconColor="#FFFFFF"
-                iosHeader="Select one"
-                mode="dropdown"
-                selectedValue={this.state.selectedAttribute.name}
-                onValueChange={(value) => this._updateAttribute(value)}
-            >
-                {this.props.character.attributes.map((attribute, index) => {
-                    return <Item key={attribute.name} label={attribute.name} value={attribute.name} />
-                })}
-            </Picker>
+            <Item stackedLabel>
+                <Label style={{fontSize: scale(10)}}>Attribute</Label>
+                <Picker
+                    stackedLabel
+                    label='Attribute'
+                    style={styles.picker}
+                    textStyle={styles.grey}
+                    placeholderIconColor="#FFFFFF"
+                    iosHeader="Select Attribute"
+                    mode="dropdown"
+                    selectedValue={this.state.selectedAttribute.name}
+                    onValueChange={(value) => this._updateAttribute(value)}
+                >
+                    {this.props.character.attributes.map((attribute, index) => {
+                        return <Item key={attribute.name} label={attribute.name} value={attribute.name} />
+                    })}
+                </Picker>
+            </Item>
         );
     }
 
     _renderSkillPicker() {
         return (
-            <Picker
-                stackedLabel
-                label='Skill'
-                style={styles.picker}
-                textStyle={styles.grey}
-                placeholderIconColor="#FFFFFF"
-                iosHeader="Select one"
-                mode="dropdown"
-                selectedValue={this.state.specialization.skillName}
-                onValueChange={(value) => this._updateSkill(value)}
-            >
-                {this.state.selectedAttribute.skills.map((skill, index) => {
-                    return <Item key={skill.name} label={skill.name} value={skill.name} />
-                })}
-            </Picker>
+            <Item stackedLabel>
+                <Label style={{fontSize: scale(10)}}>Skill</Label>
+                <Picker
+                    stackedLabel
+                    label='Skill'
+                    style={styles.picker}
+                    textStyle={styles.grey}
+                    placeholderIconColor="#FFFFFF"
+                    iosHeader="Select Skill"
+                    mode="dropdown"
+                    selectedValue={this.state.specialization.skillName}
+                    onValueChange={(value) => this._updateSkill(value)}
+                >
+                    {this.state.selectedAttribute.skills.map((skill, index) => {
+                        return <Item key={skill.name} label={skill.name} value={skill.name} />
+                    })}
+                </Picker>
+            </Item>
         );
     }
 
@@ -207,11 +221,11 @@ class SpecializationScreen extends Component {
                         onBackButtonPress={() => this.props.navigation.navigate('Builder')}
                     />
                     <ErrorMessage errorMessage={this.state.errorMessage} />
-                    {this._renderAttributePicker()}
-                    {this._renderSkillPicker()}
-                    <View style={styles.contentPadded}>
+                    <Form>
+                        {this._renderAttributePicker()}
+                        {this._renderSkillPicker()}
                         <Item stackedLabel>
-                            <Label>Name</Label>
+                            <Label style={{fontSize: scale(10)}}>Name</Label>
                             <Input
                                 style={styles.grey}
                                 maxLength={30}
@@ -219,40 +233,36 @@ class SpecializationScreen extends Component {
                                 onChangeText={(value) => this._updateName(value)}
                             />
                         </Item>
-                        <View style={[styles.rowStart, {paddingHorizontal: 5}]}>
-                            <View style={[styles.row, {alignSelf: 'center'}]}>
-                                <Text style={styles.grey}>Dice</Text>
-                            </View>
-                            <View style={[styles.row, {alignSelf: 'center'}]}>
-                                <Item underline>
-                                    <Input
-                                        style={styles.grey}
-                                        keyboardType='numeric'
-                                        maxLength={2}
-                                        value={this.state.specialization.dice.toString()}
-                                        onChangeText={(value) => this._updateDice(value)}
-                                    />
-                                </Item>
-                            </View>
-                            <View style={[styles.row, {flex: 2, alignSelf: 'center'}]}>
-                                <Picker
-                                    inlinelabel
-                                    label='Pips'
-                                    style={styles.picker}
-                                    textStyle={styles.grey}
-                                    placeholderIconColor="#FFFFFF"
-                                    iosHeader="Select one"
-                                    mode="dropdown"
-                                    selectedValue={this.state.specialization.pips}
-                                    onValueChange={(value) => this._updatePips(value)}
-                                >
-                                    <Item label="+0 pips" value={0} />
-                                    <Item label="+1 pip" value={1} />
-                                    <Item label="+2 pips" value={2} />
-                                </Picker>
-                            </View>
+                        <View style={{paddingLeft: scale(15), paddingRight: scale(10)}}>
+                            <Slider
+                                label='Dice:'
+                                value={parseInt(this.state.specialization.dice, 10)}
+                                step={1}
+                                min={1}
+                                max={20}
+                                onValueChange={this.updateDice}
+                                disabled={false}
+                            />
                         </View>
-                    </View>
+                        <Item stackedLabel>
+                            <Label style={{fontSize: scale(10)}}>Pips</Label>
+                            <Picker
+                                inlinelabel
+                                label='Pips'
+                                style={styles.picker}
+                                textStyle={styles.grey}
+                                placeholderIconColor="#FFFFFF"
+                                iosHeader="Select Pips"
+                                mode="dropdown"
+                                selectedValue={this.state.specialization.pips}
+                                onValueChange={(value) => this._updatePips(value)}
+                            >
+                                <Item label="+0 pips" value={0} />
+                                <Item label="+1 pip" value={1} />
+                                <Item label="+2 pips" value={2} />
+                            </Picker>
+                        </Item>
+                    </Form>
                     <View style={{paddingBottom: 20}} />
                     <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
                         <LogoButton label='Save' onPress={() => this._save()} />

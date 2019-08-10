@@ -47,7 +47,7 @@ export default class Specializations extends Component {
             return (
                 <View>
                     <Heading text='Specializations'
-                        onAddButtonPress={() => this.props.navigation.navigate('Specialization')}
+                        onAddButtonPress={() => this.props.navigation.navigate('Specialization', {specialization: null})}
                     />
                     <List>
                         <ListItem key={'specialization-none'} noIndent>
