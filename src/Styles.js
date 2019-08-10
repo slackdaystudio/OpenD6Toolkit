@@ -44,12 +44,6 @@ export default ScaledSheet.create({
 		alignSelf: 'center',
 		flexDirection: 'row'
 	},
-	buttonBig: {
-		backgroundColor: '#f57e20',
-		minWidth: 300,
-		justifyContent: 'center',
-		alignSelf: 'center'
-	},
 	buttonText: {
 	    color: '#FFF',
         fontSize: '15@s',

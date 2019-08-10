@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, StyleSheet, View, TouchableHighlight, BackHandler, Alert } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Left, Right, Body, Item, Icon, Input, Label, Toast } from 'native-base';
+import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
 import Header from '../Header';
 import Heading from '../Heading';
 import RanksDialog, { MODE_ADD } from '../RanksDialog';
@@ -23,11 +24,34 @@ class CharacterOptionsScreen extends Component {
     constructor(props) {
         super(props);
 
-        const optionKey = props.navigation.state.params.optionKey;
-        const options = props.character[common.toCamelCase(optionKey)].template.items;
+        this.state = this._initState(props.navigation.state.params.optionKey, props.character);
+
+        this.addOptionToCharacter = this._addOptionToCharacter.bind(this);
+        this.closeRanksDialog = this._closeRanksDialog.bind(this);
+    }
+
+    componentDidMount() {
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            this.props.navigation.navigate('Builder');
+
+            return true;
+        });
+
+        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+            this.setState(this._initState(this.props.navigation.state.params.optionKey, this.props.character));
+        });
+    }
+
+    componentWillUnmount() {
+        this.backHandler.remove();
+        this.focusListener.remove();
+    }
+
+    _initState(optionKey, char) {
+        const options = char[common.toCamelCase(optionKey)].template.items;
         const displayOptions =  this._initOptionsShow(options);
 
-        this.state = {
+        return {
             options: options,
             optionShow: displayOptions.optionsState,
             optionChevron: displayOptions.chevronsState,
@@ -45,21 +69,6 @@ class CharacterOptionsScreen extends Component {
                 totalPages: Math.ceil(options.length / 10)
             }
         }
-
-        this.addOptionToCharacter = this._addOptionToCharacter.bind(this);
-        this.closeRanksDialog = this._closeRanksDialog.bind(this);
-    }
-
-    componentDidMount() {
-        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            this.props.navigation.navigate('Builder');
-
-            return true;
-        });
-    }
-
-    componentWillUnmount() {
-        this.backHandler.remove();
     }
 
     _initOptionsShow(options) {
@@ -190,7 +199,7 @@ class CharacterOptionsScreen extends Component {
             <Icon
                 type='FontAwesome'
                 name='chevron-circle-left'
-                style={[localStyles.buttonBig, {paddingLeft: 30}]}
+                style={[localStyles.buttonBig, {paddingLeft: sclae(30)}]}
                 onPress={() => this._onBackButtonPress()}
             />
         );
@@ -205,7 +214,7 @@ class CharacterOptionsScreen extends Component {
             <Icon
                 type='FontAwesome'
                 name='chevron-circle-right'
-                style={[localStyles.buttonBig, {paddingRight: 30}]}
+                style={[localStyles.buttonBig, {paddingRight: scale(30)}]}
                 onPress={() => this._onNextButtonPress()}
             />
         );
@@ -227,17 +236,17 @@ class CharacterOptionsScreen extends Component {
                     renderedItemCount++;
 
                     return (
-                        <Card>
-                            <CardItem>
-                                <Body>
-                                    <Text style={[styles.boldGrey, {fontSize: 20, lineHeight: 22}]}>{option.name} (R{option.rank})</Text>
+                        <Card key={'option-' + option.id}>
+                            <CardItem style={{paddingBottom: 0}}>
+                                <Body style={{flex: 4}}>
+                                    <Text style={[styles.boldGrey, {fontSize: scale(16), lineHeight: scale(18)}]}>{option.name} (R{option.rank})</Text>
                                 </Body>
-                                <Right>
+                                <Right style={{flex: 1}}>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
                                         <Icon
                                             type='FontAwesome'
                                             name={this.state.optionChevron[option.name + option.rank]}
-                                            style={[localStyles.button, {paddingRight: 10}]}
+                                            style={[localStyles.button, {paddingRight: scale(10)}]}
                                             onPress={() => this._toggleDescriptionShow(option.name, option.rank)}
                                         />
                                         <Icon
@@ -285,7 +294,7 @@ class CharacterOptionsScreen extends Component {
                 {this._renderFilterMessage()}
                 <View style={{paddingBottom: 20}} />
                 {this._renderList()}
-                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 20, paddingTop: 20}}>
+                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: verticalScale(20)}}>
                     {this._renderBackButton()}
                     <Text style={styles.grey}>Page {this.state.pagination.currentPage} of {this.state.pagination.totalPages}</Text>
                     {this._renderNextButton()}
@@ -305,13 +314,13 @@ class CharacterOptionsScreen extends Component {
 	}
 }
 
-const localStyles = StyleSheet.create({
+const localStyles = ScaledSheet.create({
 	button: {
-        fontSize: 30,
+        fontSize: '25@vs',
         color: '#f57e20'
 	},
     buttonBig: {
-         fontSize: 45,
+         fontSize: '40@vs',
          color: '#f57e20'
     }
 });

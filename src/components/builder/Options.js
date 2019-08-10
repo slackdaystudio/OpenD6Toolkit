@@ -104,7 +104,7 @@ export default class Options extends Component {
             <List>
                 {options.map((item, index) => {
                     return (
-                        <ListItem key={'option-' + index} noIndent>
+                        <ListItem key={'option-' + item.id} noIndent>
                             <Body>
                                 <TouchableHighlight underlayColor='#ffffff' onPress={() => this._showOptionInfo(item)}>
                                     <View style={{paddingTop: 10, paddingBottom: 10}}>

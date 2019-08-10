@@ -331,20 +331,20 @@ class BuilderScreen extends Component {
 const localStyles = ScaledSheet.create({
 	tabHeading: {
 		backgroundColor: '#f57e20',
-    color: '#FFF' /* For iOS */
+        color: '#FFF' /* For iOS */
 	},
 	activeTabStyle: {
 		backgroundColor: '#FFF',
 		color: '#FFF',
-    fontSize: 999
+        fontSize: 999
 	},
 	activeTextStyle: {
-      backgroundColor: '#FFF',
+        backgroundColor: '#FFF',
 	    color: '#FFF'
 	},
 	tabStyle: {
 	    fontSize: '12@s',
-      color: '#FFF'
+        color: '#FFF'
 	},
 	tabHeading: {
 	    backgroundColor: '#f57e20'
