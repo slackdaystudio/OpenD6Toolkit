@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { Alert, Platform, StyleSheet, View, Switch } from 'react-native';
 import { Container, Content, Button, Text, ListItem, CheckBox, Body, Item, Form, Label, Input, Icon } from 'native-base';
+import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
 import styles from '../../Styles';
 import Heading from '../Heading';
 import CalculatorInput from '../CalculatorInput';
@@ -54,6 +55,7 @@ export default class Health extends Component {
                     return (
                         <ListItem key={'death-spiral-' + index}>
                             <CheckBox
+                                checkboxSize={scale(20)}
                                 color='#f57e20'
                                 checked={this.props.character.health.wounds[step.level]}
                                 onPress={() => this.props.updateWounds(step.level)}
@@ -72,9 +74,8 @@ export default class Health extends Component {
         return (
             <View style={[styles.rowStart, {justifyContent: 'space-between'}]}>
                 <View style={{paddingLeft: 30}}>
-                    <View>
-                    <Item stackedLabel style={{width: 75}}>
-                        <Label>Max</Label>
+                    <Item stackedLabel style={{width: scale(75)}}>
+                        <Label style={{fontSize: scale(10)}}>Max</Label>
                         <Input
                             style={styles.grey}
                             keyboardType='numeric'
@@ -83,9 +84,8 @@ export default class Health extends Component {
                             onChangeText={(value) => this._updateBodyPoints('max', value)}
                         />
                     </Item>
-                    </View>
                 </View>
-                <View style={{paddingRight: 30}}>
+                <View style={{paddingRight: scale(30)}}>
                     <CalculatorInput
                         label='Current'
                         itemKey='current'

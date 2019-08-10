@@ -286,6 +286,7 @@ class CharacterOptionsScreen extends Component {
                     <Icon active style={{fontSize: scale(25)}} name='search' />
                     <Input
                         style={styles.grey}
+                        placeholder="Search"
                         maxLength={255}
                         value={this.state.search.term}
                         onChangeText={(value) => this._search(value)}

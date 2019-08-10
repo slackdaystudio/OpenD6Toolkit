@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Text, Icon, Item, Label } from 'native-base';
+import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
 import { CalculatorInput as BaseCalculatorInput } from 'react-native-calculator'
 
 export default class CalculatorInput extends Component {
@@ -29,11 +30,11 @@ export default class CalculatorInput extends Component {
 		    <View style={{alignSelf: this.props.alignment}}>
                 <View style={{flex: 1, flexDirection: 'row'}}>
                     <Item stackedLabel={this.props.stackedLabel} style={{width: this.props.width}}>
-                        <Label style={{fontWeight: (this.props.boldLabel ? 'bold' : 'normal')}}>{this.props.label}</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: (this.props.boldLabel ? 'bold' : 'normal')}}>{this.props.label}</Label>
                         <BaseCalculatorInput
                             ref={(ref) => this.currentBodyPointsCalculator = ref}
                             fieldContainerStyle={{borderBottomWidth: 0}}
-                            fieldTextStyle={{fontSize: this.props.fontSize, width: this.props.width}}
+                            fieldTextStyle={{fontSize: scale(this.props.fontSize), width: scale(this.props.width), paddingTop: scale(13)}}
                             value={this.props.value.toString()}
                             onAccept={(value) => this._onAccept(value)}
                             modalAnimationType='slide'
@@ -44,7 +45,7 @@ export default class CalculatorInput extends Component {
                     <Icon
                         type='FontAwesome'
                         name='calculator'
-                        style={{fontSize: 20, color: '#f57e20', alignSelf: 'center', paddingTop: this.props.iconPaddingTop}}
+                        style={{fontSize: scale(20), color: '#f57e20', alignSelf: 'center', paddingTop: scale(this.props.iconPaddingTop)}}
                         onPress={() => this.currentBodyPointsCalculator.calculatorModalToggle()}
                     />
                 </View>
@@ -55,7 +56,7 @@ export default class CalculatorInput extends Component {
 
 CalculatorInput.defaultProps = {
     width: 75,
-    fontSize: 18,
+    fontSize: 14,
     stackedLabel: true,
     boldLabel: false,
     alignment: 'flex-start',
