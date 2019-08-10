@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { Platform, StyleSheet, View, Switch } from 'react-native';
 import { Container, Content, Button, Text, Form, Item, Label, Input } from 'native-base';
+import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
 import Heading from '../Heading';
 import styles from '../../Styles';
 
@@ -32,7 +33,7 @@ export default class Appearance extends Component {
 
     _renderPassiveDefense() {
         return (
-            <View style={{flex: 1, alignItems: 'center', paddingTop: 30}}>
+            <View style={{flex: 1, alignItems: 'center', paddingTop: scale(30)}}>
                 <Text style={styles.grey}>
                     <Text style={styles.boldGrey}>Base Target Number:</Text> 10
                 </Text>
@@ -45,8 +46,8 @@ export default class Appearance extends Component {
             <View>
                 <View style={styles.titleContainer}>
                     <View style={{paddingLeft: 30}}>
-                        <Item stackedLabel style={{width: 150}}>
-                            <Label>Block</Label>
+                        <Item stackedLabel style={{width: scale(120)}}>
+                            <Label style={{fontSize: scale(10)}}>Block</Label>
                             <Input
                                 style={styles.grey}
                                 keyboardType='numeric'
@@ -57,8 +58,8 @@ export default class Appearance extends Component {
                         </Item>
                     </View>
                     <View style={{paddingRight: 30}}>
-                        <Item stackedLabel style={{width: 150}}>
-                            <Label>Dodge</Label>
+                        <Item stackedLabel style={{width: scale(120)}}>
+                            <Label style={{fontSize: scale(10)}}>Dodge</Label>
                             <Input
                                 style={styles.grey}
                                 keyboardType='numeric'
@@ -71,8 +72,8 @@ export default class Appearance extends Component {
                 </View>
                 <View style={styles.titleContainer}>
                     <View style={{paddingLeft: 30}}>
-                        <Item stackedLabel style={{width: 150}}>
-                            <Label>Parry</Label>
+                        <Item stackedLabel style={{width: scale(120)}}>
+                            <Label style={{fontSize: scale(10)}}>Parry</Label>
                             <Input
                                 style={styles.grey}
                                 keyboardType='numeric'
@@ -83,8 +84,8 @@ export default class Appearance extends Component {
                         </Item>
                     </View>
                     <View style={{paddingRight: 30}}>
-                        <Item stackedLabel style={{width: 150}}>
-                            <Label>Soak</Label>
+                        <Item stackedLabel style={{width: scale(120)}}>
+                            <Label style={{fontSize: scale(10)}}>Soak</Label>
                             <Input
                                 style={styles.grey}
                                 keyboardType='numeric'
