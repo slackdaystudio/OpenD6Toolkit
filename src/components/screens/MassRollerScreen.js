@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Switch } from 'react-native';
 import { Container, Content, Button, Text, Picker, Item} from 'native-base';
+import { ScaledSheet } from 'react-native-size-matters';
 import RNShake from 'react-native-shake';
 import * as Animatable from 'react-native-animatable';
 import Header from '../Header';
@@ -219,9 +220,9 @@ class DieRollerScreen extends Component {
 	}
 }
 
-const localStyles = StyleSheet.create({
+const localStyles = ScaledSheet.create({
 	rollResult: {
-		fontSize: 70,
+		fontSize: '70@s',
 		fontWeight: 'bold'
 	}
 })

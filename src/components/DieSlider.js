@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types'
 import { StyleSheet, View, Keyboard } from 'react-native';
 import { Text, Icon, Item, Input } from 'native-base';
+import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
 import Slider from 'react-native-slider';
 import styles from '../Styles';
 
@@ -100,10 +101,10 @@ export default class DieSlider extends Component {
 			<View>
 				<View style={localStyles.titleContainer}>
 					<Text style={styles.grey}>{this.props.label}</Text>
-                    <View style={{width: (this._isFraction() ? 50: 40)}}>
+                    <View style={{width: (this._isFraction() ? scale(50): scale(40))}}>
                         <Item>
                             <Input
-                                style={styles.grey}
+                                style={[styles.grey, {height: verticalScale(40)}]}
                                 keyboardType='numeric'
                                 maxLength={(this._isFraction() ? 5 : 3)}
                                 value={this.state.textValue.toString()}
@@ -131,27 +132,27 @@ export default class DieSlider extends Component {
 	}
 }
 
-const localStyles = StyleSheet.create({
+const localStyles = ScaledSheet.create({
 	titleContainer: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		paddingTop: 10
+		paddingTop: '15@vs'
 	},
 });
 
-const thumbStyles = StyleSheet.create({
+const thumbStyles = ScaledSheet.create({
 	track: {
-		height: 16,
-		borderRadius: 10,
+		height: '16@vs',
+		borderRadius: '10@s',
 		backgroundColor: '#4f4e4e'
 	},
 	thumb: {
-		width: 30,
-		height: 30,
-		borderRadius: 30 / 2,
+		width: '25@s',
+		height: '25@s',
+		borderRadius: '15@s',
 		backgroundColor: 'white',
 		borderColor: '#f57e20',
-		borderWidth: 2,
+		borderWidth: '2@s',
 	}
 });
