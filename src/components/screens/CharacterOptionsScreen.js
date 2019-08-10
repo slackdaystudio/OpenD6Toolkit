@@ -283,7 +283,7 @@ class CharacterOptionsScreen extends Component {
                     onBackButtonPress={() => this.props.navigation.navigate('Builder')}
                 />
                 <Item>
-                    <Icon active name='search' />
+                    <Icon active style={{fontSize: scale(25)}} name='search' />
                     <Input
                         style={styles.grey}
                         maxLength={255}
