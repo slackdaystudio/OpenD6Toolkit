@@ -61,7 +61,7 @@ export default ScaledSheet.create({
 		justifyContent: 'flex-start',
 		lineHeight: '20@vs',
 		height: '40@vs',
-		paddingTop: 0		
+		paddingTop: 0
 	},
 	grey: {
 		fontSize: '14@s',
@@ -111,14 +111,14 @@ export default ScaledSheet.create({
         borderColor: '#f57e20',
         flex: 1,
         flexDirection: 'column',
-        maxHeight: 310
+        maxHeight: '310@vs'
 	},
 	modalContent: {
 	    backgroundColor: '#ffffff',
         padding: 22,
         justifyContent: 'center',
         alignItems: 'stretch',
-        height: 255
+        height: '255@vs'
     },
     errorMessage: {
         borderWidth: 1,

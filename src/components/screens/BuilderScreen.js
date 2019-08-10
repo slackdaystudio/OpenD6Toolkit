@@ -298,7 +298,7 @@ class BuilderScreen extends Component {
                         <Tab heading={this._renderTabHeading('Notes')} tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={localStyles.activeTextStyle}>
                             <Heading text='Notes' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                             <Textarea
-                                style={{fontSize: verticalScale(18)}} 
+                                style={{fontSize: verticalScale(18)}}
                                 rowSpan={15}
                                 bordered
                                 maxLength={10000}
@@ -348,7 +348,7 @@ const localStyles = ScaledSheet.create({
 	    color: '#FFF'
 	},
 	tabStyle: {
-	    fontSize: '12@s',
+	    fontSize: '10@s',
         color: '#FFF'
 	},
 	tabHeading: {

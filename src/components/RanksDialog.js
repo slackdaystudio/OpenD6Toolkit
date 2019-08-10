@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types'
 import { StyleSheet, View, TouchableHighlight, Switch } from 'react-native';
 import { Container, Content, Button, Text, Item, Input, Picker, Form, Label, Icon } from 'native-base';
+import { ScaledSheet, scale, moderateScale } from 'react-native-size-matters';
 import Modal from "react-native-modal";
 import ErrorMessage from './ErrorMessage';
 import Heading from './Heading';
@@ -95,7 +96,7 @@ export default class RanksDialog extends Component {
                         <Icon
                             type='FontAwesome'
                             name='minus-square'
-                            style={[styles.grey, {fontSize: 30, color: '#f57e20', alignItems: 'flex-start'}]}
+                            style={[styles.grey, {fontSize: scale(25), color: '#f57e20', alignItems: 'flex-start'}]}
                             onPress={() => this._decrementRanks()}
                         />
                     </View>
@@ -106,7 +107,7 @@ export default class RanksDialog extends Component {
                         <Icon
                             type='FontAwesome'
                             name='plus-square'
-                            style={[styles.grey, {fontSize: 30, color: '#f57e20', alignItems: 'flex-end'}]}
+                            style={[styles.grey, {fontSize: scale(25), color: '#f57e20', alignItems: 'flex-end'}]}
                             onPress={() => this._incrementRanks()}
                         />
                     </View>
@@ -150,9 +151,9 @@ export default class RanksDialog extends Component {
                     <View style={styles.modalContent}>
                         <ErrorMessage errorMessage={this.state.errorMessage} />
                         <Item stackedLabel>
-                            <Label>Note</Label>
+                            <Label style={{fontSize: scale(10)}}>Note</Label>
                             <Input
-                                style={[styles.grey, {maxWidth: 250}]}
+                                style={[styles.textInput, {maxWidth: scale(200)}]}
                                 maxLength={30}
                                 value={this.state.displayNote}
                                 onChangeText={(value) => this._updateDisplayNote(value)}
@@ -160,7 +161,7 @@ export default class RanksDialog extends Component {
                         </Item>
                         {this._renderFormControls()}
                         <Item style={{flex: 1, justifyContent: 'space-between'}}>
-                            <Label>Exclude from build costs?</Label>
+                            <Label style={styles.grey}>Exclude from build costs?</Label>
                             <Switch
                                 value={this.state.excludeFromBuildCosts}
                                 onValueChange={() => this._toggleExcludeFromBuildCosts()}

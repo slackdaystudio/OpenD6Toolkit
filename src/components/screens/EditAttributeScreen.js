@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert, Switch } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Form, Label, Item, Input, Textarea, Toast, Left, Right } from 'native-base';
+import { ScaledSheet, scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
@@ -118,20 +119,20 @@ class EditAttributeScreen extends Component {
                             <Card>
                                 <CardItem>
                                     <Body>
-                                        <Text style={[styles.boldGrey, {fontSize: 25}]}>{skill.name}</Text>
+                                        <Text style={[styles.boldGrey, {fontSize: scale(16), lineHeight: scale(18)}]}>{skill.name}</Text>
                                     </Body>
                                     <Right>
                                         <View style={{flex: 1, flexDirection: 'row'}}>
                                             <Icon
                                                 type='FontAwesome'
                                                 name='trash'
-                                                style={[localStyles.button, {paddingRight: 10}]}
+                                                style={[localStyles.button, {paddingRight: scale(5)}]}
                                                 onPress={() => this._delete(skill)}
                                             />
                                             <Icon
                                                 type='FontAwesome'
                                                 name='edit'
-                                                style={[localStyles.button, {paddingTop: 3}]}
+                                                style={[localStyles.button, {paddingTop: moderateScale(1, 1.5)}]}
                                                 onPress={() => this.props.navigation.navigate('EditSkill', {attribute: this.state.attribute, skill: skill})}
                                             />
                                         </View>
@@ -160,27 +161,27 @@ class EditAttributeScreen extends Component {
                 <Heading text='Attribute' onBackButtonPress={() => this.props.navigation.navigate('Architect', {selectedTab: TAB_ATTRIBUTES})} />
                 <Form>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Name</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Name</Label>
                         <Input
-                            style={styles.grey}
+                            style={styles.textInput}
                             maxLength={64}
                             value={this.state.attribute.name}
                             onChangeText={(value) => this._updateAttributeField('name', value)}
                         />
                     </Item>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Description</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Description</Label>
                         <Textarea
                             rowSpan={5}
                             bordered
                             maxLength={255}
-                            style={{width: '100%'}}
+                            style={{width: '100%', fontSize: verticalScale(18)}}
                             value={this.state.attribute.description}
                             onChangeText={(value) => this._updateAttributeField('description', value)}
                         />
                     </Item>
                     <Item>
-                        <Label style={{fontWeight: 'bold'}}>Is Extranormal?</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Is Extranormal?</Label>
                         <Switch
                             value={this.state.attribute.isExtranormal}
                             onValueChange={() => this._updateAttributeField('isExtranormal', !this.state.attribute.isExtranormal)}
@@ -207,9 +208,9 @@ class EditAttributeScreen extends Component {
 	}
 }
 
-const localStyles = StyleSheet.create({
+const localStyles = ScaledSheet.create({
 	button: {
-        fontSize: 30,
+        fontSize: '25@vs',
         color: '#f57e20'
 	}
 });

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BackHandler,Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert, Switch } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Form, Label, Item, Input, Textarea, Toast, Left, Right } from 'native-base';
+import { ScaledSheet, scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
@@ -70,21 +71,21 @@ class EditSkillScreen extends Component {
                 <Heading text='Skill' onBackButtonPress={() => this.props.navigation.navigate('EditAttribute', {attribute: this.state.attribute})} />
                 <Form>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Name</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Name</Label>
                         <Input
-                            style={styles.grey}
+                            style={styles.textInput}
                             maxLength={64}
                             value={this.state.skill.name}
                             onChangeText={(value) => this._updateSkillField('name', value)}
                         />
                     </Item>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Description</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Description</Label>
                         <Textarea
                             rowSpan={5}
                             bordered
                             maxLength={255}
-                            style={{width: '100%'}}
+                            style={{width: '100%', fontSize: verticalScale(18)}}
                             value={this.state.skill.description}
                             onChangeText={(value) => this._updateSkillField('description', value)}
                         />

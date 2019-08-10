@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import { Container, Content, Text, CardItem, Card, Left, Right, Body, Button, Icon, Form, Item, Input, Label } from 'native-base';
+import { scale } from 'react-native-size-matters';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import styles from '../../Styles';
 import Heading from '../Heading';
@@ -47,36 +48,36 @@ class Overview extends Component {
                 <Heading text='Overview' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                 <Form>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Name</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Name</Label>
                         <Input
-                            style={styles.grey}
+                            style={styles.textInput}
                             maxLength={64}
                             value={this.props.template.name}
                             onChangeText={(value) => this._updateTemplateOverview('name', value)}
                         />
                     </Item>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Attribute Minimum</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Attribute Minimum</Label>
                         <Input
-                            style={styles.grey}
+                            style={styles.textInput}
                             maxLength={64}
                             value={this.props.template.attributeMin.toString()}
                             onChangeText={(value) => this._updateTemplateOverview('attributeMin', value)}
                         />
                     </Item>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Attribute Maximum</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Attribute Maximum</Label>
                         <Input
-                            style={styles.grey}
+                            style={styles.textInput}
                             maxLength={64}
                             value={this.props.template.attributeMax.toString()}
                             onChangeText={(value) => this._updateTemplateOverview('attributeMax', value)}
                         />
                     </Item>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Move</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Move</Label>
                         <Input
-                            style={styles.grey}
+                            style={styles.textInput}
                             maxLength={64}
                             value={this.props.template.move.toString()}
                             onChangeText={(value) => this._updateTemplateOverview('move', value)}
@@ -85,16 +86,16 @@ class Overview extends Component {
                     <Item stackedLabel>
                         <Label style={{fontWeight: 'bold'}}>Character Points</Label>
                         <Input
-                            style={styles.grey}
+                            style={styles.textInput}
                             maxLength={64}
                             value={this.props.template.characterPoints.toString()}
                             onChangeText={(value) => this._updateTemplateOverview('characterPoints', value)}
                         />
                     </Item>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Fate Points</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Fate Points</Label>
                         <Input
-                            style={styles.grey}
+                            style={styles.textInput}
                             maxLength={64}
                             value={this.props.template.fatePoints.toString()}
                             onChangeText={(value) => this._updateTemplateOverview('fatePoints', value)}

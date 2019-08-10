@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import { Container, Content, Text, CardItem, Card, Left, Right, Body, Button, Icon, Input } from 'native-base';
+import { ScaledSheet, scale, moderateScale } from 'react-native-size-matters';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import styles from '../../Styles';
 import Heading from '../Heading';
@@ -73,7 +74,7 @@ class AttributesAndSkills extends Component {
         let skills = attribute.skills.map(skill => skill.name)
 
         return (
-            <Text style={{fontSize: 12, fontStyle: 'italic'}}>
+            <Text style={{fontSize: scale(10), fontStyle: 'italic'}}>
                 {skills.join(', ')}
             </Text>
         );
@@ -88,7 +89,7 @@ class AttributesAndSkills extends Component {
                         <Card key={'atr-' + index}>
                             <CardItem>
                                 <Body>
-                                    <Text style={[styles.boldGrey, {fontSize: 25}]}>
+                                    <Text style={[styles.boldGrey, {fontSize: scale(16), lineHeight: scale(18)}]}>
                                         {attribute.name}
                                     </Text>
                                 </Body>
@@ -97,13 +98,13 @@ class AttributesAndSkills extends Component {
                                         <Icon
                                             type='FontAwesome'
                                             name='trash'
-                                            style={[localStyles.button, {paddingRight: 10}]}
+                                            style={[localStyles.button, {paddingRight: scale(5)}]}
                                             onPress={() => this._delete(attribute)}
                                         />
                                         <Icon
                                             type='FontAwesome'
                                             name='edit'
-                                            style={[localStyles.button, {paddingTop: 3}]}
+                                            style={[localStyles.button, {paddingTop: moderateScale(1, 1.5)}]}
                                             onPress={() => this.props.navigation.navigate('EditAttribute', {attribute: attribute})}
                                         />
                                     </View>
@@ -138,11 +139,15 @@ class AttributesAndSkills extends Component {
 	}
 }
 
-const localStyles = StyleSheet.create({
+const localStyles = ScaledSheet.create({
 	button: {
-        fontSize: 30,
+        fontSize: '25@vs',
         color: '#f57e20'
-	}
+	},
+    buttonBig: {
+         fontSize: '40@vs',
+         color: '#f57e20'
+    }
 });
 
 const mapStateToProps = state => {

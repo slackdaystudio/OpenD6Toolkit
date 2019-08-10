@@ -319,11 +319,7 @@ const localStyles = ScaledSheet.create({
 	button: {
         fontSize: '25@vs',
         color: '#f57e20'
-	},
-    buttonBig: {
-         fontSize: '40@vs',
-         color: '#f57e20'
-    }
+	}
 });
 
 const mapStateToProps = state => {

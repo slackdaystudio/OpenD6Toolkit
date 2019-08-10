@@ -2,7 +2,8 @@ import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert } from 'react-native';
-import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Tab, Tabs, ScrollableTab, Footer, FooterTab } from 'native-base';
+import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Tab, Tabs, TabHeading, ScrollableTab, Footer, FooterTab } from 'native-base';
+import { ScaledSheet } from 'react-native-size-matters';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
@@ -68,25 +69,35 @@ class ArchitectScreen extends Component {
         this.backHandler.remove();
     }
 
+    _renderTabHeading(headingText) {
+        return (
+            <TabHeading style={localStyles.tabHeading}>
+                <Text style={localStyles.tabStyle}>
+                    {headingText}
+                </Text>
+            </TabHeading>
+        );
+    }
+
 	render() {
 		return (
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} hasTabs={true} />
             <Content style={styles.content}>
                 <Tabs ref={(t) => { this.tabs = t; return;}} locked={true} tabBarUnderlineStyle={{backgroundColor: '#FFF'}} renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#f57e20'}} />}>
-                    <Tab heading='Overview' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
+                    <Tab heading={this._renderTabHeading('Overview')} tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
                         <Overview navigation={this.props.navigation} template={this.props.template} />
                     </Tab>
-                    <Tab heading='Attributes' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
+                    <Tab heading={this._renderTabHeading('Attributes')} tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
                         <AttributesAndSkills navigation={this.props.navigation} template={this.props.template} />
                     </Tab>
-                    <Tab heading='Advantages' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
+                    <Tab heading={this._renderTabHeading('Advantages')} tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
                         <Options navigation={this.props.navigation} optionKey='Advantages' template={this.props.template} />
                     </Tab>
-                    <Tab heading='Special Abilities' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
+                    <Tab heading={this._renderTabHeading('Special Abilities')} tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
                         <Options navigation={this.props.navigation} optionKey='Special Abilities' template={this.props.template} />
                     </Tab>
-                    <Tab heading='Complications' tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
+                    <Tab heading={this._renderTabHeading('Complications')} tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={{color: '#FFF'}}>
                         <Options navigation={this.props.navigation} optionKey='Complications' template={this.props.template} />
                     </Tab>
                 </Tabs>
@@ -97,14 +108,18 @@ class ArchitectScreen extends Component {
 	}
 }
 
-const localStyles = StyleSheet.create({
+const localStyles = ScaledSheet.create({
 	tabHeading: {
 		backgroundColor: '#f57e20'
 	},
 	activeTabStyle: {
 		backgroundColor: '#f57e20',
 		color: '#FFF'
-	}
+	},
+    tabStyle: {
+        fontSize: '10@s',
+        color: '#FFF'
+    }
 });
 
 const mapStateToProps = state => {
