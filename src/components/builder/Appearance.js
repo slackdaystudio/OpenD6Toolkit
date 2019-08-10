@@ -18,7 +18,7 @@ export default class Appearance extends Component {
                     <Item stackedLabel>
                         <Label style={{fontSize: scale(10)}}>Name</Label>
                         <Input
-                            style={[styles.grey, {height: verticalScale(42)}]}
+                            style={styles.textInput}
                             maxLength={64}
                             value={this.props.character.name}
                             onChangeText={(value) => this.props.updateAppearance('name', value)}
@@ -27,7 +27,7 @@ export default class Appearance extends Component {
                     <Item stackedLabel>
                         <Label style={{fontSize: scale(10)}}>Species</Label>
                         <Input
-                            style={[styles.grey, {height: verticalScale(42)}]}
+                            style={styles.textInput}
                             maxLength={30}
                             value={this.props.character.species}
                             onChangeText={(value) => this.props.updateAppearance('species', value)}

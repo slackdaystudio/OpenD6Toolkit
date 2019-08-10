@@ -77,7 +77,7 @@ export default class Health extends Component {
                     <Item stackedLabel style={{width: scale(90)}}>
                         <Label style={{fontSize: scale(10)}}>Max</Label>
                         <Input
-                            style={[styles.grey, {lineHeight: verticalScale(20), height: verticalScale(40), paddingTop: verticalScale(0)}]}
+                            style={styles.textInput}
                             keyboardType='numeric'
                             maxLength={4}
                             value={this.props.character.health.bodyPoints.max.toString()}

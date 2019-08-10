@@ -166,7 +166,7 @@ class BuilderScreen extends Component {
                                     <Item stackedLabel style={{width: scale(100)}}>
                                         <Label style={{fontSize: scale(10)}}>Character Points</Label>
                                         <Input
-                                            style={[styles.grey, {height: verticalScale(42)}]}
+                                            style={styles.textInput}
                                             keyboardType='numeric'
                                             maxLength={4}
                                             value={characterPoints.toString()}
@@ -178,7 +178,7 @@ class BuilderScreen extends Component {
                                     <Item stackedLabel style={{width: scale(100)}}>
                                         <Label style={{fontSize: scale(10)}}>Fate Points</Label>
                                         <Input
-                                            style={[styles.grey, {height: verticalScale(42)}]}
+                                            style={styles.textInput}
                                             keyboardType='numeric'
                                             maxLength={4}
                                             value={fatePoints.toString()}
@@ -257,6 +257,7 @@ class BuilderScreen extends Component {
                         <Tab heading={this._renderTabHeading('Equipment')} tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={localStyles.activeTextStyle}>
                             <Heading text='Equipment' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                             <Textarea
+                                style={{fontSize: verticalScale(18)}}
                                 rowSpan={10}
                                 bordered
                                 maxLength={5000}
@@ -265,6 +266,7 @@ class BuilderScreen extends Component {
                             />
                             <Heading text='Currency' />
                             <Textarea
+                                style={{fontSize: verticalScale(18)}}
                                 rowSpan={5}
                                 bordered
                                 maxLength={1000}
@@ -275,6 +277,7 @@ class BuilderScreen extends Component {
                         <Tab heading={this._renderTabHeading('Background')} tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={localStyles.activeTextStyle}>
                             <Heading text='Background' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                             <Textarea
+                                style={{fontSize: verticalScale(18)}}
                                 rowSpan={10}
                                 bordered
                                 maxLength={5000}
@@ -284,6 +287,7 @@ class BuilderScreen extends Component {
                             <View style={{paddingBottom: 20}} />
                             <Heading text='Appearance' />
                             <Textarea
+                                style={{fontSize: verticalScale(18)}}
                                 rowSpan={10}
                                 bordered
                                 maxLength={5000}
@@ -294,6 +298,7 @@ class BuilderScreen extends Component {
                         <Tab heading={this._renderTabHeading('Notes')} tabStyle={localStyles.tabHeading} activeTabStyle={localStyles.activeTabStyle} activeTextStyle={localStyles.activeTextStyle}>
                             <Heading text='Notes' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                             <Textarea
+                                style={{fontSize: verticalScale(18)}} 
                                 rowSpan={15}
                                 bordered
                                 maxLength={10000}

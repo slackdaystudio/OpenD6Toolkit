@@ -49,7 +49,7 @@ export default class Appearance extends Component {
                         <Item stackedLabel style={{width: scale(120)}}>
                             <Label style={{fontSize: scale(10)}}>Block</Label>
                             <Input
-                                style={styles.grey}
+                                style={styles.textInput}
                                 keyboardType='numeric'
                                 maxLength={4}
                                 value={this.props.character.defenses.staticDefenses.block.toString()}
@@ -61,7 +61,7 @@ export default class Appearance extends Component {
                         <Item stackedLabel style={{width: scale(120)}}>
                             <Label style={{fontSize: scale(10)}}>Dodge</Label>
                             <Input
-                                style={styles.grey}
+                                style={styles.textInput}
                                 keyboardType='numeric'
                                 maxLength={4}
                                 value={this.props.character.defenses.staticDefenses.dodge.toString()}
@@ -75,7 +75,7 @@ export default class Appearance extends Component {
                         <Item stackedLabel style={{width: scale(120)}}>
                             <Label style={{fontSize: scale(10)}}>Parry</Label>
                             <Input
-                                style={styles.grey}
+                                style={styles.textInput}
                                 keyboardType='numeric'
                                 maxLength={4}
                                 value={this.props.character.defenses.staticDefenses.parry.toString()}
@@ -87,7 +87,7 @@ export default class Appearance extends Component {
                         <Item stackedLabel style={{width: scale(120)}}>
                             <Label style={{fontSize: scale(10)}}>Soak</Label>
                             <Input
-                                style={styles.grey}
+                                style={styles.textInput}
                                 keyboardType='numeric'
                                 maxLength={4}
                                 value={this.props.character.defenses.staticDefenses.soak.toString()}

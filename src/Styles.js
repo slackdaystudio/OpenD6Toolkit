@@ -55,6 +55,14 @@ export default ScaledSheet.create({
 	picker: {
 	    height: '35@vs'
 	},
+	textInput: {
+		fontSize: '14@s',
+		color: '#4f4e4e',
+		justifyContent: 'flex-start',
+		lineHeight: '20@vs',
+		height: '40@vs',
+		paddingTop: 0		
+	},
 	grey: {
 		fontSize: '14@s',
 		color: '#4f4e4e',
