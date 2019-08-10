@@ -699,7 +699,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.diceless.OpenD6Toolkit;
 				PRODUCT_NAME = OpenD6Toolkit;
 				PROVISIONING_PROFILE_SPECIFIER = org.diceless.OpenD6Toolkit;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -726,7 +726,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.diceless.OpenD6Toolkit;
 				PRODUCT_NAME = OpenD6Toolkit;
 				PROVISIONING_PROFILE_SPECIFIER = org.diceless.OpenD6Toolkit;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

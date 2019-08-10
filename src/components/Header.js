@@ -36,13 +36,13 @@ export default class MyHeader extends Component {
 const localStyles = ScaledSheet.create({
 	header: {
 		backgroundColor: '#f57e20',
-		height: Platform.OS === 'ios' ? 60 : '65@vs',
+		height: Platform.OS === 'ios' ? '75@vs' : '65@vs',
 	},
 	logoContainer: {
 		alignSelf: 'flex-start',
 		...Platform.select({
 		    ios: {
-			    paddingBottom: 20
+			    paddingBottom: '15@vs'
 		    }
 		})
 	},
@@ -53,7 +53,6 @@ const localStyles = ScaledSheet.create({
 	menuIcon: {
 	    fontSize: '22@vs',
 	    color: '#ffffff',
-	    paddingBottom:
-	    Platform.OS === 'ios' ? 50 : 0
+	    paddingBottom: Platform.OS === 'ios' ? '30@vs' : 0
 	}
 });

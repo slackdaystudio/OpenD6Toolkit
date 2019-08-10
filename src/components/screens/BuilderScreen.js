@@ -124,7 +124,7 @@ class BuilderScreen extends Component {
 
     _renderTabHeading(headingText) {
         return (
-            <TabHeading style={localStyles.tabHeading}>
+            <TabHeading style={localStyles.tabHeading} activeTextStyle={localStyles.activeTextStyle}>
                 <Text style={localStyles.tabStyle}>
                     {headingText}
                 </Text>
@@ -330,17 +330,21 @@ class BuilderScreen extends Component {
 
 const localStyles = ScaledSheet.create({
 	tabHeading: {
-		backgroundColor: '#f57e20'
+		backgroundColor: '#f57e20',
+    color: '#FFF' /* For iOS */
 	},
 	activeTabStyle: {
-		backgroundColor: '#f57e20',
-		color: '#FFF'
+		backgroundColor: '#FFF',
+		color: '#FFF',
+    fontSize: 999
 	},
 	activeTextStyle: {
+      backgroundColor: '#FFF',
 	    color: '#FFF'
 	},
 	tabStyle: {
-	    fontSize: '14@s'
+	    fontSize: '12@s',
+      color: '#FFF'
 	},
 	tabHeading: {
 	    backgroundColor: '#f57e20'

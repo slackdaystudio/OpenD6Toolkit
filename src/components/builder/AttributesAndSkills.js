@@ -288,7 +288,7 @@ export default class AttributesAndSkills extends Component {
                                                 />
                                             </View>
                                             <View style={localStyles.standaloneRowFront}>
-                                                <Text style={[styles.grey, {lineHeight: verticalScale(18)}]}>{skill.name}</Text>
+                                                <Text style={[styles.grey, {lineHeight: verticalScale(22)}]}>{skill.name}</Text>
                                             </View>
                                         </SwipeRow>
                                     </Body>
@@ -321,7 +321,7 @@ export default class AttributesAndSkills extends Component {
         return (
             <ListItem noIndent>
                 <Left>
-                    <View style={[localStyles.standaloneRowFront, {paddingRight: 150, paddingTop: 10, paddingBottom: 10}]}>
+                    <View style={[localStyles.standaloneRowFront, {paddingRight: 150}]}>
                         <Text style={[styles.grey, styles.big]}>
                             Move
                         </Text>
@@ -329,7 +329,7 @@ export default class AttributesAndSkills extends Component {
                 </Left>
                 <Right>
                     <Input
-                        style={[styles.grey, {lineHeight: verticalScale(30), paddingBottom: 0}]}
+                        style={[styles.grey, {lineHeight: verticalScale(35), paddingBottom: verticalScale(10)}]}
                         keyboardType='numeric'
                         maxLength={4}
                         value={move.toString()}
@@ -436,7 +436,7 @@ const localStyles = ScaledSheet.create({
 		alignItems: 'flex-start',
 		backgroundColor: '#FFF',
 		justifyContent: 'center',
-		height: '30@vs',
+		height: '42@vs',
 	},
 	standaloneRowBack: {
 		alignItems: 'center',
