@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert, Switch, Keyboard } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Form, Label, Item, Input, Textarea, Toast, Left, Right } from 'native-base';
+import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
@@ -120,37 +121,37 @@ class EditOptionScreen extends Component {
                 <Heading text={this.state.optionKey} onBackButtonPress={() => this.props.navigation.navigate('Architect', {selectedTab: this._getArchitectSelectedTab()})} />
                 <Form>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Rank</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Rank</Label>
                         <Input
                             keyboardType='numeric'
-                            style={styles.grey}
+                            style={styles.textInput}
                             maxLength={3}
                             value={this.state.option.rank.toString()}
                             onChangeText={(value) => this._updateOptionField('rank', value)}
                         />
                     </Item>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Name</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Name</Label>
                         <Input
-                            style={styles.grey}
+                            style={styles.textInput}
                             maxLength={64}
                             value={this.state.option.name}
                             onChangeText={(value) => this._updateOptionField('name', value)}
                         />
                     </Item>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Description</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Description</Label>
                         <Textarea
-                            rowSpan={10}
+                            rowSpan={18}
                             bordered
                             maxLength={5000}
-                            style={{width: '100%'}}
+                            style={{width: '100%', fontSize: verticalScale(18)}}
                             value={this.state.option.description}
                             onChangeText={(value) => this._updateOptionField('description', value)}
                         />
                     </Item>
                     <Item>
-                        <Label style={{fontWeight: 'bold'}}>Allow Multiple Ranks To Be Selected?</Label>
+                        <Label style={styles.boldGrey}>Allow Multiple Ranks To Be Selected?</Label>
                         <Switch
                             value={this.state.option.multipleRanks}
                             onValueChange={() => this._updateOptionField('multipleRanks', !this.state.option.multipleRanks)}

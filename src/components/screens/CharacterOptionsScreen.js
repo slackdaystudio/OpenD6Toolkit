@@ -199,7 +199,7 @@ class CharacterOptionsScreen extends Component {
             <Icon
                 type='FontAwesome'
                 name='chevron-circle-left'
-                style={[localStyles.buttonBig, {paddingLeft: sclae(30)}]}
+                style={[localStyles.buttonBig, {paddingLeft: scale(30)}]}
                 onPress={() => this._onBackButtonPress()}
             />
         );
@@ -286,7 +286,7 @@ class CharacterOptionsScreen extends Component {
                     <Icon active style={{fontSize: scale(25)}} name='search' />
                     <Input
                         style={styles.grey}
-                        placeholder="Search"
+                        placeholder='Search'
                         maxLength={255}
                         value={this.state.search.term}
                         onChangeText={(value) => this._search(value)}

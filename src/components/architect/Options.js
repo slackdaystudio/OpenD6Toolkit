@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, StyleSheet, View, TouchableHighlight, BackHandler, Alert } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Left, Right, Body, Item, Icon, Input, Label, Toast } from 'native-base';
+import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
 import Header from '../Header';
 import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
@@ -196,7 +197,7 @@ class Options extends Component {
             <Icon
                 type='FontAwesome'
                 name='chevron-circle-left'
-                style={[localStyles.buttonBig, {paddingLeft: 30}]}
+                style={[localStyles.buttonBig, {paddingLeft: scale(30)}]}
                 onPress={() => this._onBackButtonPress()}
             />
         );
@@ -211,7 +212,7 @@ class Options extends Component {
             <Icon
                 type='FontAwesome'
                 name='chevron-circle-right'
-                style={[localStyles.buttonBig, {paddingRight: 30}]}
+                style={[localStyles.buttonBig, {paddingRight: scale(30)}]}
                 onPress={() => this._onNextButtonPress()}
             />
         );
@@ -229,9 +230,10 @@ class Options extends Component {
                    onAddButtonPress={() => this._onAddButtonPress()}
                />
                <Item>
-                   <Icon active name='search' />
+                   <Icon active tyle={{fontSize: scale(25)}} name='search' />
                    <Input
                        style={styles.grey}
+                       placeholder='Search'
                        maxLength={255}
                        value={this.state.search.term}
                        onChangeText={(value) => this._search(value)}
@@ -252,20 +254,20 @@ class Options extends Component {
                        <Card key={common.toCamelCase(this.props.optionKey) + '-' + itemCount}>
                            <CardItem>
                                <Body>
-                                   <Text style={[styles.boldGrey, {fontSize: 20, lineHeight: 22}]}>{option.name} (R{option.rank})</Text>
+                                   <Text style={[styles.boldGrey, {fontSize: scale(16), lineHeight: scale(18)}]}>{option.name} (R{option.rank})</Text>
                                </Body>
                                <Right>
                                    <View style={{flex: 1, flexDirection: 'row'}}>
                                        <Icon
                                            type='FontAwesome'
                                            name={this.state.optionChevron[option.name + option.rank]}
-                                           style={[localStyles.button, {paddingRight: 10}]}
+                                           style={[localStyles.button, {paddingRight: scale(5)}]}
                                            onPress={() => this._toggleDescriptionShow(option.name, option.rank)}
                                        />
                                        <Icon
                                            type='FontAwesome'
                                            name='trash'
-                                           style={[localStyles.button, {paddingRight: 10}]}
+                                           style={[localStyles.button, {paddingRight: scale(5)}]}
                                            onPress={() => this._delete(option)}
                                        />
                                        <Icon
@@ -311,9 +313,9 @@ class Options extends Component {
 	}
 }
 
-const localStyles = StyleSheet.create({
+const localStyles = ScaledSheet.create({
 	button: {
-        fontSize: 30,
+        fontSize: '25@vs',
         color: '#f57e20'
 	},
 	buttonBig: {
