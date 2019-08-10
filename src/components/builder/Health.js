@@ -74,10 +74,10 @@ export default class Health extends Component {
         return (
             <View style={[styles.rowStart, {justifyContent: 'space-between'}]}>
                 <View style={{paddingLeft: 30}}>
-                    <Item stackedLabel style={{width: scale(75)}}>
+                    <Item stackedLabel style={{width: scale(90)}}>
                         <Label style={{fontSize: scale(10)}}>Max</Label>
                         <Input
-                            style={styles.grey}
+                            style={[styles.grey, {lineHeight: verticalScale(20), height: verticalScale(40), paddingTop: verticalScale(0)}]}
                             keyboardType='numeric'
                             maxLength={4}
                             value={this.props.character.health.bodyPoints.max.toString()}

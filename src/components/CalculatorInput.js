@@ -34,7 +34,7 @@ export default class CalculatorInput extends Component {
                         <BaseCalculatorInput
                             ref={(ref) => this.currentBodyPointsCalculator = ref}
                             fieldContainerStyle={{borderBottomWidth: 0}}
-                            fieldTextStyle={{fontSize: scale(this.props.fontSize), width: scale(this.props.width), paddingTop: scale(13)}}
+                            fieldTextStyle={{textAlign: 'left', fontSize: scale(this.props.fontSize), width: this.props.width, paddingTop: verticalScale(10), height: verticalScale(42), lineHeight: verticalScale(this.props.fontSize + 15)}}
                             value={this.props.value.toString()}
                             onAccept={(value) => this._onAccept(value)}
                             modalAnimationType='slide'
@@ -55,10 +55,10 @@ export default class CalculatorInput extends Component {
 }
 
 CalculatorInput.defaultProps = {
-    width: 75,
+    width: 90,
     fontSize: 14,
     stackedLabel: true,
     boldLabel: false,
     alignment: 'flex-start',
-    iconPaddingTop: 20
+    iconPaddingTop: 10
 };
