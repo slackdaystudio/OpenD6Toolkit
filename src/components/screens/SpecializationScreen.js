@@ -56,7 +56,7 @@ class SpecializationScreen extends Component {
         };
         let selectedAttribute = char.attributes[0];
 
-        if (spec === null) {
+        if (spec === null || spec === undefined) {
             specialization.skillName = selectedAttribute.skills[0].name;
         } else {
             specialization = spec;
@@ -157,8 +157,8 @@ class SpecializationScreen extends Component {
 
     _renderAttributePicker() {
         return (
-            <Item stackedLabel>
-                <Label style={{fontSize: scale(10)}}>Attribute</Label>
+            <Item>
+                <Label style={{fontSize: scale(12), fontWeight: 'bold'}}>Attribute:</Label>
                 <Picker
                     stackedLabel
                     label='Attribute'
@@ -180,8 +180,8 @@ class SpecializationScreen extends Component {
 
     _renderSkillPicker() {
         return (
-            <Item stackedLabel>
-                <Label style={{fontSize: scale(10)}}>Skill</Label>
+            <Item>
+                <Label style={{fontSize: scale(12), fontWeight: 'bold'}}>Skill:</Label>
                 <Picker
                     stackedLabel
                     label='Skill'
@@ -244,8 +244,8 @@ class SpecializationScreen extends Component {
                                 disabled={false}
                             />
                         </View>
-                        <Item stackedLabel>
-                            <Label style={{fontSize: scale(10)}}>Pips</Label>
+                        <Item>
+                            <Label style={{fontSize: scale(12), fontWeight: 'bold'}}>Pips:</Label>
                             <Picker
                                 inlinelabel
                                 label='Pips'
