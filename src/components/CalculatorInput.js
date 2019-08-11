@@ -13,6 +13,7 @@ export default class CalculatorInput extends Component {
         onAccept: PropTypes.func.isRequired,
         width: PropTypes.number,
         fontSize: PropTypes.number,
+        labelFontSize: PropTypes.number,
         stackedLabel: PropTypes.bool,
         boldLabel: PropTypes.bool,
         alignment: PropTypes.string,
@@ -30,16 +31,16 @@ export default class CalculatorInput extends Component {
 		    <View style={{alignSelf: this.props.alignment}}>
                 <View style={{flex: 1, flexDirection: 'row'}}>
                     <Item stackedLabel={this.props.stackedLabel} style={{width: this.props.width}}>
-                        <Label style={{fontSize: scale(10), fontWeight: (this.props.boldLabel ? 'bold' : 'normal')}}>{this.props.label}</Label>
+                        <Label style={{fontSize: scale(this.props.labelFontSize), fontWeight: (this.props.boldLabel ? 'bold' : 'normal')}}>{this.props.label}</Label>
                         <BaseCalculatorInput
                             ref={(ref) => this.currentBodyPointsCalculator = ref}
                             fieldContainerStyle={{borderBottomWidth: 0}}
-                            fieldTextStyle={{textAlign: 'left', fontSize: scale(this.props.fontSize), width: this.props.width, paddingTop: verticalScale(10), height: verticalScale(42), lineHeight: verticalScale(this.props.fontSize + 15)}}
+                            fieldTextStyle={{fontWeight: 'normal', textAlign: 'left', fontSize: scale(this.props.fontSize), width: this.props.width, paddingTop: verticalScale(10), height: verticalScale(42), lineHeight: verticalScale(this.props.fontSize + 10)}}
                             value={this.props.value.toString()}
                             onAccept={(value) => this._onAccept(value)}
                             modalAnimationType='slide'
                             hasAcceptButton={true}
-                            displayTextAlign='left'
+                            displayTextAlign='right'
                         />
                     </Item>
                     <Icon
@@ -57,6 +58,7 @@ export default class CalculatorInput extends Component {
 CalculatorInput.defaultProps = {
     width: 90,
     fontSize: 14,
+    labelFontSize: 10,
     stackedLabel: true,
     boldLabel: false,
     alignment: 'flex-start',

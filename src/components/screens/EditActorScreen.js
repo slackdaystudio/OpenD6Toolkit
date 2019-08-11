@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BackHandler, Alert, StyleSheet, View, Switch } from 'react-native';
 import { Container, Content, Button, Text, Form, Item, Label, Input } from 'native-base';
+import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
@@ -121,9 +122,9 @@ class EditActorScreen extends Component {
             return (
                 <View>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Maximum Body Points</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Maximum Body Points</Label>
                         <Input
-                            style={styles.grey}
+                            style={styles.textInput}
                             keyboardType='numeric'
                             maxLength={3}
                             value={this.state.maxBodyPoints.toString()}
@@ -133,9 +134,9 @@ class EditActorScreen extends Component {
                         />
                     </Item>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Current Body Points</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Current Body Points</Label>
                         <Input
-                            style={styles.grey}
+                            style={styles.textInput}
                             keyboardType='numeric'
                             maxLength={3}
                             value={this.state.currentBodyPoints.toString()}
@@ -159,18 +160,18 @@ class EditActorScreen extends Component {
                 <Heading text='Actor' onBackButtonPress={() => this.props.navigation.navigate('Orchestrator')} />
                 <Form>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Name</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Name</Label>
                         <Input
-                            style={styles.grey}
+                            style={styles.textInput}
                             maxLength={64}
                             value={this.state.label}
                             onChangeText={(value) => this._updateActor('label', value)}
                         />
                     </Item>
                     <Item stackedLabel>
-                        <Label style={{fontWeight: 'bold'}}>Roll</Label>
+                        <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Roll</Label>
                         <Input
-                            style={styles.grey}
+                            style={styles.textInput}
                             keyboardType='numeric'
                             maxLength={3}
                             value={this.state.roll.toString()}
@@ -180,7 +181,7 @@ class EditActorScreen extends Component {
                         />
                     </Item>
                     <Item>
-                        <Label style={{fontWeight: 'bold'}}>Use Body Points?</Label>
+                        <Label style={styles.boldGrey}>Use Body Points?</Label>
                         <Switch
                             value={this.state.useBodyPoints}
                             onValueChange={() => this._updateActor('useBodyPoints', !this.state.useBodyPoints)}

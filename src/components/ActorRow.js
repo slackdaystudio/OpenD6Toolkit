@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Alert, StyleSheet, Dimensions, Animated, Easing, Image, View, Platform } from 'react-native';
 import { Text, CardItem, Card, Left, Right, Body, Input, Icon, Form, Item, Label, CheckBox, Picker } from 'native-base';
+import { ScaledSheet, scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import CalculatorInput from './CalculatorInput';
+import { DEATH_SPIRAL } from './builder/Health';
 import styles from '../Styles';
 
 const window = Dimensions.get('window');
@@ -11,7 +13,7 @@ const TEXT_LENGTH = 75;
 
 const TEXT_HEIGHT = 20;
 
-const OFFSET = TEXT_LENGTH / 4 - TEXT_HEIGHT / 5
+const OFFSET = TEXT_LENGTH / 4 - TEXT_HEIGHT / 5;
 
 export default class Row extends Component {
     static propTypes = {
@@ -108,7 +110,7 @@ export default class Row extends Component {
                 <View style={[styles.rowStart, {justifyContent: 'space-between'}]}>
                     <View>
                         <View>
-                            <Item style={{width: 150, alignSelf: 'flex-start'}}>
+                            <Item style={{width: scale(120), alignSelf: 'flex-start'}}>
                                 <Label style={{fontWeight: 'bold'}}>Maximum:</Label>
                                 <Input
                                     style={styles.grey}
@@ -124,10 +126,11 @@ export default class Row extends Component {
                     </View>
                     <CalculatorInput
                         label='Current:'
+                        labelFontSize={8}
                         itemKey='currentBodyPoints'
                         value={this.props.data.currentBodyPoints}
                         onAccept={this.updateBodyPoints}
-                        width={120}
+                        width={180}
                         stackedLabel={false}
                         boldLabel={true}
                         alignment='flex-end'
@@ -138,55 +141,23 @@ export default class Row extends Component {
         }
 
         return (
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-                <View style={{flex: 1, flexDirection: 'column'}}>
-                    <CheckBox
-                        color='#f57e20'
-                        checked={this.props.data.stunned}
-                        onPress={() => this.props.onUpdate(this.props.data.uuid, 'stunned', !this.props.data.stunned)}
-                    />
-                    <Text style={[styles.grey, {transform: [{translateX: 15}]}]}>S</Text>
-                </View>
-                <View style={{flex: 1, flexDirection: 'column'}}>
-                    <CheckBox
-                        color='#f57e20'
-                        checked={this.props.data.wounded}
-                        onPress={() => this.props.onUpdate(this.props.data.uuid, 'wounded', !this.props.data.wounded)}
-                    />
-                    <Text style={[styles.grey, {transform: [{translateX: 13}]}]}>W</Text>
-                </View>
-                <View style={{flex: 1, flexDirection: 'column'}}>
-                    <CheckBox
-                        color='#f57e20'
-                        checked={this.props.data.severelyWounded}
-                        onPress={() => this.props.onUpdate(this.props.data.uuid, 'severelyWounded', !this.props.data.severelyWounded)}
-                    />
-                    <Text style={[styles.grey, {transform: [{translateX: 8}]}]}>SW</Text>
-                </View>
-                <View style={{flex: 1, flexDirection: 'column'}}>
-                    <CheckBox
-                        color='#f57e20'
-                        checked={this.props.data.incapacitated}
-                        onPress={() => this.props.onUpdate(this.props.data.uuid, 'incapacitated', !this.props.data.incapacitated)}
-                    />
-                    <Text style={[styles.grey, {transform: [{translateX: 18}]}]}>I</Text>
-                </View>
-                <View style={{flex: 1, flexDirection: 'column'}}>
-                    <CheckBox
-                        color='#f57e20'
-                        checked={this.props.data.mortallyWounded}
-                        onPress={() => this.props.onUpdate(this.props.data.uuid, 'mortallyWounded', !this.props.data.mortallyWounded)}
-                    />
-                    <Text style={[styles.grey, {transform: [{translateX: 7}]}]}>MW</Text>
-                </View>
-                <View style={{flex: 1, flexDirection: 'column'}}>
-                    <CheckBox
-                        color='#f57e20'
-                        checked={this.props.data.dead}
-                        onPress={() => this.props.onUpdate(this.props.data.uuid, 'dead', !this.props.data.dead)}
-                    />
-                    <Text style={[styles.grey, {transform: [{translateX: 15}]}]}>D</Text>
-                </View>
+            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                {DEATH_SPIRAL.map((step, index) => {
+                    return (
+                        <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                            <View style={{flex: 1, alignSelf: 'center', paddingRight: moderateScale(21, 0.035)}}>
+                                <CheckBox
+                                    color='#f57e20'
+                                    checked={this.props.data[step.level]}
+                                    onPress={() => this.props.onUpdate(this.props.data.uuid, step.level, !this.props.data[step.level])}
+                                />
+                            </View>
+                            <View style={{flex: 1}}>
+                                <Text style={{fontSize: scale(10)}}>{step.shortLabel}</Text>
+                            </View>
+                        </View>
+                    );
+                })}
             </View>
         );
     }
@@ -235,7 +206,7 @@ export default class Row extends Component {
                 <Card>
                     <CardItem style={{borderBottomColor: '#F8F8F8', borderBottomWidth: 2}}>
                         <Body>
-                            <Text style={[styles.boldGrey, {fontSize: 25}]}>
+                            <Text style={[styles.boldGrey, {fontSize: scale(20)}]}>
                                 ({this.props.data.roll}) {this.props.data.label}
                             </Text>
                         </Body>
@@ -258,7 +229,7 @@ export default class Row extends Component {
                     </CardItem>
                     <CardItem style={{paddingTop: 0}}>
                         <Body>
-                            <Text style={[styles.boldGrey, {fontSize: 18, alignSelf: 'center', paddingBottom: 5}]}>Health</Text>
+                            <Text style={[styles.boldGrey, {fontSize: scale(14), alignSelf: 'center', paddingBottom: 5}]}>Health</Text>
                             {this._renderHealth()}
                             {this._renderEngaging()}
                         </Body>
@@ -269,7 +240,7 @@ export default class Row extends Component {
     }
 }
 
-const localStyles = StyleSheet.create({
+const localStyles = ScaledSheet.create({
   row: {
     ...Platform.select({
       ios: {
@@ -291,11 +262,11 @@ const localStyles = StyleSheet.create({
     width: 75
   },
   text: {
-    fontSize: 24,
+    fontSize: '20@vs',
     color: '#A04700',
   },
   button: {
-    fontSize: 30,
+    fontSize: '25@vs',
     color: '#f57e20'
   }
 });

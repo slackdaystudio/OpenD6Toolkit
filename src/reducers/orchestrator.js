@@ -27,6 +27,7 @@ export function editActor(actor) {
 }
 
 export function updateActorField(uuid, key, value) {
+    // Alert.alert(`${uuid}, ${key}, ${value}`);
     return {
         type: UPDATE_ACTOR_FIELD,
         payload: {
@@ -87,8 +88,8 @@ export default function orchestration(state = orchestrationState, action) {
                     roll: parseInt(action.payload.roll, 10),
                     engaging: 'Unengaged',
                     useBodyPoints: action.payload.useBodyPoints,
-                    maxBodyPoints: action.payload.maxBodyPoints,
-                    currentBodyPoints: action.payload.currentBodyPoints,
+                    maxBodyPoints: action.payload.maxBodyPoints || 0,
+                    currentBodyPoints: action.payload.currentBodyPoints || 0,
                     stunned: action.payload.stunned,
                     wounded: action.payload.wounded,
                     severelyWounded: action.payload.severelyWounded,
@@ -127,9 +128,7 @@ export default function orchestration(state = orchestrationState, action) {
 
             for (let i = 0; i < Object.keys(newState.actors).length; i++) {
                 if (action.payload.uuid === newState.actors[i].uuid) {
-                    // if (action.payload.key === 'engaging') {
-                    //   Alert.alert(newState.actors[i][action.payload.key] + ' - ' + action.payload.value);
-                    // }
+                    // Alert.alert(JSON.stringify(action.payload));
                     newState.actors[i][action.payload.key] = action.payload.value;
                     break;
                 }
