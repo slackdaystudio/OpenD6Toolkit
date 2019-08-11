@@ -108,34 +108,32 @@ export default class Row extends Component {
         if (this.props.data.useBodyPoints) {
             return (
                 <View style={[styles.rowStart, {justifyContent: 'space-between'}]}>
-                    <View>
-                        <View>
-                            <Item style={{width: scale(120), alignSelf: 'flex-start'}}>
-                                <Label style={{fontWeight: 'bold'}}>Maximum:</Label>
-                                <Input
-                                    style={styles.grey}
-                                    keyboardType='numeric'
-                                    maxLength={3}
-                                    value={this.props.data.maxBodyPoints.toString()}
-                                    onChangeText={(value) => this._updateBodyPoints('maxBodyPoints', value)}
-                                    onFocus={(value) => this._focusBodyPoints('maxBodyPoints')}
-                                    onBlur={(value) => this._blurBodyPoints('maxBodyPoints')}
-                                />
-                            </Item>
-                        </View>
+                    <View style={{width: scale(110)}}>
+                        <Item stackedLabel style={{width: scale(90), alignSelf: 'flex-start'}}>
+                            <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Maximum:</Label>
+                            <Input
+                                style={[styles.textInput, {textAlign: 'center'}]}
+                                keyboardType='numeric'
+                                maxLength={3}
+                                value={this.props.data.maxBodyPoints.toString()}
+                                onChangeText={(value) => this._updateBodyPoints('maxBodyPoints', value)}
+                                onFocus={(value) => this._focusBodyPoints('maxBodyPoints')}
+                                onBlur={(value) => this._blurBodyPoints('maxBodyPoints')}
+                            />
+                        </Item>
                     </View>
-                    <CalculatorInput
-                        label='Current:'
-                        labelFontSize={8}
-                        itemKey='currentBodyPoints'
-                        value={this.props.data.currentBodyPoints}
-                        onAccept={this.updateBodyPoints}
-                        width={180}
-                        stackedLabel={false}
-                        boldLabel={true}
-                        alignment='flex-end'
-                        iconPaddingTop={0}
-                    />
+                    <View style={{alignSelf: 'flex-end', paddingLeft: scale(60)}}>
+                        <CalculatorInput
+                            label='Current:'
+                            labelFontSize={10}
+                            itemKey='currentBodyPoints'
+                            value={this.props.data.currentBodyPoints}
+                            onAccept={this.updateBodyPoints}
+                            width={110}
+                            paddingLeft={0}
+                            boldLabel={true}
+                        />
+                    </View>
                 </View>
             );
         }
