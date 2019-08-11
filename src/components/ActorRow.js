@@ -109,7 +109,7 @@ export default class Row extends Component {
             return (
                 <View style={[styles.rowStart, {justifyContent: 'space-between'}]}>
                     <View style={{width: scale(110)}}>
-                        <Item stackedLabel style={{width: scale(90), alignSelf: 'flex-start'}}>
+                        <Item stackedLabel style={{width: scale(90), alignSelf: 'flex-end'}}>
                             <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Maximum:</Label>
                             <Input
                                 style={[styles.textInput, {textAlign: 'center'}]}
@@ -122,7 +122,7 @@ export default class Row extends Component {
                             />
                         </Item>
                     </View>
-                    <View style={{alignSelf: 'flex-end', paddingLeft: scale(60)}}>
+                    <View style={{alignSelf: 'flex-end'}}>
                         <CalculatorInput
                             label='Current:'
                             labelFontSize={10}
