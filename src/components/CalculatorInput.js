@@ -1,6 +1,6 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { Text, Icon, Item, Label } from 'native-base';
 import { ScaledSheet, scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { CalculatorInput as BaseCalculatorInput } from 'react-native-calculator'
@@ -35,7 +35,7 @@ export default class CalculatorInput extends Component {
                     <BaseCalculatorInput
                         ref={(ref) => this.currentBodyPointsCalculator = ref}
                         fieldContainerStyle={{borderBottomWidth: 0}}
-                        fieldTextStyle={[styles.textInput, {textAlign: 'left', alignSelf: 'baseline', paddingTop: scale(5)}]}
+                        fieldTextStyle={[styles.textInput, {textAlign: 'left', alignSelf: 'baseline', paddingTop: verticalScale(Platform.OS === 'ios' ? 15 : 5)}]}
                         value={this.props.value.toString()}
                         onAccept={(value) => this._onAccept(value)}
                         modalAnimationType='slide'
