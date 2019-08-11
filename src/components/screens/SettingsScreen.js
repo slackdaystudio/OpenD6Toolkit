@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Alert, BackHandler, Platform, StyleSheet, ScrollView, View, Switch } from 'react-native';
 import { Container, Content, Button, Text, Form, Item, Label } from 'native-base';
+import { verticalScale } from 'react-native-size-matters';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
@@ -73,8 +74,8 @@ class SettingsScreen extends Component {
             <Content style={styles.content}>
                 <Heading text='Settings' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
                 <Form>
-                    <Item style={{flex: 1, justifyContent: 'space-between'}}>
-                        <Label>Use Legend Rolls?</Label>
+                    <Item style={{flex: 1, justifyContent: 'space-between', paddingVertical: verticalScale(20)}}>
+                        <Label style={styles.grey}>Use Legend Rolls?</Label>
                         <Switch
                             value={this.props.settings.isLegend}
                             onValueChange={() => this.props.setSetting('isLegend', !this.props.settings.isLegend)}
@@ -82,8 +83,8 @@ class SettingsScreen extends Component {
                             trackColor={{true: '#fde5d2', false: '#4f4e4e'}}
                         />
                     </Item>
-                    <Item style={{flex: 1, justifyContent: 'space-between'}}>
-                        <Label>Use Attribute Maxima?</Label>
+                    <Item style={{flex: 1, justifyContent: 'space-between', paddingVertical: verticalScale(20)}}>
+                        <Label style={styles.grey}>Use Attribute Maxima?</Label>
                         <Switch
                             value={this.props.settings.useMaxima}
                             onValueChange={() => this.props.setSetting('useMaxima', !this.props.settings.useMaxima)}

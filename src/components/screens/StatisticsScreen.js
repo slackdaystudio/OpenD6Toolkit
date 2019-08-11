@@ -28,7 +28,9 @@ export default class StatisticsScreen extends Component {
     }
 
     componentDidMount() {
-        this._loadStats();
+        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+            this._loadStats();
+        });
 
         this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
             this.props.navigation.navigate('Home');
@@ -39,6 +41,7 @@ export default class StatisticsScreen extends Component {
 
     componentWillUnmount() {
         this.backHandler.remove();
+        this.focusListener.remove();
     }
 
     _loadStats(callback) {

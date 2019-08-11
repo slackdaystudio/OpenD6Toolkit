@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native'
 import { PieChart } from 'react-native-svg-charts';
 import { Circle, G, Line, Text } from 'react-native-svg'
+import { scale } from 'react-native-size-matters';
 
 class Chart {
     renderDieDistributionChart(distributions) {
@@ -54,21 +55,21 @@ class Chart {
                         <Circle
                             cx={labelCentroid[0]}
                             cy={labelCentroid[1]}
-                            r={15}
+                            r={scale(15)}
                             fill={data.svg.fill}
                         />
                        <Text
                            stroke="#383834"
-                           fontSize="12"
+                           fontSize={scale(12).toString()}
                            x={labelCentroid[0] / 2}
-                           y={labelCentroid[1] / 2 + 5}
+                           y={labelCentroid[1] / 2 + scale(5)}
                            textAnchor="middle"
                         >{data.value}</Text>
                        <Text
                            stroke="#383834"
-                           fontSize="12"
+                           fontSize={scale(12).toString()}
                            x={labelCentroid[0]}
-                           y={labelCentroid[1] + 5}
+                           y={labelCentroid[1] + scale(5)}
                            textAnchor="middle"
                         >{data.label}</Text>
                     </G>
@@ -79,12 +80,12 @@ class Chart {
         return (
             <View>
                 <PieChart
-                    style={{height: 200}}
+                    style={{height: scale(200)}}
                     data={pieData}
                     spacing={0}
-                    innerRadius={20}
-                    outerRadius={55}
-                    labelRadius={80}
+                    innerRadius={scale(20)}
+                    outerRadius={scale(55)}
+                    labelRadius={scale(80)}
                     sort={(a, b) => a.label.localeCompare(b.label)}
                 >
                     <Labels />
