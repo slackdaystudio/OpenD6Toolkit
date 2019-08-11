@@ -166,7 +166,7 @@ class BuilderScreen extends Component {
                                     <Item stackedLabel style={{width: scale(100)}}>
                                         <Label style={{fontSize: scale(10)}}>Character Points</Label>
                                         <Input
-                                            style={[styles.textInput, {textAlign: 'center'}]}
+                                            style={styles.textInput}
                                             keyboardType='numeric'
                                             maxLength={4}
                                             value={characterPoints.toString()}
@@ -178,7 +178,7 @@ class BuilderScreen extends Component {
                                     <Item stackedLabel style={{width: scale(100)}}>
                                         <Label style={{fontSize: scale(10)}}>Fate Points</Label>
                                         <Input
-                                            style={[styles.textInput, {textAlign: 'center'}]}
+                                            style={styles.textInput}
                                             keyboardType='numeric'
                                             maxLength={4}
                                             value={fatePoints.toString()}

@@ -35,7 +35,7 @@ export default class CalculatorInput extends Component {
                     <BaseCalculatorInput
                         ref={(ref) => this.currentBodyPointsCalculator = ref}
                         fieldContainerStyle={{borderBottomWidth: 0}}
-                        fieldTextStyle={[styles.textInput, {textAlign: 'left', paddingTop: verticalScale(15)}]}
+                        fieldTextStyle={[styles.textInput, {textAlign: 'left', alignSelf: 'baseline', paddingTop: scale(5)}]}
                         value={this.props.value.toString()}
                         onAccept={(value) => this._onAccept(value)}
                         modalAnimationType='slide'

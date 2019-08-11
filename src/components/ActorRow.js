@@ -82,8 +82,6 @@ export default class Row extends Component {
                 value = 999;
             } else if (value < -999) {
                 value = -999;
-            } else if (key === 'currentBodyPoints' && value > this.props.data.maxBodyPoints) {
-                value = this.props.data.maxBodyPoints;
             }
         }
 
@@ -112,7 +110,7 @@ export default class Row extends Component {
                         <Item stackedLabel style={{width: scale(90), alignSelf: 'flex-end'}}>
                             <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Maximum:</Label>
                             <Input
-                                style={[styles.textInput, {textAlign: 'center'}]}
+                                style={styles.textInput}
                                 keyboardType='numeric'
                                 maxLength={3}
                                 value={this.props.data.maxBodyPoints.toString()}
