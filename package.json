@@ -25,7 +25,7 @@
     "react-native-iphone-x-helper": "^1.2.0",
     "react-native-linear-gradient": "^2.4.3",
     "react-native-modal": "^7.0.0",
-    "react-native-reanimated": "^1.1.0",
+    "react-native-reanimated": "^2.10.0",
     "react-native-shake": "^3.3.1",
     "react-native-size-matters": "^0.2.1",
     "react-native-slider": "^0.11.0",
