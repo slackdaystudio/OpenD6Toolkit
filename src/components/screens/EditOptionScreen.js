@@ -25,7 +25,7 @@ class EditOptionScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.state = EditOptionScreen.initState(props.navigation.state.params.option, props.navigation.state.params.optionKey, props.template);
+        this.state = EditOptionScreen.initState(props.route.params.option, props.route.params.optionKey, props.template);
 
         this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
     }
@@ -51,8 +51,8 @@ class EditOptionScreen extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (props.navigation.state.params.option !== state.option) {
-            return EditOptionScreen.initState(props.navigation.state.params.option, props.navigation.state.params.optionKey, props.template);
+        if (props.route.params.option !== state.option) {
+            return EditOptionScreen.initState(props.route.params.option, props.route.params.optionKey, props.template);
         }
 
         return state;

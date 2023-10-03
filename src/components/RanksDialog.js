@@ -142,7 +142,7 @@ export default class RanksDialog extends Component {
             <Modal
                 isVisible={this.props.visible}
                 swipeDirection={'right'}
-                onSwipe={() => this.props.onClose()}
+                onSwipeComplete={() => this.props.onClose()}
                 onBackButtonPress={() => this.props.onClose()}
                 onBackdropPress={() => this.props.onClose()}
             >

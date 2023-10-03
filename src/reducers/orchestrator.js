@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import uuid from 'react-native-uuid';
 
 //////////////////////////////
@@ -27,7 +26,6 @@ export function editActor(actor) {
 }
 
 export function updateActorField(uuid, key, value) {
-    // Alert.alert(`${uuid}, ${key}, ${value}`);
     return {
         type: UPDATE_ACTOR_FIELD,
         payload: {

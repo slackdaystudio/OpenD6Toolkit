@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Alert, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, Toast } from 'native-base';
-import AsyncStorage from '@react-native-community/async-storage';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';

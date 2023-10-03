@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Switch } from 'react-native';
 import { Container, Content, Button, Text, Picker, Item} from 'native-base';
 import { ScaledSheet, scale } from 'react-native-size-matters';
-import { withNavigationFocus } from 'react-navigation';
-import RNShake from 'react-native-shake';
 import * as Animatable from 'react-native-animatable';
 import Header from '../Header';
 import Heading from '../Heading';
@@ -46,23 +44,18 @@ class DieRollerScreen extends Component {
     }
 
     componentDidMount() {
-        RNShake.addEventListener('ShakeEvent', () => {
-            this.roll();
-        });
-
-        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+        this.focusListener = this.props.navigation.addListener('focus', () => {
             this.setState({result: null});
         });
 
         this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            this.props.navigation.navigate(this.props.navigation.state.params.from);
+            this.props.navigation.navigate(this.props.route.params.from);
 
             return true;
         });
     }
 
  	componentWillUnmount() {
-   		RNShake.removeEventListener('ShakeEvent');
    		this.backHandler.remove();
    		this.focusListener.remove();
    	}
@@ -209,7 +202,7 @@ class DieRollerScreen extends Component {
 		  <Container style={styles.container}>
             <Header navigation={this.props.navigation} />
             <Content style={styles.content}>
-                <Heading text='Roller' onBackButtonPress={() => this.props.navigation.navigate(this.props.navigation.state.params.from)} />
+                <Heading text='Roller' onBackButtonPress={() => this.props.navigation.navigate(this.props.route.params.from)} />
                 <View style={styles.contentPadded}>
                     {this._renderResult()}
                     <View>
@@ -252,4 +245,4 @@ const mapDispatchToProps = {
     updateRoller
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withNavigationFocus(DieRollerScreen));
+export default connect(mapStateToProps, mapDispatchToProps)(DieRollerScreen);

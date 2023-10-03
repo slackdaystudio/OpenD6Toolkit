@@ -404,6 +404,7 @@ export default class AttributesAndSkills extends Component {
 		return (
             <View>
                 <Heading text='Attributes &amp; Skills' />
+                <Text style={{fontSize: verticalScale(10), alignSelf: 'center'}}>*Swipe right on an attribute or skill to edit</Text>
                 {this._renderAttributes()}
                 <AttributeDialog
                     visible={this.state.attributeDialog.visible}

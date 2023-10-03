@@ -121,7 +121,7 @@ export default class AttributeDialog extends Component {
             <Modal
                 isVisible={this.props.visible}
                 swipeDirection={'right'}
-                onSwipe={() => this.props.close()}
+                onSwipeComplete={() => this.props.close()}
                 onBackButtonPress={() => this.props.close()}
                 onBackdropPress={() => this.props.close()}
             >

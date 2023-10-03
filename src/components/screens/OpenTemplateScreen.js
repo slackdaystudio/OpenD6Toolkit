@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, List, ListItem, Left, Right } from 'native-base';
-import { withNavigationFocus } from 'react-navigation';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
@@ -28,7 +27,7 @@ class OpenTemplateScreen extends Component {
     }
 
     componentDidMount() {
-        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+        this.focusListener = this.props.navigation.addListener('focus', () => {
             this.setState({showSpinner: true}, () => {
                 file.getCustomTemplates().then((templates) => {
                     this.setState({
@@ -113,4 +112,4 @@ const mapDispatchToProps = {
     setArchitectTemplate
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withNavigationFocus(OpenTemplateScreen));
+export default connect(mapStateToProps, mapDispatchToProps)(OpenTemplateScreen);

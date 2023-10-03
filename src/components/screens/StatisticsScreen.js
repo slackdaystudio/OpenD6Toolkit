@@ -1,6 +1,6 @@
 import React, { Component }  from 'react';
 import { BackHandler, StyleSheet, View, ScrollView } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Container, Content, Text, List, ListItem, Left, Right, Spinner, Tabs, Tab, ScrollableTab } from 'native-base';
 import Header from '../Header';
 import Heading from '../Heading';
@@ -28,7 +28,7 @@ export default class StatisticsScreen extends Component {
     }
 
     componentDidMount() {
-        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+        this.focusListener = this.props.navigation.addListener('focus', () => {
             this._loadStats();
         });
 

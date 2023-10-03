@@ -1,6 +1,6 @@
-import { Alert } from 'react-native';
-import { common } from './Common';
-import { file } from './File';
+import {Alert} from 'react-native';
+import {common} from './Common';
+import {file} from './File';
 
 const TEMPLATE_FANTASY = require('../../public/templates/fantasy.json');
 
@@ -30,7 +30,7 @@ export const OPTION_COMPLICATIONS = 'Complications';
 
 export const OPTION_SPECIAL_ABILITIES = 'Special Abilities';
 
-const DEFAULT_VALUE = '--'
+const DEFAULT_VALUE = '--';
 
 class Character {
     create(template) {
@@ -38,16 +38,14 @@ class Character {
         let templateComplications = null;
         let templateSpecialAbilities = null;
 
-        if (template.name === TEMPLATE_FANTASY_NAME ||
-            template.name === TEMPLATE_ADVENTURE_NAME ||
-            template.name === TEMPLATE_SPACE_NAME) {
+        if (template.name === TEMPLATE_FANTASY_NAME || template.name === TEMPLATE_ADVENTURE_NAME || template.name === TEMPLATE_SPACE_NAME) {
             templateAdvantages = this._getOptions(OPTION_ADVANTAGES);
             templateComplications = this._getOptions(OPTION_COMPLICATIONS);
             templateSpecialAbilities = this._getOptions(OPTION_SPECIAL_ABILITIES);
         } else {
-            templateAdvantages = {"items": template.advantages} || null;
-            templateComplications = {"items": template.complications} || null;
-            templateSpecialAbilities = {"items": template.specialAbilities} || null;
+            templateAdvantages = {items: template.advantages} || null;
+            templateComplications = {items: template.complications} || null;
+            templateSpecialAbilities = {items: template.specialAbilities} || null;
         }
 
         return {
@@ -70,15 +68,15 @@ class Character {
             specializations: [],
             advantages: {
                 template: templateAdvantages,
-                items: []
+                items: [],
             },
             complications: {
                 template: templateComplications,
-                items: []
+                items: [],
             },
             specialAbilities: {
                 template: templateSpecialAbilities,
-                items: []
+                items: [],
             },
             health: {
                 useBodyPoints: false,
@@ -88,12 +86,12 @@ class Character {
                     severelyWounded: false,
                     incapacitated: false,
                     mortallyWounded: false,
-                    dead: false
+                    dead: false,
                 },
                 bodyPoints: {
                     max: 0,
                     current: 0,
-                }
+                },
             },
             defenses: {
                 useStaticDefenses: false,
@@ -101,9 +99,9 @@ class Character {
                     block: 0,
                     dodge: 0,
                     parry: 0,
-                    soak: 0
-                }
-            }
+                    soak: 0,
+                },
+            },
         };
     }
 
@@ -114,8 +112,8 @@ class Character {
             dice: skillOrAttribute.dice,
             modifierDice: skillOrAttribute.modifierDice,
             pips: skillOrAttribute.pips,
-            modifierPips: skillOrAttribute.modifierPips
-        }
+            modifierPips: skillOrAttribute.modifierPips,
+        };
     }
 
     getTotalPoints(character) {
@@ -129,7 +127,7 @@ class Character {
             totalAttributePips += attribute.pips;
 
             for (let skill of attribute.skills) {
-                totalPoints += skill.dice > 0 ? skill.dice: 0;
+                totalPoints += skill.dice > 0 ? skill.dice : 0;
                 totalSkillPips += skill.pips > 0 ? skill.pips : 0;
             }
         }
@@ -172,8 +170,8 @@ class Character {
     getTotalDieCode(dieCode) {
         let totalDieCode = {
             dice: dieCode.dice + (dieCode.modifierDice || 0),
-            pips: dieCode.pips + (dieCode.modifierPips || 0)
-        }
+            pips: dieCode.pips + (dieCode.modifierPips || 0),
+        };
 
         switch (totalDieCode.pips) {
             case -2:
@@ -193,7 +191,7 @@ class Character {
                 totalDieCode.pips = 1;
                 break;
             default:
-                // do nothing
+            // do nothing
         }
 
         return totalDieCode;
@@ -240,33 +238,38 @@ class Character {
         return parentAttribute;
     }
 
-    getTemplates() {
-        return file.getTemplates().then((customTemplates) => {
-            let templates = [];
+    async getTemplates() {
+        const templates = [];
+
+        try {
+            const customTemplates = await file.getTemplates();
+
             templates.push(this._assembleBuiltInTemplate(TEMPLATE_FANTASY));
             templates.push(this._assembleBuiltInTemplate(TEMPLATE_ADVENTURE));
             templates.push(this._assembleBuiltInTemplate(TEMPLATE_SPACE));
-
+    
             for (let i = 0; i < customTemplates.length; i++) {
-                templates.push(JSON.parse(customTemplates[i]))
+                templates.push(JSON.parse(customTemplates[i]));
             }
+        } catch (error) {
+            console.error(error);
+        }
 
-            return templates;
-        });
+        return templates;
     }
 
     createAttribute() {
         return {
             name: '',
             description: '',
-            skills: []
+            skills: [],
         };
     }
 
     createSkill() {
         return {
             name: '',
-            description: ''
+            description: '',
         };
     }
 
@@ -292,7 +295,7 @@ class Character {
                 options = BASE_SPECIAL_ABILITIES;
                 break;
             default:
-                // do nothing
+            // do nothing
         }
 
         return options;
@@ -309,7 +312,7 @@ class Character {
                 modifierDice: 0,
                 pips: 0,
                 modifierPips: 0,
-                skills: this._initSkills(templateAttribute.skills, templateAttribute.isExtranormal)
+                skills: this._initSkills(templateAttribute.skills, templateAttribute.isExtranormal),
             });
         });
 
@@ -326,7 +329,7 @@ class Character {
                 dice: 0,
                 modifierDice: 0,
                 pips: 0,
-                modifierPips: 0
+                modifierPips: 0,
             });
         });
 
@@ -387,7 +390,6 @@ class Character {
             pips += specialization.pips;
         });
 
-
         let diceAndPips = this._pipsToDice(dice, pips);
 
         if (diceAndPips.dice > 0 || diceAndPips.pips > 0) {
@@ -410,13 +412,13 @@ class Character {
             dice += result;
         } else {
             dice += Math.trunc(result);
-            pips = 3 - Math.ceil(3 * Math.round(result / 3 % 1 * 100) / 100);
+            pips = 3 - Math.ceil((3 * Math.round(((result / 3) % 1) * 100)) / 100);
         }
 
         return {
             dice: dice,
-            pips: pips
-        }
+            pips: pips,
+        };
     }
 }
 

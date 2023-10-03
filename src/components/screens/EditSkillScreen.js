@@ -23,7 +23,7 @@ class EditSkillScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.state = EditSkillScreen.initState(props.navigation.state.params.attribute, props.navigation.state.params.skill);
+        this.state = EditSkillScreen.initState(props.route.params.attribute, props.route.params.skill);
     }
 
     componentDidMount() {
@@ -47,8 +47,8 @@ class EditSkillScreen extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (props.navigation.state.params.skill !== state.skill) {
-            return EditSkillScreen.initState(props.navigation.state.params.attribute, props.navigation.state.params.skill);
+        if (props.route.params.skill !== state.skill) {
+            return EditSkillScreen.initState(props.route.params.attribute, props.route.params.skill);
         }
 
         return state;

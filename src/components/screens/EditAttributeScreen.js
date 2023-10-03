@@ -27,7 +27,7 @@ class EditAttributeScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.state = EditAttributeScreen.initState(props.navigation.state.params.attribute, props.template);
+        this.state = EditAttributeScreen.initState(props.route.params.attribute, props.template);
 
         this.onClose = this._closeConfirmationDialog.bind(this);
         this.onOk = this._deleteConfirmed.bind(this);
@@ -59,8 +59,8 @@ class EditAttributeScreen extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (props.navigation.state.params.attribute !== state.attribute) {
-            return EditAttributeScreen.initState(props.navigation.state.params.attribute, props.template);
+        if (props.route.params.attribute !== state.attribute) {
+            return EditAttributeScreen.initState(props.route.params.attribute, props.template);
         }
 
         return state;
@@ -116,7 +116,7 @@ class EditAttributeScreen extends Component {
                 <View>
                     {this.state.attribute.skills.map((skill, index) => {
                         return (
-                            <Card>
+                            <Card key={`skill-${index}`}>
                                 <CardItem>
                                     <Body>
                                         <Text style={[styles.boldGrey, {fontSize: scale(16), lineHeight: scale(18)}]}>{skill.name}</Text>

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Switch } from 'react-native';
 import { Container, Content, Button, Text, Picker, Item} from 'native-base';
 import { ScaledSheet } from 'react-native-size-matters';
-import RNShake from 'react-native-shake';
 import * as Animatable from 'react-native-animatable';
 import Header from '../Header';
 import Heading from '../Heading';
@@ -48,11 +47,7 @@ class DieRollerScreen extends Component {
     }
 
     componentDidMount() {
-        RNShake.addEventListener('ShakeEvent', () => {
-            this.roll();
-        });
-
-        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+        this.focusListener = this.props.navigation.addListener('focus', () => {
             this.setState({result: []});
         });
 
@@ -64,7 +59,7 @@ class DieRollerScreen extends Component {
     }
 
  	componentWillUnmount() {
-   		RNShake.removeEventListener('ShakeEvent');
+
    		this.backHandler.remove();
    		this.focusListener.remove();
    	}

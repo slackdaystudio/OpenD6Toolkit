@@ -35,12 +35,12 @@ class EditActorScreen extends Component {
    	}
 
     static getDerivedStateFromProps(props, state) {
-        if (props.navigation.state.params.actor === null) {
-            props.navigation.state.params.actor = EditActorScreen.initState();
+        if (props.route.params.actor === null) {
+            props.route.params.actor = EditActorScreen.initState();
 
-            return props.navigation.state.params.actor;
-        } else if (props.navigation.state.params.actor.uuid !== state.uuid) {
-            let actor = {...props.navigation.state.params.actor};
+            return props.route.params.actor;
+        } else if (props.route.params.actor.uuid !== state.uuid) {
+            let actor = {...props.route.params.actor};
 
             return actor;
         }

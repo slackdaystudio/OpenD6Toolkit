@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Alert } from 'react-native';
 import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, List, ListItem } from 'native-base';
-import { withNavigationFocus } from 'react-navigation';
 import Header from '../Header';
 import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
@@ -36,7 +35,7 @@ class LoadCharacterScreen extends Component {
     }
 
     componentDidMount() {
-        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+        this.focusListener = this.props.navigation.addListener('focus', () => {
             this._updateFileList();
         });
 
@@ -83,15 +82,19 @@ class LoadCharacterScreen extends Component {
     }
 
     _updateFileList() {
-        this.setState({showSpinner: true}, () => {
-            file.getCharacters().then((files) => {
-                this.setState({files: files, showSpinner: false});
-            });
+        this.setState({showSpinner: true}, async () => {
+            const characters = await file.getCharacters();
+            const newState = {...this.state};
+
+            newState.files = characters;
+            newState.showSpinner = false;
+
+            this.setState(newState);
         });
     }
 
 	render() {
-	    if (this.state.showSpinner || this.state.files === null) {
+	    if (this.state.showSpinner || this.state.files === null || this.state.files.length <= 0) {
 	        return (
               <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
@@ -110,6 +113,7 @@ class LoadCharacterScreen extends Component {
                 <Heading text='Characters' onBackButtonPress={() => this.props.navigation.navigate('Builder')} />
                 <List>
                     {this.state.files.map((file, index) => {
+                        console.log(file);
                         return (
                             <ListItem
                                 key={'file-' + index}
@@ -148,4 +152,4 @@ const mapDispatchToProps = {
     loadCharacter
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withNavigationFocus(LoadCharacterScreen));
+export default connect(mapStateToProps, mapDispatchToProps)(LoadCharacterScreen);

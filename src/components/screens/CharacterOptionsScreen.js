@@ -24,7 +24,7 @@ class CharacterOptionsScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.state = this._initState(props.navigation.state.params.optionKey, props.character);
+        this.state = this._initState(props.route.params.optionKey, props.character);
 
         this.addOptionToCharacter = this._addOptionToCharacter.bind(this);
         this.closeRanksDialog = this._closeRanksDialog.bind(this);
@@ -37,8 +37,8 @@ class CharacterOptionsScreen extends Component {
             return true;
         });
 
-        this.focusListener = this.props.navigation.addListener('didFocus', () => {
-            this.setState(this._initState(this.props.navigation.state.params.optionKey, this.props.character));
+        this.focusListener = this.props.navigation.addListener('focus', () => {
+            this.setState(this._initState(this.props.route.params.optionKey, this.props.character));
         });
     }
 

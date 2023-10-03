@@ -1,5 +1,5 @@
 import { Alert } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STATE_NORMAL, STATE_CRITICAL_SUCCESS, STATE_CRITICAL_FAILURE } from './DieRoller';
 
 // Equivalent of rolling 10,000 dice which the app can't do (Infinity was giving me grief)

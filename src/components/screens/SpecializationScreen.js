@@ -24,7 +24,7 @@ class SpecializationScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.state = this._initState(props.navigation.state.params.specialization,  props.character);
+        this.state = this._initState(props.route.params.specialization,  props.character);
 
         this.updateDice = this._updateDice.bind(this);
     }
@@ -36,8 +36,8 @@ class SpecializationScreen extends Component {
             return true;
         });
 
-        this.focusListener = this.props.navigation.addListener('didFocus', () => {
-            this.setState(this._initState(this.props.navigation.state.params.specialization,  this.props.character));
+        this.focusListener = this.props.navigation.addListener('focus', () => {
+            this.setState(this._initState(this.props.route.params.specialization,  this.props.character));
         });
     }
 
