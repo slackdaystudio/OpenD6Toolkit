@@ -46,7 +46,7 @@ export default class InfoDialog extends Component {
                 scrollOffsetMax={300 - 200}
             >
                 <View style={styles.modal}>
-                    <Heading text={this.props.title} />
+                    <Text style={styles.modalHeader}>{this.props.title}</Text>
                     <View style={[styles.modalContent, {minHeight: verticalScale(170)}]}>
                         <ScrollView
                             style={{maxHeight: verticalScale(165)}}
