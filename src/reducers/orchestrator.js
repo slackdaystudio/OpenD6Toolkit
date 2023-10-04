@@ -1,5 +1,19 @@
 import uuid from 'react-native-uuid';
 
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 //////////////////////////////
 // ACTIONS                  //
 //////////////////////////////
@@ -21,8 +35,8 @@ export const SORT_ACTORS = 'SORT_ACTOR';
 export function editActor(actor) {
     return {
         type: EDIT_ACTOR,
-        payload: actor
-    }
+        payload: actor,
+    };
 }
 
 export function updateActorField(uuid, key, value) {
@@ -31,46 +45,46 @@ export function updateActorField(uuid, key, value) {
         payload: {
             uuid: uuid,
             key: key,
-            value: value
-        }
-    }
+            value: value,
+        },
+    };
 }
 
 export function editActorOrder(newOrder) {
     return {
         type: EDIT_ACTOR_ORDER,
-        payload: newOrder
-    }
+        payload: newOrder,
+    };
 }
 
 export function removeActor(uuid) {
     return {
         type: REMOVE_ACTOR,
-        payload: uuid
-    }
+        payload: uuid,
+    };
 }
 
 export function sortActor() {
     return {
         type: SORT_ACTORS,
-        payload: null
-    }
+        payload: null,
+    };
 }
 
-orchestrationState = {
-    actors: null
+const orchestrationState = {
+    actors: null,
 };
 
 export default function orchestration(state = orchestrationState, action) {
-    let newState = null
+    let newState = null;
 
     switch (action.type) {
         case EDIT_ACTOR:
             newState = {
                 ...state,
                 actors: {
-                    ...state.actors
-                }
+                    ...state.actors,
+                },
             };
 
             if (action.payload.uuid === null) {
@@ -93,7 +107,7 @@ export default function orchestration(state = orchestrationState, action) {
                     severelyWounded: action.payload.severelyWounded,
                     incapacitated: action.payload.incapacitated,
                     mortallyWounded: action.payload.mortallyWounded,
-                    dead: action.payload.dead
+                    dead: action.payload.dead,
                 };
             } else {
                 for (let i = 0; i < Object.keys(newState.actors).length; i++) {
@@ -120,8 +134,8 @@ export default function orchestration(state = orchestrationState, action) {
             newState = {
                 ...state,
                 actors: {
-                    ...state.actors
-                }
+                    ...state.actors,
+                },
             };
 
             for (let i = 0; i < Object.keys(newState.actors).length; i++) {
@@ -137,8 +151,8 @@ export default function orchestration(state = orchestrationState, action) {
             newState = {
                 ...state,
                 actors: {
-                    ...state.actors
-                }
+                    ...state.actors,
+                },
             };
 
             if (action.payload.length > 0) {
@@ -156,8 +170,8 @@ export default function orchestration(state = orchestrationState, action) {
             newState = {
                 ...state,
                 actors: {
-                    ...state.actors
-                }
+                    ...state.actors,
+                },
             };
 
             let deleteKey = -1;
@@ -180,7 +194,6 @@ export default function orchestration(state = orchestrationState, action) {
                     i++;
                 }
 
-
                 newState.actors = newInit;
             }
 
@@ -189,8 +202,8 @@ export default function orchestration(state = orchestrationState, action) {
             newState = {
                 ...state,
                 actors: {
-                    ...state.actors
-                }
+                    ...state.actors,
+                },
             };
 
             let actors = [];
@@ -208,7 +221,7 @@ export default function orchestration(state = orchestrationState, action) {
                 newActorOrder[i] = {
                     uuid: actors[i].uuid,
                     label: actors[i].label,
-                    roll: actors[i].roll
+                    roll: actors[i].roll,
                 };
                 i++;
             }

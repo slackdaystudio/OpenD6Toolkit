@@ -1,16 +1,29 @@
-import React, { Component }  from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Platform, StyleSheet, View, TouchableHighlight, BackHandler, Alert } from 'react-native';
-import { Container, Content, Button, Text, Spinner, Card, CardItem, Left, Right, Body, Item, Icon, Input, Label, Toast } from 'native-base';
-import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
+import {connect} from 'react-redux';
+import {View} from 'react-native';
+import {Container, Content, Text, Card, CardItem, Right, Body, Item, Icon, Input} from 'native-base';
+import {ScaledSheet, scale, verticalScale} from 'react-native-size-matters';
 import Header from '../Header';
 import Heading from '../Heading';
-import RanksDialog, { MODE_ADD } from '../RanksDialog';
+import RanksDialog, {MODE_ADD} from '../RanksDialog';
+import {common} from '../../lib/Common';
+import {addOption} from '../../reducers/builder';
 import styles from '../../Styles';
-import { character, OPTION_ADVANTAGES, OPTION_COMPLICATIONS } from '../../lib/Character';
-import { common } from '../../lib/Common';
-import { addOption } from '../../reducers/builder';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 const BACK_BUTTON_START_DIFF = 9;
 
@@ -18,8 +31,8 @@ class CharacterOptionsScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         character: PropTypes.object.isRequired,
-        addOption: PropTypes.func.isRequired
-    }
+        addOption: PropTypes.func.isRequired,
+    };
 
     constructor(props) {
         super(props);
@@ -31,25 +44,18 @@ class CharacterOptionsScreen extends Component {
     }
 
     componentDidMount() {
-        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            this.props.navigation.navigate('Builder');
-
-            return true;
-        });
-
         this.focusListener = this.props.navigation.addListener('focus', () => {
             this.setState(this._initState(this.props.route.params.optionKey, this.props.character));
         });
     }
 
     componentWillUnmount() {
-        this.backHandler.remove();
         this.focusListener.remove();
     }
 
     _initState(optionKey, char) {
         const options = char[common.toCamelCase(optionKey)].template.items;
-        const displayOptions =  this._initOptionsShow(options);
+        const displayOptions = this._initOptionsShow(options);
 
         return {
             options: options,
@@ -60,20 +66,20 @@ class CharacterOptionsScreen extends Component {
             showRanksDialog: false,
             search: {
                 term: '',
-                results: options
+                results: options,
             },
             pagination: {
                 currentPage: 1,
                 itemsPerPage: 10,
                 startOnItem: 1,
-                totalPages: Math.ceil(options.length / 10)
-            }
-        }
+                totalPages: Math.ceil(options.length / 10),
+            },
+        };
     }
 
     _initOptionsShow(options) {
         let optionsState = {};
-        let chevronsState = {}
+        let chevronsState = {};
 
         options.map((option, index) => {
             optionsState[option.name + option.rank] = false;
@@ -82,7 +88,7 @@ class CharacterOptionsScreen extends Component {
 
         return {
             optionsState: optionsState,
-            chevronsState: chevronsState
+            chevronsState: chevronsState,
         };
     }
 
@@ -97,7 +103,7 @@ class CharacterOptionsScreen extends Component {
     _addOption(item) {
         this.setState({
             selectedOption: item,
-            showRanksDialog: true
+            showRanksDialog: true,
         });
     }
 
@@ -110,7 +116,7 @@ class CharacterOptionsScreen extends Component {
     _closeRanksDialog() {
         this.setState({
             selectedOption: null,
-            showRanksDialog: false
+            showRanksDialog: false,
         });
     }
 
@@ -197,8 +203,8 @@ class CharacterOptionsScreen extends Component {
 
         return (
             <Icon
-                type='FontAwesome'
-                name='chevron-circle-left'
+                type="FontAwesome"
+                name="chevron-circle-left"
                 style={[localStyles.buttonBig, {paddingLeft: scale(30)}]}
                 onPress={() => this._onBackButtonPress()}
             />
@@ -212,8 +218,8 @@ class CharacterOptionsScreen extends Component {
 
         return (
             <Icon
-                type='FontAwesome'
-                name='chevron-circle-right'
+                type="FontAwesome"
+                name="chevron-circle-right"
                 style={[localStyles.buttonBig, {paddingRight: scale(30)}]}
                 onPress={() => this._onNextButtonPress()}
             />
@@ -239,22 +245,19 @@ class CharacterOptionsScreen extends Component {
                         <Card key={'option-' + option.id}>
                             <CardItem style={{paddingBottom: 0}}>
                                 <Body style={{flex: 4}}>
-                                    <Text style={[styles.boldGrey, {fontSize: scale(16), lineHeight: scale(18)}]}>{option.name} (R{option.rank})</Text>
+                                    <Text style={[styles.boldGrey, {fontSize: scale(16), lineHeight: scale(18)}]}>
+                                        {option.name} (R{option.rank})
+                                    </Text>
                                 </Body>
                                 <Right style={{flex: 1}}>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
                                         <Icon
-                                            type='FontAwesome'
+                                            type="FontAwesome"
                                             name={this.state.optionChevron[option.name + option.rank]}
                                             style={[localStyles.button, {paddingRight: scale(10)}]}
                                             onPress={() => this._toggleDescriptionShow(option.name, option.rank)}
                                         />
-                                        <Icon
-                                            type='FontAwesome'
-                                            name='plus-circle'
-                                            style={localStyles.button}
-                                            onPress={() => this._addOption(option)}
-                                        />
+                                        <Icon type="FontAwesome" name="plus-circle" style={localStyles.button} onPress={() => this._addOption(option)} />
                                     </View>
                                 </Right>
                             </CardItem>
@@ -264,72 +267,71 @@ class CharacterOptionsScreen extends Component {
                                 </Body>
                             </CardItem>
                         </Card>
-                    )
+                    );
                 })}
             </View>
         );
     }
 
-	render() {
-	    let itemCount = 0;
-	    let renderedItemCount = 0;
+    render() {
+        let itemCount = 0;
+        let renderedItemCount = 0;
 
-		return (
-		  <Container style={styles.container}>
-            <Header navigation={this.props.navigation} />
-            <Content style={styles.content}>
-                <Heading
-                    text={this.state.optionKey}
-                    onBackButtonPress={() => this.props.navigation.navigate('Builder')}
-                />
-                <Item>
-                    <Icon active style={{fontSize: scale(25)}} name='search' />
-                    <Input
-                        style={styles.grey}
-                        placeholder='Search'
-                        maxLength={255}
-                        value={this.state.search.term}
-                        onChangeText={(value) => this._search(value)}
+        return (
+            <Container style={styles.container}>
+                <Header navigation={this.props.navigation} />
+                <Content style={styles.content}>
+                    <Heading text={this.state.optionKey} onBackButtonPress={() => this.props.navigation.navigate('Builder')} />
+                    <Item>
+                        <Icon active style={{fontSize: scale(25)}} name="search" />
+                        <Input
+                            style={styles.grey}
+                            placeholder="Search"
+                            maxLength={255}
+                            value={this.state.search.term}
+                            onChangeText={value => this._search(value)}
+                        />
+                    </Item>
+                    {this._renderFilterMessage()}
+                    <View style={{paddingBottom: 20}} />
+                    {this._renderList()}
+                    <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: verticalScale(20)}}>
+                        {this._renderBackButton()}
+                        <Text style={styles.grey}>
+                            Page {this.state.pagination.currentPage} of {this.state.pagination.totalPages}
+                        </Text>
+                        {this._renderNextButton()}
+                    </View>
+                    <View style={{paddingBottom: 20}} />
+                    <RanksDialog
+                        visible={this.state.showRanksDialog}
+                        optionKey={this.state.optionKey}
+                        item={this.state.selectedOption}
+                        mode={MODE_ADD}
+                        onSave={this.addOptionToCharacter}
+                        onClose={this.closeRanksDialog}
                     />
-                </Item>
-                {this._renderFilterMessage()}
-                <View style={{paddingBottom: 20}} />
-                {this._renderList()}
-                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: verticalScale(20)}}>
-                    {this._renderBackButton()}
-                    <Text style={styles.grey}>Page {this.state.pagination.currentPage} of {this.state.pagination.totalPages}</Text>
-                    {this._renderNextButton()}
-                </View>
-                <View style={{paddingBottom: 20}} />
-                <RanksDialog
-                    visible={this.state.showRanksDialog}
-                    optionKey={this.state.optionKey}
-                    item={this.state.selectedOption}
-                    mode={MODE_ADD}
-                    onSave={this.addOptionToCharacter}
-                    onClose={this.closeRanksDialog}
-                />
-            </Content>
-	      </Container>
-		);
-	}
+                </Content>
+            </Container>
+        );
+    }
 }
 
 const localStyles = ScaledSheet.create({
-	button: {
+    button: {
         fontSize: '25@vs',
-        color: '#f57e20'
-	}
+        color: '#f57e20',
+    },
 });
 
 const mapStateToProps = state => {
     return {
-        character: state.builder.character
+        character: state.builder.character,
     };
-}
+};
 
 const mapDispatchToProps = {
-    addOption
-}
+    addOption,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CharacterOptionsScreen);

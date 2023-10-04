@@ -35,7 +35,7 @@ class DieRoller {
 
     getClassicTotal(result, pips) {
         let total = result.dice > 1 ? result.rolls.reduce((a, b) => a + b, 0) : 0;
-        total += result.wildDieRoll
+        total += result.wildDieRoll;
 
         if (result.status === STATE_CRITICAL_SUCCESS) {
             total += result.bonusRolls.reduce((a, b) => a + b, 0);
@@ -92,7 +92,7 @@ class DieRoller {
                 result.bonusRolls.push(exploding);
 
                 exploding = this._rollDie();
-            } while (result.bonusRolls[result.bonusRolls.length - 1] === MAX)
+            } while (result.bonusRolls[result.bonusRolls.length - 1] === MAX);
         }
 
         return result;
@@ -109,7 +109,7 @@ class DieRoller {
             rolls: [],
             wildDieRoll: null,
             bonusRolls: [],
-            penaltyRoll: null
+            penaltyRoll: null,
         };
     }
 

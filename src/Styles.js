@@ -130,7 +130,7 @@ export default ScaledSheet.create({
         lineHeight: '30@vs',
     },
     modal: {
-        flex: -1,
+        flex: 0,
         borderRadius: 10,
         borderWidth: 1,
         borderColor: '#f57e20',
@@ -150,7 +150,8 @@ export default ScaledSheet.create({
         borderTopRightRadius: 8,
     },
     modalContent: {
-        flex: -1,
+        flex: 0,
+        flexGrow: 1,
         backgroundColor: '#fff',
         paddingTop: '10@vs',
         paddingBottom: '20@vs',

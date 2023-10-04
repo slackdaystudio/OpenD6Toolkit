@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {BackHandler, View} from 'react-native';
+import {View} from 'react-native';
 import {Container, Content, Text, Picker, Item} from 'native-base';
 import {ScaledSheet} from 'react-native-size-matters';
 import Header from '../Header';
@@ -13,7 +13,21 @@ import {statistics} from '../../lib/Statistics';
 import {updateMassRoller} from '../../reducers/massRoller';
 import styles from '../../Styles';
 
-class DieRollerScreen extends Component {
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+class MassRollerScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         dice: PropTypes.number.isRequired,
@@ -43,16 +57,9 @@ class DieRollerScreen extends Component {
         this.focusListener = this.props.navigation.addListener('focus', () => {
             this.setState({result: []});
         });
-
-        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            this.props.navigation.navigate('Home');
-
-            return true;
-        });
     }
 
     componentWillUnmount() {
-        this.backHandler.remove();
         this.focusListener.remove();
     }
 
@@ -66,10 +73,10 @@ class DieRollerScreen extends Component {
 
             try {
                 await statistics.add(result, this.props.isLegend ? TYPE_LEGEND : TYPE_CLASSIC);
-                
+
                 newState.result.push(result);
             } catch (error) {
-                console.error(error)
+                console.error(error);
             }
         }
 
@@ -227,4 +234,4 @@ const mapDispatchToProps = {
     updateMassRoller,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DieRollerScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MassRollerScreen);

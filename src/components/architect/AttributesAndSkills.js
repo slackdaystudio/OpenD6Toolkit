@@ -1,23 +1,35 @@
-import React, { Component }  from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { StyleSheet, View, TouchableHighlight } from 'react-native';
-import { Container, Content, Text, CardItem, Card, Left, Right, Body, Button, Icon, Input } from 'native-base';
-import { ScaledSheet, scale, moderateScale } from 'react-native-size-matters';
-import { SwipeRow } from 'react-native-swipe-list-view';
+import {connect} from 'react-redux';
+import {View, Text} from 'react-native';
+import {CardItem, Card, Right, Body, Icon} from 'native-base';
+import {ScaledSheet, scale, moderateScale} from 'react-native-size-matters';
 import styles from '../../Styles';
 import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
-import { character } from '../../lib/Character';
-import { addTemplateAttribute, deleteTemplateAttribute } from '../../reducers/architect';
+import {addTemplateAttribute, deleteTemplateAttribute} from '../../reducers/architect';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 class AttributesAndSkills extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         template: PropTypes.object.isRequired,
         addTemplateAttribute: PropTypes.func.isRequired,
-        deleteTemplateAttribute: PropTypes.func.isRequired
-    }
+        deleteTemplateAttribute: PropTypes.func.isRequired,
+    };
 
     constructor(props) {
         super(props);
@@ -27,9 +39,10 @@ class AttributesAndSkills extends Component {
             confirmationDialog: {
                 visible: false,
                 title: 'Delete Attribute',
-                info: 'This is permanent, are you certain you want to delete this attribute?\n\n' +
-                    'All associated skills will also be deleted with this attribute.'
-            }
+                info:
+                    'This is permanent, are you certain you want to delete this attribute?\n\n' +
+                    'All associated skills will also be deleted with this attribute.',
+            },
         };
 
         this.onClose = this._closeConfirmationDialog.bind(this);
@@ -71,39 +84,33 @@ class AttributesAndSkills extends Component {
     }
 
     _renderSkills(attribute) {
-        let skills = attribute.skills.map(skill => skill.name)
+        let skills = attribute.skills.map(skill => skill.name);
 
-        return (
-            <Text style={{fontSize: scale(10), fontStyle: 'italic'}}>
-                {skills.join(', ')}
-            </Text>
-        );
+        return <Text style={{fontSize: scale(10), fontStyle: 'italic'}}>{skills.join(', ')}</Text>;
     }
 
-	render() {
-		return (
+    render() {
+        return (
             <View>
-                <Heading text='Attributes' onBackButtonPress={() => this.props.navigation.navigate('Home')} onAddButtonPress={() => this._addAttribute()} />
+                <Heading text="Attributes" onBackButtonPress={() => this.props.navigation.navigate('Home')} onAddButtonPress={() => this._addAttribute()} />
                 {this.props.template.attributes.map((attribute, index) => {
                     return (
                         <Card key={'atr-' + index}>
                             <CardItem>
                                 <Body>
-                                    <Text style={[styles.boldGrey, {fontSize: scale(16), lineHeight: scale(18)}]}>
-                                        {attribute.name}
-                                    </Text>
+                                    <Text style={[styles.boldGrey, {fontSize: scale(16), lineHeight: scale(18)}]}>{attribute.name}</Text>
                                 </Body>
                                 <Right>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
                                         <Icon
-                                            type='FontAwesome'
-                                            name='trash'
+                                            type="FontAwesome"
+                                            name="trash"
                                             style={[localStyles.button, {paddingRight: scale(5)}]}
                                             onPress={() => this._delete(attribute)}
                                         />
                                         <Icon
-                                            type='FontAwesome'
-                                            name='edit'
+                                            type="FontAwesome"
+                                            name="edit"
                                             style={[localStyles.button, {paddingTop: moderateScale(1, 1.5)}]}
                                             onPress={() => this.props.navigation.navigate('EditAttribute', {attribute: attribute})}
                                         />
@@ -112,16 +119,12 @@ class AttributesAndSkills extends Component {
                             </CardItem>
                             <CardItem>
                                 <Body>
-                                    <Text style={styles.grey}>
-                                        {attribute.description}
-                                    </Text>
+                                    <Text style={styles.grey}>{attribute.description}</Text>
                                 </Body>
                             </CardItem>
                             <CardItem>
                                 <Body>
-                                    <Text style={styles.grey}>
-                                        {this._renderSkills(attribute)}
-                                    </Text>
+                                    <Text style={styles.grey}>{this._renderSkills(attribute)}</Text>
                                 </Body>
                             </CardItem>
                         </Card>
@@ -135,28 +138,28 @@ class AttributesAndSkills extends Component {
                     onClose={this.onClose}
                 />
             </View>
-		);
-	}
+        );
+    }
 }
 
 const localStyles = ScaledSheet.create({
-	button: {
+    button: {
         fontSize: '25@vs',
-        color: '#f57e20'
-	},
+        color: '#f57e20',
+    },
     buttonBig: {
-         fontSize: '40@vs',
-         color: '#f57e20'
-    }
+        fontSize: '40@vs',
+        color: '#f57e20',
+    },
 });
 
 const mapStateToProps = state => {
     return {};
-}
+};
 
 const mapDispatchToProps = {
     addTemplateAttribute,
-    deleteTemplateAttribute
-}
+    deleteTemplateAttribute,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AttributesAndSkills);

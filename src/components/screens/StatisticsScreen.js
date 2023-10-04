@@ -44,8 +44,6 @@ const getRollsByType = (type, stats) => {
                 return total + score.classicRolls;
             case TYPE_LEGEND:
                 return total + score.legendRolls;
-            case TYPE_LUCK:
-                return total + score.luckRolls;
             default:
                 return total;
         }

@@ -242,7 +242,7 @@ export default class App extends Component {
                                         component={EditAttributeScreen}
                                     />
                                     <Drawer.Screen
-                                        name="EditSkillScreen"
+                                        name="EditSkill"
                                         options={{
                                             drawerItemStyle: {
                                                 display: 'none',

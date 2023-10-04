@@ -1,10 +1,24 @@
-import {Platform, PermissionsAndroid} from 'react-native';
+import {Platform} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import moment from 'moment';
 import {zip, unzip} from 'react-native-zip-archive';
 import {common} from './Common';
 import {TEMPLATE_FANTASY_NAME, TEMPLATE_ADVENTURE_NAME, TEMPLATE_SPACE_NAME} from './Character';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 const DEFAULT_ROOT_DIR = ReactNativeBlobUtil.fs.dirs.DocumentDir;
 
@@ -175,7 +189,7 @@ class File {
         } catch (error) {
             console.error(error);
         }
-        
+
         if (!silent) {
             common.toast('Character saved');
         }
@@ -354,15 +368,15 @@ class File {
     async _getPath(defaultPath) {
         let path = defaultPath;
 
-            if (path === DEFAULT_CHARACTER_DIR) {
-                path = DEFAULT_CHARACTER_DIR;
-            } else if (path === DEFAULT_TEMPLATE_DIR) {
-                path = DEFAULT_TEMPLATE_DIR;
-            } else if (path === DEFAULT_ROOT_DIR) {
-                path = DEFAULT_ROOT_DIR;
-            } else {
-                throw `Unknown path: {$path}`;
-            }
+        if (path === DEFAULT_CHARACTER_DIR) {
+            path = DEFAULT_CHARACTER_DIR;
+        } else if (path === DEFAULT_TEMPLATE_DIR) {
+            path = DEFAULT_TEMPLATE_DIR;
+        } else if (path === DEFAULT_ROOT_DIR) {
+            path = DEFAULT_ROOT_DIR;
+        } else {
+            throw 'Unknown path: {$path}';
+        }
 
         await this._makeSaveLocation(path);
 

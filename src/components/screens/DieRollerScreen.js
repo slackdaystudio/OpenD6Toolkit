@@ -1,18 +1,32 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Switch} from 'react-native';
-import {Container, Content, Button, Text, Picker, Item} from 'native-base';
+import {View} from 'react-native';
+import {Container, Content, Text, Picker, Item} from 'native-base';
 import {ScaledSheet, scale} from 'react-native-size-matters';
 import * as Animatable from 'react-native-animatable';
 import Header from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
 import Slider from '../DieSlider';
-import {dieRoller, STATE_NORMAL, STATE_CRITICAL_SUCCESS, STATE_CRITICAL_FAILURE, LEGEND_SUCCESS_THRESHOLD, TYPE_LEGEND, TYPE_CLASSIC} from '../../lib/DieRoller';
+import {dieRoller, STATE_CRITICAL_SUCCESS, STATE_CRITICAL_FAILURE, TYPE_LEGEND, TYPE_CLASSIC} from '../../lib/DieRoller';
 import {statistics} from '../../lib/Statistics';
 import {updateRoller} from '../../reducers/dieRoller';
 import styles from '../../Styles';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 class DieRollerScreen extends Component {
     static propTypes = {
@@ -41,16 +55,9 @@ class DieRollerScreen extends Component {
         this.focusListener = this.props.navigation.addListener('focus', () => {
             this.setState({result: null});
         });
-
-        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            this.props.navigation.navigate(this.props.route.params.from);
-
-            return true;
-        });
     }
 
     componentWillUnmount() {
-        this.backHandler.remove();
         this.focusListener.remove();
     }
 
@@ -65,7 +72,7 @@ class DieRollerScreen extends Component {
     }
 
     _roll() {
-        result = dieRoller.roll(this.props.dice);
+        const result = dieRoller.roll(this.props.dice);
 
         statistics
             .add(result, this.props.isLegend ? TYPE_LEGEND : TYPE_CLASSIC)

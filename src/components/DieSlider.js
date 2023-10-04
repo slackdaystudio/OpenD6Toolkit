@@ -34,7 +34,7 @@ export const DieSlider = ({label, value, step, min, max, disabled, valueKey, onV
         return step < 1;
     };
 
-    const _isInputValid = (val) => {
+    const _isInputValid = val => {
         if (val === '' || val === '-') {
             _onValueChange(0);
 
@@ -74,7 +74,7 @@ export const DieSlider = ({label, value, step, min, max, disabled, valueKey, onV
         }
     };
 
-    const parseNum = (text) => {
+    const parseNum = text => {
         return _isFraction() ? parseFloat(text) : parseInt(text, 10);
     };
 
@@ -89,7 +89,7 @@ export const DieSlider = ({label, value, step, min, max, disabled, valueKey, onV
                             keyboardType="numeric"
                             maxLength={_isFraction() ? 5 : 3}
                             defaultValue={textValue.toString()}
-                            onEndEditing={(event) => _onTextValueChange(event.nativeEvent.text, true)}
+                            onEndEditing={event => _onTextValueChange(event.nativeEvent.text, true)}
                         />
                     </Item>
                 </View>
@@ -101,9 +101,9 @@ export const DieSlider = ({label, value, step, min, max, disabled, valueKey, onV
                     step={step}
                     minimumValue={min}
                     maximumValue={max}
-                    onValueChange={(val) => _onTextValueChange(val.toString())}
+                    onValueChange={val => _onTextValueChange(val.toString())}
                     onSlidingStart={() => toggleTabsLocked(true)}
-                    onSlidingComplete={(val) => {
+                    onSlidingComplete={val => {
                         toggleTabsLocked(false);
 
                         _onTextValueChange(val.toString(), true);

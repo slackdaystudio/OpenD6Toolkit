@@ -1,17 +1,31 @@
-import React, { Component }  from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Platform, StyleSheet, View, Switch } from 'react-native';
-import { Container, Content, Button, Text, Form, Item, Label, Input } from 'native-base';
-import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
+import {View, Switch} from 'react-native';
+import {Text, Item, Label, Input} from 'native-base';
+import {scale} from 'react-native-size-matters';
 import Heading from '../Heading';
 import styles from '../../Styles';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 export default class Appearance extends Component {
     static propTypes = {
         character: PropTypes.object.isRequired,
         updateDefenseSystem: PropTypes.func.isRequired,
-        updateStaticDefense: PropTypes.func.isRequired
-    }
+        updateStaticDefense: PropTypes.func.isRequired,
+    };
 
     _updateStaticDefense(name, value) {
         let rating = '';
@@ -50,10 +64,10 @@ export default class Appearance extends Component {
                             <Label style={{fontSize: scale(10)}}>Block</Label>
                             <Input
                                 style={styles.textInput}
-                                keyboardType='numeric'
+                                keyboardType="numeric"
                                 maxLength={4}
                                 value={this.props.character.defenses.staticDefenses.block.toString()}
-                                onChangeText={(value) => this._updateStaticDefense('block', value)}
+                                onChangeText={value => this._updateStaticDefense('block', value)}
                             />
                         </Item>
                     </View>
@@ -62,10 +76,10 @@ export default class Appearance extends Component {
                             <Label style={{fontSize: scale(10)}}>Dodge</Label>
                             <Input
                                 style={styles.textInput}
-                                keyboardType='numeric'
+                                keyboardType="numeric"
                                 maxLength={4}
                                 value={this.props.character.defenses.staticDefenses.dodge.toString()}
-                                onChangeText={(value) => this._updateStaticDefense('dodge', value)}
+                                onChangeText={value => this._updateStaticDefense('dodge', value)}
                             />
                         </Item>
                     </View>
@@ -76,10 +90,10 @@ export default class Appearance extends Component {
                             <Label style={{fontSize: scale(10)}}>Parry</Label>
                             <Input
                                 style={styles.textInput}
-                                keyboardType='numeric'
+                                keyboardType="numeric"
                                 maxLength={4}
                                 value={this.props.character.defenses.staticDefenses.parry.toString()}
-                                onChangeText={(value) => this._updateStaticDefense('parry', value)}
+                                onChangeText={value => this._updateStaticDefense('parry', value)}
                             />
                         </Item>
                     </View>
@@ -88,10 +102,10 @@ export default class Appearance extends Component {
                             <Label style={{fontSize: scale(10)}}>Soak</Label>
                             <Input
                                 style={styles.textInput}
-                                keyboardType='numeric'
+                                keyboardType="numeric"
                                 maxLength={4}
                                 value={this.props.character.defenses.staticDefenses.soak.toString()}
-                                onChangeText={(value) => this._updateStaticDefense('soak', value)}
+                                onChangeText={value => this._updateStaticDefense('soak', value)}
                             />
                         </Item>
                     </View>
@@ -108,17 +122,17 @@ export default class Appearance extends Component {
         return this._renderPassiveDefense();
     }
 
-	render() {
-		return (
+    render() {
+        return (
             <View>
-                <Heading text='Defenses' />
+                <Heading text="Defenses" />
                 <View style={styles.titleContainer}>
                     <Text style={[styles.grey, {paddingLeft: 30}]}>Use Static Defenses?</Text>
                     <View style={{paddingRight: 30}}>
                         <Switch
                             value={this.props.character.defenses.useStaticDefenses}
                             onValueChange={() => this.props.updateDefenseSystem()}
-                            thumbColor='#f57e20'
+                            thumbColor="#f57e20"
                             trackColor={{true: '#fde5d2', false: '#4f4e4e'}}
                         />
                     </View>
@@ -126,6 +140,6 @@ export default class Appearance extends Component {
                 {this._renderDefenses()}
                 <View style={{paddingBottom: 20}} />
             </View>
-		);
-	}
+        );
+    }
 }

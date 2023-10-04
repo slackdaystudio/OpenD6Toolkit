@@ -1,5 +1,5 @@
-import { Dimensions, Platform, Alert } from 'react-native';
-import { Toast } from 'native-base';
+import {Dimensions, Platform} from 'react-native';
+import {Toast} from 'native-base';
 
 // Copyright (C) Slack Day Studio - All Rights Reserved
 //
@@ -17,13 +17,13 @@ import { Toast } from 'native-base';
 
 class Common {
     isIPad() {
-	    let {height, width} = Dimensions.get('window');
+        let {height, width} = Dimensions.get('window');
 
-	    if (Platform.OS === 'ios' && height / width <= 1.6) {
-		    return true;
-	    }
+        if (Platform.OS === 'ios' && height / width <= 1.6) {
+            return true;
+        }
 
-	    return false;
+        return false;
     }
 
     isEmptyObject(obj) {
@@ -35,7 +35,7 @@ class Common {
     }
 
     sum(array) {
-        return
+        return;
     }
 
     compare(first, second) {
@@ -61,9 +61,11 @@ class Common {
     }
 
     toCamelCase(text) {
-        return text.replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => {
-            return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
-        }).replace(/\s+/g, '');
+        return text
+            .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => {
+                return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+            })
+            .replace(/\s+/g, '');
     }
 
     toast(message) {
@@ -72,8 +74,8 @@ class Common {
             position: 'bottom',
             buttonText: 'OK',
             textStyle: {color: '#fde5d2'},
-            buttonTextStyle: { color: '#f57e20' },
-            duration: 3000
+            buttonTextStyle: {color: '#f57e20'},
+            duration: 3000,
         });
     }
 

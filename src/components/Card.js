@@ -1,4 +1,5 @@
-import React from 'react';styles.grey.color
+import React from 'react';
+styles.grey.color;
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import {verticalScale, scale} from 'react-native-size-matters';
@@ -17,7 +18,6 @@ import styles from '../Styles';
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 
 export const Card = ({heading, body, footer, showHorizontalLine}) => {
     return (

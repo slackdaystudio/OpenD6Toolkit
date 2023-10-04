@@ -1,14 +1,28 @@
-import React, { Component }  from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, TouchableHighlight } from 'react-native';
-import { Container, Content, Text, List, ListItem, Left, Right, Body, Button, Icon, Input } from 'native-base';
-import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
-import { SwipeRow } from 'react-native-swipe-list-view';
+import {View, TouchableHighlight} from 'react-native';
+import {Text, List, ListItem, Left, Right, Body, Icon, Input} from 'native-base';
+import {ScaledSheet, scale, verticalScale} from 'react-native-size-matters';
+import {SwipeRow} from 'react-native-swipe-list-view';
 import styles from '../../Styles';
 import Heading from '../Heading';
 import AttributeDialog from '../AttributeDialog';
 import InfoDialog from '../InfoDialog';
-import { character } from '../../lib/Character';
+import {character} from '../../lib/Character';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 export default class AttributesAndSkills extends Component {
     static propTypes = {
@@ -17,8 +31,8 @@ export default class AttributesAndSkills extends Component {
         settings: PropTypes.object.isRequired,
         updateCharacterDieCode: PropTypes.func.isRequired,
         updateRoller: PropTypes.func.isRequired,
-        updateMove: PropTypes.func.isRequired
-    }
+        updateMove: PropTypes.func.isRequired,
+    };
 
     constructor(props) {
         super(props);
@@ -26,16 +40,16 @@ export default class AttributesAndSkills extends Component {
         this.state = {
             attributes: props.character.template.attributes,
             attributeDialog: {
-                visible: false
+                visible: false,
             },
             infoDialog: {
                 visible: false,
                 title: '',
-                info: ''
+                info: '',
             },
             attributeShow: this._initAttributeShow(props),
-            dieCode: this._initDieCode()
-        }
+            dieCode: this._initDieCode(),
+        };
 
         this.closeAttributeDialog = this._closeAttributeDialog.bind(this);
         this.saveDieCode = this._saveDieCode.bind(this);
@@ -48,7 +62,7 @@ export default class AttributesAndSkills extends Component {
     }
 
     _initAttributeShow(props) {
-        let attributeShow = {}
+        let attributeShow = {};
 
         props.character.template.attributes.map((attribute, index) => {
             attributeShow[attribute.name] = false;
@@ -64,7 +78,7 @@ export default class AttributesAndSkills extends Component {
             dice: 0,
             modifierDice: 0,
             pips: 0,
-            modifierPips: 0
+            modifierPips: 0,
         };
     }
 
@@ -133,7 +147,7 @@ export default class AttributesAndSkills extends Component {
             dice: parseInt(attributeDieCode.dice, 10) + parseInt(skillDieCode.dice, 10),
             modifierDice: parseInt(attributeDieCode.modifierDice, 10) + parseInt(skillDieCode.modifierDice, 10),
             pips: parseInt(attributeDieCode.pips, 10) + parseInt(skillDieCode.pips, 10),
-            modifierPips: parseInt(attributeDieCode.modifierPips, 10) + parseInt(skillDieCode.modifierPips, 10)
+            modifierPips: parseInt(attributeDieCode.modifierPips, 10) + parseInt(skillDieCode.modifierPips, 10),
         };
 
         let totalDieCode = character.getTotalDieCode(combinedDieCodes);
@@ -196,7 +210,7 @@ export default class AttributesAndSkills extends Component {
     }
 
     _closeAttributeDialog() {
-        let newState = {...this.state}
+        let newState = {...this.state};
         newState.attributeDialog.visible = false;
         newState.dieCode = this._initDieCode();
 
@@ -204,7 +218,7 @@ export default class AttributesAndSkills extends Component {
     }
 
     _closeInfoDialog() {
-        let newState = {...this.state}
+        let newState = {...this.state};
         newState.infoDialog.visible = false;
 
         this.setState(newState);
@@ -274,15 +288,15 @@ export default class AttributesAndSkills extends Component {
                                         <SwipeRow leftOpenValue={scale(65)} disableLeftSwipe={true}>
                                             <View style={localStyles.standaloneRowBack}>
                                                 <Icon
-                                                    type='FontAwesome'
-                                                    name='info-circle'
+                                                    type="FontAwesome"
+                                                    name="info-circle"
                                                     style={[styles.grey, {fontSize: scale(25), color: '#f57e20', width: scale(25)}]}
                                                     onPress={() => this._showAttributeInfo(skill.name)}
                                                 />
                                                 <View style={{paddingRight: 5}} />
                                                 <Icon
-                                                    type='FontAwesome'
-                                                    name='edit'
+                                                    type="FontAwesome"
+                                                    name="edit"
                                                     style={[styles.grey, {fontSize: scale(25), color: '#f57e20', paddingTop: scale(3), width: scale(25)}]}
                                                     onPress={() => this._editDieCode(skill.name, skillDieCode)}
                                                 />
@@ -293,14 +307,9 @@ export default class AttributesAndSkills extends Component {
                                         </SwipeRow>
                                     </Body>
                                     <Right>
-                                        <TouchableHighlight
-                                            underlayColor='#ffffff'
-                                            onPress={() => this._rollSkillDice(attributeDieCode, skillDieCode)}
-                                        >
+                                        <TouchableHighlight underlayColor="#ffffff" onPress={() => this._rollSkillDice(attributeDieCode, skillDieCode)}>
                                             <View style={{paddingLeft: 20, paddingTop: 10, paddingBottom: 10}}>
-                                                <Text style={[styles.grey, {lineHeight: 30}]}>
-                                                    {character.getFormattedDieCode(skillDieCode)}
-                                                </Text>
+                                                <Text style={[styles.grey, {lineHeight: 30}]}>{character.getFormattedDieCode(skillDieCode)}</Text>
                                             </View>
                                         </TouchableHighlight>
                                     </Right>
@@ -316,94 +325,82 @@ export default class AttributesAndSkills extends Component {
     }
 
     _renderMove() {
-        move = this.props.character.move === undefined ? 10 : this.props.character.move;
+        const move = this.props.character.move === undefined ? 10 : this.props.character.move;
 
         return (
             <ListItem noIndent>
                 <Left>
                     <View style={[localStyles.standaloneRowFront, {paddingRight: 150}]}>
-                        <Text style={[styles.grey, styles.big]}>
-                            Move
-                        </Text>
+                        <Text style={[styles.grey, styles.big]}>Move</Text>
                     </View>
                 </Left>
                 <Right>
                     <Input
                         style={[styles.grey, {fontSize: scale(18), width: scale(120), paddingLeft: scale(70), lineHeight: verticalScale(30)}]}
-                        keyboardType='numeric'
+                        keyboardType="numeric"
                         maxLength={4}
                         value={move.toString()}
-                        onChangeText={(value) => this._updateMove(value)}
+                        onChangeText={value => this._updateMove(value)}
                     />
                 </Right>
             </ListItem>
-        )
+        );
     }
 
     _renderAttributes() {
         return (
             <List>
-            {this.props.character.template.attributes.map((attribute, index) => {
-                let dieCode = character.getDieCode(this.props.character, attribute.name);
+                {this.props.character.template.attributes.map((attribute, index) => {
+                    let dieCode = character.getDieCode(this.props.character, attribute.name);
 
-                return (
-                    <View key={'atr-' + index}>
-                        <ListItem noIndent>
-                            <Left>
-                                <SwipeRow leftOpenValue={scale(65)} disableLeftSwipe={true}>
-                                    <View style={localStyles.standaloneRowBack}>
-                                        <Icon
-                                            type='FontAwesome'
-                                            name='info-circle'
-                                            style={[styles.grey, {fontSize: scale(25), color: '#f57e20', width: scale(25)}]}
-                                            onPress={() => this._showAttributeInfo(attribute.name)}
-                                        />
-                                        <View style={{paddingRight: scale(5)}} />
-                                        <Icon
-                                            type='FontAwesome'
-                                            name='edit'
-                                            style={[styles.grey, {fontSize: scale(25), color: '#f57e20', paddingTop: scale(3), width: scale(25)}]}
-                                            onPress={() => this._editDieCode(attribute.name, dieCode)}
-                                        />
-                                    </View>
-                                    <View style={localStyles.standaloneRowFront}>
-                                        <TouchableHighlight
-                                            underlayColor='#ffffff'
-                                            onPress={() => this._toggleAttributeShow(attribute.name)}
-                                        >
-                                            <Text style={[styles.grey, styles.big, {width: scale(200)}]}>
-                                                {attribute.name}
-                                            </Text>
-                                        </TouchableHighlight>
-                                    </View>
-                                </SwipeRow>
-                            </Left>
-                            <Right>
-                                <TouchableHighlight
-                                    underlayColor='#ffffff'
-                                    onPress={() => this._rollDice(dieCode)}
-                                >
-                                    <View style={{paddingLeft: 20, paddingTop: 10, paddingBottom: 10}}>
-                                        <Text style={[styles.grey, styles.big]}>
-                                            {character.getFormattedDieCode(dieCode)}
-                                        </Text>
-                                    </View>
-                                </TouchableHighlight>
-                            </Right>
-                        </ListItem>
-                        {this._renderSkills(attribute, dieCode)}
-                    </View>
-                )
-            })}
-            {this._renderMove()}
+                    return (
+                        <View key={'atr-' + index}>
+                            <ListItem noIndent>
+                                <Left>
+                                    <SwipeRow leftOpenValue={scale(65)} disableLeftSwipe={true}>
+                                        <View style={localStyles.standaloneRowBack}>
+                                            <Icon
+                                                type="FontAwesome"
+                                                name="info-circle"
+                                                style={[styles.grey, {fontSize: scale(25), color: '#f57e20', width: scale(25)}]}
+                                                onPress={() => this._showAttributeInfo(attribute.name)}
+                                            />
+                                            <View style={{paddingRight: scale(5)}} />
+                                            <Icon
+                                                type="FontAwesome"
+                                                name="edit"
+                                                style={[styles.grey, {fontSize: scale(25), color: '#f57e20', paddingTop: scale(3), width: scale(25)}]}
+                                                onPress={() => this._editDieCode(attribute.name, dieCode)}
+                                            />
+                                        </View>
+                                        <View style={localStyles.standaloneRowFront}>
+                                            <TouchableHighlight underlayColor="#ffffff" onPress={() => this._toggleAttributeShow(attribute.name)}>
+                                                <Text style={[styles.grey, styles.big, {width: scale(200)}]}>{attribute.name}</Text>
+                                            </TouchableHighlight>
+                                        </View>
+                                    </SwipeRow>
+                                </Left>
+                                <Right>
+                                    <TouchableHighlight underlayColor="#ffffff" onPress={() => this._rollDice(dieCode)}>
+                                        <View style={{paddingLeft: 20, paddingTop: 10, paddingBottom: 10}}>
+                                            <Text style={[styles.grey, styles.big]}>{character.getFormattedDieCode(dieCode)}</Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                </Right>
+                            </ListItem>
+                            {this._renderSkills(attribute, dieCode)}
+                        </View>
+                    );
+                })}
+                {this._renderMove()}
             </List>
         );
     }
 
-	render() {
-		return (
+    render() {
+        return (
             <View>
-                <Heading text='Attributes &amp; Skills' />
+                <Heading text="Attributes &amp; Skills" />
                 <Text style={{fontSize: verticalScale(10), alignSelf: 'center'}}>*Swipe right on an attribute or skill to edit</Text>
                 {this._renderAttributes()}
                 <AttributeDialog
@@ -428,22 +425,22 @@ export default class AttributesAndSkills extends Component {
                     onClose={this.closeInfoDialog}
                 />
             </View>
-		);
-	}
+        );
+    }
 }
 
 const localStyles = ScaledSheet.create({
-	standaloneRowFront: {
-		alignItems: 'flex-start',
-		backgroundColor: '#FFF',
-		justifyContent: 'center',
-		height: '42@vs',
-	},
-	standaloneRowBack: {
-		alignItems: 'center',
-		backgroundColor: '#FFF',
-		flex: 1,
-		flexDirection: 'row',
-		width: 500
-	}
+    standaloneRowFront: {
+        alignItems: 'flex-start',
+        backgroundColor: '#FFF',
+        justifyContent: 'center',
+        height: '42@vs',
+    },
+    standaloneRowBack: {
+        alignItems: 'center',
+        backgroundColor: '#FFF',
+        flex: 1,
+        flexDirection: 'row',
+        width: 500,
+    },
 });

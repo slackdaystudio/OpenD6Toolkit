@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {BackHandler, Dimensions, Text} from 'react-native';
+import {Dimensions} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import Header from '../Header';
 import {VirtualizedList} from '../VirtualizedList';
@@ -11,6 +11,20 @@ import AttributesAndSkills from '../architect/AttributesAndSkills';
 import Overview from '../architect/Overview';
 import Options from '../architect/Options';
 import styles from '../../Styles';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 export const TAB_OVERVIEW = 0;
 
@@ -38,26 +52,6 @@ class ArchitectScreen extends Component {
         template: PropTypes.object.isRequired,
     };
 
-    componentDidMount() {
-        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            this.props.navigation.navigate('Home');
-
-            return true;
-        });
-    }
-
-    componentWillUnmount() {
-        this.backHandler.remove();
-    }
-
-    _renderTabHeading(headingText) {
-        return (
-            <TabHeading style={localStyles.tabHeading}>
-                <Text style={localStyles.tabStyle}>{headingText}</Text>
-            </TabHeading>
-        );
-    }
-
     render() {
         return (
             <>
@@ -77,9 +71,11 @@ class ArchitectScreen extends Component {
                     initialLayout={{height, width}}>
                     <Tab.Screen name="Overview">{() => <ArchitectTab content={<Overview {...this.props} />} />}</Tab.Screen>
                     <Tab.Screen name="Attributes">{() => <ArchitectTab content={<AttributesAndSkills {...this.props} />} />}</Tab.Screen>
-                    <Tab.Screen name="Advantages">{() => <ArchitectTab content={<Options {...this.props} optionKey='Advantages' />} />}</Tab.Screen>
-                    <Tab.Screen name="Special Abilities">{() => <ArchitectTab content={<Options {...this.props} optionKey='Special Abilities' />} />}</Tab.Screen>
-                    <Tab.Screen name="Complications">{() => <ArchitectTab content={<Options {...this.props} optionKey='Complications' />} />}</Tab.Screen>
+                    <Tab.Screen name="Advantages">{() => <ArchitectTab content={<Options {...this.props} optionKey="Advantages" />} />}</Tab.Screen>
+                    <Tab.Screen name="Special Abilities">
+                        {() => <ArchitectTab content={<Options {...this.props} optionKey="Special Abilities" />} />}
+                    </Tab.Screen>
+                    <Tab.Screen name="Complications">{() => <ArchitectTab content={<Options {...this.props} optionKey="Complications" />} />}</Tab.Screen>
                 </Tab.Navigator>
                 <ArchitectFooter navigation={this.props.navigation} template={this.props.template} />
             </>
