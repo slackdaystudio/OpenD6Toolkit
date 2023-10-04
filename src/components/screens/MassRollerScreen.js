@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {View} from 'react-native';
 import {Container, Content, Text, Picker, Item} from 'native-base';
 import {ScaledSheet} from 'react-native-size-matters';
-import Header from '../Header';
+import {Header} from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
 import Slider from '../DieSlider';

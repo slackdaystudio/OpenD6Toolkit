@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {View, Switch} from 'react-native';
 import {Container, Content, Text, Card, CardItem, Body, Icon, Form, Label, Item, Input, Textarea, Right} from 'native-base';
 import {ScaledSheet, scale, verticalScale, moderateScale} from 'react-native-size-matters';
-import Header from '../Header';
+import {Header} from '../Header';
 import Heading from '../Heading';
 import ArchitectFooter from '../ArchitectFooter';
 import ConfirmationDialog from '../ConfirmationDialog';

@@ -5,7 +5,7 @@ import {Dimensions, View} from 'react-native';
 import {Container, Content, Button, Text, Item, Label, Input, Icon, Textarea, Footer, FooterTab} from 'native-base';
 import {scale, verticalScale} from 'react-native-size-matters';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import Header from '../Header';
+import {Header} from '../Header';
 import Heading from '../Heading';
 import {Placeholder} from './Placeholder';
 import Appearance from '../builder/Appearance';

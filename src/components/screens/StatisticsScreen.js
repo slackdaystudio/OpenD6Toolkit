@@ -3,7 +3,7 @@ import {ActivityIndicator, Text} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Header from '../Header';
+import {Header} from '../Header';
 import {StatisticsTab, LABEL_AVERAGE_ROLL, LABEL_LOWEST_PENALTY_DICE_TOTAL} from './Statistics/StatisticsTab';
 import {HighScoresTab} from './Statistics/HighScoresTab';
 import {CONTEXTUALLY_INFINITE} from '../../lib/Statistics';

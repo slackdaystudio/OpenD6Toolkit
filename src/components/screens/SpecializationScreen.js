@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {StyleSheet, View, TouchableHighlight, BackHandler, Alert} from 'react-native';
 import {Container, Content, Button, Text, Item, Input, Picker, Form, Label} from 'native-base';
 import {scale, verticalScale} from 'react-native-size-matters';
-import Header from '../Header';
+import {Header} from '../Header';
 import ErrorMessage from '../ErrorMessage';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';

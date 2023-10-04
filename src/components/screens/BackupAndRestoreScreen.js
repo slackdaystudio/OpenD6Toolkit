@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert} from 'react-native';
 import {Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon} from 'native-base';
-import Header from '../Header';
+import {Header} from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
 import InfoDialog from '../InfoDialog';

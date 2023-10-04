@@ -5,7 +5,7 @@ import {View} from 'react-native';
 import {Container, Content, Text, Picker, Item} from 'native-base';
 import {ScaledSheet, scale} from 'react-native-size-matters';
 import * as Animatable from 'react-native-animatable';
-import Header from '../Header';
+import {Header} from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
 import Slider from '../DieSlider';

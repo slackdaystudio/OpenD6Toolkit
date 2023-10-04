@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Dimensions} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import Header from '../Header';
+import {Header} from '../Header';
 import {VirtualizedList} from '../VirtualizedList';
 import {Placeholder} from './Placeholder';
 import ArchitectFooter from '../ArchitectFooter';

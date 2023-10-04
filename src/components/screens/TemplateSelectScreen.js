@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import {Container, Content, Text, List, ListItem, Left, Right, Spinner} from 'native-base';
-import Header from '../Header';
+import {Header} from '../Header';
 import Heading from '../Heading';
 import {Icon} from '../Icon';
 import styles from '../../Styles';

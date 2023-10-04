@@ -31,6 +31,7 @@ export default ScaledSheet.create({
         ),
     },
     content: {
+        flex: 1,
         paddingTop: 0,
         paddingHorizontal: 0,
     },

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {StyleSheet, View, Switch} from 'react-native';
 import {Container, Content, Form, Label, Item, Input, Textarea} from 'native-base';
 import {scale, verticalScale} from 'react-native-size-matters';
-import Header from '../Header';
+import {Header} from '../Header';
 import Heading from '../Heading';
 import ArchitectFooter from '../ArchitectFooter';
 import {TAB_ADVANTAGES, TAB_SPECIAL_ABILITIES, TAB_COMPLICATIONS} from './ArchitectScreen';

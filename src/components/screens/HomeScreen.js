@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import {Container, Content, Text} from 'native-base';
-import Header from '../Header';
+import {Header} from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
 import styles from '../../Styles';
@@ -74,9 +74,9 @@ class HomeScreen extends Component {
 
     render() {
         return (
-            <Container style={styles.container}>
+            <>
                 <Header navigation={this.props.navigation} />
-                <Content style={styles.content}>
+                <View style={styles.content}>
                     <Heading text="Roller" />
                     <Text style={[styles.grey, {alignSelf: 'center'}]}>Use the die roller to resolve actions in OpenD6.</Text>
                     <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
@@ -101,8 +101,8 @@ class HomeScreen extends Component {
                         <LogoButton label="Orchestrator" onPress={() => this.onPress('Orchestrator')} />
                     </View>
                     <View style={{paddingBottom: 20}} />
-                </Content>
-            </Container>
+                </View>
+            </>
         );
     }
 }

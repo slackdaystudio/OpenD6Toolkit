@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {View} from 'react-native';
 import {Container, Content, Text, Card, CardItem, Right, Body, Item, Icon, Input} from 'native-base';
 import {ScaledSheet, scale, verticalScale} from 'react-native-size-matters';
-import Header from '../Header';
+import {Header} from '../Header';
 import Heading from '../Heading';
 import RanksDialog, {MODE_ADD} from '../RanksDialog';
 import {common} from '../../lib/Common';

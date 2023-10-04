@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {StyleSheet, Dimensions, Platform} from 'react-native';
 import {Container, View, Text, Icon, Footer, FooterTab, Button} from 'native-base';
 import SortableList from 'react-native-sortable-list';
-import Header from '../Header';
+import {Header} from '../Header';
 import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
 import ActorRow from '../ActorRow';
