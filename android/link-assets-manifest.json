@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Tempus Sans ITC.ttf",
+      "sha1": "006e277e791a3d2efbebcba8421c5ec8194ba14a"
+    },
+    {
+      "path": "assets/fonts/TempusSansITC.ttf",
+      "sha1": "006e277e791a3d2efbebcba8421c5ec8194ba14a"
+    }
+  ]
+}

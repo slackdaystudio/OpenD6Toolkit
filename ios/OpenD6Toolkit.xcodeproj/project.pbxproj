@@ -8,13 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* OpenD6ToolkitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* OpenD6ToolkitTests.m */; };
+		0D4AFEF26076FDAF24FE6D85 /* libPods-OpenD6Toolkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0D7FD7C84C415DBE754DB4 /* libPods-OpenD6Toolkit.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		31AEF218BEC6451190965C57 /* libPods-OpenD6Toolkit-OpenD6ToolkitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25507ED956CA40E2C73CA23D /* libPods-OpenD6Toolkit-OpenD6ToolkitTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		82E638CD5D38BB10EF52CCF5 /* libPods-OpenD6Toolkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF52118DE1F0DC4DCE810CD9 /* libPods-OpenD6Toolkit.a */; };
 		885B919E2ACCAA44006430D0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 885B919D2ACCAA44006430D0 /* Images.xcassets */; };
-		885B91A12ACCAB27006430D0 /* Tempus Sans ITC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 885B919F2ACCAB26006430D0 /* Tempus Sans ITC.ttf */; };
-		885B91A22ACCAB27006430D0 /* TempusSansITC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 885B91A02ACCAB27006430D0 /* TempusSansITC.ttf */; };
 		885B91B72ACCAB74006430D0 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 885B91A42ACCAB74006430D0 /* Fontisto.ttf */; };
 		885B91B82ACCAB74006430D0 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 885B91A52ACCAB74006430D0 /* Octicons.ttf */; };
 		885B91B92ACCAB74006430D0 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 885B91A62ACCAB74006430D0 /* Feather.ttf */; };
@@ -34,7 +33,8 @@
 		885B91C72ACCAB74006430D0 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 885B91B42ACCAB74006430D0 /* SimpleLineIcons.ttf */; };
 		885B91C82ACCAB74006430D0 /* FontAwesome6_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 885B91B52ACCAB74006430D0 /* FontAwesome6_Brands.ttf */; };
 		885B91C92ACCAB74006430D0 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 885B91B62ACCAB74006430D0 /* MaterialIcons.ttf */; };
-		D10CC23038348ADEA6531C49 /* libPods-OpenD6Toolkit-OpenD6ToolkitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 232FB424C7752508FA62B963 /* libPods-OpenD6Toolkit-OpenD6ToolkitTests.a */; };
+		CDAEF010F31147879F5E35B4 /* Tempus Sans ITC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25966B93857A440FA27ADE39 /* Tempus Sans ITC.ttf */; };
+		54C030EE3A4646BE9D1C1EF4 /* TempusSansITC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50CDD5A85C0E481BB6C02F00 /* TempusSansITC.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,12 +56,13 @@
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = OpenD6Toolkit/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = OpenD6Toolkit/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = OpenD6Toolkit/main.m; sourceTree = "<group>"; };
-		232FB424C7752508FA62B963 /* libPods-OpenD6Toolkit-OpenD6ToolkitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OpenD6Toolkit-OpenD6ToolkitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D6A0F60E2798C044E8D519B /* Pods-OpenD6Toolkit-OpenD6ToolkitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenD6Toolkit-OpenD6ToolkitTests.debug.xcconfig"; path = "Target Support Files/Pods-OpenD6Toolkit-OpenD6ToolkitTests/Pods-OpenD6Toolkit-OpenD6ToolkitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1A9FC2A9F18403192421C592 /* Pods-OpenD6Toolkit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenD6Toolkit.debug.xcconfig"; path = "Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit.debug.xcconfig"; sourceTree = "<group>"; };
+		25507ED956CA40E2C73CA23D /* libPods-OpenD6Toolkit-OpenD6ToolkitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OpenD6Toolkit-OpenD6ToolkitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A0D7FD7C84C415DBE754DB4 /* libPods-OpenD6Toolkit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OpenD6Toolkit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C01190C40C7959C6EAC12A4 /* Pods-OpenD6Toolkit-OpenD6ToolkitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenD6Toolkit-OpenD6ToolkitTests.release.xcconfig"; path = "Target Support Files/Pods-OpenD6Toolkit-OpenD6ToolkitTests/Pods-OpenD6Toolkit-OpenD6ToolkitTests.release.xcconfig"; sourceTree = "<group>"; };
+		65B967C508376CAE75243999 /* Pods-OpenD6Toolkit-OpenD6ToolkitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenD6Toolkit-OpenD6ToolkitTests.debug.xcconfig"; path = "Target Support Files/Pods-OpenD6Toolkit-OpenD6ToolkitTests/Pods-OpenD6Toolkit-OpenD6ToolkitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = OpenD6Toolkit/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		885B919D2ACCAA44006430D0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		885B919F2ACCAB26006430D0 /* Tempus Sans ITC.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Tempus Sans ITC.ttf"; sourceTree = "<group>"; };
-		885B91A02ACCAB27006430D0 /* TempusSansITC.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = TempusSansITC.ttf; sourceTree = "<group>"; };
 		885B91A42ACCAB74006430D0 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		885B91A52ACCAB74006430D0 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		885B91A62ACCAB74006430D0 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
@@ -81,11 +82,10 @@
 		885B91B42ACCAB74006430D0 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		885B91B52ACCAB74006430D0 /* FontAwesome6_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome6_Brands.ttf; sourceTree = "<group>"; };
 		885B91B62ACCAB74006430D0 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
-		9530481DC259402A6910C9C0 /* Pods-OpenD6Toolkit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenD6Toolkit.debug.xcconfig"; path = "Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit.debug.xcconfig"; sourceTree = "<group>"; };
-		DC554D84DC0F2335767F448B /* Pods-OpenD6Toolkit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenD6Toolkit.release.xcconfig"; path = "Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit.release.xcconfig"; sourceTree = "<group>"; };
+		C6CA8A153026AEC53B826DCA /* Pods-OpenD6Toolkit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenD6Toolkit.release.xcconfig"; path = "Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F6CED3951BBFD7F41272E70D /* Pods-OpenD6Toolkit-OpenD6ToolkitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenD6Toolkit-OpenD6ToolkitTests.release.xcconfig"; path = "Target Support Files/Pods-OpenD6Toolkit-OpenD6ToolkitTests/Pods-OpenD6Toolkit-OpenD6ToolkitTests.release.xcconfig"; sourceTree = "<group>"; };
-		FF52118DE1F0DC4DCE810CD9 /* libPods-OpenD6Toolkit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OpenD6Toolkit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		25966B93857A440FA27ADE39 /* Tempus Sans ITC.ttf */ = {isa = PBXFileReference; name = "Tempus Sans ITC.ttf"; path = "../assets/fonts/Tempus Sans ITC.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		50CDD5A85C0E481BB6C02F00 /* TempusSansITC.ttf */ = {isa = PBXFileReference; name = "TempusSansITC.ttf"; path = "../assets/fonts/TempusSansITC.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D10CC23038348ADEA6531C49 /* libPods-OpenD6Toolkit-OpenD6ToolkitTests.a in Frameworks */,
+				31AEF218BEC6451190965C57 /* libPods-OpenD6Toolkit-OpenD6ToolkitTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,7 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82E638CD5D38BB10EF52CCF5 /* libPods-OpenD6Toolkit.a in Frameworks */,
+				0D4AFEF26076FDAF24FE6D85 /* libPods-OpenD6Toolkit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,8 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				FF52118DE1F0DC4DCE810CD9 /* libPods-OpenD6Toolkit.a */,
-				232FB424C7752508FA62B963 /* libPods-OpenD6Toolkit-OpenD6ToolkitTests.a */,
+				3A0D7FD7C84C415DBE754DB4 /* libPods-OpenD6Toolkit.a */,
+				25507ED956CA40E2C73CA23D /* libPods-OpenD6Toolkit-OpenD6ToolkitTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -165,6 +165,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				296DECCE87F94CD7A90107D6 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -183,8 +184,6 @@
 		885B91A32ACCAB74006430D0 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				885B919F2ACCAB26006430D0 /* Tempus Sans ITC.ttf */,
-				885B91A02ACCAB27006430D0 /* TempusSansITC.ttf */,
 				885B91A42ACCAB74006430D0 /* Fontisto.ttf */,
 				885B91A52ACCAB74006430D0 /* Octicons.ttf */,
 				885B91A62ACCAB74006430D0 /* Feather.ttf */,
@@ -212,13 +211,23 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9530481DC259402A6910C9C0 /* Pods-OpenD6Toolkit.debug.xcconfig */,
-				DC554D84DC0F2335767F448B /* Pods-OpenD6Toolkit.release.xcconfig */,
-				3D6A0F60E2798C044E8D519B /* Pods-OpenD6Toolkit-OpenD6ToolkitTests.debug.xcconfig */,
-				F6CED3951BBFD7F41272E70D /* Pods-OpenD6Toolkit-OpenD6ToolkitTests.release.xcconfig */,
+				1A9FC2A9F18403192421C592 /* Pods-OpenD6Toolkit.debug.xcconfig */,
+				C6CA8A153026AEC53B826DCA /* Pods-OpenD6Toolkit.release.xcconfig */,
+				65B967C508376CAE75243999 /* Pods-OpenD6Toolkit-OpenD6ToolkitTests.debug.xcconfig */,
+				3C01190C40C7959C6EAC12A4 /* Pods-OpenD6Toolkit-OpenD6ToolkitTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		296DECCE87F94CD7A90107D6 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				25966B93857A440FA27ADE39 /* Tempus Sans ITC.ttf */,
+				50CDD5A85C0E481BB6C02F00 /* TempusSansITC.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -227,12 +236,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "OpenD6ToolkitTests" */;
 			buildPhases = (
-				1F8E5D6E913D87BA4E8193E6 /* [CP] Check Pods Manifest.lock */,
+				E03FB1B5AA2823F5F23A711A /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				1383056C1030AAD4FCC25660 /* [CP] Embed Pods Frameworks */,
-				A873ED1DF1CA97E989AC40C7 /* [CP] Copy Pods Resources */,
+				34C7448C5C2BAA2C9C3BB66A /* [CP] Embed Pods Frameworks */,
+				355D404C438CB62C5C651771 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -248,14 +257,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "OpenD6Toolkit" */;
 			buildPhases = (
-				086A2C5CA34B728EBA831913 /* [CP] Check Pods Manifest.lock */,
+				226F8AC3C17319DF3335642F /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				86E5F3D0A74059D3D83F990E /* [CP] Embed Pods Frameworks */,
-				42497A3AAE2B2D906C896B44 /* [CP] Copy Pods Resources */,
+				5BE6C4CD0120D5184F277688 /* [CP] Embed Pods Frameworks */,
+				D9A85342EA7837245E558DAD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -315,7 +324,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				885B91C12ACCAB74006430D0 /* FontAwesome5_Solid.ttf in Resources */,
-				885B91A22ACCAB27006430D0 /* TempusSansITC.ttf in Resources */,
 				885B91C22ACCAB74006430D0 /* FontAwesome5_Regular.ttf in Resources */,
 				885B91BD2ACCAB74006430D0 /* MaterialCommunityIcons.ttf in Resources */,
 				885B91C42ACCAB74006430D0 /* Zocial.ttf in Resources */,
@@ -332,11 +340,12 @@
 				885B91C62ACCAB74006430D0 /* FontAwesome6_Solid.ttf in Resources */,
 				885B91C02ACCAB74006430D0 /* Ionicons.ttf in Resources */,
 				885B91BB2ACCAB74006430D0 /* Entypo.ttf in Resources */,
-				885B91A12ACCAB27006430D0 /* Tempus Sans ITC.ttf in Resources */,
 				885B91BC2ACCAB74006430D0 /* FontAwesome5_Brands.ttf in Resources */,
 				885B91C92ACCAB74006430D0 /* MaterialIcons.ttf in Resources */,
 				885B91C82ACCAB74006430D0 /* FontAwesome6_Brands.ttf in Resources */,
 				885B91C32ACCAB74006430D0 /* FontAwesome.ttf in Resources */,
+				CDAEF010F31147879F5E35B4 /* Tempus Sans ITC.ttf in Resources */,
+				54C030EE3A4646BE9D1C1EF4 /* TempusSansITC.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,7 +368,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		086A2C5CA34B728EBA831913 /* [CP] Check Pods Manifest.lock */ = {
+		226F8AC3C17319DF3335642F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -381,7 +390,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1383056C1030AAD4FCC25660 /* [CP] Embed Pods Frameworks */ = {
+		34C7448C5C2BAA2C9C3BB66A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -398,7 +407,58 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit-OpenD6ToolkitTests/Pods-OpenD6Toolkit-OpenD6ToolkitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1F8E5D6E913D87BA4E8193E6 /* [CP] Check Pods Manifest.lock */ = {
+		355D404C438CB62C5C651771 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit-OpenD6ToolkitTests/Pods-OpenD6Toolkit-OpenD6ToolkitTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit-OpenD6ToolkitTests/Pods-OpenD6Toolkit-OpenD6ToolkitTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit-OpenD6ToolkitTests/Pods-OpenD6Toolkit-OpenD6ToolkitTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5BE6C4CD0120D5184F277688 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9A85342EA7837245E558DAD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E03FB1B5AA2823F5F23A711A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -418,57 +478,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		42497A3AAE2B2D906C896B44 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		86E5F3D0A74059D3D83F990E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A873ED1DF1CA97E989AC40C7 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit-OpenD6ToolkitTests/Pods-OpenD6Toolkit-OpenD6ToolkitTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit-OpenD6ToolkitTests/Pods-OpenD6Toolkit-OpenD6ToolkitTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenD6Toolkit-OpenD6ToolkitTests/Pods-OpenD6Toolkit-OpenD6ToolkitTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -523,9 +532,12 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3D6A0F60E2798C044E8D519B /* Pods-OpenD6Toolkit-OpenD6ToolkitTests.debug.xcconfig */;
+			baseConfigurationReference = 65B967C508376CAE75243999 /* Pods-OpenD6Toolkit-OpenD6ToolkitTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = GM2P6R5MBL;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -542,18 +554,22 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.diceless.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenD6Toolkit.app/OpenD6Toolkit";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6CED3951BBFD7F41272E70D /* Pods-OpenD6Toolkit-OpenD6ToolkitTests.release.xcconfig */;
+			baseConfigurationReference = 3C01190C40C7959C6EAC12A4 /* Pods-OpenD6Toolkit-OpenD6ToolkitTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = GM2P6R5MBL;
 				INFOPLIST_FILE = OpenD6ToolkitTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -566,60 +582,85 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.diceless.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenD6Toolkit.app/OpenD6Toolkit";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9530481DC259402A6910C9C0 /* Pods-OpenD6Toolkit.debug.xcconfig */;
+			baseConfigurationReference = 1A9FC2A9F18403192421C592 /* Pods-OpenD6Toolkit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = GM2P6R5MBL;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = OpenD6Toolkit/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "OpenD6 Toolkit";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.role-playing-games";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.4.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.diceless.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = OpenD6Toolkit;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = org.diceless.OpenD6Toolkit;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC554D84DC0F2335767F448B /* Pods-OpenD6Toolkit.release.xcconfig */;
+			baseConfigurationReference = C6CA8A153026AEC53B826DCA /* Pods-OpenD6Toolkit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = GM2P6R5MBL;
 				INFOPLIST_FILE = OpenD6Toolkit/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "OpenD6 Toolkit";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.role-playing-games";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.4.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.diceless.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = OpenD6Toolkit;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = org.diceless.OpenD6Toolkit;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

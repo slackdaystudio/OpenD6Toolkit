@@ -12,11 +12,6 @@
     "postinstall": "patch-package",
     "prepare": "husky install"
   },
-  "rnpm": {
-    "assets": [
-      "./assets/fonts/"
-    ]
-  },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.19.3",
     "@react-native-community/slider": "^4.4.3",
@@ -90,6 +85,9 @@
     "*{.js,test.js}": [
       "eslint"
     ]
+  },
+  "resolutions": {
+    "native-base/@codler/react-native-keyboard-aware-scroll-view": "2.1.0"
   },
   "engines": {
     "node": ">=16"
