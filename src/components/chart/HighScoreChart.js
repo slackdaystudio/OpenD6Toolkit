@@ -63,7 +63,7 @@ export const HighScoreChart = ({highScores, onPress}) => {
                                 marginRight: verticalScale(5),
                             }}
                         />
-                        <Text style={styles.textSmall}>Successes</Text>
+                        <Text style={styles.textSmall}>Legend</Text>
                     </View>
                 </View>
             </View>
