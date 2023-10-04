@@ -72,7 +72,7 @@ const _renderCardBody = header => {
             </View>
             <View flex={1.5} flexDirection="row">
                 <View flex={1.25} borderBottomColor={styles.grey.color} borderBottomWidth={0.25}>
-                    <Text style={[styles.textSmallHeader, {lineHeight: verticalScale(16), paddingLeft: scale(3)}]}>Successes</Text>
+                    <Text style={[styles.textSmallHeader, {lineHeight: verticalScale(16), paddingLeft: scale(3)}]}>Legend</Text>
                 </View>
                 <View flex={1} borderBottomColor={styles.grey.color} borderBottomWidth={0.25}>
                     <Text style={[styles.textSmall, {alignSelf: 'center'}]}>{header.legendRolls}</Text>

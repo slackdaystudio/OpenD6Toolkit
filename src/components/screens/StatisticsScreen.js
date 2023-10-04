@@ -152,9 +152,9 @@ export const StatisticsScreen = ({navigation}) => {
             <Tab.Navigator
                 sceneContainerStyle={{backgroundColor: styles.container.backgroundColor}}
                 screenOptions={{
-                    tabBarLabelStyle: {color: '#4f4e4e'},
+                    tabBarLabelStyle: {color: styles.grey.color},
                     tabBarStyle: {backgroundColor: styles.container.backgroundColor},
-                    tabBarIndicatorStyle: {backgroundColor: '#f57e20'},
+                    tabBarIndicatorStyle: {backgroundColor: styles.container.backgroundColor},
                     swipeEnabled: false,
                 }}>
                 <Tab.Screen options={{animationEnabled: false}} name="Stats">
