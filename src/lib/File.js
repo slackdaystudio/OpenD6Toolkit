@@ -59,7 +59,7 @@ class File {
 
             return templates;
         } catch (error) {
-            console.log(error.message);
+            console.error(error.message);
         }
     }
 
@@ -145,7 +145,7 @@ class File {
             const isCancel = DocumentPicker.isCancel(error);
 
             if (!isCancel) {
-                console.log(error.message);
+                console.error(error.message);
             }
         }
     }
@@ -161,7 +161,7 @@ class File {
 
             common.toast('Character successfully ' + (isImport ? ' imported' : 'loaded'));
         } catch (error) {
-            console.log(error.message);
+            console.error(error.message);
         } finally {
             endLoad(character);
         }

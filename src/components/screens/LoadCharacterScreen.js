@@ -113,7 +113,6 @@ class LoadCharacterScreen extends Component {
                 <Heading text='Characters' onBackButtonPress={() => this.props.navigation.navigate('Builder')} />
                 <List>
                     {this.state.files.map((file, index) => {
-                        console.log(file);
                         return (
                             <ListItem
                                 key={'file-' + index}
