@@ -361,12 +361,13 @@ export default function builder(state = builderState, action) {
                 character: {
                     ...state.character,
                     health: {
-                        ...state.character.health
+                        ...state.character.health,
+                        wounds: {...state.character.health.wounds},
                     }
                 }
             };
 
-            newState.character.health.wounds[action.payload] = !newState.character.health.wounds[action.payload];
+            newState.character.health.wounds[action.payload] = !state.character.health.wounds[action.payload];
 
             return newState;
         case UPDATE_BODY_POINTS:

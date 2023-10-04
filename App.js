@@ -87,6 +87,11 @@ const store = configureStore({
         massRoller,
         settings,
     },
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware({
+            immutableCheck: false,
+            serializableCheck: false,
+        }),
 });
 
 const Drawer = createDrawerNavigator();
