@@ -16,8 +16,7 @@ class Overview extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         template: PropTypes.object.isRequired,
-        updateTemplateOverview: PropTypes.func.isRequired,
-        isTemplateNameUnique: PropTypes.func.isRequired
+        updateTemplateOverview: PropTypes.func,
     }
 
     _updateTemplateOverview(key, value) {
