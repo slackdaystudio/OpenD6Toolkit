@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Dimensions, View, BackHandler} from 'react-native';
-import {TabHeading, Container, Content, Button, Text, Item, Label, Input, Icon, Textarea, Footer, FooterTab, ScrollableTab} from 'native-base';
+import {TabHeading, Container, Content, Button, Text, Item, Label, Input, Icon, Textarea, Footer, FooterTab} from 'native-base';
 import {scale, verticalScale} from 'react-native-size-matters';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import Header from '../Header';
