@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
-import {Container, Content, Text, Card, CardItem, Right, Body, Item, Icon, Input} from 'native-base';
+import {Container, Content, Text, Card, CardItem, Right, Body, Item, Input} from 'native-base';
 import {ScaledSheet, scale, verticalScale} from 'react-native-size-matters';
 import {Header} from '../Header';
 import Heading from '../Heading';
+import {Icon} from '../Icon';
 import RanksDialog, {MODE_ADD} from '../RanksDialog';
 import {common} from '../../lib/Common';
 import {addOption} from '../../reducers/builder';
@@ -201,14 +202,7 @@ class CharacterOptionsScreen extends Component {
             return <View style={{width: 75}} />;
         }
 
-        return (
-            <Icon
-                type="FontAwesome"
-                name="chevron-circle-left"
-                style={[localStyles.buttonBig, {paddingLeft: scale(30)}]}
-                onPress={() => this._onBackButtonPress()}
-            />
-        );
+        return <Icon name="chevron-circle-left" style={[localStyles.buttonBig, {paddingLeft: scale(30)}]} onPress={() => this._onBackButtonPress()} />;
     }
 
     _renderNextButton() {
@@ -274,16 +268,13 @@ class CharacterOptionsScreen extends Component {
     }
 
     render() {
-        let itemCount = 0;
-        let renderedItemCount = 0;
-
         return (
             <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
                     <Heading text={this.state.optionKey} onBackButtonPress={() => this.props.navigation.navigate('Builder')} />
                     <Item>
-                        <Icon active style={{fontSize: scale(25)}} name="search" />
+                        <Icon solid size={scale(25)} name="magnifying-glass" />
                         <Input
                             style={styles.grey}
                             placeholder="Search"

@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {StyleSheet, View, Switch} from 'react-native';
-import {Container, Content, Form, Label, Item, Input, Textarea} from 'native-base';
+import {StyleSheet, View, Switch, TextInput} from 'react-native';
+import {Form, Label, Item, Input} from 'native-base';
 import {scale, verticalScale} from 'react-native-size-matters';
 import {Header} from '../Header';
 import Heading from '../Heading';
 import ArchitectFooter from '../ArchitectFooter';
-import {TAB_ADVANTAGES, TAB_SPECIAL_ABILITIES, TAB_COMPLICATIONS} from './ArchitectScreen';
 import styles from '../../Styles';
 import {template} from '../../lib/Template';
 import {common} from '../../lib/Common';
@@ -30,7 +29,7 @@ import {editTemplateOption} from '../../reducers/architect';
 class EditOptionScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-        editTemplateAttribute: PropTypes.func.isRequired,
+        editTemplateAttribute: PropTypes.func,
         deleteTemplateSkill: PropTypes.func.isRequired,
         template: PropTypes.object,
     };
@@ -57,15 +56,6 @@ class EditOptionScreen extends Component {
         return state;
     }
 
-    _keyboardDidHide() {
-        if (!Number.isInteger(this.state.option.rank) || this.state.option.rank < 0) {
-            let newState = {...this.state};
-            newState.option.rank = 1;
-
-            this.setState(newState);
-        }
-    }
-
     _validateInput(key, value) {
         let isValid = false;
 
@@ -76,7 +66,7 @@ class EditOptionScreen extends Component {
 
             let intValue = parseInt(value, 10);
 
-            if (value >= 0) {
+            if (intValue >= 0) {
                 isValid = true;
             }
         } else {
@@ -99,28 +89,12 @@ class EditOptionScreen extends Component {
         });
     }
 
-    _getArchitectSelectedTab() {
-        switch (this.state.optionKey) {
-            case 'Advantages':
-                return TAB_ADVANTAGES;
-            case 'Special Abilities':
-                return TAB_SPECIAL_ABILITIES;
-            case 'Complications':
-                return TAB_COMPLICATIONS;
-            default:
-            // do nothing, the Overview tab will be selected
-        }
-    }
-
     render() {
         return (
-            <Container style={styles.container}>
+            <View style={styles.container}>
                 <Header navigation={this.props.navigation} />
-                <Content style={styles.content}>
-                    <Heading
-                        text={this.state.optionKey}
-                        onBackButtonPress={() => this.props.navigation.navigate('Architect', {selectedTab: this._getArchitectSelectedTab()})}
-                    />
+                <View style={styles.content}>
+                    <Heading text={this.state.optionKey} />
                     <Form>
                         <Item stackedLabel>
                             <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Rank</Label>
@@ -142,14 +116,18 @@ class EditOptionScreen extends Component {
                             />
                         </Item>
                         <Item stackedLabel>
-                            <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Description</Label>
-                            <Textarea
-                                rowSpan={18}
-                                bordered
-                                maxLength={5000}
-                                style={{width: '100%', fontSize: verticalScale(18)}}
-                                value={this.state.option.description}
-                                onChangeText={value => this._updateOptionField('description', value)}
+                            <Label style={{fontSize: scale(10), fontWeight: 'bold', paddingBottom: verticalScale(5)}}>Description</Label>
+                            <TextInput
+                                multiline={true}
+                                style={styles.textAreaInput}
+                                height={verticalScale(250)}
+                                width="100%"
+                                defaultValue={this.state.option.description.toString()}
+                                onEndEditing={event => {
+                                    event.preventDefault();
+
+                                    this._updateOptionField('description', event.nativeEvent.text);
+                                }}
                             />
                         </Item>
                         <Item>
@@ -163,19 +141,12 @@ class EditOptionScreen extends Component {
                         </Item>
                     </Form>
                     <View style={{paddingBottom: 20}} />
-                </Content>
+                </View>
                 <ArchitectFooter navigation={this.props.navigation} template={this.props.template} />
-            </Container>
+            </View>
         );
     }
 }
-
-const localStyles = StyleSheet.create({
-    button: {
-        fontSize: 30,
-        color: '#f57e20',
-    },
-});
 
 const mapStateToProps = state => {
     return {

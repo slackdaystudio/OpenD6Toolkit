@@ -86,8 +86,10 @@
       "eslint"
     ]
   },
-  "resolutions": {
-    "native-base/@codler/react-native-keyboard-aware-scroll-view": "2.1.0"
+  "overrides": {
+    "native-base": {
+      "@codler/react-native-keyboard-aware-scroll-view": "2.0.1"
+    }
   },
   "engines": {
     "node": ">=16"

@@ -182,4 +182,12 @@ export default ScaledSheet.create({
         fontWeight: 'bold',
         color: '#e8e8e8',
     },
+    textAreaInput: {
+        color: '#4f4e4e',
+        borderWidth: 0.5,
+        borderColor: '#f57e20',
+        backgroundColor: 'rgba(193, 235, 255, 0.1)',
+        fontSize: '14@vs',
+        textAlignVertical: 'top',
+    },
 });
