@@ -424,6 +424,10 @@ class File {
     }
 
     async _readFile(uri) {
+        if (uri.startsWith('file://')) {
+            uri = uri.substring(7);
+        }
+
         return await ReactNativeBlobUtil.fs.readFile(decodeURIComponent(uri), 'utf8');
     }
 }
