@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {StyleSheet, View, Switch, TextInput} from 'react-native';
+import {View, Switch, TextInput} from 'react-native';
 import {Form, Label, Item, Input} from 'native-base';
 import {scale, verticalScale} from 'react-native-size-matters';
 import {Header} from '../Header';
@@ -10,7 +10,7 @@ import ArchitectFooter from '../ArchitectFooter';
 import styles from '../../Styles';
 import {template} from '../../lib/Template';
 import {common} from '../../lib/Common';
-import {editTemplateOption} from '../../reducers/architect';
+import {editTemplateOption, deleteTemplateSkill} from '../../reducers/architect';
 
 // Copyright (C) Slack Day Studio - All Rights Reserved
 //
@@ -30,7 +30,7 @@ class EditOptionScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         editTemplateAttribute: PropTypes.func,
-        deleteTemplateSkill: PropTypes.func.isRequired,
+        deleteTemplateSkill: PropTypes.func,
         template: PropTypes.object,
     };
 
@@ -156,6 +156,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     editTemplateOption,
+    deleteTemplateSkill,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditOptionScreen);

@@ -30,7 +30,7 @@ export const Header = ({navigation, backScreen}) => {
 
     return (
         <View flex={1} style={{maxHeight: verticalScale(Platform.OS === 'ios' ? 65 : 55)}}>
-            <StatusBar backgroundColor="#f57e20" barStyle="dark-content" />
+            <StatusBar backgroundColor="#f57e20" barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'} />
             <View flex={0} flexGrow={1} flexDirection="row" justifyContent="space-around" style={localStyles.logo}>
                 <Icon
                     solid
