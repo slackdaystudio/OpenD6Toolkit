@@ -1,260 +1,167 @@
-import React, { Component }  from 'react';
-import { BackHandler, StyleSheet, View, ScrollView } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import { Container, Content, Text, List, ListItem, Left, Right, Spinner, Tabs, Tab, ScrollableTab } from 'native-base';
-import Header from '../Header';
-import Heading from '../Heading';
-import LogoButton from '../LogoButton';
-import ConfirmationDialog from '../ConfirmationDialog';
-import { statistics, CONTEXTUALLY_INFINITE } from '../../lib/Statistics';
-import { chart } from '../../lib/Chart';
+import React, {useCallback, useState} from 'react';
+import {ActivityIndicator, Text} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Header} from '../Header';
+import {StatisticsTab, LABEL_AVERAGE_ROLL, LABEL_LOWEST_PENALTY_DICE_TOTAL} from './Statistics/StatisticsTab';
+import {HighScoresTab} from './Statistics/HighScoresTab';
+import {CONTEXTUALLY_INFINITE} from '../../lib/Statistics';
+import {TYPE_CLASSIC, TYPE_LEGEND} from '../../lib/DieRoller';
+import {common} from '../../lib/Common';
 import styles from '../../Styles';
 
-export default class StatisticsScreen extends Component {
-    constructor(props) {
-        super(props);
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
-        this.state = {
-            stats: null,
-            confirmationDialog: {
-                visible: false,
-                title: 'Clear Statistics',
-                info: 'This is permanent, are you certain you want to clear your die statistics?',
-            }
+const getAverageRoll = stats => {
+    if (stats.diceRolled === 0) {
+        return 0;
+    }
+
+    return common.toExponentialNotation(stats.sum / stats.diceRolled, 1);
+};
+
+const getTotalRolls = stats => {
+    return stats.highScores.reduce((total, score) => total + score.classicRolls + score.legendRolls + score.luckRolls, 0);
+};
+
+const getRollsByType = (type, stats) => {
+    return stats.highScores.reduce((total, score) => {
+        switch (type) {
+            case TYPE_CLASSIC:
+                return total + score.classicRolls;
+            case TYPE_LEGEND:
+                return total + score.legendRolls;
+            default:
+                return total;
         }
+    }, 0);
+};
 
-        this.onOk = this._onClearConfirm.bind(this);
-        this.onClose = this._onConfirmationClose.bind(this);
-    }
+const Tab = createMaterialTopTabNavigator();
 
-    componentDidMount() {
-        this.focusListener = this.props.navigation.addListener('didFocus', () => {
-            this._loadStats();
-        });
+export const StatisticsScreen = ({navigation}) => {
+    const [stats, setStats] = useState(null);
 
-        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            this.props.navigation.navigate('Home');
+    const [dieCode, setDieCode] = useState();
 
-            return true;
-        });
-    }
+    const getRecords = useCallback(
+        () =>
+            stats === null
+                ? []
+                : [
+                      {
+                          heading: null,
+                          stats: [
+                              {label: 'Total Rolls Made', value: getTotalRolls(stats)},
+                              {label: '  · Classic', value: getRollsByType(TYPE_CLASSIC, stats)},
+                              {label: '  · Successes', value: getRollsByType(TYPE_LEGEND, stats)},
+                              {label: 'Total Dice Rolled', value: stats.diceRolled},
+                              {label: 'Total Face Value', value: stats.sum},
+                              {label: 'Largest Amount of Dice Rolled', value: stats.largestDieRoll},
+                              {label: 'Largest Roll', value: stats.largestSum},
+                              {
+                                  label: LABEL_AVERAGE_ROLL,
+                                  value: getAverageRoll(stats),
+                              },
+                          ],
+                      },
+                      {
+                          heading: 'Crit Successes',
+                          stats: [
+                              {label: 'Total Critical Successes', value: stats.criticalSuccesses},
+                              {label: 'Bonus Dice Rolled', value: stats.bonusDiceRolled},
+                              {label: 'Bonus Dice Total', value: stats.bonusDiceTotal},
+                              {label: 'Largest Bonus Dice Total', value: stats.largestCriticalSuccess},
+                              {
+                                  label: 'Lowest Bonus Dice Total',
+                                  value: stats.lowestCriticalSuccess === CONTEXTUALLY_INFINITE ? 0 : stats.lowestCriticalSuccess,
+                              },
+                          ],
+                      },
+                      {
+                          heading: 'Crit Failures',
+                          stats: [
+                              {label: 'Total Critical Failures', value: stats.criticalFailures},
+                              {label: 'Penalty Dice Rolled', value: stats.penaltyDiceRolled},
+                              {label: 'Penalty Dice Total', value: stats.penaltyDiceTotal},
+                              {label: 'Largest Penatly Dice Total', value: stats.largestCriticalFailure},
+                              {
+                                  label: LABEL_LOWEST_PENALTY_DICE_TOTAL,
+                                  value: stats.lowestCriticalFailure === CONTEXTUALLY_INFINITE ? 0 : stats.lowestCriticalFailure || 0,
+                              },
+                          ],
+                      },
+                  ],
+        [stats],
+    );
 
-    componentWillUnmount() {
-        this.backHandler.remove();
-        this.focusListener.remove();
-    }
+    useFocusEffect(
+        useCallback(() => {
+            _loadStats();
 
-    _loadStats(callback) {
-        AsyncStorage.getItem('statistics').then((statistics) => {
-            let newState = {...this.state};
-            newState.stats = JSON.parse(statistics);
+            return () => {};
+        }, []),
+    );
 
-            this.setState(newState, () => {
-                if (typeof callback === 'function') {
-                    callback();
-                }
+    const _loadStats = () => {
+        AsyncStorage.getItem('statistics')
+            .then(s => {
+                setStats(JSON.parse(s));
+            })
+            .catch(error => {
+                console.error(error);
             });
-        });
-    }
+    };
 
-    _clearStats() {
-        let newState = {...this.state};
-        newState.confirmationDialog.visible = true;
-
-        this.setState(newState);
-    }
-
-    _onClearConfirm() {
-        statistics.init().then(() => {
-            this._loadStats(this.onClose);
-        });
-    }
-
-    _onConfirmationClose() {
-        let newState = {...this.state};
-        newState.confirmationDialog.visible = false;
-
-        this.setState(newState);
-    }
-
-    _renderAverageRoll() {
-        if (this.state.stats.diceRolled === 0) {
-            return <Text style={styles.grey}>-</Text>;
-        }
-
+    if (stats === null) {
         return (
-            <Text style={styles.grey}>
-                {(this.state.stats.sum / this.state.stats.diceRolled).toFixed(1)}
-            </Text>
+            <>
+                <Header navigation={navigation} />
+                <ActivityIndicator color={'#4f4e4e'} />
+            </>
         );
     }
 
-    _renderDieDistributionChart() {
-        if (this.state.stats.sum === 0) {
-            return null;
-        }
-
-        return chart.renderDieDistributionChart(this.state.stats.distributions);
+    if (stats.diceRolled === 0) {
+        return (
+            <>
+                <Header navigation={navigation} />
+                <Text style={[styles.grey, {textAlign: 'center'}]}>You have no rolls on record; go roll some dice!</Text>
+            </>
+        );
     }
 
-	render() {
-        if (this.state.stats === null) {
-            return (
-                <Container style={styles.container}>
-                    <Header hasTabs={false} navigation={this.props.navigation} />
-                    <Content style={styles.content}>
-                        <Spinner />
-                    </Content>
-                </Container>
-            );
-        }
-
-		return (
-		  <Container style={styles.container}>
-			<Header navigation={this.props.navigation} />
-	        <Content style={styles.content}>
-	            <Heading text='General Statistics' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
-                {this._renderDieDistributionChart()}
-                <List>
-                    <ListItem>
-                      <Left>
-                        <Text style={styles.boldGrey}>Total Dice Rolled:</Text>
-                      </Left>
-                      <Right>
-                        <Text style={styles.grey}>{this.state.stats.diceRolled}</Text>
-                      </Right>
-                    </ListItem>
-                    <ListItem>
-                      <Left>
-                        <Text style={styles.boldGrey}>Total Face Value:</Text>
-                      </Left>
-                      <Right>
-                        <Text style={styles.grey}>{this.state.stats.sum}</Text>
-                      </Right>
-                    </ListItem>
-                    <ListItem>
-                      <Left>
-                        <Text style={styles.boldGrey}>Largest Amount of Dice Rolled:</Text>
-                      </Left>
-                      <Right>
-                        <Text style={styles.grey}>{this.state.stats.largestDieRoll}</Text>
-                      </Right>
-                    </ListItem>
-                    <ListItem>
-                      <Left>
-                        <Text style={styles.boldGrey}>Largest Roll:</Text>
-                      </Left>
-                      <Right>
-                        <Text style={styles.grey}>{this.state.stats.largestSum}</Text>
-                      </Right>
-                    </ListItem>
-                    <ListItem>
-                      <Left>
-                        <Text style={styles.boldGrey}>Average Roll:</Text>
-                      </Left>
-                      <Right>
-                        {this._renderAverageRoll()}
-                      </Right>
-                    </ListItem>
-                </List>
-                <Heading text='Critical Success Statistics' />
-                <List>
-                    <ListItem>
-                      <Left>
-                        <Text style={styles.boldGrey}>Total Critical Successes:</Text>
-                      </Left>
-                      <Right>
-                        <Text style={styles.grey}>{this.state.stats.criticalSuccesses}</Text>
-                      </Right>
-                    </ListItem>
-                    <ListItem>
-                      <Left>
-                        <Text style={styles.boldGrey}>Bonus Dice Rolled:</Text>
-                      </Left>
-                      <Right>
-                        <Text style={styles.grey}>{this.state.stats.bonusDiceRolled}</Text>
-                      </Right>
-                    </ListItem>
-                    <ListItem>
-                      <Left>
-                        <Text style={styles.boldGrey}>Bonus Dice Total:</Text>
-                      </Left>
-                      <Right>
-                        <Text style={styles.grey}>{this.state.stats.bonusDiceTotal}</Text>
-                      </Right>
-                    </ListItem>
-                    <ListItem>
-                      <Left>
-                        <Text style={styles.boldGrey}>Largest Bonus Dice Total:</Text>
-                      </Left>
-                      <Right>
-                        <Text style={styles.grey}>{this.state.stats.largestCriticalSuccess}</Text>
-                      </Right>
-                    </ListItem>
-                    <ListItem>
-                      <Left>
-                        <Text style={styles.boldGrey}>Lowest Bonus Dice Total:</Text>
-                      </Left>
-                      <Right>
-                        <Text style={styles.grey}>{this.state.stats.lowestCriticalSuccess === CONTEXTUALLY_INFINITE ? '-' : this.state.stats.lowestCriticalSuccess}</Text>
-                      </Right>
-                    </ListItem>
-                </List>
-                <Heading text='Critical Failure Statistics' />
-                <List>
-                    <ListItem>
-                      <Left>
-                        <Text style={styles.boldGrey}>Total Critical Failures:</Text>
-                      </Left>
-                      <Right>
-                        <Text style={styles.grey}>{this.state.stats.criticalFailures}</Text>
-                      </Right>
-                    </ListItem>
-                    <ListItem>
-                      <Left>
-                        <Text style={styles.boldGrey}>Penalty Dice Rolled:</Text>
-                      </Left>
-                      <Right>
-                        <Text style={styles.grey}>{this.state.stats.penaltyDiceRolled}</Text>
-                      </Right>
-                    </ListItem>
-                    <ListItem>
-                      <Left>
-                        <Text style={styles.boldGrey}>Penalty Dice Total:</Text>
-                      </Left>
-                      <Right>
-                        <Text style={styles.grey}>{this.state.stats.penaltyDiceTotal}</Text>
-                      </Right>
-                    </ListItem>
-                    <ListItem>
-                      <Left>
-                        <Text style={styles.boldGrey}>Largest Penalty Dice Total:</Text>
-                      </Left>
-                      <Right>
-                        <Text style={styles.grey}>{this.state.stats.largestCriticalFailure}</Text>
-                      </Right>
-                    </ListItem>
-                    <ListItem>
-                      <Left>
-                        <Text style={styles.boldGrey}>Lowest Penalty Dice Total:</Text>
-                      </Left>
-                      <Right>
-                        <Text style={styles.grey}>{this.state.stats.lowestCriticalFailure === CONTEXTUALLY_INFINITE ? '-' : this.state.stats.lowestCriticalFailure}</Text>
-                      </Right>
-                    </ListItem>
-                </List>
-                <View style={{paddingBottom: 20}} />
-                <LogoButton label={'Clear'} onPress={() => this._clearStats()} />
-                <View style={{paddingBottom: 20}} />
-                <ConfirmationDialog
-                    visible={this.state.confirmationDialog.visible}
-                    title={this.state.confirmationDialog.title}
-                    info={this.state.confirmationDialog.info}
-                    onOk={this.onOk}
-                    onClose={this.onClose}
-                />
-	        </Content>
-	      </Container>
-		);
-	}
-}
+    return (
+        <>
+            <Header navigation={navigation} />
+            <Tab.Navigator
+                sceneContainerStyle={{backgroundColor: styles.container.backgroundColor}}
+                screenOptions={{
+                    tabBarLabelStyle: {color: styles.grey.color},
+                    tabBarStyle: {backgroundColor: styles.container.backgroundColor},
+                    tabBarIndicatorStyle: {backgroundColor: styles.container.backgroundColor},
+                    swipeEnabled: false,
+                }}>
+                <Tab.Screen options={{animationEnabled: false}} name="Stats">
+                    {() => <StatisticsTab records={getRecords()} stats={stats} />}
+                </Tab.Screen>
+                <Tab.Screen options={{animationEnabled: false}} name="High Scores">
+                    {() => <HighScoresTab dieCode={dieCode} stats={stats} setDieCode={setDieCode} />}
+                </Tab.Screen>
+            </Tab.Navigator>
+        </>
+    );
+};

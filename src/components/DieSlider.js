@@ -1,158 +1,147 @@
-import React, { Component }  from 'react';
-import PropTypes from 'prop-types'
-import { StyleSheet, View, Keyboard } from 'react-native';
-import { Text, Icon, Item, Input } from 'native-base';
-import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
-import Slider from 'react-native-slider';
+import React, {useState, useCallback} from 'react';
+import PropTypes from 'prop-types';
+import {useFocusEffect} from '@react-navigation/native';
+import {View} from 'react-native';
+import {Text, Item, Input} from 'native-base';
+import {default as RNSlider} from '@react-native-community/slider';
+import {ScaledSheet, scale, verticalScale} from 'react-native-size-matters';
 import styles from '../Styles';
 
-export default class DieSlider extends Component {
-    static propTypes = {
-        label: PropTypes.string.isRequired,
-        value: PropTypes.number.isRequired,
-        step: PropTypes.number.isRequired,
-        min: PropTypes.number.isRequired,
-        max: PropTypes.number.isRequired,
-        valueKey: PropTypes.string,
-        onValueChange: PropTypes.func.isRequired,
-        disabled: PropTypes.bool.isRequired
-    }
+// Copyright 2018-Present Philip J. Guinchard
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
-	constructor(props) {
-		super(props);
+export const DieSlider = ({label, value, step, min, max, disabled, valueKey, onValueChange, toggleTabsLocked}) => {
+    const [textValue, setTextValue] = useState(value);
 
-        this.state = {
-            textValue: props.value
-        }
+    useFocusEffect(
+        useCallback(() => {
+            setTextValue(value.toString());
+        }, [value]),
+    );
 
-        this.onTextValueChange = this._onTextValueChange.bind(this);
-		this.onValueChange = this._onValueChange.bind(this);
-        this.keyboardDidHide = this._keyboardDidHide.bind(this);
+    const _isFraction = () => {
+        return step < 1;
+    };
 
-		this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
-	}
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props !== nextProps) {
-            if (this.state.textValue !== '' && this.state.textValue !== '-') {
-                this.setState({textValue: nextProps.value});
-            }
-        }
-    }
-
-    _keyboardDidHide () {
-        if (this.state.textValue !== this.props.value) {
-            this.setState({textValue: this.props.value});
-        }
-    }
-
-    _isFraction() {
-        return this.props.step < 1;
-    }
-
-    _isInputValid(value) {
-        if (value === '' || value === '-') {
-            this.setState({textValue: value}, () => {
-                this.onValueChange(1);
-            });
+    const _isInputValid = val => {
+        if (val === '' || val === '-') {
+            _onValueChange(0);
 
             return false;
         }
 
-        if (this._isFraction()) {
-            this.setState({textValue: value});
-
-            if (/^(\-)?[0-9]\.(25|50|75|0)$/.test(value) === false) {
-                return false;
-            }
-        } else {
-            if (/^(\-)?[0-9]*$/.test(value) === false) {
-                return false;
-            }
+        if (_isFraction()) {
+            return /^(-)?[0-9](\.(25|50|5|75|0))?$/.test(val);
         }
 
-        return true;
-    }
+        return /^(-)?[0-9]*$/.test(val);
+    };
 
-    _onTextValueChange(value) {
-        if (this._isInputValid(value) && value % this.props.step === 0.0) {
-            if (value < this.props.min) {
-                value = this.props.min;
-            } else if (value > this.props.max) {
-                value = this.props.max;
+    const _onTextValueChange = (val, end = false) => {
+        if (_isInputValid(val) && val % step === 0.0) {
+            if (val < min) {
+                val = min;
+            } else if (val > max) {
+                val = max;
             }
 
-            this.setState({textValue: value}, () => {
-                this.onValueChange(value);
-            });
+            _onValueChange(val, end);
         }
-    }
+    };
 
-	_onValueChange(value) {
-        if (typeof this.props.valueKey === 'string') {
-            this.props.onValueChange(this.props.valueKey, value);
-        } else {
-            this.props.onValueChange(value);
+    const _onValueChange = (val, end) => {
+        val = parseNum(val);
+
+        setTextValue(val);
+
+        if (end) {
+            if (typeof valueKey === 'string') {
+                onValueChange(valueKey, val);
+            } else {
+                onValueChange(val);
+            }
         }
-	}
-	
-	render() {
-		return (
-			<View>
-				<View style={localStyles.titleContainer}>
-					<Text style={styles.grey}>{this.props.label}</Text>
-                    <View style={{width: (this._isFraction() ? scale(50): scale(40))}}>
-                        <Item>
-                            <Input
-                                style={[styles.grey, {height: verticalScale(40)}]}
-                                keyboardType='numeric'
-                                maxLength={(this._isFraction() ? 5 : 3)}
-                                value={this.state.textValue.toString()}
-                                onChangeText={(value) => this.onTextValueChange(value)}
-                                onFocus={(value) => this.onTextValueChange('')}
-                            />
-                        </Item>
-                    </View>
-				</View>
-				<View>
-                    <Slider
-                        value={this.props.value}
-                        step={this.props.step}
-                        minimumValue={this.props.min}
-                        maximumValue={this.props.max}
-                        onValueChange={(value) => this.onValueChange(value)}
-                        disabled={this.props.disabled}
-                        trackStyle={thumbStyles.track}
-                        thumbStyle={thumbStyles.thumb}
-                        minimumTrackTintColor='#fde5d2'
-                    />
-				</View>
-			</View>
-		);
-	}
-}
+    };
+
+    const parseNum = text => {
+        return _isFraction() ? parseFloat(text) : parseInt(text, 10);
+    };
+
+    return (
+        <View style={{paddingHorizontal: scale(20)}}>
+            <View style={localStyles.titleContainer}>
+                <Text style={styles.grey}>{label}</Text>
+                <View style={{width: _isFraction() ? scale(50) : scale(40)}}>
+                    <Item>
+                        <Input
+                            style={styles.grey}
+                            keyboardType="numeric"
+                            maxLength={_isFraction() ? 5 : 3}
+                            defaultValue={textValue.toString()}
+                            onEndEditing={event => _onTextValueChange(event.nativeEvent.text, true)}
+                        />
+                    </Item>
+                </View>
+            </View>
+            <View>
+                <RNSlider
+                    style={{height: verticalScale(35)}}
+                    value={parseNum(textValue)}
+                    step={step}
+                    minimumValue={min}
+                    maximumValue={max}
+                    onValueChange={val => _onTextValueChange(val.toString())}
+                    onSlidingStart={() => toggleTabsLocked(true)}
+                    onSlidingComplete={val => {
+                        toggleTabsLocked(false);
+
+                        _onTextValueChange(val.toString(), true);
+                    }}
+                    disabled={disabled}
+                    minimumTrackTintColor="#de8743"
+                    maximumTrackTintColor="#874d1f"
+                    thumbTintColor="#f57e20"
+                />
+            </View>
+        </View>
+    );
+};
+
+DieSlider.propTypes = {
+    label: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    step: PropTypes.number.isRequired,
+    min: PropTypes.number.isRequired,
+    max: PropTypes.number.isRequired,
+    disabled: PropTypes.bool,
+    valueKey: PropTypes.string,
+    onValueChange: PropTypes.func.isRequired,
+    toggleTabsLocked: PropTypes.func,
+};
+
+DieSlider.defaultProps = {
+    toggleTabsLocked: () => {},
+    disabled: false,
+};
 
 const localStyles = ScaledSheet.create({
-	titleContainer: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		paddingTop: '15@vs'
-	},
+    titleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingTop: '10@vs',
+    },
 });
 
-const thumbStyles = ScaledSheet.create({
-	track: {
-		height: '16@vs',
-		borderRadius: '10@s',
-		backgroundColor: '#4f4e4e'
-	},
-	thumb: {
-		width: '25@s',
-		height: '25@s',
-		borderRadius: '15@s',
-		backgroundColor: 'white',
-		borderColor: '#f57e20',
-		borderWidth: '2@s',
-	}
-});
+export default DieSlider;

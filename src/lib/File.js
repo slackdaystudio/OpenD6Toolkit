@@ -1,19 +1,26 @@
-import { Platform, PermissionsAndroid, Alert } from 'react-native';
-import { Toast } from 'native-base';
+import {Platform} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
-import RNFetchBlob from 'rn-fetch-blob';
-import moment from "moment";
-import { zip, unzip } from 'react-native-zip-archive';
-import { common } from './Common';
-import { TEMPLATE_FANTASY_NAME, TEMPLATE_ADVENTURE_NAME, TEMPLATE_SPACE_NAME} from './Character';
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import moment from 'moment';
+import {zip, unzip} from 'react-native-zip-archive';
+import {common} from './Common';
+import {TEMPLATE_FANTASY_NAME, TEMPLATE_ADVENTURE_NAME, TEMPLATE_SPACE_NAME} from './Character';
 
-const ANDROID_ROOT_DIR = RNFetchBlob.fs.dirs.SDCardDir + '/OpenD6Toolkit';
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
-const ANDROID_CHARACTER_DIR = ANDROID_ROOT_DIR + '/characters/';
-
-const ANDROID_TEMPLATE_DIR = ANDROID_ROOT_DIR + '/templates/';
-
-const DEFAULT_ROOT_DIR = RNFetchBlob.fs.dirs.DocumentDir;
+const DEFAULT_ROOT_DIR = ReactNativeBlobUtil.fs.dirs.DocumentDir;
 
 const DEFAULT_CHARACTER_DIR = DEFAULT_ROOT_DIR + '/characters/';
 
@@ -24,26 +31,27 @@ const BUILT_IN_TEMPLATE_NAMES = [TEMPLATE_FANTASY_NAME, TEMPLATE_ADVENTURE_NAME,
 class File {
     async importTemplate(startLoad, endLoad) {
         try {
-            const result = await DocumentPicker.pick({
+            const result = await DocumentPicker.pickSingle({
                 type: [DocumentPicker.types.allFiles],
+                copyTo: 'cachesDirectory',
             });
 
             if (result === null) {
                 return;
             }
 
+            result.fileCopyUri = Platform.OS === 'ios' ? decodeURIComponent(result.fileCopyUri) : result.fileCopyUri;
+
             if (result.name.toLowerCase().endsWith('.json')) {
-                this._saveTemplate(result.uri, startLoad, endLoad);
+                this._saveTemplate(result.fileCopyUri, startLoad, endLoad);
             } else {
                 common.toast('Unsupported file type: ' + result.type);
 
                 return;
             }
         } catch (error) {
-            const isCancel = await DocumentPicker.isCancel(error);
-
-            if (!isCancel) {
-                Alert.alert(error.message);
+            if (!DocumentPicker.isCancel(error)) {
+                console.error(error.message);
             }
         }
     }
@@ -65,7 +73,7 @@ class File {
 
             return templates;
         } catch (error) {
-            common.toast(error.message);
+            console.error(error.message);
         }
     }
 
@@ -74,12 +82,11 @@ class File {
 
         try {
             let templatePath = await this._getTemplatePath(template.name);
-            let currentTemplate = {};
 
             if (BUILT_IN_TEMPLATE_NAMES.includes(template.name)) {
                 message = 'You cannot name a template identically to one of the 3 built in templates';
             } else {
-                await RNFetchBlob.fs.writeFile(templatePath, JSON.stringify(template), 'utf8');
+                await ReactNativeBlobUtil.fs.writeFile(templatePath, JSON.stringify(template), 'utf8');
 
                 message = `Template "${template.name}" was saved`;
             }
@@ -93,21 +100,21 @@ class File {
     async getTemplates() {
         try {
             let path = await this._getPath(DEFAULT_TEMPLATE_DIR);
-            let files = await RNFetchBlob.fs.ls(path);
+            let files = await ReactNativeBlobUtil.fs.ls(path);
             let templates = [];
             let template = null;
             let templatePath = null;
 
             for (let file of files) {
                 templatePath = await this._getTemplatePath(file, false);
-                template = await this._readFile(templatePath)
+                template = await this._readFile(templatePath);
 
                 templates.push(template);
             }
 
             return templates;
-        } catch(error) {
-            Alert.alert(error.message);
+        } catch (error) {
+            console.error(error.message);
         }
     }
 
@@ -115,11 +122,11 @@ class File {
         let path = await this._getTemplatePath(template.name, true);
 
         try {
-            await RNFetchBlob.fs.unlink(path);
+            await ReactNativeBlobUtil.fs.unlink(path);
 
             common.toast('Template deleted');
         } catch (error) {
-            Alert.alert(error.message);
+            console.error(error.message);
         }
     }
 
@@ -127,16 +134,19 @@ class File {
         try {
             let character = null;
 
-            const result = await DocumentPicker.pick({
+            const result = await DocumentPicker.pickSingle({
                 type: [DocumentPicker.types.allFiles],
+                copyTo: 'cachesDirectory',
             });
 
             if (result === null) {
                 return;
             }
 
+            result.fileCopyUri = Platform.OS === 'ios' ? decodeURIComponent(result.fileCopyUri) : result.fileCopyUri;
+
             if (result.name.toLowerCase().endsWith('.json')) {
-                let rawCharacter = await this._readFile(result.uri);
+                let rawCharacter = await this._readFile(result.fileCopyUri);
                 character = JSON.parse(rawCharacter);
 
                 await this.saveCharacter(character, true);
@@ -149,35 +159,39 @@ class File {
                 return;
             }
         } catch (error) {
-            const isCancel = await DocumentPicker.isCancel(error);
+            const isCancel = DocumentPicker.isCancel(error);
 
             if (!isCancel) {
-                common.toast(error.message);
+                console.error(error.message);
             }
         }
     }
 
-    async loadCharacter(characterName, startLoad, endLoad, isImport=false) {
+    async loadCharacter(characterName, startLoad, endLoad, isImport = false) {
         let character = null;
 
         try {
-	        startLoad();
+            startLoad();
 
             let path = await this._getCharacterPath(characterName, false);
             character = await this._readFile(path);
 
             common.toast('Character successfully ' + (isImport ? ' imported' : 'loaded'));
         } catch (error) {
-            common.toast(error.message)
+            console.error(error.message);
         } finally {
             endLoad(character);
         }
     }
 
-    async saveCharacter(character, silent=false) {
+    async saveCharacter(character, silent = false) {
         let characterPath = await this._getCharacterPath(character.name);
 
-        await RNFetchBlob.fs.writeFile(characterPath, JSON.stringify(character), 'utf8');
+        try {
+            await ReactNativeBlobUtil.fs.writeFile(characterPath, JSON.stringify(character), 'utf8');
+        } catch (error) {
+            console.error(error);
+        }
 
         if (!silent) {
             common.toast('Character saved');
@@ -185,8 +199,18 @@ class File {
     }
 
     async getCharacters() {
-        let path = await this._getPath(DEFAULT_CHARACTER_DIR);
-        let characters = await RNFetchBlob.fs.ls(path);
+        const characters = [];
+
+        try {
+            const path = await this._getPath(DEFAULT_CHARACTER_DIR);
+            const chars = await ReactNativeBlobUtil.fs.ls(path);
+
+            for (const c of chars) {
+                characters.push(c);
+            }
+        } catch (error) {
+            console.error(error);
+        }
 
         return characters;
     }
@@ -195,11 +219,11 @@ class File {
         let path = await this._getCharacterPath(fileName, false);
 
         try {
-            await RNFetchBlob.fs.unlink(path);
+            await ReactNativeBlobUtil.fs.unlink(path);
 
-            common.toast('Character deleted')
+            common.toast('Character deleted');
         } catch (error) {
-            Alert.alert(error.message);
+            console.error(error.message);
         }
     }
 
@@ -208,22 +232,21 @@ class File {
             backupSuccess: false,
             backupName: null,
             backupFolder: null,
-            error: null
+            error: null,
         };
 
         try {
             const now = moment().format('YYYYMMDDhhmmss');
             const backupName = `OpenD6Toolkit_${now}.zip`;
             const appDir = await this._getPath(DEFAULT_ROOT_DIR);
-            const archiveDir = Platform.OS === 'ios' ? RNFetchBlob.fs.dirs.DocumentDir : RNFetchBlob.fs.dirs.DownloadDir;
+            const archiveDir = Platform.OS === 'ios' ? ReactNativeBlobUtil.fs.dirs.DocumentDir : ReactNativeBlobUtil.fs.dirs.LegacyDownloadDir;
             const characterDir = await this._getPath(DEFAULT_CHARACTER_DIR);
             const templateDir = await this._getPath(DEFAULT_TEMPLATE_DIR);
             const backupDir = `${appDir}/backup_${now}`;
 
             await this._makeBackupDir(backupDir);
             await this._copyCharactersAndTemplates(backupDir, characterDir, templateDir);
-            await zip(backupDir, `${archiveDir}/${backupName}`);
-            await RNFetchBlob.fs.unlink(backupDir);
+            await zip([backupDir], `${archiveDir}/${backupName}`);
 
             result.backupSuccess = true;
             result.backupName = backupName;
@@ -243,38 +266,29 @@ class File {
             loadSuccess: false,
             backupName: null,
             error: null,
-            cancelled: false
+            cancelled: false,
         };
         let pickerResults = null;
 
         try {
-            if (Platform.OS === 'android') {
-                const androidWritePermission = await this._ask_for_write_permission();
-
-                if (androidWritePermission === PermissionsAndroid.RESULTS.GRANTED) {
-                    pickerResults = await DocumentPicker.pick({
-                        type: [DocumentPicker.types.allFiles],
-                    });
-                } else {
-                    return result;
-                }
-            } else {
-                pickerResults = await DocumentPicker.pick({
-                    type: ['public.archive'],
-                });
-            }
+            pickerResults = await DocumentPicker.pickSingle({
+                type: ['public.archive', 'application/zip'],
+                copyTo: 'cachesDirectory',
+            });
 
             if (pickerResults === null) {
                 return result;
             }
 
+            pickerResults.fileCopyUri = Platform.OS === 'ios' ? decodeURIComponent(pickerResults.fileCopyUri) : pickerResults.fileCopyUri;
+
             if (pickerResults.name.toLowerCase().endsWith('.zip')) {
-                await this._restoreCharactersAndTemplates(pickerResults.uri, result);
+                await this._restoreCharactersAndTemplates(pickerResults.fileCopyUri, result);
             } else {
                 throw 'Unsupported file type: ' + pickerResults.type;
             }
         } catch (error) {
-            const isCancel = await DocumentPicker.isCancel(error);
+            const isCancel = DocumentPicker.isCancel(error);
 
             if (isCancel) {
                 result.cancelled = true;
@@ -292,11 +306,11 @@ class File {
 
         for (let dir of [characterDir, templateDir]) {
             pathParts = dir.split('/');
-            fileNames = await RNFetchBlob.fs.ls(dir);
+            fileNames = await ReactNativeBlobUtil.fs.ls(dir);
 
             for (let fileName of fileNames) {
                 if (/\.json$/i.test(fileName)) {
-                    await RNFetchBlob.fs.cp(`${dir}/${fileName}`, `${backupDir}/${pathParts[pathParts.length - 2]}/${fileName}`);
+                    await ReactNativeBlobUtil.fs.cp(`${dir}/${fileName}`, `${backupDir}/${pathParts[pathParts.length - 2]}/${fileName}`);
                 }
             }
         }
@@ -306,20 +320,20 @@ class File {
         const appDir = await this._getPath(DEFAULT_ROOT_DIR);
         const characterDir = await this._getPath(DEFAULT_CHARACTER_DIR);
         const templateDir = await this._getPath(DEFAULT_TEMPLATE_DIR);
-        const charactersDirExists = await RNFetchBlob.fs.exists(characterDir);
-        const templateDirExists = await RNFetchBlob.fs.exists(templateDir);
+        const charactersDirExists = await ReactNativeBlobUtil.fs.exists(characterDir);
+        const templateDirExists = await ReactNativeBlobUtil.fs.exists(templateDir);
 
         if (charactersDirExists) {
-            await RNFetchBlob.fs.unlink(characterDir);
+            await ReactNativeBlobUtil.fs.unlink(characterDir);
         }
 
         if (templateDirExists) {
-            await RNFetchBlob.fs.unlink(templateDir);
+            await ReactNativeBlobUtil.fs.unlink(templateDir);
         }
 
         let fileName = uri.startsWith('file://') ? uri.substring(7) : uri;
 
-        if (/raw\:/i.test(decodeURIComponent(uri))) {
+        if (/raw:/i.test(decodeURIComponent(uri))) {
             let parts = decodeURIComponent(uri).split('raw:');
 
             fileName = parts[1];
@@ -333,70 +347,41 @@ class File {
         result.backupName = fileNameParts[fileNameParts.length - 1];
     }
 
-    async _ask_for_write_permission() {
-        if (Platform.OS === 'android') {
-            try {
-                let check = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
-
-                if (check === PermissionsAndroid.RESULTS.GRANTED) {
-                    return check;
-                }
-
-                const granted = await PermissionsAndroid.request(
-                    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-                    {
-                        'title': 'OpenD6 Toolkit File System Permission',
-                        'message': 'OpenD6 Toolkit needs read/write access to your device to save characters and game templates'
-                    }
-                );
-
-                return granted;
-            } catch (error) {
-                Alert.alert(error.message);
-            }
-        }
-
-        return null;
-    }
-
     async _makeSaveLocation(location) {
         try {
-            const exists =  await RNFetchBlob.fs.exists(location);
+            const exists = await ReactNativeBlobUtil.fs.exists(location);
 
             if (!exists) {
-                await RNFetchBlob.fs.mkdir(location);
+                await ReactNativeBlobUtil.fs.mkdir(location);
             }
         } catch (error) {
-            Alert.alert(error.message);
+            console.error(error.message);
         }
     }
 
     async _makeBackupDir(location) {
-        const exists =  await RNFetchBlob.fs.exists(location);
+        const exists = await ReactNativeBlobUtil.fs.exists(location);
 
         if (exists) {
-            await RNFetchBlob.fs.unlink(location)
+            await ReactNativeBlobUtil.fs.unlink(location);
         }
 
-        await RNFetchBlob.fs.mkdir(location);
-        await RNFetchBlob.fs.mkdir(`${location}/characters`);
-        await RNFetchBlob.fs.mkdir(`${location}/templates`);
+        await ReactNativeBlobUtil.fs.mkdir(location);
+        await ReactNativeBlobUtil.fs.mkdir(`${location}/characters`);
+        await ReactNativeBlobUtil.fs.mkdir(`${location}/templates`);
     }
 
     async _getPath(defaultPath) {
         let path = defaultPath;
-        let androidWritePermission = await this._ask_for_write_permission();
 
-        if (androidWritePermission === PermissionsAndroid.RESULTS.GRANTED) {
-            if (path === DEFAULT_CHARACTER_DIR) {
-                path = ANDROID_CHARACTER_DIR;
-            } else if (path === DEFAULT_TEMPLATE_DIR) {
-                path = ANDROID_TEMPLATE_DIR;
-            } else if (path === DEFAULT_ROOT_DIR) {
-                path = Platform.OS === 'ios' ? RNFetchBlob.dirs.DocumentDir : ANDROID_ROOT_DIR;
-            } else {
-                throw `Unknown path: {$path}`;
-            }
+        if (path === DEFAULT_CHARACTER_DIR) {
+            path = DEFAULT_CHARACTER_DIR;
+        } else if (path === DEFAULT_TEMPLATE_DIR) {
+            path = DEFAULT_TEMPLATE_DIR;
+        } else if (path === DEFAULT_ROOT_DIR) {
+            path = DEFAULT_ROOT_DIR;
+        } else {
+            throw 'Unknown path: {$path}';
         }
 
         await this._makeSaveLocation(path);
@@ -404,14 +389,13 @@ class File {
         return path;
     }
 
-
-    async _getCharacterPath(characterName, withExtension=true) {
+    async _getCharacterPath(characterName, withExtension = true) {
         let path = await this._getPath(DEFAULT_CHARACTER_DIR);
 
         return path + this._stripInvalidCharacters(characterName) + (withExtension ? '.json' : '');
     }
 
-    async _getTemplatePath(templateName, withExtension=true) {
+    async _getTemplatePath(templateName, withExtension = true) {
         let path = await this._getPath(DEFAULT_TEMPLATE_DIR);
 
         return path + this._stripInvalidCharacters(templateName) + (withExtension ? '.json' : '');
@@ -429,32 +413,22 @@ class File {
             let template = JSON.parse(data);
             let path = await this._getTemplatePath(template.name);
 
-            await RNFetchBlob.fs.writeFile(path, data, 'utf8');
+            await ReactNativeBlobUtil.fs.writeFile(path, data, 'utf8');
 
             common.toast('Template saved');
         } catch (error) {
-            Alert.alert(error.message);
+            console.error(error.message);
         } finally {
             endLoad();
         }
     }
 
     async _readFile(uri) {
-        let filePath = uri.startsWith('file://') ? uri.substring(7) : uri;
-
-        if (/raw\:/i.test(decodeURIComponent(uri))) {
-            let parts = decodeURIComponent(uri).split('raw:');
-
-            filePath = parts[1];
+        if (uri.startsWith('file://')) {
+            uri = uri.substring(7);
         }
 
-        if (Platform.OS === 'ios' && !common.isIPad() && /OpenD6Toolkit\-Inbox/.test(filePath) === false) {
-            let arr = uri.split('/');
-            const dirs = RNFetchBlob.fs.dirs;
-            filePath = `${dirs.DocumentDir}/${arr[arr.length - 2]}/${arr[arr.length - 1]}`;
-        }
-
-        return await RNFetchBlob.fs.readFile(decodeURI(filePath), 'utf8')
+        return await ReactNativeBlobUtil.fs.readFile(decodeURIComponent(uri), 'utf8');
     }
 }
 

@@ -1,17 +1,31 @@
-import React, { Component }  from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { BackHandler, Platform, StyleSheet, View, Alert } from 'react-native';
-import { Container, Content, Button, Text, List, ListItem, Body, Icon, Spinner } from 'native-base';
-import Header from '../Header';
+import {View} from 'react-native';
+import {Container, Content, Text, List, ListItem, Body, Spinner} from 'native-base';
+import {Header} from '../Header';
 import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
 import styles from '../../Styles';
-import { file } from '../../lib/File';
+import {file} from '../../lib/File';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 export default class TemplateDeleteScreen extends Component {
     static propTypes = {
-        navigation: PropTypes.object.isRequired
-    }
+        navigation: PropTypes.object.isRequired,
+    };
 
     constructor(props) {
         super(props);
@@ -23,9 +37,10 @@ export default class TemplateDeleteScreen extends Component {
             confirmationDialog: {
                 visible: false,
                 title: 'Delete Template',
-                info: 'This is permanent, are you certain you want to delete this template?\n\n' +
-                    'Characters using this template will not be affected by this action.'
-            }
+                info:
+                    'This is permanent, are you certain you want to delete this template?\n\n' +
+                    'Characters using this template will not be affected by this action.',
+            },
         };
 
         this.onClose = this._closeConfirmationDialog.bind(this);
@@ -34,16 +49,6 @@ export default class TemplateDeleteScreen extends Component {
 
     componentDidMount() {
         this._updateFileList();
-
-        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            this.props.navigation.navigate('Architect');
-
-            return true;
-        });
-    }
-
-    componentWillUnmount() {
-        this.backHandler.remove();
     }
 
     _delete(template) {
@@ -75,7 +80,7 @@ export default class TemplateDeleteScreen extends Component {
         newState.templates = [];
         newState.showSpinner = false;
 
-        file.getTemplates().then((templates) => {
+        file.getTemplates().then(templates => {
             for (let template of templates) {
                 newState.templates.push(JSON.parse(template));
             }
@@ -84,47 +89,46 @@ export default class TemplateDeleteScreen extends Component {
         });
     }
 
-	render() {
-	    if (this.state.showSpinner) {
-	        return (
-              <Container style={styles.container}>
+    render() {
+        if (this.state.showSpinner) {
+            return (
+                <Container style={styles.container}>
+                    <Header navigation={this.props.navigation} />
+                    <Content style={styles.content}>
+                        <Heading text="Template Select" />
+                        <Spinner />
+                    </Content>
+                </Container>
+            );
+        }
+
+        return (
+            <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Heading text="Template Select" />
-                    <Spinner />
+                    <Heading text="Delete Template" onBackButtonPress={() => this.props.navigation.navigate('Architect')} />
+                    <Text style={[styles.grey, {alignSelf: 'center'}]}>Long press to delete a template.</Text>
+                    <List>
+                        {this.state.templates.map((template, index) => {
+                            return (
+                                <ListItem noIndent key={'t-' + index} onLongPress={() => this._delete(template)}>
+                                    <Body>
+                                        <Text style={styles.grey}>{template.name}</Text>
+                                    </Body>
+                                </ListItem>
+                            );
+                        })}
+                    </List>
+                    <View style={{paddingBottom: 20}} />
+                    <ConfirmationDialog
+                        visible={this.state.confirmationDialog.visible}
+                        title={this.state.confirmationDialog.title}
+                        info={this.state.confirmationDialog.info}
+                        onOk={this.onOk}
+                        onClose={this.onClose}
+                    />
                 </Content>
-              </Container>
-	        );
-	    }
-
-		return (
-		  <Container style={styles.container}>
-            <Header navigation={this.props.navigation} />
-            <Content style={styles.content}>
-                <Heading text="Delete Template" onBackButtonPress={() => this.props.navigation.navigate('Architect')} />
-                <Text style={[styles.grey, {alignSelf: 'center'}]}>Long press to delete a template.</Text>
-                <List>
-                    {this.state.templates.map((template, index) => {
-                        return (
-                            <ListItem noIndent key={'t-' + index} onLongPress={() => this._delete(template)}>
-                                <Body>
-                                    <Text style={styles.grey}>{template.name}</Text>
-                                </Body>
-                            </ListItem>
-                        );
-
-                    })}
-                </List>
-                <View style={{paddingBottom: 20}} />
-                <ConfirmationDialog
-                    visible={this.state.confirmationDialog.visible}
-                    title={this.state.confirmationDialog.title}
-                    info={this.state.confirmationDialog.info}
-                    onOk={this.onOk}
-                    onClose={this.onClose}
-                />
-            </Content>
-	      </Container>
-		);
-	}
+            </Container>
+        );
+    }
 }

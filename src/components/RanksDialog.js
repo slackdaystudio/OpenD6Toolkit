@@ -1,13 +1,27 @@
-import React, { Component }  from 'react';
-import PropTypes from 'prop-types'
-import { StyleSheet, View, TouchableHighlight, Switch } from 'react-native';
-import { Container, Content, Button, Text, Item, Input, Picker, Form, Label, Icon } from 'native-base';
-import { ScaledSheet, scale, moderateScale } from 'react-native-size-matters';
-import Modal from "react-native-modal";
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {StyleSheet, View, Switch} from 'react-native';
+import {Text, Item, Input, Label, Icon} from 'native-base';
+import {scale} from 'react-native-size-matters';
+import Modal from 'react-native-modal';
 import ErrorMessage from './ErrorMessage';
 import Heading from './Heading';
 import LogoButton from './LogoButton';
 import styles from '../Styles';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 export const MODE_ADD = 'ADD';
 
@@ -21,8 +35,8 @@ export default class RanksDialog extends Component {
         mode: PropTypes.string.isRequired,
         onSave: PropTypes.func.isRequired,
         onClose: PropTypes.func.isRequired,
-        onDelete: PropTypes.func
-    }
+        onDelete: PropTypes.func,
+    };
 
     constructor(props) {
         super(props);
@@ -31,8 +45,8 @@ export default class RanksDialog extends Component {
             totalRanks: 1,
             displayNote: '',
             excludeFromBuildCosts: false,
-            errorMessage: null
-        }
+            errorMessage: null,
+        };
 
         this.onDelete = this._onDelete.bind(this);
     }
@@ -42,7 +56,7 @@ export default class RanksDialog extends Component {
             this.setState({
                 totalRanks: this.props.item.totalRanks,
                 displayNote: this.props.item.displayNote,
-                excludeFromBuildCosts: this.props.item.excludeFromBuildCosts
+                excludeFromBuildCosts: this.props.item.excludeFromBuildCosts,
             });
         }
     }
@@ -60,7 +74,7 @@ export default class RanksDialog extends Component {
 
         this.setState({
             totalRanks: newRanks,
-            errorMessage: null
+            errorMessage: null,
         });
     }
 
@@ -75,7 +89,7 @@ export default class RanksDialog extends Component {
     }
 
     _save() {
-        let newItem = {...this.props.item}
+        let newItem = {...this.props.item};
         newItem.totalRanks = this.state.totalRanks;
         newItem.displayNote = this.state.displayNote;
         newItem.excludeFromBuildCosts = this.state.excludeFromBuildCosts;
@@ -94,8 +108,8 @@ export default class RanksDialog extends Component {
                 <View style={styles.rowStart}>
                     <View style={localStyles.row}>
                         <Icon
-                            type='FontAwesome'
-                            name='minus-square'
+                            type="FontAwesome"
+                            name="minus-square"
                             style={[styles.grey, {fontSize: scale(25), color: '#f57e20', alignItems: 'flex-start'}]}
                             onPress={() => this._decrementRanks()}
                         />
@@ -105,8 +119,8 @@ export default class RanksDialog extends Component {
                     </View>
                     <View style={localStyles.row}>
                         <Icon
-                            type='FontAwesome'
-                            name='plus-square'
+                            type="FontAwesome"
+                            name="plus-square"
                             style={[styles.grey, {fontSize: scale(25), color: '#f57e20', alignItems: 'flex-end'}]}
                             onPress={() => this._incrementRanks()}
                         />
@@ -120,7 +134,7 @@ export default class RanksDialog extends Component {
 
     _renderSaveButton() {
         if (this.props.item !== null) {
-            return <LogoButton label='Save' onPress={() => this._save()} minWidth={130} />
+            return <LogoButton label="Save" onPress={() => this._save()} minWidth={130} />;
         }
 
         return null;
@@ -134,18 +148,17 @@ export default class RanksDialog extends Component {
             action = this.props.onClose;
         }
 
-        return <LogoButton label={label} onPress={() => action()} minWidth={130} />
+        return <LogoButton label={label} onPress={() => action()} minWidth={130} />;
     }
 
-	render() {
+    render() {
         return (
             <Modal
                 isVisible={this.props.visible}
                 swipeDirection={'right'}
-                onSwipe={() => this.props.onClose()}
+                onSwipeComplete={() => this.props.onClose()}
                 onBackButtonPress={() => this.props.onClose()}
-                onBackdropPress={() => this.props.onClose()}
-            >
+                onBackdropPress={() => this.props.onClose()}>
                 <View style={styles.modal}>
                     <Heading text={this.props.item === null ? 'Select Rank' : this.props.item.name} />
                     <View style={styles.modalContent}>
@@ -156,7 +169,7 @@ export default class RanksDialog extends Component {
                                 style={[styles.textInput, {maxWidth: scale(200)}]}
                                 maxLength={30}
                                 value={this.state.displayNote}
-                                onChangeText={(value) => this._updateDisplayNote(value)}
+                                onChangeText={value => this._updateDisplayNote(value)}
                             />
                         </Item>
                         {this._renderFormControls()}
@@ -165,7 +178,7 @@ export default class RanksDialog extends Component {
                             <Switch
                                 value={this.state.excludeFromBuildCosts}
                                 onValueChange={() => this._toggleExcludeFromBuildCosts()}
-                                thumbColor='#f57e20'
+                                thumbColor="#f57e20"
                                 trackColor={{true: '#fde5d2', false: '#4f4e4e'}}
                             />
                         </Item>
@@ -177,14 +190,14 @@ export default class RanksDialog extends Component {
                 </View>
             </Modal>
         );
-	}
+    }
 }
 
 const localStyles = StyleSheet.create({
-	row: {
-	    flex: 1,
-	    alignSelf: 'center',
-	    alignItems:'center',
-	    justifyContent: 'flex-end'
-	}
+    row: {
+        flex: 1,
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+    },
 });

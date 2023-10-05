@@ -1,11 +1,25 @@
-import React, { Component }  from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Alert, Platform, StyleSheet, View, Switch } from 'react-native';
-import { Container, Content, Button, Text, ListItem, CheckBox, Body, Item, Form, Label, Input, Icon } from 'native-base';
-import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
+import {View, Switch} from 'react-native';
+import {Text, ListItem, CheckBox, Body, Item, Label, Input} from 'native-base';
+import {scale} from 'react-native-size-matters';
 import styles from '../../Styles';
 import Heading from '../Heading';
 import CalculatorInput from '../CalculatorInput';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 export const DEATH_SPIRAL = [
     {level: 'stunned', label: 'Stunned', shortLabel: 'S'},
@@ -13,7 +27,7 @@ export const DEATH_SPIRAL = [
     {level: 'severelyWounded', label: 'Severely Wounded', shortLabel: 'SW'},
     {level: 'incapacitated', label: 'Incapacitated', shortLabel: 'I'},
     {level: 'mortallyWounded', label: 'Mortally Wounded', shortLabel: 'MW'},
-    {level: 'dead', label: 'Dead', shortLabel: 'D'}
+    {level: 'dead', label: 'Dead', shortLabel: 'D'},
 ];
 
 export default class Health extends Component {
@@ -21,8 +35,8 @@ export default class Health extends Component {
         character: PropTypes.object.isRequired,
         updateHealthSystem: PropTypes.func.isRequired,
         updateWounds: PropTypes.func.isRequired,
-        updateBodyPoints: PropTypes.func.isRequired
-    }
+        updateBodyPoints: PropTypes.func.isRequired,
+    };
 
     constructor(props) {
         super(props);
@@ -56,7 +70,7 @@ export default class Health extends Component {
                         <ListItem key={'death-spiral-' + index}>
                             <CheckBox
                                 checkboxSize={scale(20)}
-                                color='#f57e20'
+                                color="#f57e20"
                                 checked={this.props.character.health.wounds[step.level]}
                                 onPress={() => this.props.updateWounds(step.level)}
                             />
@@ -78,20 +92,20 @@ export default class Health extends Component {
                         <Label style={{fontSize: scale(10)}}>Max</Label>
                         <Input
                             style={styles.textInputs}
-                            keyboardType='numeric'
+                            keyboardType="numeric"
                             maxLength={4}
                             value={this.props.character.health.bodyPoints.max.toString()}
-                            onChangeText={(value) => this._updateBodyPoints('max', value)}
+                            onChangeText={value => this._updateBodyPoints('max', value)}
                         />
                     </Item>
                 </View>
                 <View style={{alignSelf: 'flex-end'}}>
                     <CalculatorInput
-                        label='Current'
-                        itemKey='current'
+                        label="Current"
+                        itemKey="current"
                         value={this.props.character.health.bodyPoints.current}
                         onAccept={this.updateBodyPoints}
-                        alignment='flex-end'
+                        alignment="flex-end"
                     />
                 </View>
             </View>
@@ -106,17 +120,17 @@ export default class Health extends Component {
         return this._renderWounds();
     }
 
-	render() {
-		return (
+    render() {
+        return (
             <View>
-                <Heading text='Health' />
+                <Heading text="Health" />
                 <View style={styles.titleContainer}>
                     <Text style={[styles.grey, {paddingLeft: 30}]}>Use Body Points?</Text>
                     <View style={{paddingRight: 30}}>
                         <Switch
                             value={this.props.character.health.useBodyPoints}
                             onValueChange={() => this.props.updateHealthSystem()}
-                            thumbColor='#f57e20'
+                            thumbColor="#f57e20"
                             trackColor={{true: '#fde5d2', false: '#4f4e4e'}}
                         />
                     </View>
@@ -124,6 +138,6 @@ export default class Health extends Component {
                 {this._renderHealth()}
                 <View style={{paddingBottom: 20}} />
             </View>
-		);
-	}
+        );
+    }
 }

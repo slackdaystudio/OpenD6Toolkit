@@ -1,12 +1,20 @@
-import { Alert } from 'react-native';
-import {
-    OPTION_ADVANTAGES,
-    OPTION_COMPLICATIONS,
-    TEMPLATE_FANTASY,
-    character
-} from '../lib/Character';
+import {character} from '../lib/Character';
 import uuid from 'react-native-uuid';
-import { common } from '../lib/Common';
+import {common} from '../lib/Common';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 //////////////////////////////
 // ACTIONS                  //
@@ -49,14 +57,14 @@ export const CLEAR_LOADED_CHARACTER = 'CLEAR_LOADED_CHARACTER';
 export function setTemplate(template) {
     return {
         type: SET_TEMPLATE,
-        payload: template
+        payload: template,
     };
 }
 
 export function updateCharacterDieCode(dieCode) {
     return {
         type: UPDATE_CHARACTER_DIE_CODE,
-        payload: dieCode
+        payload: dieCode,
     };
 }
 
@@ -65,22 +73,22 @@ export function updateAppearance(key, value) {
         type: UPDATE_APPEARANCE,
         payload: {
             key: key,
-            value: value
-        }
+            value: value,
+        },
     };
 }
 
 export function editSpecialization(specialization) {
     return {
         type: EDIT_SPECIALIZATION,
-        payload: specialization
+        payload: specialization,
     };
 }
 
 export function deleteSpecialization(specialization) {
     return {
         type: DELETE_SPECIALIZATION,
-        payload: specialization
+        payload: specialization,
     };
 }
 
@@ -89,8 +97,8 @@ export function addOption(optionKey, item) {
         type: ADD_OPTION,
         payload: {
             optionKey: optionKey,
-            item: item
-        }
+            item: item,
+        },
     };
 }
 
@@ -99,8 +107,8 @@ export function updateOption(optionKey, item) {
         type: UPDATE_OPTION,
         payload: {
             optionKey: optionKey,
-            item: item
-        }
+            item: item,
+        },
     };
 }
 
@@ -109,22 +117,22 @@ export function removeOption(optionKey, item) {
         type: REMOVE_OPTION,
         payload: {
             optionKey: optionKey,
-            item: item
-        }
+            item: item,
+        },
     };
 }
 
 export function updateHealthSystem(isBodyPoints) {
     return {
         type: UPDATE_HEALTH_SYSTEM,
-        payload: null
+        payload: null,
     };
 }
 
 export function updateWounds(woundLevel) {
     return {
         type: UPDATE_WOUNDS,
-        payload: woundLevel
+        payload: woundLevel,
     };
 }
 
@@ -133,15 +141,15 @@ export function updateBodyPoints(key, value) {
         type: UPDATE_BODY_POINTS,
         payload: {
             key: key,
-            value: value
-        }
+            value: value,
+        },
     };
 }
 
 export function updateDefenseSystem() {
     return {
         type: UPDATE_DEFENSE_SYSTEM,
-        payload: null
+        payload: null,
     };
 }
 
@@ -150,31 +158,31 @@ export function updateStaticDefense(key, value) {
         type: UPDATE_STATIC_DEFENSE,
         payload: {
             key: key,
-            value: value
-        }
+            value: value,
+        },
     };
 }
 
 export function loadCharacter(character) {
     return {
         type: LOAD_CHARACTER,
-        payload: character
-    }
+        payload: character,
+    };
 }
 
 export function clearLoadedCharacter() {
     return {
         type: CLEAR_LOADED_CHARACTER,
-        payload: null
-    }
+        payload: null,
+    };
 }
 
-builderState = {
-    character: null
+const builderState = {
+    character: null,
 };
 
 export default function builder(state = builderState, action) {
-    let newState = null
+    let newState = null;
     let optionKey = null;
 
     switch (action.type) {
@@ -182,8 +190,8 @@ export default function builder(state = builderState, action) {
             newState = {
                 ...state,
                 character: {
-                    ...state.character
-                }
+                    ...state.character,
+                },
             };
 
             newState.character = character.create(action.payload);
@@ -193,8 +201,8 @@ export default function builder(state = builderState, action) {
             newState = {
                 ...state,
                 character: {
-                    ...state.character
-                }
+                    ...state.character,
+                },
             };
 
             let skillOrAttribute = character.getAttributeOrSkill(newState.character, action.payload.identifier);
@@ -209,8 +217,8 @@ export default function builder(state = builderState, action) {
             newState = {
                 ...state,
                 character: {
-                    ...state.character
-                }
+                    ...state.character,
+                },
             };
 
             newState.character[action.payload.key] = action.payload.value;
@@ -220,8 +228,8 @@ export default function builder(state = builderState, action) {
             newState = {
                 ...state,
                 character: {
-                    ...state.character
-                }
+                    ...state.character,
+                },
             };
 
             if (action.payload.uuid === null) {
@@ -242,8 +250,8 @@ export default function builder(state = builderState, action) {
             newState = {
                 ...state,
                 character: {
-                    ...state.character
-                }
+                    ...state.character,
+                },
             };
 
             for (let i = 0; i < newState.character.specializations.length; i++) {
@@ -266,15 +274,15 @@ export default function builder(state = builderState, action) {
                 character: {
                     ...state.character,
                     advantages: {
-                        ...state.character.advantages
+                        ...state.character.advantages,
                     },
                     complications: {
-                        ...state.character.complications
+                        ...state.character.complications,
                     },
                     specialAbilities: {
-                        ...state.character.specialAbilities
-                    }
-                }
+                        ...state.character.specialAbilities,
+                    },
+                },
             };
 
             action.payload.item.uuid = uuid.v4();
@@ -290,15 +298,15 @@ export default function builder(state = builderState, action) {
                 character: {
                     ...state.character,
                     advantages: {
-                        ...state.character.advantages
+                        ...state.character.advantages,
                     },
                     complications: {
-                        ...state.character.complications
+                        ...state.character.complications,
                     },
                     specialAbilities: {
-                        ...state.character.specialAbilities
-                    }
-                }
+                        ...state.character.specialAbilities,
+                    },
+                },
             };
 
             for (let i = 0; i < newState.character[optionKey].items.length; i++) {
@@ -309,22 +317,22 @@ export default function builder(state = builderState, action) {
             }
 
             return newState;
-       case REMOVE_OPTION:
+        case REMOVE_OPTION:
             optionKey = common.toCamelCase(action.payload.optionKey);
             newState = {
                 ...state,
                 character: {
                     ...state.character,
                     advantages: {
-                        ...state.character.advantages
+                        ...state.character.advantages,
                     },
                     complications: {
-                        ...state.character.complications
+                        ...state.character.complications,
                     },
                     specialAbilities: {
-                        ...state.character.specialAbilities
-                    }
-                }
+                        ...state.character.specialAbilities,
+                    },
+                },
             };
 
             let index = -1;
@@ -347,9 +355,9 @@ export default function builder(state = builderState, action) {
                 character: {
                     ...state.character,
                     health: {
-                        ...state.character.health
-                    }
-                }
+                        ...state.character.health,
+                    },
+                },
             };
 
             newState.character.health.useBodyPoints = !newState.character.health.useBodyPoints;
@@ -361,12 +369,13 @@ export default function builder(state = builderState, action) {
                 character: {
                     ...state.character,
                     health: {
-                        ...state.character.health
-                    }
-                }
+                        ...state.character.health,
+                        wounds: {...state.character.health.wounds},
+                    },
+                },
             };
 
-            newState.character.health.wounds[action.payload] = !newState.character.health.wounds[action.payload];
+            newState.character.health.wounds[action.payload] = !state.character.health.wounds[action.payload];
 
             return newState;
         case UPDATE_BODY_POINTS:
@@ -375,9 +384,9 @@ export default function builder(state = builderState, action) {
                 character: {
                     ...state.character,
                     health: {
-                        ...state.character.health
-                    }
-                }
+                        ...state.character.health,
+                    },
+                },
             };
 
             newState.character.health.bodyPoints[action.payload.key] = action.payload.value;
@@ -389,12 +398,12 @@ export default function builder(state = builderState, action) {
                 character: {
                     ...state.character,
                     defenses: {
-                        ...state.character.defenses
-                    }
-                }
+                        ...state.character.defenses,
+                    },
+                },
             };
 
-            newState.character.defenses.useStaticDefenses = !newState.character.defenses.useStaticDefenses;;
+            newState.character.defenses.useStaticDefenses = !newState.character.defenses.useStaticDefenses;
 
             return newState;
         case UPDATE_STATIC_DEFENSE:
@@ -403,9 +412,9 @@ export default function builder(state = builderState, action) {
                 character: {
                     ...state.character,
                     defenses: {
-                        ...state.character.defenses
-                    }
-                }
+                        ...state.character.defenses,
+                    },
+                },
             };
 
             newState.character.defenses.staticDefenses[action.payload.key] = action.payload.value;
@@ -415,8 +424,8 @@ export default function builder(state = builderState, action) {
             newState = {
                 ...state,
                 character: {
-                    ...state.character
-                }
+                    ...state.character,
+                },
             };
 
             newState.character = typeof action.payload === 'string' ? JSON.parse(action.payload) : action.payload;
@@ -426,8 +435,8 @@ export default function builder(state = builderState, action) {
             newState = {
                 ...state,
                 character: {
-                    ...state.character
-                }
+                    ...state.character,
+                },
             };
 
             newState.character = null;

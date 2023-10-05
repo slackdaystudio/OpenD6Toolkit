@@ -1,11 +1,25 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Alert, StyleSheet, Dimensions, Animated, Easing, Image, View, Platform } from 'react-native';
-import { Text, CardItem, Card, Left, Right, Body, Input, Icon, Form, Item, Label, CheckBox, Picker } from 'native-base';
-import { ScaledSheet, scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import {Dimensions, Animated, Easing, View, Platform} from 'react-native';
+import {Text, CardItem, Card, Right, Body, Input, Icon, Item, Label, CheckBox, Picker} from 'native-base';
+import {ScaledSheet, scale, moderateScale} from 'react-native-size-matters';
 import CalculatorInput from './CalculatorInput';
-import { DEATH_SPIRAL } from './builder/Health';
+import {DEATH_SPIRAL} from './builder/Health';
 import styles from '../Styles';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 const window = Dimensions.get('window');
 
@@ -22,8 +36,8 @@ export default class Row extends Component {
         data: PropTypes.object.isRequired,
         combatants: PropTypes.object.isRequired,
         onRemove: PropTypes.func.isRequired,
-        onUpdate: PropTypes.func.isRequired
-    }
+        onUpdate: PropTypes.func.isRequired,
+    };
 
     constructor(props) {
         super(props);
@@ -33,30 +47,34 @@ export default class Row extends Component {
         this._style = {
             ...Platform.select({
                 ios: {
-                    transform: [{
-                        scale: this._active.interpolate({
-                            inputRange: [0, 1],
-                            outputRange: [1, 1.1],
-                        }),
-                    }],
+                    transform: [
+                        {
+                            scale: this._active.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [1, 1.1],
+                            }),
+                        },
+                    ],
                     shadowRadius: this._active.interpolate({
                         inputRange: [0, 1],
                         outputRange: [2, 10],
                     }),
                 },
                 android: {
-                    transform: [{
-                        scale: this._active.interpolate({
-                            inputRange: [0, 1],
-                            outputRange: [1, 1.07],
-                        }),
-                    }],
+                    transform: [
+                        {
+                            scale: this._active.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [1, 1.07],
+                            }),
+                        },
+                    ],
                     elevation: this._active.interpolate({
                         inputRange: [0, 1],
                         outputRange: [2, 6],
                     }),
                 },
-            })
+            }),
         };
 
         this.updateBodyPoints = this._updateBodyPoints.bind(this);
@@ -111,20 +129,20 @@ export default class Row extends Component {
                             <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Maximum:</Label>
                             <Input
                                 style={styles.textInput}
-                                keyboardType='numeric'
+                                keyboardType="numeric"
                                 maxLength={3}
                                 value={this.props.data.maxBodyPoints.toString()}
-                                onChangeText={(value) => this._updateBodyPoints('maxBodyPoints', value)}
-                                onFocus={(value) => this._focusBodyPoints('maxBodyPoints')}
-                                onBlur={(value) => this._blurBodyPoints('maxBodyPoints')}
+                                onChangeText={value => this._updateBodyPoints('maxBodyPoints', value)}
+                                onFocus={value => this._focusBodyPoints('maxBodyPoints')}
+                                onBlur={value => this._blurBodyPoints('maxBodyPoints')}
                             />
                         </Item>
                     </View>
                     <View style={{alignSelf: 'flex-end'}}>
                         <CalculatorInput
-                            label='Current:'
+                            label="Current:"
                             labelFontSize={10}
-                            itemKey='currentBodyPoints'
+                            itemKey="currentBodyPoints"
                             value={this.props.data.currentBodyPoints}
                             onAccept={this.updateBodyPoints}
                             width={110}
@@ -143,7 +161,7 @@ export default class Row extends Component {
                         <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                             <View style={{flex: 1, alignSelf: 'center', paddingRight: moderateScale(21, 0.035)}}>
                                 <CheckBox
-                                    color='#f57e20'
+                                    color="#f57e20"
                                     checked={this.props.data[step.level]}
                                     onPress={() => this.props.onUpdate(this.props.data.uuid, step.level, !this.props.data[step.level])}
                                 />
@@ -159,20 +177,20 @@ export default class Row extends Component {
     }
 
     _renderEngagingOptions() {
-      let selectableCombatants = Object.keys(this.props.combatants).filter((key) => {
-          if (this.props.combatants[key].uuid !== this.props.data.uuid) {
-              return true;
-          }
-      });
-      let options = selectableCombatants.map((key, index) => {
-          return <Item label={this.props.combatants[key].label} key={this.props.combatants[key].uuid} value={this.props.combatants[key].uuid} />;
-      });
+        let selectableCombatants = Object.keys(this.props.combatants).filter(key => {
+            if (this.props.combatants[key].uuid !== this.props.data.uuid) {
+                return true;
+            }
+        });
+        let options = selectableCombatants.map((key, index) => {
+            return <Item label={this.props.combatants[key].label} key={this.props.combatants[key].uuid} value={this.props.combatants[key].uuid} />;
+        });
 
-      if (Platform.OS === 'android') {
-        options.unshift(<Item label='Unengaged' value='Unengaged' />);
-      }
+        if (Platform.OS === 'android') {
+            options.unshift(<Item label="Unengaged" value="Unengaged" />);
+        }
 
-      return options;
+        return options;
     }
 
     _renderEngaging() {
@@ -182,14 +200,13 @@ export default class Row extends Component {
                 <Picker
                     placeholder="Unengaged"
                     inlinelabel
-                    label='Engaging'
+                    label="Engaging"
                     style={styles.picker}
                     textStyle={styles.grey}
                     placeholderIconColor="#FFFFFF"
                     mode="dropdown"
                     selectedValue={this.props.data.engaging}
-                    onValueChange={(value) => this.props.onUpdate(this.props.data.uuid, 'engaging', value)}
-                >
+                    onValueChange={value => this.props.onUpdate(this.props.data.uuid, 'engaging', value)}>
                     {this._renderEngagingOptions()}
                 </Picker>
             </View>
@@ -209,14 +226,14 @@ export default class Row extends Component {
                         <Right>
                             <View style={{flex: 1, flexDirection: 'row'}}>
                                 <Icon
-                                    type='FontAwesome'
-                                    name='trash'
+                                    type="FontAwesome"
+                                    name="trash"
                                     style={[localStyles.button, {paddingRight: 10}]}
                                     onPress={() => this.props.onRemove(this.props.data.uuid)}
                                 />
                                 <Icon
-                                    type='FontAwesome'
-                                    name='edit'
+                                    type="FontAwesome"
+                                    name="edit"
                                     style={[localStyles.button, {paddingTop: 3}]}
                                     onPress={() => this.props.navigation.navigate('EditActor', {actor: this.props.data})}
                                 />
@@ -237,32 +254,32 @@ export default class Row extends Component {
 }
 
 const localStyles = ScaledSheet.create({
-  row: {
-    ...Platform.select({
-      ios: {
-        width: window.width - 30 * 2,
-        shadowColor: 'rgba(0,0,0,0.2)',
-        shadowOpacity: 1,
-        shadowOffset: {height: 2, width: 2},
-        shadowRadius: 2,
-      },
+    row: {
+        ...Platform.select({
+            ios: {
+                width: window.width - 30 * 2,
+                shadowColor: 'rgba(0,0,0,0.2)',
+                shadowOpacity: 1,
+                shadowOffset: {height: 2, width: 2},
+                shadowRadius: 2,
+            },
 
-      android: {
-        width: window.width - 15 * 2,
-        elevation: 0,
-        marginHorizontal: 15,
-      },
-    })
-  },
-  column: {
-    width: 75
-  },
-  text: {
-    fontSize: '20@vs',
-    color: '#A04700',
-  },
-  button: {
-    fontSize: '25@vs',
-    color: '#f57e20'
-  }
+            android: {
+                width: window.width - 15 * 2,
+                elevation: 0,
+                marginHorizontal: 15,
+            },
+        }),
+    },
+    column: {
+        width: 75,
+    },
+    text: {
+        fontSize: '20@vs',
+        color: '#A04700',
+    },
+    button: {
+        fontSize: '25@vs',
+        color: '#f57e20',
+    },
 });

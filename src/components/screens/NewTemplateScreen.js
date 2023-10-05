@@ -1,22 +1,34 @@
-import React, { Component }  from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image } from 'react-native';
-import { Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon, List, ListItem, Left, Right } from 'native-base';
-import { withNavigationFocus } from 'react-navigation';
-import Header from '../Header';
+import {connect} from 'react-redux';
+import {View} from 'react-native';
+import {Container, Content, Text, Spinner, List, ListItem, Left, Right} from 'native-base';
+import {Header} from '../Header';
 import Heading from '../Heading';
-import LogoButton from '../LogoButton';
+import {Icon} from '../Icon';
 import styles from '../../Styles';
-import { file } from '../../lib/File';
-import { character, TEMPLATE_FANTASY } from '../../lib/Character';
-import { setArchitectTemplate } from '../../reducers/architect';
+import {character, TEMPLATE_FANTASY} from '../../lib/Character';
+import {setArchitectTemplate} from '../../reducers/architect';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 class NewTemplateScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-        setArchitectTemplate: PropTypes.func.isRequired
-    }
+        setArchitectTemplate: PropTypes.func.isRequired,
+    };
 
     constructor(props) {
         super(props);
@@ -24,28 +36,21 @@ class NewTemplateScreen extends Component {
         this.state = {
             selected: TEMPLATE_FANTASY,
             templates: null,
-            showSpinner: false
+            showSpinner: false,
         };
     }
 
     componentDidMount() {
-        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+        this.focusListener = this.props.navigation.addListener('focus', () => {
             this.setState({showSpinner: true}, () => {
-                character.getTemplates().then((templates) => {
+                character.getTemplates().then(templates => {
                     this.setState({templates: templates, showSpinner: false});
                 });
             });
         });
-
-        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            this.props.navigation.navigate(this.props.navigation.state.params.from);
-
-            return true;
-        });
     }
 
     componentWillUnmount() {
-        this.backHandler.remove();
         this.focusListener.remove();
     }
 
@@ -60,53 +65,52 @@ class NewTemplateScreen extends Component {
         });
     }
 
-	render() {
-	    if (this.state.showSpinner || this.state.templates === null) {
-	        return (
-              <Container style={styles.container}>
+    render() {
+        if (this.state.showSpinner || this.state.templates === null) {
+            return (
+                <Container style={styles.container}>
+                    <Header navigation={this.props.navigation} />
+                    <Content style={styles.content}>
+                        <Heading text="New Template" />
+                        <Spinner />
+                    </Content>
+                </Container>
+            );
+        }
+
+        return (
+            <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Heading text="New Template" />
-                    <Spinner />
+                    <Heading text="New Template" onBackButtonPress={() => this.props.navigation.navigate(this.props.route.params.from)} />
+                    <Text style={[styles.grey, {alignSelf: 'center'}]}>Select a template to base your new template off of.</Text>
+                    <List>
+                        {this.state.templates.map((template, index) => {
+                            return (
+                                <ListItem noIndent key={'t-' + index} onPress={() => this._selectTemplate(template)}>
+                                    <Left>
+                                        <Text style={styles.grey}>{template.name}</Text>
+                                    </Left>
+                                    <Right>
+                                        <Icon style={styles.grey} name="circle-arrow-right" />
+                                    </Right>
+                                </ListItem>
+                            );
+                        })}
+                    </List>
+                    <View style={{paddingBottom: 20}} />
                 </Content>
-              </Container>
-	        );
-	    }
-
-		return (
-		  <Container style={styles.container}>
-            <Header navigation={this.props.navigation} />
-            <Content style={styles.content}>
-                <Heading text='New Template' onBackButtonPress={() => this.props.navigation.navigate(this.props.navigation.state.params.from)} />
-                <Text style={[styles.grey, {alignSelf: 'center'}]}>Select a template to base your new template off of.</Text>
-                <List>
-                    {this.state.templates.map((template, index) => {
-                        return (
-                            <ListItem noIndent key={'t-' + index} onPress={() => this._selectTemplate(template)}>
-                                <Left>
-                                    <Text style={styles.grey}>{template.name}</Text>
-                                </Left>
-                                <Right>
-                                    <Icon style={styles.grey} name="arrow-forward" />
-                                </Right>
-                            </ListItem>
-                        );
-
-                    })}
-                </List>
-                <View style={{paddingBottom: 20}} />
-            </Content>
-	      </Container>
-		);
-	}
+            </Container>
+        );
+    }
 }
 
 const mapStateToProps = state => {
-    return {}
-}
+    return {};
+};
 
 const mapDispatchToProps = {
-    setArchitectTemplate
-}
+    setArchitectTemplate,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(withNavigationFocus(NewTemplateScreen));
+export default connect(mapStateToProps, mapDispatchToProps)(NewTemplateScreen);

@@ -1,16 +1,30 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { BackHandler, StyleSheet, Dimensions, Platform, Alert } from 'react-native';
-import { Container, View, Content, Text, Icon, Fab, Footer, FooterTab, Button } from 'native-base';
+import {connect} from 'react-redux';
+import {StyleSheet, Dimensions, Platform} from 'react-native';
+import {Container, View, Text, Icon, Footer, FooterTab, Button} from 'native-base';
 import SortableList from 'react-native-sortable-list';
-import Header from '../Header';
+import {Header} from '../Header';
 import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
 import ActorRow from '../ActorRow';
 import styles from '../../Styles';
-import { common } from '../../lib/Common';
-import { editActorOrder, removeActor, sortActor, updateActorField } from '../../reducers/orchestrator';
+import {common} from '../../lib/Common';
+import {editActorOrder, removeActor, sortActor, updateActorField} from '../../reducers/orchestrator';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 const window = Dimensions.get('window');
 
@@ -20,8 +34,8 @@ class OrchestratorScreen extends Component {
         removeActor: PropTypes.func.isRequired,
         sortActor: PropTypes.func.isRequired,
         updateActorField: PropTypes.func.isRequired,
-        actors: PropTypes.object
-    }
+        actors: PropTypes.object,
+    };
 
     constructor(props) {
         super(props);
@@ -32,8 +46,8 @@ class OrchestratorScreen extends Component {
             confirmationDialog: {
                 visible: false,
                 title: 'Delete Actor?',
-                info: 'This is permanent, are you certain you wish to delete this actor?'
-            }
+                info: 'This is permanent, are you certain you wish to delete this actor?',
+            },
         };
 
         this.updateOrder = this._updateOrder.bind(this);
@@ -41,18 +55,6 @@ class OrchestratorScreen extends Component {
         this.onClose = this._closeConfirmationDialog.bind(this);
         this.onOk = this._removeConfirmed.bind(this);
     }
-
-    componentDidMount() {
-        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            this.props.navigation.navigate('Home');
-
-            return true;
-        });
-    }
-
- 	componentWillUnmount() {
-   		this.backHandler.remove();
-   	}
 
     _remove(uuid) {
         let newState = {...this.state};
@@ -106,7 +108,7 @@ class OrchestratorScreen extends Component {
                     contentContainerStyle={localStyles.contentContainer}
                     data={this.props.actors}
                     renderRow={this._renderRow}
-                    onChangeOrder={(nextOrder) => this.updateOrder(nextOrder)}
+                    onChangeOrder={nextOrder => this.updateOrder(nextOrder)}
                     onReleaseRow={() => this.props.editActorOrder(this.state.newOrder)}
                 />
             </View>
@@ -124,14 +126,14 @@ class OrchestratorScreen extends Component {
                 onUpdate={this.props.updateActorField}
             />
         );
-    }
+    };
 
     render() {
         return (
-		    <Container style={styles.container}>
+            <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Heading
-                    text='Orchestrator'
+                    text="Orchestrator"
                     onBackButtonPress={() => this.props.navigation.navigate('Home')}
                     onAddButtonPress={() => this.props.navigation.navigate('EditActor', {actor: null})}
                 />
@@ -140,8 +142,10 @@ class OrchestratorScreen extends Component {
                 <Footer>
                     <FooterTab style={{justifyContent: 'center', backgroundColor: '#f57e20'}}>
                         <Button vertical onPress={() => this._sort()}>
-                            <Icon type='FontAwesome' name='sort-down' style={{color: '#FFF'}} />
-                            <Text uppercase={false} style={{color: '#FFF'}}>Sort</Text>
+                            <Icon type="FontAwesome" name="sort-down" style={{color: '#FFF'}} />
+                            <Text uppercase={false} style={{color: '#FFF'}}>
+                                Sort
+                            </Text>
                         </Button>
                     </FooterTab>
                 </Footer>
@@ -158,33 +162,33 @@ class OrchestratorScreen extends Component {
 }
 
 const localStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: (Platform.OS === 'ios' ? 20 : 0)
-  },
-  list: {
-    flex: 1,
-  },
-  contentContainer: {
-    width: window.width,
-    height: window.height,
-    paddingHorizontal: (Platform.OS === 'ios' ? 30 : 0)
-  },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: Platform.OS === 'ios' ? 20 : 0,
+    },
+    list: {
+        flex: 1,
+    },
+    contentContainer: {
+        width: window.width,
+        height: window.height,
+        paddingHorizontal: Platform.OS === 'ios' ? 30 : 0,
+    },
 });
 
 const mapStateToProps = state => {
     return {
-        actors: state.orchestrator.actors
+        actors: state.orchestrator.actors,
     };
-}
+};
 
 const mapDispatchToProps = {
     editActorOrder,
     removeActor,
     sortActor,
-    updateActorField
-}
+    updateActorField,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrchestratorScreen);

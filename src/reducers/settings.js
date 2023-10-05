@@ -1,5 +1,18 @@
-import { Alert } from 'react-native';
-import { settings as appSettings, DEFAULT_SETTINGS } from '../lib/Settings';
+import {settings as appSettings, DEFAULT_SETTINGS} from '../lib/Settings';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 //////////////////////////////
 // ACTION TYPES             //
@@ -16,33 +29,33 @@ export const RESET_SETTING = 'RESET_SETTING';
 //////////////////////////////
 
 export function setSettings(settings) {
-    return async (dispatch) => {
+    return async dispatch => {
         appSettings.updateSettings(settings).then(settings => {
             dispatch({
                 type: SET_SETTINGS,
-                payload: settings
+                payload: settings,
             });
         });
     };
 }
 
 export function setSetting(setting, value) {
-    return async (dispatch) => {
+    return async dispatch => {
         appSettings.updateSetting(setting, value).then(settings => {
             dispatch({
                 type: SET_SETTING,
-                payload: settings
+                payload: settings,
             });
         });
     };
 }
 
 export function resetSettings() {
-    return async (dispatch) => {
+    return async dispatch => {
         appSettings.init().then(settings => {
             dispatch({
                 type: RESET_SETTING,
-                payload: settings
+                payload: settings,
             });
         });
     };
@@ -53,7 +66,7 @@ export function resetSettings() {
 //////////////////////////////
 
 export default function settings(state = DEFAULT_SETTINGS, action) {
-    let newState = null
+    let newState = null;
 
     switch (action.type) {
         case SET_SETTINGS:

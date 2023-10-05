@@ -1,13 +1,27 @@
-import React, { Component }  from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, TouchableHighlight } from 'react-native';
-import { Container, Content, Button, Text, List, ListItem, Left, Right, Body } from 'native-base';
+import {View, TouchableHighlight} from 'react-native';
+import {Text, List, ListItem, Right, Body} from 'native-base';
 import styles from '../../Styles';
 import Heading from '../Heading';
 import InfoDialog from '../InfoDialog';
-import { common } from '../../lib/Common';
-import { character, OPTION_ADVANTAGES, OPTION_COMPLICATIONS, OPTION_SPECIAL_ABILITIES } from '../../lib/Character';
-import RanksDialog, { MODE_EDIT } from '../RanksDialog';
+import {common} from '../../lib/Common';
+import {OPTION_ADVANTAGES} from '../../lib/Character';
+import RanksDialog, {MODE_EDIT} from '../RanksDialog';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 export default class Options extends Component {
     static propTypes = {
@@ -16,8 +30,8 @@ export default class Options extends Component {
         navigation: PropTypes.object.isRequired,
         character: PropTypes.object.isRequired,
         updateOption: PropTypes.func.isRequired,
-        removeOption: PropTypes.func.isRequired
-    }
+        removeOption: PropTypes.func.isRequired,
+    };
 
     constructor(props) {
         super(props);
@@ -27,14 +41,14 @@ export default class Options extends Component {
             infoDialog: {
                 visible: false,
                 title: '',
-                info: ''
+                info: '',
             },
             ranksDialog: {
                 visible: false,
                 optionKey: OPTION_ADVANTAGES,
-                item: null
-            }
-        }
+                item: null,
+            },
+        };
 
         this.closeRanksDialog = this._closeRanksDialog.bind(this);
         this.updateOption = this._updateOption.bind(this);
@@ -54,7 +68,7 @@ export default class Options extends Component {
     }
 
     _closeRanksDialog() {
-        let newState = {...this.state}
+        let newState = {...this.state};
         newState.ranksDialog.visible = false;
         newState.ranksDialog.item = null;
         newState.ranksDialog.errorMessage = null;
@@ -81,7 +95,7 @@ export default class Options extends Component {
     }
 
     _closeInfoDialog() {
-        let newState = {...this.state}
+        let newState = {...this.state};
         newState.infoDialog.visible = false;
 
         this.setState(newState);
@@ -106,7 +120,7 @@ export default class Options extends Component {
                     return (
                         <ListItem key={'option-' + item.id} noIndent>
                             <Body>
-                                <TouchableHighlight underlayColor='#ffffff' onPress={() => this._showOptionInfo(item)}>
+                                <TouchableHighlight underlayColor="#ffffff" onPress={() => this._showOptionInfo(item)}>
                                     <View style={{paddingTop: 10, paddingBottom: 10}}>
                                         <Text style={[styles.grey, styles.big]}>
                                             {item.excludeFromBuildCosts ? '*' : ''}
@@ -116,11 +130,9 @@ export default class Options extends Component {
                                 </TouchableHighlight>
                             </Body>
                             <Right>
-                                <TouchableHighlight underlayColor='#ffffff' onPress={() => this._showRanksPicker(optionKey, item)}>
+                                <TouchableHighlight underlayColor="#ffffff" onPress={() => this._showRanksPicker(optionKey, item)}>
                                     <View style={{paddingLeft: 50, paddingTop: 10, paddingBottom: 10}}>
-                                        <Text style={[styles.grey, styles.big]}>
-                                            R{(item.multipleRanks ? item.totalRanks * item.rank : item.rank)}
-                                        </Text>
+                                        <Text style={[styles.grey, styles.big]}>R{item.multipleRanks ? item.totalRanks * item.rank : item.rank}</Text>
                                     </View>
                                 </TouchableHighlight>
                             </Right>
@@ -131,13 +143,10 @@ export default class Options extends Component {
         );
     }
 
-	render() {
+    render() {
         return (
             <View>
-                <Heading
-                    text={this.props.title}
-                    onAddButtonPress={() => this.props.navigation.navigate('Options', {optionKey: this.props.optionKey})}
-                />
+                <Heading text={this.props.title} onAddButtonPress={() => this.props.navigation.navigate('Options', {optionKey: this.props.optionKey})} />
                 {this._renderOptionList(this.props.character[this.state.optionKey].items, this.props.optionKey)}
                 <RanksDialog
                     visible={this.state.ranksDialog.visible}
@@ -156,5 +165,5 @@ export default class Options extends Component {
                 />
             </View>
         );
-	}
+    }
 }

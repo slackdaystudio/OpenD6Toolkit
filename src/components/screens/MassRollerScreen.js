@@ -1,35 +1,41 @@
-import React, { Component }  from 'react';
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux';
-import { BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Switch } from 'react-native';
-import { Container, Content, Button, Text, Picker, Item} from 'native-base';
-import { ScaledSheet } from 'react-native-size-matters';
-import RNShake from 'react-native-shake';
-import * as Animatable from 'react-native-animatable';
-import Header from '../Header';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {View} from 'react-native';
+import {Container, Content, Text, Picker, Item} from 'native-base';
+import {ScaledSheet} from 'react-native-size-matters';
+import {Header} from '../Header';
 import Heading from '../Heading';
 import LogoButton from '../LogoButton';
 import Slider from '../DieSlider';
-import {
-    dieRoller,
-    STATE_NORMAL,
-    STATE_CRITICAL_SUCCESS,
-    STATE_CRITICAL_FAILURE,
-    LEGEND_SUCCESS_THRESHOLD
-} from '../../lib/DieRoller';
-import { statistics } from '../../lib/Statistics';
-import { updateMassRoller } from '../../reducers/massRoller';
+import {dieRoller, STATE_CRITICAL_SUCCESS, STATE_CRITICAL_FAILURE, TYPE_LEGEND, TYPE_CLASSIC} from '../../lib/DieRoller';
+import {statistics} from '../../lib/Statistics';
+import {updateMassRoller} from '../../reducers/massRoller';
 import styles from '../../Styles';
 
-class DieRollerScreen extends Component {
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+class MassRollerScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         dice: PropTypes.number.isRequired,
         pips: PropTypes.number.isRequired,
         rolls: PropTypes.number.isRequired,
         isLegend: PropTypes.bool.isRequired,
-        updateMassRoller: PropTypes.func.isRequired
-    }
+        updateMassRoller: PropTypes.func.isRequired,
+    };
 
     constructor(props) {
         super(props);
@@ -38,7 +44,7 @@ class DieRollerScreen extends Component {
             dice: props.dice,
             pips: props.pips,
             rolls: props.rolls,
-            result: []
+            result: [],
         };
 
         this.roll = this._roll.bind(this);
@@ -48,42 +54,34 @@ class DieRollerScreen extends Component {
     }
 
     componentDidMount() {
-        RNShake.addEventListener('ShakeEvent', () => {
-            this.roll();
-        });
-
-        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+        this.focusListener = this.props.navigation.addListener('focus', () => {
             this.setState({result: []});
-        });
-
-        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            this.props.navigation.navigate('Home');
-
-            return true;
         });
     }
 
- 	componentWillUnmount() {
-   		RNShake.removeEventListener('ShakeEvent');
-   		this.backHandler.remove();
-   		this.focusListener.remove();
-   	}
+    componentWillUnmount() {
+        this.focusListener.remove();
+    }
 
-	async _roll() {
-	    let result;
+    async _roll() {
+        let result;
         let newState = {...this.state};
         newState.result = [];
 
         for (let i = 0; i < this.props.rolls; i++) {
             result = dieRoller.roll(this.props.dice);
 
-            await statistics.add(result);
+            try {
+                await statistics.add(result, this.props.isLegend ? TYPE_LEGEND : TYPE_CLASSIC);
 
-            newState.result.push(result);
+                newState.result.push(result);
+            } catch (error) {
+                console.error(error);
+            }
         }
 
         this.setState(newState);
-	}
+    }
 
     _updateDice(value) {
         this.props.updateMassRoller(this.props.rolls, value, this.props.pips);
@@ -122,13 +120,13 @@ class DieRollerScreen extends Component {
     }
 
     _renderRollButtonLabel() {
-        let label = 'Roll'
+        let label = 'Roll';
 
         if (this.state.result.length === 0) {
             return label;
         }
 
-        return label + ' Again'
+        return label + ' Again';
     }
 
     _renderResult() {
@@ -139,17 +137,14 @@ class DieRollerScreen extends Component {
         return (
             <View>
                 <Text>
-                {this.state.result.map((result, index) => {
-                    return (
-                        <Text
-                            key={'roll-' + index}
-                            style={[styles.grey, localStyles.rollResult, {color: this._getResultColor(result)}]}
-                        >
-                            {this._getTotal(result)}
-                            {(index + 1 === this.state.result.length) ? '' : ', '}
-                        </Text>
-                    );
-                })}
+                    {this.state.result.map((result, index) => {
+                        return (
+                            <Text key={'roll-' + index} style={[styles.grey, localStyles.rollResult, {color: this._getResultColor(result)}]}>
+                                {this._getTotal(result)}
+                                {index + 1 === this.state.result.length ? '' : ', '}
+                            </Text>
+                        );
+                    })}
                 </Text>
             </View>
         );
@@ -164,14 +159,13 @@ class DieRollerScreen extends Component {
             <View>
                 <Picker
                     inlinelabel
-                    label='Pips'
+                    label="Pips"
                     style={styles.picker}
                     textStyle={styles.grey}
                     iosHeader="Select one"
                     mode="dropdown"
                     selectedValue={this.props.pips}
-                    onValueChange={(value) => this.updatePips(value)}
-                >
+                    onValueChange={value => this.updatePips(value)}>
                     <Item label="+0 pips" value={0} />
                     <Item label="+1 pip" value={1} />
                     <Item label="+2 pips" value={2} />
@@ -180,64 +174,64 @@ class DieRollerScreen extends Component {
         );
     }
 
-	render() {
-		return (
-		  <Container style={styles.container}>
-            <Header navigation={this.props.navigation} />
-            <Content style={styles.content}>
-                <Heading text='Mass Roller' onBackButtonPress={() => this.props.navigation.navigate('Home')} />
-                <View style={styles.contentPadded}>
-                    {this._renderResult()}
-                    <View>
-                        <Slider
-                            label='Dice:'
-                            value={parseInt(this.props.dice, 10)}
-                            step={1}
-                            min={1}
-                            max={60}
-                            onValueChange={this.updateDice}
-                            disabled={false}
-                        />
+    render() {
+        return (
+            <Container style={styles.container}>
+                <Header navigation={this.props.navigation} />
+                <Content style={styles.content}>
+                    <Heading text="Mass Roller" onBackButtonPress={() => this.props.navigation.navigate('Home')} />
+                    <View style={styles.contentPadded}>
+                        {this._renderResult()}
+                        <View>
+                            <Slider
+                                label="Dice:"
+                                value={parseInt(this.props.dice, 10)}
+                                step={1}
+                                min={1}
+                                max={60}
+                                onValueChange={this.updateDice}
+                                disabled={false}
+                            />
+                        </View>
+                        {this._renderPipsPicker()}
+                        <View>
+                            <Slider
+                                label="Rolls:"
+                                value={parseInt(this.props.rolls, 10)}
+                                step={1}
+                                min={1}
+                                max={20}
+                                onValueChange={this.updateRolls}
+                                disabled={false}
+                            />
+                        </View>
+                        <LogoButton label={this._renderRollButtonLabel()} onPress={async () => await this.roll()} />
                     </View>
-                    {this._renderPipsPicker()}
-                    <View>
-                        <Slider
-                            label='Rolls:'
-                            value={parseInt(this.props.rolls, 10)}
-                            step={1}
-                            min={1}
-                            max={20}
-                            onValueChange={this.updateRolls}
-                            disabled={false}
-                        />
-                    </View>
-                    <LogoButton label={this._renderRollButtonLabel()} onPress={() => this.roll()} />
-                </View>
-                <View style={{paddingBottom: 20}} />
-            </Content>
-	      </Container>
-		);
-	}
+                    <View style={{paddingBottom: 20}} />
+                </Content>
+            </Container>
+        );
+    }
 }
 
 const localStyles = ScaledSheet.create({
-	rollResult: {
-		fontSize: '70@s',
-		fontWeight: 'bold'
-	}
-})
+    rollResult: {
+        fontSize: '70@s',
+        fontWeight: 'bold',
+    },
+});
 
 const mapStateToProps = state => {
     return {
         dice: state.massRoller.dice,
         rolls: state.massRoller.rolls,
         pips: state.massRoller.pips,
-        isLegend: state.settings.isLegend
+        isLegend: state.settings.isLegend,
     };
-}
+};
 
 const mapDispatchToProps = {
-    updateMassRoller
-}
+    updateMassRoller,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(DieRollerScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MassRollerScreen);

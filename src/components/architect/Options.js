@@ -1,16 +1,28 @@
-import React, { Component }  from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Platform, StyleSheet, View, TouchableHighlight, BackHandler, Alert } from 'react-native';
-import { Container, Content, Button, Text, Spinner, Card, CardItem, Left, Right, Body, Item, Icon, Input, Label, Toast } from 'native-base';
-import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
-import Header from '../Header';
+import {connect} from 'react-redux';
+import {View} from 'react-native';
+import {Text, Card, CardItem, Right, Body, Item, Icon, Input} from 'native-base';
+import {ScaledSheet, scale} from 'react-native-size-matters';
 import Heading from '../Heading';
 import ConfirmationDialog from '../ConfirmationDialog';
 import styles from '../../Styles';
-import { character, OPTION_ADVANTAGES, OPTION_COMPLICATIONS } from '../../lib/Character';
-import { common } from '../../lib/Common';
-import { addTemplateOption, deleteTemplateOption } from '../../reducers/architect';
+import {common} from '../../lib/Common';
+import {addTemplateOption, deleteTemplateOption} from '../../reducers/architect';
+
+// Copyright (C) Slack Day Studio - All Rights Reserved
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 const BACK_BUTTON_START_DIFF = 9;
 
@@ -18,15 +30,15 @@ class Options extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         optionKey: PropTypes.string.isRequired,
-        template: PropTypes.object.isRequired
-    }
+        template: PropTypes.object.isRequired,
+    };
 
     constructor(props) {
         super(props);
 
         const optionKey = props.optionKey;
         const options = props.template[common.toCamelCase(optionKey)];
-        const displayOptions =  this._initOptionsShow(options);
+        const displayOptions = this._initOptionsShow(options);
 
         this.state = {
             options: options,
@@ -35,19 +47,19 @@ class Options extends Component {
             optionKey: optionKey,
             search: {
                 term: '',
-                results: options
+                results: options,
             },
             pagination: {
                 currentPage: 1,
                 itemsPerPage: 10,
                 startOnItem: 1,
-                totalPages: Math.ceil(options.length / 10)
+                totalPages: Math.ceil(options.length / 10),
             },
             confirmationDialog: {
                 visible: false,
                 title: 'Delete Option',
-                info: 'This is permanent, are you certain you want to delete this option?'
-            }
+                info: 'This is permanent, are you certain you want to delete this option?',
+            },
         };
 
         this.onClose = this._closeConfirmationDialog.bind(this);
@@ -56,7 +68,7 @@ class Options extends Component {
 
     _initOptionsShow(options) {
         let optionsState = {};
-        let chevronsState = {}
+        let chevronsState = {};
 
         options.map((option, index) => {
             optionsState[option.name + option.rank] = false;
@@ -65,7 +77,7 @@ class Options extends Component {
 
         return {
             optionsState: optionsState,
-            chevronsState: chevronsState
+            chevronsState: chevronsState,
         };
     }
 
@@ -160,7 +172,7 @@ class Options extends Component {
 
         this.props.navigation.navigate('EditOption', {
             optionKey: this.state.optionKey,
-            option: this.state.options[this.state.options.length - 1]
+            option: this.state.options[this.state.options.length - 1],
         });
     }
 
@@ -195,8 +207,8 @@ class Options extends Component {
 
         return (
             <Icon
-                type='FontAwesome'
-                name='chevron-circle-left'
+                type="FontAwesome"
+                name="chevron-circle-left"
                 style={[localStyles.buttonBig, {paddingLeft: scale(30)}]}
                 onPress={() => this._onBackButtonPress()}
             />
@@ -210,8 +222,8 @@ class Options extends Component {
 
         return (
             <Icon
-                type='FontAwesome'
-                name='chevron-circle-right'
+                type="FontAwesome"
+                name="chevron-circle-right"
                 style={[localStyles.buttonBig, {paddingRight: scale(30)}]}
                 onPress={() => this._onNextButtonPress()}
             />
@@ -223,81 +235,85 @@ class Options extends Component {
         let renderedItemCount = 0;
 
         return (
-           <View>
-               <Heading
-                   text={this.state.optionKey}
-                   onBackButtonPress={() => this.props.navigation.navigate('Home')}
-                   onAddButtonPress={() => this._onAddButtonPress()}
-               />
-               <Item>
-                   <Icon active tyle={{fontSize: scale(25)}} name='search' />
-                   <Input
-                       style={styles.grey}
-                       placeholder='Search'
-                       maxLength={255}
-                       value={this.state.search.term}
-                       onChangeText={(value) => this._search(value)}
-                   />
-               </Item>
-               {this._renderFilterMessage()}
-               <View style={{paddingBottom: 20}} />
-               {this.state.search.results.map((option, index) => {
-                   itemCount++;
+            <View>
+                <Heading
+                    text={this.state.optionKey}
+                    onBackButtonPress={() => this.props.navigation.navigate('Home')}
+                    onAddButtonPress={() => this._onAddButtonPress()}
+                />
+                <Item>
+                    <Icon active tyle={{fontSize: scale(25)}} name="search" />
+                    <Input
+                        style={styles.grey}
+                        placeholder="Search"
+                        maxLength={255}
+                        value={this.state.search.term}
+                        onChangeText={value => this._search(value)}
+                    />
+                </Item>
+                {this._renderFilterMessage()}
+                <View style={{paddingBottom: 20}} />
+                {this.state.search.results.map((option, index) => {
+                    itemCount++;
 
-                   if (itemCount < this.state.pagination.startOnItem || renderedItemCount >= this.state.pagination.itemsPerPage) {
-                       return null;
-                   }
+                    if (itemCount < this.state.pagination.startOnItem || renderedItemCount >= this.state.pagination.itemsPerPage) {
+                        return null;
+                    }
 
-                   renderedItemCount++;
+                    renderedItemCount++;
 
-                   return (
-                       <Card key={common.toCamelCase(this.props.optionKey) + '-' + itemCount}>
-                           <CardItem>
-                               <Body>
-                                   <Text style={[styles.boldGrey, {fontSize: scale(16), lineHeight: scale(18)}]}>{option.name} (R{option.rank})</Text>
-                               </Body>
-                               <Right>
-                                   <View style={{flex: 1, flexDirection: 'row'}}>
-                                       <Icon
-                                           type='FontAwesome'
-                                           name={this.state.optionChevron[option.name + option.rank]}
-                                           style={[localStyles.button, {paddingRight: scale(5)}]}
-                                           onPress={() => this._toggleDescriptionShow(option.name, option.rank)}
-                                       />
-                                       <Icon
-                                           type='FontAwesome'
-                                           name='trash'
-                                           style={[localStyles.button, {paddingRight: scale(5)}]}
-                                           onPress={() => this._delete(option)}
-                                       />
-                                       <Icon
-                                           type='FontAwesome'
-                                           name='edit'
-                                           style={[localStyles.button, {paddingTop: 3}]}
-                                           onPress={() => this.props.navigation.navigate('EditOption', {optionKey: this.state.optionKey, option: option})}
-                                       />
-                                   </View>
-                               </Right>
-                           </CardItem>
-                           <CardItem>
-                               <Body>
-                                   <Text style={styles.grey}>{this._renderDescription(option)}</Text>
-                               </Body>
-                           </CardItem>
-                       </Card>
-                   )
-               })}
-           </View>
-       );
+                    return (
+                        <Card key={common.toCamelCase(this.props.optionKey) + '-' + itemCount}>
+                            <CardItem>
+                                <Body>
+                                    <Text style={[styles.boldGrey, {fontSize: scale(16), lineHeight: scale(18)}]}>
+                                        {option.name} (R{option.rank})
+                                    </Text>
+                                </Body>
+                                <Right>
+                                    <View style={{flex: 1, flexDirection: 'row'}}>
+                                        <Icon
+                                            type="FontAwesome"
+                                            name={this.state.optionChevron[option.name + option.rank]}
+                                            style={[localStyles.button, {paddingRight: scale(5)}]}
+                                            onPress={() => this._toggleDescriptionShow(option.name, option.rank)}
+                                        />
+                                        <Icon
+                                            type="FontAwesome"
+                                            name="trash"
+                                            style={[localStyles.button, {paddingRight: scale(5)}]}
+                                            onPress={() => this._delete(option)}
+                                        />
+                                        <Icon
+                                            type="FontAwesome"
+                                            name="edit"
+                                            style={[localStyles.button, {paddingTop: 3}]}
+                                            onPress={() => this.props.navigation.navigate('EditOption', {optionKey: this.state.optionKey, option: option})}
+                                        />
+                                    </View>
+                                </Right>
+                            </CardItem>
+                            <CardItem>
+                                <Body>
+                                    <Text style={styles.grey}>{this._renderDescription(option)}</Text>
+                                </Body>
+                            </CardItem>
+                        </Card>
+                    );
+                })}
+            </View>
+        );
     }
 
-	render() {
+    render() {
         return (
             <View>
                 {this._renderList()}
                 <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 20, paddingTop: 20}}>
                     {this._renderBackButton()}
-                    <Text style={styles.grey}>Page {this.state.pagination.currentPage} of {this.state.pagination.totalPages}</Text>
+                    <Text style={styles.grey}>
+                        Page {this.state.pagination.currentPage} of {this.state.pagination.totalPages}
+                    </Text>
                     {this._renderNextButton()}
                 </View>
                 <ConfirmationDialog
@@ -309,28 +325,28 @@ class Options extends Component {
                 />
                 <View style={{paddingBottom: 20}} />
             </View>
-		);
-	}
+        );
+    }
 }
 
 const localStyles = ScaledSheet.create({
-	button: {
+    button: {
         fontSize: '25@vs',
-        color: '#f57e20'
-	},
-	buttonBig: {
+        color: '#f57e20',
+    },
+    buttonBig: {
         fontSize: 45,
-        color: '#f57e20'
-	}
+        color: '#f57e20',
+    },
 });
 
 const mapStateToProps = state => {
     return {};
-}
+};
 
 const mapDispatchToProps = {
     addTemplateOption,
-    deleteTemplateOption
-}
+    deleteTemplateOption,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Options);
