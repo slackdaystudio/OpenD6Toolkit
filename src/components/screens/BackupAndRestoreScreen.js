@@ -69,28 +69,30 @@ class BackupAndRestoreScreen extends Component {
         }
     }
 
-    async _onRestore() {
-        let result = await file.restore();
+    _onRestore() {
+        file.restore()
+            .then(result => {
+                if (result.loadSuccess) {
+                    this.props.clearLoadedCharacter();
 
-        if (result.loadSuccess) {
-            this.props.clearLoadedCharacter();
-
-            this.setState({
-                infoDialog: {
-                    visible: true,
-                    title: 'Restore Succeeded',
-                    info: `The backup "${result.backupName}" has been successfully restored`,
-                },
-            });
-        } else if (!result.cancelled) {
-            this.setState({
-                infoDialog: {
-                    visible: true,
-                    title: 'Restore Failed',
-                    info: `The restoration failed: ${result.error}`,
-                },
-            });
-        }
+                    this.setState({
+                        infoDialog: {
+                            visible: true,
+                            title: 'Restore Succeeded',
+                            info: `The backup "${result.backupName}" has been successfully restored`,
+                        },
+                    });
+                } else if (!result.cancelled) {
+                    this.setState({
+                        infoDialog: {
+                            visible: true,
+                            title: 'Restore Failed',
+                            info: `The restoration failed: ${result.error}`,
+                        },
+                    });
+                }
+            })
+            .catch(error => console.error(error));
     }
 
     _closeInfoDialog() {

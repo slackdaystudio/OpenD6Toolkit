@@ -268,16 +268,19 @@ class File {
         let pickerResults = null;
 
         try {
-            pickerResults = await DocumentPicker.pick({
-                type: ['public.archive'],
+            pickerResults = await DocumentPicker.pickSingle({
+                type: ['public.archive', 'application/zip'],
+                copyTo: 'cachesDirectory',
             });
 
             if (pickerResults === null) {
                 return result;
             }
 
+            pickerResults.fileCopyUri = Platform.OS === 'ios' ? decodeURIComponent(pickerResults.fileCopyUri) : pickerResults.fileCopyUri;
+
             if (pickerResults.name.toLowerCase().endsWith('.zip')) {
-                await this._restoreCharactersAndTemplates(pickerResults.uri, result);
+                await this._restoreCharactersAndTemplates(pickerResults.fileCopyUri, result);
             } else {
                 throw 'Unsupported file type: ' + pickerResults.type;
             }
@@ -327,7 +330,7 @@ class File {
 
         let fileName = uri.startsWith('file://') ? uri.substring(7) : uri;
 
-        if (/raw\:/i.test(decodeURIComponent(uri))) {
+        if (/raw:/i.test(decodeURIComponent(uri))) {
             let parts = decodeURIComponent(uri).split('raw:');
 
             fileName = parts[1];
