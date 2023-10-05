@@ -240,6 +240,7 @@ class BuilderScreen extends Component {
 
         this.closeInfoDialog = this._closeInfoDialog.bind(this);
         this.updatePoints = this._updatePoints.bind(this);
+        this.import = this._import.bind(this);
     }
 
     _closeInfoDialog() {
@@ -282,13 +283,15 @@ class BuilderScreen extends Component {
 
     _import() {
         file.importCharacter(
-            () => {},
-            () => {},
-        ).then(character => {
-            if (character !== undefined && character !== null) {
-                this.props.loadCharacter(character);
-            }
-        });
+            () => null,
+            () => null,
+        )
+            .then(character => {
+                if (character !== undefined && character !== null) {
+                    this.props.loadCharacter(character);
+                }
+            })
+            .catch(error => console.error(error));
     }
 
     render() {

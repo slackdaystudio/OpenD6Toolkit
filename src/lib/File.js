@@ -43,7 +43,7 @@ class File {
             result.fileCopyUri = Platform.OS === 'ios' ? decodeURIComponent(result.fileCopyUri) : result.fileCopyUri;
 
             if (result.name.toLowerCase().endsWith('.json')) {
-                this._saveTemplate(result.uri, startLoad, endLoad);
+                this._saveTemplate(result.fileCopyUri, startLoad, endLoad);
             } else {
                 common.toast('Unsupported file type: ' + result.type);
 
@@ -134,16 +134,19 @@ class File {
         try {
             let character = null;
 
-            const result = await DocumentPicker.pick({
+            const result = await DocumentPicker.pickSingle({
                 type: [DocumentPicker.types.allFiles],
+                copyTo: 'cachesDirectory',
             });
 
             if (result === null) {
                 return;
             }
 
+            result.fileCopyUri = Platform.OS === 'ios' ? decodeURIComponent(result.fileCopyUri) : result.fileCopyUri;
+
             if (result.name.toLowerCase().endsWith('.json')) {
-                let rawCharacter = await this._readFile(result.uri);
+                let rawCharacter = await this._readFile(result.fileCopyUri);
                 character = JSON.parse(rawCharacter);
 
                 await this.saveCharacter(character, true);
@@ -421,21 +424,7 @@ class File {
     }
 
     async _readFile(uri) {
-        let filePath = uri.startsWith('file://') ? uri.substring(7) : uri;
-
-        if (/raw\:/i.test(decodeURIComponent(uri))) {
-            let parts = decodeURIComponent(uri).split('raw:');
-
-            filePath = parts[1];
-        }
-
-        if (Platform.OS === 'ios' && !common.isIPad() && /OpenD6Toolkit\-Inbox/.test(filePath) === false) {
-            let arr = uri.split('/');
-            const dirs = ReactNativeBlobUtil.fs.dirs;
-            filePath = `${dirs.DocumentDir}/${arr[arr.length - 2]}/${arr[arr.length - 1]}`;
-        }
-
-        return await ReactNativeBlobUtil.fs.readFile(decodeURI(filePath), 'utf8');
+        return await ReactNativeBlobUtil.fs.readFile(decodeURIComponent(uri), 'utf8');
     }
 }
 
