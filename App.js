@@ -159,7 +159,7 @@ export default class App extends Component {
     componentDidMount() {
         try {
             AsyncStorage.getItem('statistics').then(stats => {
-                if (stats === null) {
+                if (stats === null || !stats.hasOwnProperty('highScores')) {
                     statistics.init().then(() => console.log('Stats initialized'));
                 }
             });
