@@ -12,6 +12,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		31AEF218BEC6451190965C57 /* libPods-OpenD6Toolkit-OpenD6ToolkitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25507ED956CA40E2C73CA23D /* libPods-OpenD6Toolkit-OpenD6ToolkitTests.a */; };
+		54C030EE3A4646BE9D1C1EF4 /* TempusSansITC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50CDD5A85C0E481BB6C02F00 /* TempusSansITC.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		885B919E2ACCAA44006430D0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 885B919D2ACCAA44006430D0 /* Images.xcassets */; };
 		885B91B72ACCAB74006430D0 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 885B91A42ACCAB74006430D0 /* Fontisto.ttf */; };
@@ -34,7 +35,6 @@
 		885B91C82ACCAB74006430D0 /* FontAwesome6_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 885B91B52ACCAB74006430D0 /* FontAwesome6_Brands.ttf */; };
 		885B91C92ACCAB74006430D0 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 885B91B62ACCAB74006430D0 /* MaterialIcons.ttf */; };
 		CDAEF010F31147879F5E35B4 /* Tempus Sans ITC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25966B93857A440FA27ADE39 /* Tempus Sans ITC.ttf */; };
-		54C030EE3A4646BE9D1C1EF4 /* TempusSansITC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50CDD5A85C0E481BB6C02F00 /* TempusSansITC.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,8 +58,10 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = OpenD6Toolkit/main.m; sourceTree = "<group>"; };
 		1A9FC2A9F18403192421C592 /* Pods-OpenD6Toolkit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenD6Toolkit.debug.xcconfig"; path = "Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit.debug.xcconfig"; sourceTree = "<group>"; };
 		25507ED956CA40E2C73CA23D /* libPods-OpenD6Toolkit-OpenD6ToolkitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OpenD6Toolkit-OpenD6ToolkitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		25966B93857A440FA27ADE39 /* Tempus Sans ITC.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Tempus Sans ITC.ttf"; path = "../assets/fonts/Tempus Sans ITC.ttf"; sourceTree = "<group>"; };
 		3A0D7FD7C84C415DBE754DB4 /* libPods-OpenD6Toolkit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OpenD6Toolkit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C01190C40C7959C6EAC12A4 /* Pods-OpenD6Toolkit-OpenD6ToolkitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenD6Toolkit-OpenD6ToolkitTests.release.xcconfig"; path = "Target Support Files/Pods-OpenD6Toolkit-OpenD6ToolkitTests/Pods-OpenD6Toolkit-OpenD6ToolkitTests.release.xcconfig"; sourceTree = "<group>"; };
+		50CDD5A85C0E481BB6C02F00 /* TempusSansITC.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = TempusSansITC.ttf; path = ../assets/fonts/TempusSansITC.ttf; sourceTree = "<group>"; };
 		65B967C508376CAE75243999 /* Pods-OpenD6Toolkit-OpenD6ToolkitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenD6Toolkit-OpenD6ToolkitTests.debug.xcconfig"; path = "Target Support Files/Pods-OpenD6Toolkit-OpenD6ToolkitTests/Pods-OpenD6Toolkit-OpenD6ToolkitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = OpenD6Toolkit/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		885B919D2ACCAA44006430D0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -84,8 +86,6 @@
 		885B91B62ACCAB74006430D0 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
 		C6CA8A153026AEC53B826DCA /* Pods-OpenD6Toolkit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenD6Toolkit.release.xcconfig"; path = "Target Support Files/Pods-OpenD6Toolkit/Pods-OpenD6Toolkit.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		25966B93857A440FA27ADE39 /* Tempus Sans ITC.ttf */ = {isa = PBXFileReference; name = "Tempus Sans ITC.ttf"; path = "../assets/fonts/Tempus Sans ITC.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		50CDD5A85C0E481BB6C02F00 /* TempusSansITC.ttf */ = {isa = PBXFileReference; name = "TempusSansITC.ttf"; path = "../assets/fonts/TempusSansITC.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +136,15 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = OpenD6Toolkit;
+			sourceTree = "<group>";
+		};
+		296DECCE87F94CD7A90107D6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				25966B93857A440FA27ADE39 /* Tempus Sans ITC.ttf */,
+				50CDD5A85C0E481BB6C02F00 /* TempusSansITC.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -218,16 +227,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		296DECCE87F94CD7A90107D6 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				25966B93857A440FA27ADE39 /* Tempus Sans ITC.ttf */,
-				50CDD5A85C0E481BB6C02F00 /* TempusSansITC.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -608,7 +607,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.3.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -646,7 +645,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.3.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
