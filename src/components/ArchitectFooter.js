@@ -45,25 +45,6 @@ export default class ArchitectFooter extends Component {
                             Open
                         </Text>
                     </Button>
-                    <Button
-                        vertical
-                        onPress={() =>
-                            file.importTemplate(
-                                () => {},
-                                () => {},
-                            )
-                        }>
-                        <Icon type="FontAwesome" name="download" style={{color: '#FFF'}} />
-                        <Text uppercase={false} style={{fontSize: 10, color: '#FFF'}}>
-                            Import
-                        </Text>
-                    </Button>
-                    <Button vertical onPress={() => this.props.navigation.navigate('TemplateDelete')}>
-                        <Icon type="FontAwesome" name="trash" style={{color: '#FFF'}} />
-                        <Text uppercase={false} style={{fontSize: 10, color: '#FFF'}}>
-                            Delete
-                        </Text>
-                    </Button>
                 </FooterTab>
             </Footer>
         );

@@ -236,11 +236,7 @@ class Options extends Component {
 
         return (
             <View>
-                <Heading
-                    text={this.state.optionKey}
-                    onBackButtonPress={() => this.props.navigation.navigate('Home')}
-                    onAddButtonPress={() => this._onAddButtonPress()}
-                />
+                <Heading text={this.state.optionKey} onAddButtonPress={() => this._onAddButtonPress()} />
                 <Item>
                     <Icon active tyle={{fontSize: scale(25)}} name="search" />
                     <Input

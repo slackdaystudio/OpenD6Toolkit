@@ -92,7 +92,7 @@ class AttributesAndSkills extends Component {
     render() {
         return (
             <View>
-                <Heading text="Attributes" onBackButtonPress={() => this.props.navigation.navigate('Home')} onAddButtonPress={() => this._addAttribute()} />
+                <Heading text="Attributes" />
                 {this.props.template.attributes.map((attribute, index) => {
                     return (
                         <Card key={'atr-' + index}>

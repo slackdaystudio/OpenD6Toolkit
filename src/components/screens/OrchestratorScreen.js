@@ -132,11 +132,7 @@ class OrchestratorScreen extends Component {
         return (
             <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
-                <Heading
-                    text="Orchestrator"
-                    onBackButtonPress={() => this.props.navigation.navigate('Home')}
-                    onAddButtonPress={() => this.props.navigation.navigate('EditActor', {actor: null})}
-                />
+                <Heading text="Orchestrator" onAddButtonPress={() => this.props.navigation.navigate('EditActor', {actor: null})} />
                 {this._renderBody()}
                 <View style={{paddingBottom: 20}} />
                 <Footer>

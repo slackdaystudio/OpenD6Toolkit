@@ -20,6 +20,7 @@ const SETTINGS_KEY = 'settings';
 export const DEFAULT_SETTINGS = {
     isLegend: false,
     useMaxima: true,
+    animations: true,
 };
 
 class Settings {

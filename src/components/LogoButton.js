@@ -43,15 +43,13 @@ export default class LogoButton extends Component {
 
     render() {
         return (
-            <View style={styles.buttonContainer}>
-                <Button style={[styles.button, {minWidth: scale(this.props.minWidth)}]} onPress={() => this.props.onPress()}>
-                    {this._renderLogo()}
-                    <Text uppercase={false} style={styles.buttonText}>
-                        {this.props.label}
-                    </Text>
-                    <View style={{flex: 1, alignSelf: 'flex-end'}} />
-                </Button>
-            </View>
+            <Button style={[styles.button, {minWidth: scale(this.props.minWidth)}]} onPress={() => this.props.onPress()}>
+                {this._renderLogo()}
+                <Text uppercase={false} style={styles.buttonText}>
+                    {this.props.label}
+                </Text>
+                <View style={{flex: 1, alignSelf: 'flex-end'}} />
+            </Button>
         );
     }
 }

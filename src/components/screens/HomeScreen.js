@@ -2,14 +2,12 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
-import {Container, Content, Text} from 'native-base';
-import {Header} from '../Header';
+import {scale} from 'react-native-size-matters';
+import {Animated} from '../animated/Animated';
+import {Header, EXIT_APP} from '../Header';
 import Heading from '../Heading';
-import LogoButton from '../LogoButton';
-import styles from '../../Styles';
-import {settings as appSettings} from '../../lib/Settings';
+import {IconButton, TEXT_BOTTOM} from '../IconButton';
 import {common} from '../../lib/Common';
-import {setSettings} from '../../reducers/settings';
 
 // Copyright (C) Slack Day Studio - All Rights Reserved
 //
@@ -25,13 +23,41 @@ import {setSettings} from '../../reducers/settings';
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const slideInLeft = {
+    from: {
+        opacity: 0,
+        translateX: -100,
+    },
+    to: {
+        opacity: 1,
+        translateX: 0,
+    },
+    animate: {
+        opacity: 1,
+        translateX: 0,
+    },
+};
+
+const slideInRight = {
+    from: {
+        opacity: 0,
+        translateX: 100,
+    },
+    to: {
+        opacity: 1,
+        translateX: 0,
+    },
+    animate: {
+        opacity: 1,
+        translateX: 0,
+    },
+};
+
 class HomeScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-        setSettings: PropTypes.func.isRequired,
         character: PropTypes.object,
         template: PropTypes.object,
-        settings: PropTypes.object,
     };
 
     constructor(props) {
@@ -39,68 +65,85 @@ class HomeScreen extends Component {
 
         this.onBuilderPress = this._onBuilderPress.bind(this);
         this.onArchitectPress = this._onArchitectPress.bind(this);
-        this.onPress = this._onPress.bind(this);
-    }
-
-    componentDidMount() {
-        try {
-            appSettings.getSettings().then(settings => {
-                this.props.setSettings(settings);
-            });
-        } catch (error) {
-            common.toast(error.message);
-        }
     }
 
     _onBuilderPress() {
-        if (this.props.character == null || this.props.character.template == null) {
-            this.props.navigation.navigate('TemplateSelect', {from: 'Home'});
-        } else {
-            this.props.navigation.navigate('Builder', {from: 'Home'});
+        if (!common.isEmptyObject(this.props.character) && this.props.character.name !== '') {
+            this.props.navigation.navigate('Builder');
         }
+
+        return null;
     }
 
     _onArchitectPress() {
-        if (this.props.template == null) {
-            this.props.navigation.navigate('NewTemplate', {from: 'Home'});
-        } else {
-            this.props.navigation.navigate('Architect', {from: 'Home'});
+        if (!common.isEmptyObject(this.props.template)) {
+            this.props.navigation.navigate('Architect');
         }
+
+        return null;
     }
 
-    _onPress(location) {
-        this.props.navigation.navigate(location, {from: 'Home'});
+    _getViewIconColor(selectedObject) {
+        if (common.isEmptyObject(selectedObject) || selectedObject.name === '') {
+            return 'rgba(245, 126, 32, 0.3)';
+        }
+
+        return '#f57e20';
+    }
+
+    _renderIcon(label, icon, onPress, animation, onLongPress = undefined) {
+        let iconColor = '#f57e20';
+
+        const textStyle = {...IconButton.defaultProps.textStyle};
+
+        if (label.toLowerCase() === 'builder' || label.toLowerCase() === 'architect') {
+            const color = this._getViewIconColor(label.toLowerCase() === 'builder' ? this.props.character : this.props.template);
+
+            iconColor = color;
+            textStyle.color = color;
+        }
+
+        animation.delay = 200;
+
+        return (
+            <Animated animationProps={animation}>
+                <View>
+                    <IconButton
+                        label={label}
+                        textPos={TEXT_BOTTOM}
+                        icon={icon}
+                        iconColor={iconColor}
+                        onPress={onPress}
+                        onLongPress={onLongPress}
+                        textStyle={textStyle}
+                    />
+                </View>
+            </Animated>
+        );
     }
 
     render() {
         return (
             <>
-                <Header navigation={this.props.navigation} />
-                <View style={styles.content}>
-                    <Heading text="Roller" />
-                    <Text style={[styles.grey, {alignSelf: 'center'}]}>Use the die roller to resolve actions in OpenD6.</Text>
-                    <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
-                        <LogoButton label="Roller" onPress={() => this.onPress('DieRoller')} />
+                <Header navigation={this.props.navigation} backScreen={EXIT_APP} />
+                <Heading text="OpenD6 Toolkit" />
+                <View flex={1} alignItems="center">
+                    <View flex={1} flexDirection="row" alignItems="center" justifyContent="space-evenly" minWidth={scale(250)}>
+                        {this._renderIcon('Builder', 'screwdriver-wrench', this.onBuilderPress, slideInLeft)}
+                        {this._renderIcon('Characters', 'address-book', () => this.props.navigation.navigate('LoadCharacter'), slideInRight)}
                     </View>
-                    <Heading text="Builder" />
-                    <Text style={[styles.grey, {alignSelf: 'center'}]}>Build a character using the OpenD6 game rules.</Text>
-                    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
-                        <LogoButton label="Builder" onPress={() => this.onBuilderPress()} />
+                    <View flex={1} flexDirection="row" alignItems="center" justifyContent="space-evenly" minWidth={scale(250)}>
+                        {this._renderIcon('Die Roller', 'dice-six', () => this.props.navigation.navigate('DieRoller'), slideInLeft)}
+                        {this._renderIcon('Statistics', 'chart-pie', () => this.props.navigation.navigate('Statistics'), slideInRight)}
                     </View>
-                    <Heading text="Templates" />
-                    <Text style={[styles.grey, {alignSelf: 'center'}]}>Manage game templates used to build characters.</Text>
-                    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
-                        <LogoButton label="Architect" onPress={() => this.onArchitectPress()} />
+                    <View flex={1} flexDirection="row" alignItems="center" justifyContent="space-evenly" minWidth={scale(250)}>
+                        {this._renderIcon('Architect', 'compass-drafting', this.onArchitectPress, slideInLeft)}
+                        {this._renderIcon('Templates', 'layer-group', () => this.props.navigation.navigate('NewTemplate'), slideInRight)}
                     </View>
-                    <Heading text="GM Tools" />
-                    <Text style={[styles.grey, {alignSelf: 'center'}]}>Tools to help GMs manage their games.</Text>
-                    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
-                        <LogoButton label="Mass Roller" onPress={() => this.onPress('MassRoller')} />
+                    <View flex={1} flexDirection="row" alignItems="center" justifyContent="space-evenly" minWidth={scale(250)}>
+                        {this._renderIcon('Mass Roller', 'dice', () => this.props.navigation.navigate('MassRoller'), slideInLeft)}
+                        {this._renderIcon('Orchestrator', 'diagram-project', () => this.props.navigation.navigate('Orchestrator'), slideInRight)}
                     </View>
-                    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
-                        <LogoButton label="Orchestrator" onPress={() => this.onPress('Orchestrator')} />
-                    </View>
-                    <View style={{paddingBottom: 20}} />
                 </View>
             </>
         );
@@ -111,12 +154,9 @@ const mapStateToProps = state => {
     return {
         character: state.builder.character,
         template: state.architect.template,
-        settings: state.settings,
     };
 };
 
-const mapDispatchToProps = {
-    setSettings,
-};
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

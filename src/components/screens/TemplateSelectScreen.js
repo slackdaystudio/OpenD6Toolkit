@@ -82,7 +82,7 @@ class TemplateSelectScreen extends Component {
             <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Heading text="Template Select" onBackButtonPress={() => this.props.navigation.navigate(this.props.route.params.from)} />
+                    <Heading text="Template Select" />
                     <Text style={[styles.grey, {alignSelf: 'center'}]}>Select your template from the list below.</Text>
                     <List>
                         {this.state.templates.map((template, index) => {

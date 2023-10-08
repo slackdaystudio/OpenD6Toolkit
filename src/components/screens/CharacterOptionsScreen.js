@@ -272,7 +272,7 @@ class CharacterOptionsScreen extends Component {
             <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Heading text={this.state.optionKey} onBackButtonPress={() => this.props.navigation.navigate('Builder')} />
+                    <Heading text={this.state.optionKey} />
                     <Item>
                         <Icon solid size={scale(25)} name="magnifying-glass" />
                         <Input

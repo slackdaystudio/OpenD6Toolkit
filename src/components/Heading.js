@@ -74,7 +74,7 @@ export default class Heading extends Component {
         }
 
         return (
-            <View style={{flex: 1, backgroundColor: '#fde5d2', maxHeight: verticalScale(50)}}>
+            <View style={{flex: 1, backgroundColor: '#fde5d2', maxHeight: verticalScale(40)}}>
                 <Text style={styles.heading}>{this.props.text}</Text>
             </View>
         );

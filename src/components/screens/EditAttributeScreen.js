@@ -158,7 +158,7 @@ class EditAttributeScreen extends Component {
             <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Heading text="Attribute" onBackButtonPress={() => this.props.navigation.navigate('Architect', {selectedTab: TAB_ATTRIBUTES})} />
+                    <Heading text="Attribute" />
                     <Form>
                         <Item stackedLabel>
                             <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Name</Label>

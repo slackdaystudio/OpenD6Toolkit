@@ -5,7 +5,7 @@ import {Text, Item, Input, Picker} from 'native-base';
 import Modal from 'react-native-modal';
 import {scale, verticalScale} from 'react-native-size-matters';
 import ErrorMessage from './ErrorMessage';
-import LogoButton from './LogoButton';
+import {Button} from './Button';
 import styles from '../Styles';
 
 // Copyright (C) Slack Day Studio - All Rights Reserved
@@ -136,7 +136,7 @@ export default class AttributeDialog extends Component {
                             borderBottomLeftRadius: 8,
                             borderBottomRightRadius: 8,
                         }}>
-                        <LogoButton label="Save" onPress={() => this.props.onSave(this.props.identifier)} />
+                        <Button label="Save" onPress={() => this.props.onSave(this.props.identifier)} />
                     </View>
                 </View>
             </View>

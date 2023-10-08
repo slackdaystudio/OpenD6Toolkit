@@ -6,7 +6,7 @@ import {scale} from 'react-native-size-matters';
 import Modal from 'react-native-modal';
 import ErrorMessage from './ErrorMessage';
 import Heading from './Heading';
-import LogoButton from './LogoButton';
+import {Button} from './Button';
 import styles from '../Styles';
 
 // Copyright (C) Slack Day Studio - All Rights Reserved
@@ -134,7 +134,7 @@ export default class RanksDialog extends Component {
 
     _renderSaveButton() {
         if (this.props.item !== null) {
-            return <LogoButton label="Save" onPress={() => this._save()} minWidth={130} />;
+            return <Button label="Save" onPress={() => this._save()} minWidth={130} />;
         }
 
         return null;
@@ -148,7 +148,7 @@ export default class RanksDialog extends Component {
             action = this.props.onClose;
         }
 
-        return <LogoButton label={label} onPress={() => action()} minWidth={130} />;
+        return <Button label={label} onPress={() => action()} minWidth={130} />;
     }
 
     render() {

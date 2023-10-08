@@ -240,7 +240,6 @@ class BuilderScreen extends Component {
 
         this.closeInfoDialog = this._closeInfoDialog.bind(this);
         this.updatePoints = this._updatePoints.bind(this);
-        this.import = this._import.bind(this);
     }
 
     _closeInfoDialog() {
@@ -281,38 +280,25 @@ class BuilderScreen extends Component {
         this.props.updateAppearance(key, points);
     }
 
-    _import() {
-        file.importCharacter(
-            () => null,
-            () => null,
-        )
-            .then(character => {
-                if (character !== undefined && character !== null) {
-                    this.props.loadCharacter(character);
-                }
-            })
-            .catch(error => console.error(error));
-    }
-
     render() {
         if (this.props.character === null || this.props.character === undefined) {
             return (
                 <Container style={styles.container}>
                     <Header navigation={this.props.navigation} hasTabs={true} />
                     <Content style={styles.content}>
-                        <Heading text="Character" onBackButtonPress={() => this.props.navigation.navigate('Home')} />
+                        <Heading text="Character" />
                     </Content>
                 </Container>
             );
         }
         // These properties were added in after the first production release so there needs to be an undefined check
-        let characterPoints = this.props.character.characterPoints == undefined ? 5 : this.props.character.characterPoints;
-        let fatePoints = this.props.character.fatePoints == undefined ? 2 : this.props.character.fatePoints;
-        let background = this.props.character.background == undefined ? '' : this.props.character.background;
-        let appearance = this.props.character.appearance == undefined ? '' : this.props.character.appearance;
-        let currency = this.props.character.currency == undefined ? '' : this.props.character.currency;
-        let equipment = this.props.character.equipment == undefined ? '' : this.props.character.equipment;
-        let notes = this.props.character.notes == undefined ? '' : this.props.character.notes;
+        let characterPoints = this.props.character.characterPoints === undefined ? 5 : this.props.character.characterPoints;
+        let fatePoints = this.props.character.fatePoints === undefined ? 2 : this.props.character.fatePoints;
+        let background = this.props.character.background === undefined ? '' : this.props.character.background;
+        let appearance = this.props.character.appearance === undefined ? '' : this.props.character.appearance;
+        let currency = this.props.character.currency === undefined ? '' : this.props.character.currency;
+        let equipment = this.props.character.equipment === undefined ? '' : this.props.character.equipment;
+        let notes = this.props.character.notes === undefined ? '' : this.props.character.notes;
 
         return (
             <>
@@ -364,12 +350,6 @@ class BuilderScreen extends Component {
                             <Icon type="FontAwesome" name="folder-open" style={{color: '#FFF'}} />
                             <Text uppercase={false} style={{color: '#FFF'}}>
                                 Open
-                            </Text>
-                        </Button>
-                        <Button vertical onPress={() => this._import()}>
-                            <Icon type="FontAwesome" name="download" style={{color: '#FFF'}} />
-                            <Text uppercase={false} style={{color: '#FFF'}}>
-                                Import
                             </Text>
                         </Button>
                     </FooterTab>

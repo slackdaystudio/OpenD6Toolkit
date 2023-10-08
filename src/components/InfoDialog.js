@@ -4,7 +4,7 @@ import {View, ScrollView} from 'react-native';
 import {Text} from 'native-base';
 import {verticalScale} from 'react-native-size-matters';
 import Modal from 'react-native-modal';
-import LogoButton from './LogoButton';
+import {Button} from './Button';
 import styles from '../Styles';
 
 // Copyright (C) Slack Day Studio - All Rights Reserved
@@ -67,7 +67,7 @@ export default class InfoDialog extends Component {
                             scrollEventThrottle={16}>
                             <Text style={styles.grey}>{this.props.info}</Text>
                         </ScrollView>
-                        <LogoButton label="Close" onPress={() => this.props.onClose()} />
+                        <Button label="Close" onPress={() => this.props.onClose()} />
                     </View>
                 </View>
             </Modal>

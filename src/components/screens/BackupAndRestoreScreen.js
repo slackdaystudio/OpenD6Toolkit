@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {BackHandler, Platform, StyleSheet, ScrollView, View, TouchableHighlight, Image, Alert} from 'react-native';
-import {Container, Content, Button, Text, Spinner, Card, CardItem, Body, Icon} from 'native-base';
+import {View} from 'react-native';
+import {Container, Content, Text} from 'native-base';
 import {Header} from '../Header';
 import Heading from '../Heading';
-import LogoButton from '../LogoButton';
+import {Button} from '../Button';
 import InfoDialog from '../InfoDialog';
 import styles from '../../Styles';
 import {file} from '../../lib/File';
@@ -107,16 +107,16 @@ class BackupAndRestoreScreen extends Component {
             <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Heading text="Backup" onBackButtonPress={() => this.props.navigation.navigate('Home')} />
+                    <Heading text="Backup" />
                     <Text style={[styles.grey, {alignSelf: 'center'}]}>Backup all your characters and templates.</Text>
                     <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
-                        <LogoButton label="Backup" onPress={() => this.onBackup()} />
+                        <Button label="Backup" onPress={() => this.onBackup()} />
                     </View>
                     <View style={{paddingBottom: 20}} />
                     <Heading text="Restore" />
                     <Text style={[styles.grey, {alignSelf: 'center'}]}>Restore all your backed up characters and templates.</Text>
                     <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
-                        <LogoButton label="Restore" onPress={() => this.onRestore()} />
+                        <Button label="Restore" onPress={() => this.onRestore()} />
                     </View>
                     <View style={{paddingBottom: 20}} />
                     <InfoDialog

@@ -77,8 +77,8 @@ export default class ConfirmationDialog extends Component {
                             borderBottomLeftRadius: 8,
                             borderBottomRightRadius: 8,
                         }}>
-                        {this._renderOkButton()}
-                        <View style={styles.buttonContainer}>
+                        <View flexDirection="row" justifyContent="space-around" style={styles.buttonContainer}>
+                            {this._renderOkButton()}
                             <Button style={styles.button} onPress={() => this.props.onClose()}>
                                 <Text uppercase={false} style={styles.buttonText}>
                                     {this.props.onOk === null ? 'OK' : 'Cancel'}

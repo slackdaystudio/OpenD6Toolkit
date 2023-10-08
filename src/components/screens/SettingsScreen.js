@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {StyleSheet, View, Switch} from 'react-native';
+import {View, Switch} from 'react-native';
 import {Container, Content, Form, Item, Label} from 'native-base';
 import {verticalScale} from 'react-native-size-matters';
 import {Header} from '../Header';
 import Heading from '../Heading';
-import LogoButton from '../LogoButton';
+import {Button} from '../Button';
 import ConfirmationDialog from '../ConfirmationDialog';
 import {statistics} from '../../lib/Statistics';
 import styles from '../../Styles';
@@ -96,7 +96,7 @@ class SettingsScreen extends Component {
             <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Heading text="Settings" onBackButtonPress={() => this.props.navigation.navigate('Home')} />
+                    <Heading text="Settings" />
                     <Form>
                         <Item style={{flex: 1, justifyContent: 'space-between', paddingVertical: verticalScale(20)}}>
                             <Label style={styles.grey}>Use Legend Rolls?</Label>
@@ -119,7 +119,7 @@ class SettingsScreen extends Component {
                     </Form>
                     <View style={{paddingBottom: 20}} />
                     <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
-                        <LogoButton label="Reset" onPress={() => this._reset()} />
+                        <Button label="Reset" onPress={() => this._reset()} />
                     </View>
                     <Heading text="Statistics" />
                     <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
@@ -127,7 +127,7 @@ class SettingsScreen extends Component {
                             <Label style={[styles.grey, {textAlign: 'center'}]}>
                                 All statistics are stored anonymously on your local device and not transmitted or shared in any way.
                             </Label>
-                            <LogoButton label="Reset" onPress={() => this._resetStats()} />
+                            <Button label="Reset" onPress={() => this._resetStats()} />
                         </View>
                     </View>
                     <View style={{paddingBottom: 20}} />

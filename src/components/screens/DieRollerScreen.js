@@ -7,7 +7,7 @@ import {ScaledSheet, scale} from 'react-native-size-matters';
 import * as Animatable from 'react-native-animatable';
 import {Header} from '../Header';
 import Heading from '../Heading';
-import LogoButton from '../LogoButton';
+import {Button} from '../Button';
 import Slider from '../DieSlider';
 import {dieRoller, STATE_CRITICAL_SUCCESS, STATE_CRITICAL_FAILURE, TYPE_LEGEND, TYPE_CLASSIC} from '../../lib/DieRoller';
 import {statistics} from '../../lib/Statistics';
@@ -207,7 +207,7 @@ class DieRollerScreen extends Component {
             <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Heading text="Roller" onBackButtonPress={() => this.props.navigation.navigate(this.props.route.params.from)} />
+                    <Heading text="Roller" />
                     <View style={styles.contentPadded}>
                         {this._renderResult()}
                         <View>
@@ -222,7 +222,7 @@ class DieRollerScreen extends Component {
                             />
                         </View>
                         {this._renderPipsPicker()}
-                        <LogoButton label={this._renderRollButtonLabel()} onPress={() => this.roll()} />
+                        <Button label={this._renderRollButtonLabel()} onPress={() => this.roll()} />
                     </View>
                     <View style={{paddingBottom: 20}} />
                 </Content>

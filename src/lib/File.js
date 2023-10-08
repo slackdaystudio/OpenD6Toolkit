@@ -26,7 +26,7 @@ const DEFAULT_CHARACTER_DIR = DEFAULT_ROOT_DIR + '/characters/';
 
 const DEFAULT_TEMPLATE_DIR = DEFAULT_ROOT_DIR + '/templates/';
 
-const BUILT_IN_TEMPLATE_NAMES = [TEMPLATE_FANTASY_NAME, TEMPLATE_ADVENTURE_NAME, TEMPLATE_SPACE_NAME];
+export const BUILT_IN_TEMPLATE_NAMES = [TEMPLATE_FANTASY_NAME, TEMPLATE_ADVENTURE_NAME, TEMPLATE_SPACE_NAME];
 
 class File {
     async importTemplate(startLoad, endLoad) {
@@ -43,7 +43,7 @@ class File {
             result.fileCopyUri = Platform.OS === 'ios' ? decodeURIComponent(result.fileCopyUri) : result.fileCopyUri;
 
             if (result.name.toLowerCase().endsWith('.json')) {
-                this._saveTemplate(result.fileCopyUri, startLoad, endLoad);
+                await this._saveTemplate(result.fileCopyUri, startLoad, endLoad);
             } else {
                 common.toast('Unsupported file type: ' + result.type);
 

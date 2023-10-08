@@ -85,7 +85,7 @@ class OpenTemplateScreen extends Component {
             <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Heading text="Open Template" onBackButtonPress={() => this.props.navigation.navigate('Architect')} />
+                    <Heading text="Open Template" />
                     <Text style={[styles.grey, {alignSelf: 'center'}]}>Select a template to open.</Text>
                     <List>
                         {this.state.templates.map((template, index) => {

@@ -68,7 +68,7 @@ class EditSkillScreen extends Component {
             <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Heading text="Skill" onBackButtonPress={() => this.props.navigation.navigate('EditAttribute', {attribute: this.state.attribute})} />
+                    <Heading text="Skill" />
                     <Form>
                         <Item stackedLabel>
                             <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Name</Label>

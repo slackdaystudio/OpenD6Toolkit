@@ -2,13 +2,15 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
-import {Container, Content, Text, Spinner, List, ListItem} from 'native-base';
+import {Container, Content, Text, Spinner, List, ListItem, Left, Right} from 'native-base';
 import {Header} from '../Header';
 import Heading from '../Heading';
+import {Icon} from '../Icon';
 import ConfirmationDialog from '../ConfirmationDialog';
 import styles from '../../Styles';
 import {file} from '../../lib/File';
 import {loadCharacter} from '../../reducers/builder';
+import {ButtonGroup} from '../ButtonGroup';
 
 // Copyright (C) Slack Day Studio - All Rights Reserved
 //
@@ -46,11 +48,12 @@ class LoadCharacterScreen extends Component {
 
         this.onClose = this._closeConfirmationDialog.bind(this);
         this.onOk = this._deleteConfirmed.bind(this);
+        this.updateFileList = this._updateFileList.bind(this);
     }
 
     componentDidMount() {
         this.focusListener = this.props.navigation.addListener('focus', () => {
-            this._updateFileList();
+            this.updateFileList();
         });
     }
 
@@ -100,8 +103,19 @@ class LoadCharacterScreen extends Component {
         });
     }
 
+    _import() {
+        file.importCharacter(
+            () => null,
+            () => null,
+        )
+            .then(() => {
+                this.updateFileList();
+            })
+            .catch(error => console.error(error));
+    }
+
     render() {
-        if (this.state.showSpinner || this.state.files === null || this.state.files.length <= 0) {
+        if (this.state.showSpinner || this.state.files === null) {
             return (
                 <Container style={styles.container}>
                     <Header navigation={this.props.navigation} />
@@ -113,26 +127,49 @@ class LoadCharacterScreen extends Component {
             );
         }
 
+        const buttonData = [
+            {
+                label: 'New',
+                onPress: () => this.props.navigation.navigate('TemplateSelect'),
+                disabled: false,
+            },
+            {
+                label: 'Import',
+                onPress: () => this._import(),
+                disabled: false,
+            },
+        ];
+
         return (
             <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Heading text="Characters" onBackButtonPress={() => this.props.navigation.navigate('Builder')} />
-                    <List>
-                        {this.state.files.map((file, index) => {
-                            return (
-                                <ListItem
-                                    key={'file-' + index}
-                                    noIndent
-                                    onPress={() => this._onCharacterSelect(file)}
-                                    onLongPress={() => this._onCharacterDelete(file)}>
-                                    <View style={{paddingTop: 10, paddingBottom: 10}}>
-                                        <Text style={styles.boldGrey}>{file.substring(0, file.length - 5)}</Text>
-                                    </View>
-                                </ListItem>
-                            );
-                        })}
-                    </List>
+                    <Heading text="Characters" />
+                    <View style={{paddingBottom: 20}} />
+                    <ButtonGroup buttonData={buttonData} />
+                    <View style={{paddingBottom: 20}} />
+                    {this.state.files.length === 0 ? (
+                        <Text style={[styles.grey, {textAlign: 'center'}]}>You have no characters created.</Text>
+                    ) : (
+                        <List>
+                            {this.state.files.map((f, index) => {
+                                return (
+                                    <ListItem
+                                        noIndent
+                                        key={'file-' + index}
+                                        onPress={() => this._onCharacterSelect(f)}
+                                        onLongPress={() => this._onCharacterDelete(f)}>
+                                        <Left>
+                                            <Text style={styles.grey}>{f.substring(0, f.length - 5)}</Text>
+                                        </Left>
+                                        <Right>
+                                            <Icon style={styles.grey} name="circle-arrow-right" />
+                                        </Right>
+                                    </ListItem>
+                                );
+                            })}
+                        </List>
+                    )}
                     <View style={{paddingBottom: 20}} />
                     <ConfirmationDialog
                         visible={this.state.confirmationDialog.visible}

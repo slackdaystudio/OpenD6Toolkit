@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {View, TouchableHighlight} from 'react-native';
-import {Text, List, ListItem, Left, Right, Body, Icon, Input} from 'native-base';
+import {Text, List, ListItem, Left, Right, Body, Icon, Input, Item} from 'native-base';
 import {ScaledSheet, scale, verticalScale} from 'react-native-size-matters';
 import {SwipeRow} from 'react-native-swipe-list-view';
 import styles from '../../Styles';
@@ -335,13 +335,15 @@ export default class AttributesAndSkills extends Component {
                     </View>
                 </Left>
                 <Right>
-                    <Input
-                        style={[styles.grey, {fontSize: scale(18), width: scale(120), paddingLeft: scale(70), lineHeight: verticalScale(30)}]}
-                        keyboardType="numeric"
-                        maxLength={4}
-                        value={move.toString()}
-                        onChangeText={value => this._updateMove(value)}
-                    />
+                    <Item stackedLabel style={{width: scale(90), alignSelf: 'flex-end'}}>
+                        <Input
+                            style={[styles.grey, {fontSize: scale(18), width: scale(120), paddingLeft: scale(70), lineHeight: verticalScale(30)}]}
+                            keyboardType="numeric"
+                            maxLength={4}
+                            value={move.toString()}
+                            onChangeText={value => this._updateMove(value)}
+                        />
+                    </Item>
                 </Right>
             </ListItem>
         );

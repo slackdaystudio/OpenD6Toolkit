@@ -14,7 +14,6 @@ import {Icon} from './src/components/Icon';
 import HomeScreen from './src/components/screens/HomeScreen';
 import DieRollerScreen from './src/components/screens/DieRollerScreen';
 import TemplateSelectScreen from './src/components/screens/TemplateSelectScreen';
-import TemplateDeleteScreen from './src/components/screens/TemplateDeleteScreen';
 import NewTemplateScreen from './src/components/screens/NewTemplateScreen';
 import OpenTemplateScreen from './src/components/screens/OpenTemplateScreen';
 import ArchitectScreen from './src/components/screens/ArchitectScreen';
@@ -33,6 +32,7 @@ import SettingsScreen from './src/components/screens/SettingsScreen';
 import {StatisticsScreen} from './src/components/screens/StatisticsScreen';
 import {common} from './src/lib/Common';
 import {statistics} from './src/lib/Statistics';
+import {settings as appSettings} from './src/lib/Settings';
 import architect from './src/reducers/architect';
 import builder from './src/reducers/builder';
 import orchestrator from './src/reducers/orchestrator';
@@ -163,6 +163,8 @@ export default class App extends Component {
                     statistics.init().then(() => console.log('Stats initialized'));
                 }
             });
+
+            appSettings.getSettings().catch(error => console.error(error));
         } catch (error) {
             console.error(error.message);
         }
@@ -196,9 +198,44 @@ export default class App extends Component {
                                     drawerContent={CustomDrawerContent}>
                                     <Drawer.Screen options={{drawerLabel: 'Home', drawerIcon: () => DrawerIcon('house')}} name="Home" component={HomeScreen} />
                                     <Drawer.Screen
-                                        options={{drawerLabel: 'Die Roller', drawerIcon: () => DrawerIcon('dice')}}
+                                        options={{drawerLabel: 'Builder', drawerIcon: () => DrawerIcon('screwdriver-wrench')}}
+                                        name="Builder"
+                                        component={BuilderScreen}
+                                    />
+                                    <Drawer.Screen
+                                        options={{drawerLabel: 'Characters', drawerIcon: () => DrawerIcon('address-book')}}
+                                        name="LoadCharacter"
+                                        component={LoadCharacterScreen}
+                                    />
+                                    <Drawer.Screen
+                                        options={{drawerLabel: 'Die Roller', drawerIcon: () => DrawerIcon('dice-six')}}
                                         name="DieRoller"
                                         component={DieRollerScreen}
+                                    />
+                                    <Drawer.Screen
+                                        options={{drawerLabel: 'Statistics', drawerIcon: () => DrawerIcon('chart-bar')}}
+                                        name="Statistics"
+                                        component={StatisticsScreen}
+                                    />
+                                    <Drawer.Screen
+                                        options={{drawerLabel: 'Architect', drawerIcon: () => DrawerIcon('compass-drafting')}}
+                                        name="Architect"
+                                        component={ArchitectScreen}
+                                    />
+                                    <Drawer.Screen
+                                        options={{drawerLabel: 'Templates', drawerIcon: () => DrawerIcon('layer-group')}}
+                                        name="NewTemplate"
+                                        component={NewTemplateScreen}
+                                    />
+                                    <Drawer.Screen
+                                        options={{drawerLabel: 'Mass Roller', drawerIcon: () => DrawerIcon('dice')}}
+                                        name="MassRoller"
+                                        component={MassRollerScreen}
+                                    />
+                                    <Drawer.Screen
+                                        options={{drawerLabel: 'Orchestator', drawerIcon: () => DrawerIcon('diagram-project')}}
+                                        name="Orchestrator"
+                                        component={OrchestratorScreen}
                                     />
                                     <Drawer.Screen
                                         options={{
@@ -215,22 +252,8 @@ export default class App extends Component {
                                                 display: 'none',
                                             },
                                         }}
-                                        name="NewTemplate"
-                                        component={NewTemplateScreen}
-                                    />
-                                    <Drawer.Screen
-                                        options={{
-                                            drawerItemStyle: {
-                                                display: 'none',
-                                            },
-                                        }}
                                         name="OpenTemplate"
                                         component={OpenTemplateScreen}
-                                    />
-                                    <Drawer.Screen
-                                        options={{drawerLabel: 'Architect', drawerIcon: () => DrawerIcon('pen-ruler')}}
-                                        name="Architect"
-                                        component={ArchitectScreen}
                                     />
                                     <Drawer.Screen
                                         name="EditAttribute"
@@ -260,11 +283,6 @@ export default class App extends Component {
                                         component={EditOptionScreen}
                                     />
                                     <Drawer.Screen
-                                        options={{drawerLabel: 'Builder', drawerIcon: () => DrawerIcon('compass-drafting')}}
-                                        name="Builder"
-                                        component={BuilderScreen}
-                                    />
-                                    <Drawer.Screen
                                         name="Specialization"
                                         options={{
                                             drawerItemStyle: {
@@ -274,15 +292,6 @@ export default class App extends Component {
                                         component={SpecializationScreen}
                                     />
                                     <Drawer.Screen
-                                        options={{
-                                            drawerItemStyle: {
-                                                display: 'none',
-                                            },
-                                        }}
-                                        name="LoadCharacter"
-                                        component={LoadCharacterScreen}
-                                    />
-                                    <Drawer.Screen
                                         name="CharacterOptions"
                                         options={{
                                             drawerItemStyle: {
@@ -290,33 +299,6 @@ export default class App extends Component {
                                             },
                                         }}
                                         component={CharacterOptionsScreen}
-                                    />
-                                    <Drawer.Screen
-                                        name="TemplateDelete"
-                                        options={{
-                                            drawerItemStyle: {
-                                                display: 'none',
-                                            },
-                                        }}
-                                        component={TemplateDeleteScreen}
-                                    />
-                                    <Drawer.Screen
-                                        options={{
-                                            drawerItemStyle: {
-                                                display: 'none',
-                                            },
-                                        }}
-                                        name="MassRoller"
-                                        component={MassRollerScreen}
-                                    />
-                                    <Drawer.Screen
-                                        options={{
-                                            drawerItemStyle: {
-                                                display: 'none',
-                                            },
-                                        }}
-                                        name="Orchestrator"
-                                        component={OrchestratorScreen}
                                     />
                                     <Drawer.Screen
                                         name="EditActor"
@@ -336,11 +318,6 @@ export default class App extends Component {
                                         options={{drawerLabel: 'Settings', drawerIcon: () => DrawerIcon('gears')}}
                                         name="Settings"
                                         component={SettingsScreen}
-                                    />
-                                    <Drawer.Screen
-                                        options={{drawerLabel: 'Statistics', drawerIcon: () => DrawerIcon('chart-bar')}}
-                                        name="Statistics"
-                                        component={StatisticsScreen}
                                     />
                                 </Drawer.Navigator>
                             </NavigationContainer>

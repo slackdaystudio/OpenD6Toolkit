@@ -6,7 +6,7 @@ import {Container, Content, Form, Item, Label, Input} from 'native-base';
 import {scale} from 'react-native-size-matters';
 import {Header} from '../Header';
 import Heading from '../Heading';
-import LogoButton from '../LogoButton';
+import {Button} from '../Button';
 import styles from '../../Styles';
 import {editActor} from '../../reducers/orchestrator';
 
@@ -159,7 +159,7 @@ class EditActorScreen extends Component {
             <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Heading text="Actor" onBackButtonPress={() => this.props.navigation.navigate('Orchestrator')} />
+                    <Heading text="Actor" />
                     <Form>
                         <Item stackedLabel>
                             <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Name</Label>
@@ -189,7 +189,7 @@ class EditActorScreen extends Component {
                         {this._renderBodyPoints()}
                     </Form>
                     <View style={{paddingBottom: 20}} />
-                    <LogoButton label="Save" onPress={() => this._save()} />
+                    <Button label="Save" onPress={() => this._save()} />
                     <View style={{paddingBottom: 20}} />
                 </Content>
             </Container>

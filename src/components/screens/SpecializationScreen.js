@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {StyleSheet, View, TouchableHighlight, BackHandler, Alert} from 'react-native';
-import {Container, Content, Button, Text, Item, Input, Picker, Form, Label} from 'native-base';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {View} from 'react-native';
+import {Container, Content, Item, Input, Picker, Form, Label} from 'native-base';
+import {scale} from 'react-native-size-matters';
 import {Header} from '../Header';
 import ErrorMessage from '../ErrorMessage';
 import Heading from '../Heading';
-import LogoButton from '../LogoButton';
+import {Button} from '../Button';
 import Slider from '../DieSlider';
 import styles from '../../Styles';
 import {character} from '../../lib/Character';
@@ -211,7 +211,7 @@ class SpecializationScreen extends Component {
             return null;
         }
 
-        return <LogoButton label="Delete" onPress={() => this._delete()} />;
+        return <Button label="Delete" onPress={() => this._delete()} />;
     }
 
     render() {
@@ -221,7 +221,7 @@ class SpecializationScreen extends Component {
             <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Heading text={mode + ' Specialization'} onBackButtonPress={() => this.props.navigation.navigate('Builder')} />
+                    <Heading text={mode + ' Specialization'} />
                     <ErrorMessage errorMessage={this.state.errorMessage} />
                     <Form>
                         {this._renderAttributePicker()}
@@ -261,7 +261,7 @@ class SpecializationScreen extends Component {
                     </Form>
                     <View style={{paddingBottom: 20}} />
                     <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
-                        <LogoButton label="Save" onPress={() => this._save()} />
+                        <Button label="Save" onPress={() => this._save()} />
                         {this._renderDeleteButton()}
                     </View>
                 </Content>

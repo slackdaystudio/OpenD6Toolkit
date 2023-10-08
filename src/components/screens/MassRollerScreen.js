@@ -6,7 +6,7 @@ import {Container, Content, Text, Picker, Item} from 'native-base';
 import {ScaledSheet} from 'react-native-size-matters';
 import {Header} from '../Header';
 import Heading from '../Heading';
-import LogoButton from '../LogoButton';
+import {Button} from '../Button';
 import Slider from '../DieSlider';
 import {dieRoller, STATE_CRITICAL_SUCCESS, STATE_CRITICAL_FAILURE, TYPE_LEGEND, TYPE_CLASSIC} from '../../lib/DieRoller';
 import {statistics} from '../../lib/Statistics';
@@ -179,7 +179,7 @@ class MassRollerScreen extends Component {
             <Container style={styles.container}>
                 <Header navigation={this.props.navigation} />
                 <Content style={styles.content}>
-                    <Heading text="Mass Roller" onBackButtonPress={() => this.props.navigation.navigate('Home')} />
+                    <Heading text="Mass Roller" />
                     <View style={styles.contentPadded}>
                         {this._renderResult()}
                         <View>
@@ -205,7 +205,7 @@ class MassRollerScreen extends Component {
                                 disabled={false}
                             />
                         </View>
-                        <LogoButton label={this._renderRollButtonLabel()} onPress={async () => await this.roll()} />
+                        <Button label={this._renderRollButtonLabel()} onPress={async () => await this.roll()} />
                     </View>
                     <View style={{paddingBottom: 20}} />
                 </Content>

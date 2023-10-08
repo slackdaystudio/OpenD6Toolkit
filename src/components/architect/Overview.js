@@ -55,7 +55,7 @@ class Overview extends Component {
     render() {
         return (
             <View>
-                <Heading text="Overview" onBackButtonPress={() => this.props.navigation.navigate('Home')} />
+                <Heading text="Overview" />
                 <Form>
                     <Item stackedLabel>
                         <Label style={{fontSize: scale(10), fontWeight: 'bold'}}>Name</Label>
