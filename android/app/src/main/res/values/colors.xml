@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="primary_dark">#fff</color>
-     <color name="app_bg">#fff</color>
+    <color name="app_bg">#fff</color>
+    <color name="splashscreen_bg">#f57e20</color>
 </resources>
