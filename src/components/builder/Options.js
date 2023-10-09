@@ -146,7 +146,10 @@ export default class Options extends Component {
     render() {
         return (
             <View>
-                <Heading text={this.props.title} onAddButtonPress={() => this.props.navigation.navigate('Options', {optionKey: this.props.optionKey})} />
+                <Heading
+                    text={this.props.title}
+                    onAddButtonPress={() => this.props.navigation.navigate('CharacterOptions', {optionKey: this.props.optionKey})}
+                />
                 {this._renderOptionList(this.props.character[this.state.optionKey].items, this.props.optionKey)}
                 <RanksDialog
                     visible={this.state.ranksDialog.visible}

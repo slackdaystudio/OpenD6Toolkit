@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View, Switch} from 'react-native';
 import {Text, Item, Input, Label, Icon} from 'native-base';
-import {scale} from 'react-native-size-matters';
+import {scale, verticalScale} from 'react-native-size-matters';
 import Modal from 'react-native-modal';
 import ErrorMessage from './ErrorMessage';
 import Heading from './Heading';
@@ -105,8 +105,8 @@ export default class RanksDialog extends Component {
     _renderFormControls() {
         if (this.props.item !== null && this.props.item.multipleRanks) {
             return (
-                <View style={styles.rowStart}>
-                    <View style={localStyles.row}>
+                <View flexDirection="row" justifyContent="center" paddingBottom={verticalScale(20)}>
+                    <View paddingRight={scale(30)}>
                         <Icon
                             type="FontAwesome"
                             name="minus-square"
@@ -114,10 +114,10 @@ export default class RanksDialog extends Component {
                             onPress={() => this._decrementRanks()}
                         />
                     </View>
-                    <View style={localStyles.row}>
+                    <View>
                         <Text style={styles.grey}>{this.state.totalRanks}</Text>
                     </View>
-                    <View style={localStyles.row}>
+                    <View paddingLeft={scale(30)}>
                         <Icon
                             type="FontAwesome"
                             name="plus-square"
@@ -160,31 +160,48 @@ export default class RanksDialog extends Component {
                 onBackButtonPress={() => this.props.onClose()}
                 onBackdropPress={() => this.props.onClose()}>
                 <View style={styles.modal}>
-                    <Heading text={this.props.item === null ? 'Select Rank' : this.props.item.name} />
-                    <View style={styles.modalContent}>
-                        <ErrorMessage errorMessage={this.state.errorMessage} />
-                        <Item stackedLabel>
-                            <Label style={{fontSize: scale(10)}}>Note</Label>
-                            <Input
-                                style={[styles.textInput, {maxWidth: scale(200)}]}
-                                maxLength={30}
-                                value={this.state.displayNote}
-                                onChangeText={value => this._updateDisplayNote(value)}
-                            />
-                        </Item>
+                    <Text style={styles.modalHeader}>{this.props.item === null ? 'Select Rank' : this.props.item.name}</Text>
+                    <ErrorMessage errorMessage={this.state.errorMessage} />
+                    <View flexDirection="column" style={styles.modalContent}>
+                        <View flexDirection="row" paddingBottom={verticalScale(20)}>
+                            <View flex={1} style={{alignSelf: 'center', paddingLeft: scale(10)}}>
+                                <Text style={styles.grey}>Note</Text>
+                            </View>
+                            <View flex={4} style={{alignSelf: 'flex-end'}}>
+                                <Item underline>
+                                    <Input
+                                        style={[styles.textInput, {maxWidth: scale(200)}]}
+                                        maxLength={30}
+                                        value={this.state.displayNote}
+                                        onChangeText={value => this._updateDisplayNote(value)}
+                                    />
+                                </Item>
+                            </View>
+                        </View>
                         {this._renderFormControls()}
-                        <Item style={{flex: 1, justifyContent: 'space-between'}}>
-                            <Label style={styles.grey}>Exclude from build costs?</Label>
+                        <View flexDirection="row" justifyContent="space-between">
+                            <Text style={styles.grey}>Exclude from build costs?</Text>
                             <Switch
                                 value={this.state.excludeFromBuildCosts}
                                 onValueChange={() => this._toggleExcludeFromBuildCosts()}
                                 thumbColor="#f57e20"
                                 trackColor={{true: '#fde5d2', false: '#4f4e4e'}}
                             />
-                        </Item>
-                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
-                            {this._renderSaveButton()}
-                            {this._renderDeleteButton()}
+                        </View>
+                        <View
+                            style={{
+                                paddingVertical: verticalScale(10),
+                                borderTopWidth: 1,
+                                width: '100%',
+                                backgroundColor: '#fff',
+                                borderTopColor: '#f57e20',
+                                borderBottomLeftRadius: 8,
+                                borderBottomRightRadius: 8,
+                            }}>
+                            <View flexDirection="row" justifyContent="space-around" style={styles.buttonContainer}>
+                                {this._renderSaveButton()}
+                                {this._renderDeleteButton()}
+                            </View>
                         </View>
                     </View>
                 </View>

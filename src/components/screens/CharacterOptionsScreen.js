@@ -84,7 +84,7 @@ class CharacterOptionsScreen extends Component {
 
         options.map((option, index) => {
             optionsState[option.name + option.rank] = false;
-            chevronsState[option.name + option.rank] = 'chevron-circle-down';
+            chevronsState[option.name + option.rank] = 'circle-chevron-down';
         });
 
         return {
@@ -96,7 +96,7 @@ class CharacterOptionsScreen extends Component {
     _toggleDescriptionShow(name, rank) {
         let newState = {...this.state};
         newState.optionShow[name + rank] = !newState.optionShow[name + rank];
-        newState.optionChevron[name + rank] = newState.optionChevron[name + rank] === 'chevron-circle-down' ? 'chevron-circle-up' : 'chevron-circle-down';
+        newState.optionChevron[name + rank] = newState.optionChevron[name + rank] === 'circle-chevron-down' ? 'circle-chevron-up' : 'circle-chevron-down';
 
         this.setState(newState);
     }
@@ -202,7 +202,7 @@ class CharacterOptionsScreen extends Component {
             return <View style={{width: 75}} />;
         }
 
-        return <Icon name="chevron-circle-left" style={[localStyles.buttonBig, {paddingLeft: scale(30)}]} onPress={() => this._onBackButtonPress()} />;
+        return <Icon name="circle-chevron-left" style={[localStyles.buttonBig, {paddingLeft: scale(30)}]} onPress={() => this._onBackButtonPress()} />;
     }
 
     _renderNextButton() {
@@ -210,14 +210,7 @@ class CharacterOptionsScreen extends Component {
             return <View style={{width: 75}} />;
         }
 
-        return (
-            <Icon
-                type="FontAwesome"
-                name="chevron-circle-right"
-                style={[localStyles.buttonBig, {paddingRight: scale(30)}]}
-                onPress={() => this._onNextButtonPress()}
-            />
-        );
+        return <Icon name="circle-chevron-right" style={[localStyles.buttonBig, {paddingRight: scale(30)}]} onPress={() => this._onNextButtonPress()} />;
     }
 
     _renderList() {
@@ -246,12 +239,11 @@ class CharacterOptionsScreen extends Component {
                                 <Right style={{flex: 1}}>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
                                         <Icon
-                                            type="FontAwesome"
                                             name={this.state.optionChevron[option.name + option.rank]}
                                             style={[localStyles.button, {paddingRight: scale(10)}]}
                                             onPress={() => this._toggleDescriptionShow(option.name, option.rank)}
                                         />
-                                        <Icon type="FontAwesome" name="plus-circle" style={localStyles.button} onPress={() => this._addOption(option)} />
+                                        <Icon name="circle-plus" style={localStyles.button} onPress={() => this._addOption(option)} />
                                     </View>
                                 </Right>
                             </CardItem>
