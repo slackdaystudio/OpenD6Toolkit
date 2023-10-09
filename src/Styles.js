@@ -105,6 +105,23 @@ export default ScaledSheet.create({
         color: '#4f4e4e',
         fontWeight: 'bold',
     },
+    textHeader: {
+        fontWeight: 'bold',
+        fontSize: '18@vs',
+        lineHeight: '19@vs',
+        color: '#4f4e4e',
+    },
+    chartLegend: {
+        fontWeight: 'bold',
+        fontSize: '14@vs',
+        lineHeight: '15@vs',
+        color: '#4f4e4e',
+    },
+    textSmall: {
+        fontSize: '10@vs',
+        lineHeight: '15@vs',
+        color: '#4f4e4e',
+    },
     tabInactive: {
         backgroundColor: '#3a557f',
     },
