@@ -133,7 +133,7 @@ class HomeScreen extends Component {
                         {this._renderIcon('Characters', 'address-book', () => this.props.navigation.navigate('LoadCharacter'), slideInRight)}
                     </View>
                     <View flex={1} flexDirection="row" alignItems="center" justifyContent="space-evenly" minWidth={scale(250)}>
-                        {this._renderIcon('Die Roller', 'dice-six', () => this.props.navigation.navigate('DieRoller'), slideInLeft)}
+                        {this._renderIcon('Die Roller', 'dice', () => this.props.navigation.navigate('DieRoller'), slideInLeft)}
                         {this._renderIcon('Statistics', 'chart-pie', () => this.props.navigation.navigate('Statistics'), slideInRight)}
                     </View>
                     <View flex={1} flexDirection="row" alignItems="center" justifyContent="space-evenly" minWidth={scale(250)}>
@@ -141,7 +141,6 @@ class HomeScreen extends Component {
                         {this._renderIcon('Templates', 'layer-group', () => this.props.navigation.navigate('NewTemplate'), slideInRight)}
                     </View>
                     <View flex={1} flexDirection="row" alignItems="center" justifyContent="space-evenly" minWidth={scale(250)}>
-                        {this._renderIcon('Mass Roller', 'dice', () => this.props.navigation.navigate('MassRoller'), slideInLeft)}
                         {this._renderIcon('Orchestrator', 'diagram-project', () => this.props.navigation.navigate('Orchestrator'), slideInRight)}
                     </View>
                 </View>

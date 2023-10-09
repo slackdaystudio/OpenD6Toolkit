@@ -1,3 +1,5 @@
+import {v4 as uuid} from 'uuid';
+
 // Copyright (C) Slack Day Studio - All Rights Reserved
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,8 +31,18 @@ export const STATE_CRITICAL_FAILURE = 3;
 export const LEGEND_SUCCESS_THRESHOLD = 2;
 
 class DieRoller {
-    roll(dice) {
-        return this._roll(this._newResult(dice));
+    roll(dice, count = 1) {
+        if (count > 1) {
+            const results = [];
+
+            for (let i = 0; i < count; i++) {
+                results.push(this._roll(this._newResult(dice)));
+            }
+
+            return results;
+        }
+
+        return [this._roll(this._newResult(dice))];
     }
 
     getClassicTotal(result, pips) {
@@ -39,6 +51,8 @@ class DieRoller {
 
         if (result.status === STATE_CRITICAL_SUCCESS) {
             total += result.bonusRolls.reduce((a, b) => a + b, 0);
+        } else if (result.status === STATE_CRITICAL_FAILURE) {
+            total -= result.wildDieRoll;
         }
 
         return total + pips;
@@ -64,8 +78,23 @@ class DieRoller {
         return totalSuccesses;
     }
 
+    getBonusPoints(result) {
+        return result.bonusRolls.reduce((a, b) => a + b, 0);
+    }
+
+    getBonusSuccesses(result) {
+        return result.bonusRolls.reduce((a, b) => {
+            if (b > LEGEND_SUCCESS_THRESHOLD) {
+                return a + 1;
+            }
+
+            return a;
+        }, 0);
+    }
+
     _roll(result) {
         let totalNormalRolls = result.dice - 1;
+        result.uuid = uuid();
         result.wildDieRoll = this._rollDie();
 
         if (totalNormalRolls > 0) {

@@ -2,18 +2,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {dieRoller, STATE_CRITICAL_SUCCESS, STATE_CRITICAL_FAILURE, STATE_NORMAL, TYPE_LEGEND, TYPE_CLASSIC} from './DieRoller';
 
 // Copyright (C) Slack Day Studio - All Rights Reserved
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//    http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Unauthorized copying of this file, via any medium is strictly prohibited
+// Proprietary and confidential
+// Written by Phil Guinchard <phil.guinchard@gmail.com>, January 2021
 
 // Equivalent of rolling 10,000 dice which the app can't do (Infinity was giving me grief)
 export const CONTEXTUALLY_INFINITE = 60000;
@@ -51,43 +42,48 @@ class Statistics {
         await AsyncStorage.setItem('statistics', JSON.stringify(DEFAULT_STATS));
     }
 
-    async add(resultRoll, type) {
-        let newRecord = false;
+    async add(resultRolls, type) {
+        let isNewHighScore = false;
         let stats = await AsyncStorage.getItem('statistics');
-
         stats = JSON.parse(stats);
 
-        let rolls = this._getAllRolls(resultRoll);
-        let total = rolls.reduce((a, b) => a + b);
+        for (const resultRoll of resultRolls) {
+            const rolls = this._getAllRolls(resultRoll);
+            const total = rolls.reduce((a, b) => a + b);
 
-        stats.sum += total;
-        stats.largestDieRoll = rolls.length > stats.largestDieRoll ? rolls.length : stats.largestDieRoll;
-        stats.largestSum = total > stats.largestSum ? total : stats.largestSum;
-        stats.diceRolled += rolls.length;
+            stats.sum += total;
+            stats.largestDieRoll = rolls.length > stats.largestDieRoll ? rolls.length : stats.largestDieRoll;
+            stats.largestSum = total > stats.largestSum ? total : stats.largestSum;
+            stats.diceRolled += rolls.length;
 
-        if (resultRoll.status === STATE_CRITICAL_SUCCESS) {
-            let bonusDiceTotal = resultRoll.bonusRolls.reduce((a, b) => a + b);
+            if (resultRoll.status === STATE_CRITICAL_SUCCESS) {
+                let bonusDiceTotal = resultRoll.bonusRolls.reduce((a, b) => a + b);
 
-            stats.bonusDiceRolled += resultRoll.bonusRolls.length;
-            stats.bonusDiceTotal += bonusDiceTotal;
-            stats.criticalSuccesses++;
-            stats.largestCriticalSuccess = bonusDiceTotal > stats.largestCriticalSuccess ? bonusDiceTotal : stats.largestCriticalSuccess;
-            stats.lowestCriticalSuccess = bonusDiceTotal < stats.lowestCriticalSuccess ? bonusDiceTotal : stats.lowestCriticalSuccess;
-        } else if (resultRoll.status === STATE_CRITICAL_FAILURE) {
-            stats.penaltyDiceRolled++;
-            stats.penaltyDiceTotal += resultRoll.penaltyRoll;
-            stats.criticalFailures++;
-            stats.largestCriticalFailure = resultRoll.penaltyRoll > stats.largestCriticalFailure ? resultRoll.penaltyRoll : stats.largestCriticalFailure;
-            stats.lowestCriticalFailure = resultRoll.penaltyRoll < stats.lowestCriticalFailure ? resultRoll.penaltyRoll : stats.lowestCriticalFailure;
+                stats.bonusDiceRolled += resultRoll.bonusRolls.length;
+                stats.bonusDiceTotal += bonusDiceTotal;
+                stats.criticalSuccesses++;
+                stats.largestCriticalSuccess = bonusDiceTotal > stats.largestCriticalSuccess ? bonusDiceTotal : stats.largestCriticalSuccess;
+                stats.lowestCriticalSuccess = bonusDiceTotal < stats.lowestCriticalSuccess ? bonusDiceTotal : stats.lowestCriticalSuccess;
+            } else if (resultRoll.status === STATE_CRITICAL_FAILURE) {
+                stats.penaltyDiceRolled++;
+                stats.penaltyDiceTotal += resultRoll.penaltyRoll;
+                stats.criticalFailures++;
+                stats.largestCriticalFailure = resultRoll.penaltyRoll > stats.largestCriticalFailure ? resultRoll.penaltyRoll : stats.largestCriticalFailure;
+                stats.lowestCriticalFailure = resultRoll.penaltyRoll < stats.lowestCriticalFailure ? resultRoll.penaltyRoll : stats.lowestCriticalFailure;
+            }
+
+            this._updateDistributions(rolls, stats.distributions);
+
+            const newRecord = this._updateHighScores(stats.highScores, resultRoll, type, total);
+
+            if (newRecord && !isNewHighScore) {
+                isNewHighScore = newRecord;
+            }
         }
-
-        this._updateDistributions(rolls, stats.distributions);
-
-        newRecord = this._updateHighScores(stats.highScores, resultRoll, type, total);
 
         await AsyncStorage.setItem('statistics', JSON.stringify(stats));
 
-        return newRecord;
+        return isNewHighScore;
     }
 
     getPercentage(roll, pips) {

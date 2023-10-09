@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {forwardRef, useImperativeHandle, useRef} from 'react';
+import {useSelector} from 'react-redux';
 import {FlatList} from 'react-native';
 
 // Copyright (C) Slack Day Studio - All Rights Reserved
@@ -15,6 +16,16 @@ import {FlatList} from 'react-native';
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export const VirtualizedList = ({children}) => {
-    return <FlatList data={[]} keyExtractor={() => 'key'} renderItem={null} ListHeaderComponent={<>{children}</>} />;
-};
+export const VirtualizedList = forwardRef((props, ref) => {
+    const showAnimations = useSelector(state => state.settings.animations);
+
+    const listRef = useRef();
+
+    useImperativeHandle(ref, () => ({
+        scrollToTop() {
+            listRef.current.scrollToOffset({offset: 0, animated: showAnimations});
+        },
+    }));
+
+    return <FlatList ref={listRef} data={[]} keyExtractor={() => 'key'} renderItem={null} ListHeaderComponent={<>{props.children}</>} {...props} />;
+});

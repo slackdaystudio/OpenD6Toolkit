@@ -27,7 +27,7 @@ class Common {
     }
 
     isEmptyObject(obj) {
-        if (obj === null) {
+        if (obj === null || obj === undefined) {
             return true;
         }
 

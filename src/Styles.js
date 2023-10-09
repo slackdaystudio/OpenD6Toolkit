@@ -78,7 +78,6 @@ export default ScaledSheet.create({
         borderRadius: '5@vs',
     },
     buttonText: {
-        fontFamily: 'Raleway-ExtraBold',
         fontWeight: 'bold',
         fontSize: '14@vs',
         color: '#fff',
@@ -148,7 +147,6 @@ export default ScaledSheet.create({
         fontSize: '18@vs',
         lineHeight: '19@vs',
         paddingLeft: '10@s',
-        fontFamily: 'Roboto',
         color: '#fff',
         paddingVertical: '10@vs',
         backgroundColor: '#f57e20',
@@ -165,7 +163,6 @@ export default ScaledSheet.create({
         paddingTop: '10@vs',
         paddingBottom: '20@vs',
         justifyContent: 'center',
-        fontFamily: 'Roboto',
     },
     errorMessage: {
         borderWidth: 1,

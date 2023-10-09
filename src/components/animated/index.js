@@ -15,3 +15,5 @@
 export {Animated, useSlideInUp, useSlideInDown, useSlideInLeft, useSlideInRight, useScaleInUp} from './Animated';
 
 export {AnimatedNumber} from './AnimatedNumber';
+
+export {Die} from './Die';

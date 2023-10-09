@@ -41,5 +41,5 @@ Icon.propTypes = {
 
 Icon.defaultProps = {
     size: verticalScale(14),
-    color: '#fff',
+    color: '#f57e20',
 };

@@ -3,7 +3,6 @@ import architect from './architect';
 import builder from './builder';
 import orchestrator from './orchestrator';
 import dieRoller from './dieRoller';
-import massRoller from './massRoller';
 import settings from './settings';
 
 // Copyright (C) Slack Day Studio - All Rights Reserved
@@ -25,6 +24,5 @@ export default combineReducers({
     builder,
     orchestrator,
     dieRoller,
-    massRoller,
     settings,
 });

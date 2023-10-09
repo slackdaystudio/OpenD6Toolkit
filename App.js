@@ -12,7 +12,7 @@ import {Root} from 'native-base';
 import SplashScreen from 'react-native-splash-screen';
 import {Icon} from './src/components/Icon';
 import HomeScreen from './src/components/screens/HomeScreen';
-import DieRollerScreen from './src/components/screens/DieRollerScreen';
+import {DieRollerScreen} from './src/components/screens/DieRollerScreen';
 import TemplateSelectScreen from './src/components/screens/TemplateSelectScreen';
 import NewTemplateScreen from './src/components/screens/NewTemplateScreen';
 import OpenTemplateScreen from './src/components/screens/OpenTemplateScreen';
@@ -24,7 +24,6 @@ import BuilderScreen from './src/components/screens/BuilderScreen';
 import SpecializationScreen from './src/components/screens/SpecializationScreen';
 import LoadCharacterScreen from './src/components/screens/LoadCharacterScreen';
 import CharacterOptionsScreen from './src/components/screens/CharacterOptionsScreen';
-import MassRollerScreen from './src/components/screens/MassRollerScreen';
 import OrchestratorScreen from './src/components/screens/OrchestratorScreen';
 import EditActorScreen from './src/components/screens/EditActorScreen';
 import BackupAndRestoreScreen from './src/components/screens/BackupAndRestoreScreen';
@@ -37,7 +36,6 @@ import architect from './src/reducers/architect';
 import builder from './src/reducers/builder';
 import orchestrator from './src/reducers/orchestrator';
 import dieRoller from './src/reducers/dieRoller';
-import massRoller from './src/reducers/massRoller';
 import settings from './src/reducers/settings';
 
 // Copyright (C) Slack Day Studio - All Rights Reserved
@@ -84,7 +82,6 @@ const store = configureStore({
         builder,
         orchestrator,
         dieRoller,
-        massRoller,
         settings,
     },
     middleware: getDefaultMiddleware =>
@@ -152,15 +149,18 @@ const CustomDrawerContent = props => {
 };
 
 const DrawerIcon = name => {
-    return <Icon name={name} style={{fontSize: verticalScale(14), color: '#172535', marginRight: common.isIPad() ? 0 : scale(-20)}} />;
+    return <Icon solid name={name} style={{fontSize: verticalScale(14), color: '#172535', marginRight: common.isIPad() ? 0 : scale(-20)}} />;
 };
 
 export default class App extends Component {
     componentDidMount() {
         try {
             AsyncStorage.getItem('statistics').then(stats => {
-                if (stats === null || !stats.hasOwnProperty('highScores')) {
-                    statistics.init().then(() => console.log('Stats initialized'));
+                if (stats === null) {
+                    statistics
+                        .init()
+                        .then(() => console.log('Stats initialized'))
+                        .catch(error => console.error(error));
                 }
             });
 
@@ -171,7 +171,7 @@ export default class App extends Component {
     }
 
     _renderIcon(name) {
-        return <Icon name={name} style={{fontSize: verticalScale(14), color: '#172535', marginRight: common.isIPad() ? 0 : scale(-20)}} />;
+        return <Icon solid name={name} style={{fontSize: verticalScale(14), color: '#172535', marginRight: common.isIPad() ? 0 : scale(-20)}} />;
     }
 
     render() {
@@ -208,12 +208,12 @@ export default class App extends Component {
                                         component={LoadCharacterScreen}
                                     />
                                     <Drawer.Screen
-                                        options={{drawerLabel: 'Die Roller', drawerIcon: () => DrawerIcon('dice-six')}}
+                                        options={{drawerLabel: 'Die Roller', drawerIcon: () => DrawerIcon('dice')}}
                                         name="DieRoller"
                                         component={DieRollerScreen}
                                     />
                                     <Drawer.Screen
-                                        options={{drawerLabel: 'Statistics', drawerIcon: () => DrawerIcon('chart-bar')}}
+                                        options={{drawerLabel: 'Statistics', drawerIcon: () => DrawerIcon('chart-pie')}}
                                         name="Statistics"
                                         component={StatisticsScreen}
                                     />
@@ -226,11 +226,6 @@ export default class App extends Component {
                                         options={{drawerLabel: 'Templates', drawerIcon: () => DrawerIcon('layer-group')}}
                                         name="NewTemplate"
                                         component={NewTemplateScreen}
-                                    />
-                                    <Drawer.Screen
-                                        options={{drawerLabel: 'Mass Roller', drawerIcon: () => DrawerIcon('dice')}}
-                                        name="MassRoller"
-                                        component={MassRollerScreen}
                                     />
                                     <Drawer.Screen
                                         options={{drawerLabel: 'Orchestator', drawerIcon: () => DrawerIcon('diagram-project')}}
