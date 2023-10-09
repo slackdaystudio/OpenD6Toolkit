@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
-import {Text, Card, CardItem, Right, Body, Item, Icon, Input} from 'native-base';
+import {Text, Card, CardItem, Right, Body, Item, Input} from 'native-base';
 import {ScaledSheet, scale} from 'react-native-size-matters';
 import Heading from '../Heading';
+import {Icon} from '../Icon';
 import ConfirmationDialog from '../ConfirmationDialog';
 import styles from '../../Styles';
 import {common} from '../../lib/Common';
@@ -72,7 +73,7 @@ class Options extends Component {
 
         options.map((option, index) => {
             optionsState[option.name + option.rank] = false;
-            chevronsState[option.name + option.rank] = 'chevron-circle-down';
+            chevronsState[option.name + option.rank] = 'circle-chevron-down';
         });
 
         return {
@@ -110,7 +111,7 @@ class Options extends Component {
     _toggleDescriptionShow(name, rank) {
         let newState = {...this.state};
         newState.optionShow[name + rank] = !newState.optionShow[name + rank];
-        newState.optionChevron[name + rank] = newState.optionChevron[name + rank] === 'chevron-circle-down' ? 'chevron-circle-up' : 'chevron-circle-down';
+        newState.optionChevron[name + rank] = newState.optionChevron[name + rank] === 'circle-chevron-down' ? 'circle-chevron-up' : 'circle-chevron-down';
 
         this.setState(newState);
     }
@@ -205,14 +206,7 @@ class Options extends Component {
             return <View style={{width: 75}} />;
         }
 
-        return (
-            <Icon
-                type="FontAwesome"
-                name="chevron-circle-left"
-                style={[localStyles.buttonBig, {paddingLeft: scale(30)}]}
-                onPress={() => this._onBackButtonPress()}
-            />
-        );
+        return <Icon name="circle-chevron-left" style={[localStyles.buttonBig, {paddingLeft: scale(30)}]} onPress={() => this._onBackButtonPress()} />;
     }
 
     _renderNextButton() {
@@ -220,14 +214,7 @@ class Options extends Component {
             return <View style={{width: 75}} />;
         }
 
-        return (
-            <Icon
-                type="FontAwesome"
-                name="chevron-circle-right"
-                style={[localStyles.buttonBig, {paddingRight: scale(30)}]}
-                onPress={() => this._onNextButtonPress()}
-            />
-        );
+        return <Icon name="circle-chevron-right" style={[localStyles.buttonBig, {paddingRight: scale(30)}]} onPress={() => this._onNextButtonPress()} />;
     }
 
     _renderList() {
@@ -238,7 +225,7 @@ class Options extends Component {
             <View>
                 <Heading text={this.state.optionKey} onAddButtonPress={() => this._onAddButtonPress()} />
                 <Item>
-                    <Icon active tyle={{fontSize: scale(25)}} name="search" />
+                    <Icon active tyle={{fontSize: scale(25)}} name="magnifying-glass" />
                     <Input
                         style={styles.grey}
                         placeholder="Search"
@@ -269,19 +256,12 @@ class Options extends Component {
                                 <Right>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
                                         <Icon
-                                            type="FontAwesome"
                                             name={this.state.optionChevron[option.name + option.rank]}
                                             style={[localStyles.button, {paddingRight: scale(5)}]}
                                             onPress={() => this._toggleDescriptionShow(option.name, option.rank)}
                                         />
+                                        <Icon name="trash" style={[localStyles.button, {paddingRight: scale(5)}]} onPress={() => this._delete(option)} />
                                         <Icon
-                                            type="FontAwesome"
-                                            name="trash"
-                                            style={[localStyles.button, {paddingRight: scale(5)}]}
-                                            onPress={() => this._delete(option)}
-                                        />
-                                        <Icon
-                                            type="FontAwesome"
                                             name="edit"
                                             style={[localStyles.button, {paddingTop: 3}]}
                                             onPress={() => this.props.navigation.navigate('EditOption', {optionKey: this.state.optionKey, option: option})}

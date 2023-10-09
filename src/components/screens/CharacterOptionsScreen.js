@@ -184,7 +184,7 @@ class CharacterOptionsScreen extends Component {
     }
 
     _renderFilterMessage() {
-        if (this.state.options.length != this.state.search.results.length) {
+        if (this.state.options.length !== this.state.search.results.length) {
             return (
                 <View style={{paddingTop: 20}}>
                     <Text style={styles.grey}>
