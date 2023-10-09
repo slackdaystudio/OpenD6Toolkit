@@ -52,7 +52,7 @@ const Tab = createMaterialTopTabNavigator();
 const CharacterTab = props => {
     return (
         <VirtualizedList>
-            <Heading text="Name &amp; Species" onBackButtonPress={() => props.navigation.navigate('Home')} />
+            <Heading text="Name &amp; Species" />
             <Appearance character={props.character} updateAppearance={props.updateAppearance} />
             <Heading text="Points" />
             <View style={styles.titleContainer}>
@@ -141,7 +141,7 @@ const CharacterTab = props => {
 const EquipmentTab = props => {
     return (
         <VirtualizedList>
-            <Heading text="Equipment" onBackButtonPress={() => props.navigation.navigate('Home')} />
+            <Heading text="Equipment" />
             <Textarea
                 style={{fontSize: verticalScale(18)}}
                 rowSpan={10}
@@ -166,7 +166,7 @@ const EquipmentTab = props => {
 const BackgroundTab = props => {
     return (
         <VirtualizedList>
-            <Heading text="Background" onBackButtonPress={() => props.navigation.navigate('Home')} />
+            <Heading text="Background" />
             <Textarea
                 style={{fontSize: verticalScale(18)}}
                 rowSpan={10}
@@ -192,7 +192,7 @@ const BackgroundTab = props => {
 const NotesTab = props => {
     return (
         <VirtualizedList>
-            <Heading text="Notes" onBackButtonPress={() => props.navigation.navigate('Home')} />
+            <Heading text="Notes" />
             <Textarea
                 style={{fontSize: verticalScale(18)}}
                 rowSpan={15}
