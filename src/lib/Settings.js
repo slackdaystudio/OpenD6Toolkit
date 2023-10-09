@@ -21,6 +21,7 @@ export const DEFAULT_SETTINGS = {
     isLegend: false,
     useMaxima: true,
     animations: true,
+    increaseEntropy: true,
 };
 
 class Settings {

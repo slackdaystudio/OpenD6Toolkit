@@ -116,17 +116,37 @@ class SettingsScreen extends Component {
                                 trackColor={{true: '#fde5d2', false: '#4f4e4e'}}
                             />
                         </Item>
+                        <Item style={{flex: 1, justifyContent: 'space-between', paddingVertical: verticalScale(20)}}>
+                            <Label style={styles.grey}>Show animations?</Label>
+                            <Switch
+                                value={this.props.settings.animations}
+                                onValueChange={() => this.props.setSetting('animations', !this.props.settings.animations)}
+                                thumbColor="#f57e20"
+                                trackColor={{true: '#fde5d2', false: '#4f4e4e'}}
+                            />
+                        </Item>
+                        <Item style={{flex: 1, justifyContent: 'space-between', paddingVertical: verticalScale(20)}}>
+                            <Label style={styles.grey}>Increase roll randomness?</Label>
+                            <Switch
+                                value={this.props.settings.increaseEntropy}
+                                onValueChange={() => this.props.setSetting('increaseEntropy', !this.props.settings.increaseEntropy)}
+                                thumbColor="#f57e20"
+                                trackColor={{true: '#fde5d2', false: '#4f4e4e'}}
+                            />
+                        </Item>
                     </Form>
                     <View style={{paddingBottom: 20}} />
                     <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
                         <Button label="Reset" onPress={() => this._reset()} />
                     </View>
+                    <View style={{paddingBottom: 20}} />
                     <Heading text="Statistics" />
                     <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
                         <View style={{flex: 1, justifyContent: 'center', paddingVertical: verticalScale(20)}}>
                             <Label style={[styles.grey, {textAlign: 'center'}]}>
                                 All statistics are stored anonymously on your local device and not transmitted or shared in any way.
                             </Label>
+                            <View style={{paddingBottom: 20}} />
                             <Button label="Reset" onPress={() => this._resetStats()} />
                         </View>
                     </View>
